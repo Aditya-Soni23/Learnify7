@@ -1,300 +1,322 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="icon" href="logo.png" type="image/png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sleep Tracker</title>
-<style>
-  /* Night gradient + subtle vignette */
-:root{
-  --night-a: #0b1026;   /* deep indigo */
-  --night-b: #12183a;   /* space blue */
-  --night-c: #05060f;   /* near-black */
-}
-
-html, body { height: 100%; margin: 0; }
-
-body{
-  /* vertical galaxy gradient */
-  background: radial-gradient(1200px 800px at 20% 10%, #1d2a6b44, transparent 60%),
-              radial-gradient(1000px 700px at 80% 15%, #8a6cff22, transparent 60%),
-              linear-gradient(180deg, var(--night-a) 0%, var(--night-b) 45%, var(--night-c) 100%);
-  color: #fff;
-  overflow-x: hidden;
-  position: relative;
-}
-
-/* soft vignette for depth */
-body::after{
-  content:"";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(120% 80% at 50% 120%, transparent 0%, transparent 55%, rgba(0,0,0,.35) 100%);
-  z-index: 0;
-}
-#stars{
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 0;           /* keep UI above */
-  pointer-events: none; /* don't block clicks */
-}
-
-
-  h1{text-align:center; margin-top:20px;}
-  .card{
-    background: rgba(0,0,0,0.55);
-    color: #ffffff;
-    border-radius: 12px;
-    padding: 15px 20px;
-    margin: 20px auto;
-    max-width: 500px;
-    backdrop-filter: blur(6px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-  }
-  label{display:block; margin:10px 0 5px;}
-  input[type=time], input[type=date]{
-    width: 100%;
-    padding: 8px;
-    border-radius:6px;
-    border:none;
-    font-size:16px;
-  }
-  #freshnessBar{
-    width: 100%;
-    height: 20px;
-    background: rgba(255,255,255,0.25);
-    border-radius:10px;
-    overflow:hidden;
-    margin-top:10px;
-  }
-  #freshnessFill{
-    height:100%;
-    width:0%;
-    background: linear-gradient(90deg, #ef4444, #facc15, #22c55e);
-  }
-  #recommendation{
-    margin-top:8px;
-    font-weight:bold;
-    text-align:center;
-  }
-  #questionTarget{
-    margin-top:4px;
-    font-style:italic;
-    text-align:center;
-  }
-  table{
-    width:100%;
-    border-collapse: collapse;
-    margin-top:10px;
-  }
-  th,td{
-    padding:8px;
-    text-align:center;
-    border-bottom:1px solid rgba(255, 255, 255, 0.3);
-  }
-
-  
-</style>
+  <link rel="icon" href="logo.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sleep Tracker</title>
+  <style>
+    /* Night gradient + subtle vignette */
+    :root{
+      --night-a: #0b1026;   /* deep indigo */
+      --night-b: #12183a;   /* space blue */
+      --night-c: #05060f;   /* near-black */
+    }
+    html, body { height: 100%; margin: 0; }
+    body{
+      background: radial-gradient(1200px 800px at 20% 10%, #1d2a6b44, transparent 60%),
+                  radial-gradient(1000px 700px at 80% 15%, #8a6cff22, transparent 60%),
+                  linear-gradient(180deg, var(--night-a) 0%, var(--night-b) 45%, var(--night-c) 100%);
+      color: #fff;
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::after{
+      content:"";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(120% 80% at 50% 120%, transparent 0%, transparent 55%, rgba(0,0,0,.35) 100%);
+      z-index: 0;
+    }
+    #stars{
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+    }
+    h1{text-align:center; margin-top:20px;}
+    .card{
+      background: rgba(0,0,0,0.55);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 15px 20px;
+      margin: 20px auto;
+      max-width: 500px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1; /* above stars */
+    }
+    label{display:block; margin:10px 0 5px;}
+    input[type=time], input[type=date]{
+      width: 100%;
+      padding: 8px;
+      border-radius:6px;
+      border:none;
+      font-size:16px;
+    }
+    #freshnessBar{
+      width: 100%;
+      height: 20px;
+      background: rgba(255,255,255,0.25);
+      border-radius:10px;
+      overflow:hidden;
+      margin-top:10px;
+    }
+    #freshnessFill{
+      height:100%;
+      width:0%;
+      background: linear-gradient(90deg, #ef4444, #facc15, #22c55e);
+      transition: width .25s ease;
+    }
+    #recommendation{
+      margin-top:8px;
+      font-weight:bold;
+      text-align:center;
+    }
+    #questionTarget{
+      margin-top:4px;
+      font-style:italic;
+      text-align:center;
+    }
+    table{
+      width:100%;
+      border-collapse: collapse;
+      margin-top:10px;
+    }
+    th,td{
+      padding:8px;
+      text-align:center;
+      border-bottom:1px solid rgba(255, 255, 255, 0.3);
+    }
+    .home-btn{
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ff5ac0, #ffea00);
+      color: black;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+  </style>
 </head>
 <body>
-    <button onclick="window.location.href='index.html'" 
-    style="position: fixed;
-           top: 20px;
-           left: 20px;
-           padding: 12px 20px;
-           border: none;
-           border-radius: 8px;
-           background: linear-gradient(135deg, #ff5ac0, #ffea00);
-           color: black;
-           font-size: 16px;
-           font-weight: bold;
-           cursor: pointer;
-           box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-           transition: all 0.3s ease;">
-🏠 Home
-</button>
-    <canvas id="stars" aria-hidden="true"></canvas>
+  <button class="home-btn" onclick="window.location.href='index.html'">🏠 Home</button>
+  <canvas id="stars" aria-hidden="true"></canvas>
 
-<h1>🛌 Sleep Tracker</h1>
+  <h1>🛌 Sleep Tracker</h1>
 
-<div class="card">
-  <label for="sleepDate">Date:</label>
-  <input type="date" id="sleepDate">
+  <div class="card">
+    <label for="sleepDate">Date:</label>
+    <input type="date" id="sleepDate">
 
-  <label for="sleepTime">Sleep Time:</label>
-  <input type="time" id="sleepTime">
+    <label for="sleepTime">Sleep Time:</label>
+    <input type="time" id="sleepTime">
 
-  <label for="wakeTime">Wake Up Time:</label>
-  <input type="time" id="wakeTime">
+    <label for="wakeTime">Wake Up Time:</label>
+    <input type="time" id="wakeTime">
 
-  <div id="freshnessBar"><div id="freshnessFill"></div></div>
-  <div id="recommendation"></div>
-  <div id="questionTarget"></div>
+    <div id="freshnessBar"><div id="freshnessFill"></div></div>
+    <div id="recommendation"></div>
+    <div id="questionTarget"></div>
 
-  <button id="saveBtn" style="margin-top:10px;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;background: linear-gradient(135deg, #22c55e, #3b82f6);">Save Sleep</button>
-</div>
+    <button id="saveBtn" style="margin-top:10px;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;background: linear-gradient(135deg, #22c55e, #3b82f6);">Save Sleep</button>
+  </div>
 
-<div class="card">
-  <h3>Sleep History</h3>
-  <table>
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Sleep</th>
-        <th>Wake</th>
-        <th>Duration (hrs)</th>
-        <th>Freshness (%)</th>
-      </tr>
-    </thead>
-    <tbody id="historyBody">
-    </tbody>
-  </table>
-</div>
+  <div class="card">
+    <h3>Sleep History</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Sleep</th>
+          <th>Wake</th>
+          <th>Duration (hrs)</th>
+          <th>Freshness (%)</th>
+        </tr>
+      </thead>
+      <tbody id="historyBody"></tbody>
+    </table>
+  </div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+  <!-- Firebase + App -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getDatabase, ref, set, push, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
-  authDomain: "learnify-ada08.firebaseapp.com",
-  databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
-  projectId: "learnify-ada08",
-  storageBucket: "learnify-ada08.appspot.com",
-  messagingSenderId: "380617329082",
-  appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
-  measurementId: "G-DT4WG6622N"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+      authDomain: "learnify-ada08.firebaseapp.com",
+      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+      projectId: "learnify-ada08",
+      storageBucket: "learnify-ada08.appspot.com",
+      messagingSenderId: "380617329082",
+      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+      measurementId: "G-DT4WG6622N"
+    };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const userPath = "users/aditya/sleep";
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const userPath = "users/aditya/sleep";
 
-const sleepDate = document.getElementById("sleepDate");
-const sleepTime = document.getElementById("sleepTime");
-const wakeTime = document.getElementById("wakeTime");
-const freshnessFill = document.getElementById("freshnessFill");
-const recommendation = document.getElementById("recommendation");
-const questionTarget = document.getElementById("questionTarget");
-const historyBody = document.getElementById("historyBody");
-const saveBtn = document.getElementById("saveBtn");
+    const sleepDate = document.getElementById("sleepDate");
+    const sleepTime = document.getElementById("sleepTime");
+    const wakeTime = document.getElementById("wakeTime");
+    const freshnessFill = document.getElementById("freshnessFill");
+    const recommendation = document.getElementById("recommendation");
+    const questionTarget = document.getElementById("questionTarget");
+    const historyBody = document.getElementById("historyBody");
+    const saveBtn = document.getElementById("saveBtn");
 
-// Auto select today
-const today = new Date().toISOString().split('T')[0];
-sleepDate.value = today;
+    // Auto select today
+    const today = new Date().toISOString().split('T')[0];
+    sleepDate.value = today;
 
-function calculateDuration(start, end){
-  if(!start || !end) return 0;
-  const [sh, sm] = start.split(":").map(Number);
-  const [eh, em] = end.split(":").map(Number);
-  let dur = (eh*60 + em) - (sh*60 + sm);
-  if(dur < 0) dur += 24*60;
-  return dur/60;
-}
-
-function updateFreshness(){
-  const dur = calculateDuration(sleepTime.value, wakeTime.value);
-  let fresh = 0;
-
-  if(dur < 5){
-    fresh = 20;
-    recommendation.textContent = "You slept too little. Energy will be low.";
-    questionTarget.textContent = "Recommended questions: 20";
-  } 
-  else if(dur < 6){
-    fresh = 40;
-    recommendation.textContent = "Not enough sleep. Go easy today.";
-    questionTarget.textContent = "Recommended questions: 30";
-  } 
-  else if(dur < 7){
-    fresh = 55;
-    recommendation.textContent = "Decent, but you might feel a bit tired.";
-    questionTarget.textContent = "Recommended questions: 40";
-  } 
-  else if(dur < 8){
-    fresh = 75;
-    recommendation.textContent = "Good sleep! You can focus well.";
-    questionTarget.textContent = "Recommended questions: 50";
-  } 
-  else if(dur <= 9){
-    fresh = 90;
-    recommendation.textContent = "Great! You’re fully recharged.";
-    questionTarget.textContent = "Recommended questions: 60";
-  } 
-  else {
-    fresh = 60;
-    recommendation.textContent = "Overslept! You may feel sluggish.";
-    questionTarget.textContent = "Recommended questions: 40";
-  }
-
-  freshnessFill.style.width = fresh + "%";
-  return fresh;
-}
-
-
-sleepTime.addEventListener("input", updateFreshness);
-wakeTime.addEventListener("input", updateFreshness);
-
-// Save sleep data
-saveBtn.addEventListener("click", ()=>{
-  const date = sleepDate.value;
-  const sleep = sleepTime.value;
-  const wake = wakeTime.value;
-  if(!sleep || !wake) return alert("Enter both sleep and wake times.");
-  const duration = calculateDuration(sleep,wake);
-  const freshness = updateFreshness();
-
-  set(ref(db, `${userPath}/${date}`), {
-    start: sleep,
-    end: wake,
-    duration: duration,
-    freshness: freshness
-  });
-});
-
-// Load sleep history
-function loadHistory(){
-  onValue(ref(db, userPath), snapshot=>{
-    historyBody.innerHTML = "";
-    if(snapshot.exists()){
-      const data = snapshot.val();
-
-      // make sure date keys are parsed properly
-      const sortedDates = Object.keys(data).sort((a,b)=> {
-        // if stored like YYYY-MM-DD, this works fine
-        return new Date(b) - new Date(a);
-      });
-
-      for(const d of sortedDates){
-        const row = `<tr>
-          <td>${d}</td>
-          <td>${data[d].start}</td>
-          <td>${data[d].end}</td>
-          <td>${data[d].duration.toFixed(2)}</td>
-          <td>${data[d].freshness}</td>
-        </tr>`;
-        historyBody.innerHTML += row;
-      }
+    function calculateDuration(start, end){
+      if(!start || !end) return 0;
+      const [sh, sm] = start.split(":").map(Number);
+      const [eh, em] = end.split(":").map(Number);
+      let dur = (eh*60 + em) - (sh*60 + sm);
+      if(dur < 0) dur += 24*60;
+      return dur/60;
     }
-  });
-}
 
+    function updateFreshness(){
+      const dur = calculateDuration(sleepTime.value, wakeTime.value);
+      let fresh = 0;
 
-loadHistory();
-</script>
-<script>
+      if(dur < 5){
+        fresh = 20;
+        recommendation.textContent = "You slept too little. Energy will be low.";
+        questionTarget.textContent = "Recommended questions: 20";
+      } else if(dur < 6){
+        fresh = 40;
+        recommendation.textContent = "Not enough sleep. Go easy today.";
+        questionTarget.textContent = "Recommended questions: 30";
+      } else if(dur < 7){
+        fresh = 55;
+        recommendation.textContent = "Decent, but you might feel a bit tired.";
+        questionTarget.textContent = "Recommended questions: 40";
+      } else if(dur < 8){
+        fresh = 75;
+        recommendation.textContent = "Good sleep! You can focus well.";
+        questionTarget.textContent = "Recommended questions: 50";
+      } else if(dur <= 9){
+        fresh = 90;
+        recommendation.textContent = "Great! You’re fully recharged.";
+        questionTarget.textContent = "Recommended questions: 60";
+      } else {
+        fresh = 60;
+        recommendation.textContent = "Overslept! You may feel sluggish.";
+        questionTarget.textContent = "Recommended questions: 40";
+      }
+
+      freshnessFill.style.width = fresh + "%";
+      return fresh;
+    }
+
+    // reflect bar if values already present
+    sleepTime.addEventListener("input", updateFreshness);
+    wakeTime.addEventListener("input", updateFreshness);
+
+    // Save sleep data (NEW ENTRY each time with push)
+    saveBtn.addEventListener("click", ()=>{
+      const date = sleepDate.value;
+      const sleep = sleepTime.value;
+      const wake = wakeTime.value;
+      if(!sleep || !wake) return alert("Enter both sleep and wake times.");
+
+      const duration = calculateDuration(sleep, wake);
+      const freshness = updateFreshness();
+
+      const newRef = push(ref(db, `${userPath}/${date}`));
+      set(newRef, {
+        start: sleep,
+        end: wake,
+        duration: duration,
+        freshness: freshness
+      });
+    });
+
+    // Helper to format numbers safely
+    function safeHours(val){
+      const n = Number(val);
+      return Number.isFinite(n) ? n.toFixed(2) : "-";
+    }
+
+    // Load sleep history (works for both old single-entry & new multi-entry)
+    function loadHistory(){
+      onValue(ref(db, userPath), snapshot=>{
+        historyBody.innerHTML = "";
+        if(!snapshot.exists()) return;
+
+        const data = snapshot.val();
+        const sortedDates = Object.keys(data).sort((a,b)=> new Date(b) - new Date(a));
+
+        for(const d of sortedDates){
+          const node = data[d];
+
+          // Case A: old structure (single entry object at the date)
+          if(node && typeof node === "object" && ("start" in node || "end" in node)){
+            const dur = node.duration ?? calculateDuration(node.start, node.end);
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${d}</td>
+              <td>${node.start ?? "-"}</td>
+              <td>${node.end ?? "-"}</td>
+              <td>${safeHours(dur)}</td>
+              <td>${node.freshness ?? "-"}</td>
+            `;
+            historyBody.appendChild(tr);
+            continue;
+          }
+
+          // Case B: new structure (multiple pushed children under the date)
+          const entries = node && typeof node === "object" ? node : {};
+          // sort by key (push IDs are time-ordered lexicographically)
+          const childPairs = Object.entries(entries).sort((a,b)=> a[0] < b[0] ? 1 : -1);
+
+          for(const [, entry] of childPairs){
+            if(!entry || typeof entry !== "object") continue;
+            const dur = entry.duration ?? calculateDuration(entry.start, entry.end);
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${d}</td>
+              <td>${entry.start ?? "-"}</td>
+              <td>${entry.end ?? "-"}</td>
+              <td>${safeHours(dur)}</td>
+              <td>${entry.freshness ?? "-"}</td>
+            `;
+            historyBody.appendChild(tr);
+          }
+        }
+      });
+    }
+
+    // init
+    updateFreshness();
+    loadHistory();
+  </script>
+
+  <!-- Starry sky -->
+  <script>
     (() => {
       const canvas = document.getElementById('stars');
       const ctx = canvas.getContext('2d', { alpha: true });
-    
+
       let W = 0, H = 0, dpr = Math.min(2, window.devicePixelRatio || 1);
       let stars = [];
-    
+
       function resize(){
         W = canvas.clientWidth;
         H = canvas.clientHeight;
@@ -303,9 +325,9 @@ loadHistory();
         ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         makeStars();
       }
-    
+
       function rand(min, max){ return Math.random() * (max - min) + min; }
-    
+
       function makeStars(){
         const count = Math.round((W * H) / 8000); // density scales with screen
         stars = [];
@@ -315,30 +337,29 @@ loadHistory();
             x: rand(0, W),
             y: rand(0, H),
             r: big ? rand(1.2, 2.2) : rand(0.4, 1.1),
-            base: rand(0.4, 0.9),           // base opacity
-            amp: big ? rand(0.15, 0.35) : rand(0.05, 0.2), // twinkle amplitude
-            spd: rand(0.6, 1.4),            // twinkle speed
-            phi: rand(0, Math.PI*2)         // phase
+            base: rand(0.4, 0.9),
+            amp: big ? rand(0.15, 0.35) : rand(0.05, 0.2),
+            spd: rand(0.6, 1.4),
+            phi: rand(0, Math.PI*2)
           });
         }
       }
-    
+
       function draw(){
-        // Clear subtly for smoothness (light fade trail)
         ctx.clearRect(0,0,W,H);
-    
+
         for(const s of stars){
           s.phi += 0.008 * s.spd;
           const a = s.base + Math.sin(s.phi) * s.amp; // 0..1-ish
           const alpha = Math.max(0, Math.min(1, a));
-    
+
           // soft glow
           ctx.globalAlpha = alpha * 0.6;
           ctx.beginPath();
           ctx.arc(s.x, s.y, s.r * 2.2, 0, Math.PI*2);
-          ctx.fillStyle = '#cbd5ff'; // cool pale glow
+          ctx.fillStyle = '#cbd5ff';
           ctx.fill();
-    
+
           // core
           ctx.globalAlpha = alpha;
           ctx.beginPath();
@@ -346,17 +367,15 @@ loadHistory();
           ctx.fillStyle = '#ffffff';
           ctx.fill();
         }
-    
+
         ctx.globalAlpha = 1;
         requestAnimationFrame(draw);
       }
-    
+
       window.addEventListener('resize', resize, { passive: true });
       resize();
       draw();
     })();
-    </script>
-    
-
+  </script>
 </body>
 </html>
