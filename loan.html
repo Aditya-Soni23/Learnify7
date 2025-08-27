@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="logo.png" type="image/png">
+  <title>Loan System</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+    }
+    .balance-box {
+      max-width: 400px;
+      margin: 10px auto;
+      background: #fff;
+      padding: 15px;
+      border-radius: 12px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .loan-box {
+      max-width: 400px;
+      margin: 20px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    label, input, button {
+      display: block;
+      margin: 10px 0;
+    }
+    button {
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .loan-list {
+      max-width: 1200px;
+      margin: 20px auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+    .loan-item {
+      padding: 15px;
+      background: #f5f5f5;
+      border-radius: 10px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    }
+    .repay-btn {
+      background: #28a745;
+      margin-top: 5px;
+    }
+    .repay-btn:hover {
+      background: #1e7e34;
+    }
+
+    /* Popup notifications */
+    .popup {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 15px 20px;
+      border-radius: 12px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      z-index: 9999;
+    }
+    .popup.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .popup.success {
+      background: linear-gradient(135deg, #28a745, #4cd964);
+    }
+    .popup.error {
+      background: linear-gradient(135deg, #ff4d4d, #ff6b81);
+    }
+    .popup.info {
+      background: linear-gradient(135deg, #007BFF, #00c6ff);
+    }
+  </style>
+</head>
+<body>
+    <button onclick="window.location.href='index.html'" 
+    style="position: fixed;
+           top: 20px;
+           left: 20px;
+           padding: 12px 20px;
+           border: none;
+           border-radius: 8px;
+           background: linear-gradient(135deg, #ff5ac0, #ffea00);
+           color: black;
+           font-size: 16px;
+           font-weight: bold;
+           cursor: pointer;
+           box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+           transition: all 0.3s ease;">
+🏠 Home
+</button>
+  <h1>💰 Loan System</h1>
+
+  <!-- balance display -->
+  <div class="balance-box">
+    Current Balance: <span id="balance">0</span> 💰
+  </div>
+
+  <div class="loan-box">
+    <label for="loanAmount">Enter Loan Amount (Coins):</label>
+    <input type="number" id="loanAmount" min="1" />
+    <button onclick="takeLoan()">Take Loan</button>
+  </div>
+
+  <div class="loan-list" id="loansContainer"></div>
+
+  <!-- container for popups -->
+  <div id="popupContainer"></div>
+
+  <script type="module">
+    // Firebase imports
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getDatabase, ref, set, onValue, remove, update } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+      authDomain: "learnify-ada08.firebaseapp.com",
+      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+      projectId: "learnify-ada08",
+      storageBucket: "learnify-ada08.firebasestorage.app",
+      messagingSenderId: "380617329082",
+      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+      measurementId: "G-DT4WG6622N"
+    };
+
+    // Init Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const userRef = ref(db, "users/aditya");
+
+    // Interest rate per minute (%)
+    const INTEREST_PER_MIN = 0.1; // now 0.1% per minute
+    const MAX_LOAN = 200;
+
+    // ==== Popup utility ====
+    function showPopup(message, type = "info") {
+      const container = document.getElementById("popupContainer");
+      const popup = document.createElement("div");
+      popup.className = `popup ${type}`;
+      popup.textContent = message;
+      container.appendChild(popup);
+
+      // trigger show animation
+      setTimeout(() => popup.classList.add("show"), 10);
+
+      // remove after 5 seconds
+      setTimeout(() => {
+        popup.classList.remove("show");
+        setTimeout(() => popup.remove(), 300);
+      }, 5000);
+    }
+
+    // ==== Display balance in real time ====
+    const balanceEl = document.getElementById("balance");
+    onValue(userRef, (snapshot) => {
+      let data = snapshot.val();
+      balanceEl.textContent = data && data.balance ? data.balance : 0;
+    });
+
+    // ==== Take Loan ====
+    window.takeLoan = function () {
+      let amount = parseInt(document.getElementById("loanAmount").value);
+      if (!amount || amount <= 0) {
+        showPopup("Enter a valid loan amount!", "error");
+        return;
+      }
+      if (amount > MAX_LOAN) {
+        showPopup(`Maximum loan allowed is ${MAX_LOAN} coins.`, "error");
+        return;
+      }
+
+      let loanId = Date.now(); // unique id
+      let loanData = {
+        amount: amount,
+        startTime: Date.now()
+      };
+
+      set(ref(db, `users/aditya/loans/${loanId}`), loanData);
+
+      // also add coins to balance
+      onValue(userRef, (snap) => {
+        let data = snap.val() || {};
+        let balance = data.balance || 0;
+        update(userRef, { balance: balance + amount });
+      }, { onlyOnce: true });
+
+      showPopup(`Loan Approved: ${amount} coins.`, "success");
+    };
+
+    // ==== Render Loans with stopwatch + live interest ====
+    const loansContainer = document.getElementById("loansContainer");
+
+    onValue(ref(db, "users/aditya/loans"), (snapshot) => {
+      loansContainer.innerHTML = "";
+      if (!snapshot.exists()) {
+        loansContainer.innerHTML = "<p>No active loans</p>";
+        return;
+      }
+
+      snapshot.forEach((child) => {
+        let loanId = child.key;
+        let loan = child.val();
+
+        let div = document.createElement("div");
+        div.className = "loan-item";
+        div.id = `loan-${loanId}`;
+        div.innerHTML = `
+          <p><b>Loan:</b> ${loan.amount} coins</p>
+          <p id="timer-${loanId}">⏱ Timer: 0m 0s</p>
+          <p id="payable-${loanId}">Total Payable: ${loan.amount}</p>
+          <button class="repay-btn" onclick="repayLoan('${loanId}')">Repay</button>
+        `;
+        loansContainer.appendChild(div);
+
+        // start live timer + payable updater
+        setInterval(() => {
+          let elapsed = Date.now() - loan.startTime;
+          let minutes = Math.floor(elapsed / 60000);
+          let seconds = Math.floor((elapsed % 60000) / 1000);
+
+          // update timer
+          document.getElementById(`timer-${loanId}`).textContent =
+            `⏱ Timer: ${minutes}m ${seconds}s`;
+
+          // interest calculation: 0.1% per minute
+          let totalPayable = (loan.amount * (1 + (INTEREST_PER_MIN * minutes) / 100)).toFixed(2);
+
+          document.getElementById(`payable-${loanId}`).textContent =
+            `Total Payable: ${totalPayable} coins`;
+        }, 1000);
+      });
+    });
+
+    // ==== Repay Loan ====
+    window.repayLoan = function (loanId) {
+      onValue(ref(db, `users/aditya/loans/${loanId}`), (snap) => {
+        let loan = snap.val();
+        if (!loan) return;
+
+        let elapsed = Date.now() - loan.startTime;
+        let minutes = Math.floor(elapsed / 60000);
+
+        let totalPayable = (loan.amount * (1 + (INTEREST_PER_MIN * minutes) / 100)).toFixed(2);
+
+        onValue(userRef, (snapshot) => {
+          let data = snapshot.val();
+          let balance = data.balance || 0;
+          if (balance < totalPayable) {
+            showPopup("Not enough balance to repay!", "error");
+            return;
+          }
+
+          update(userRef, {
+            balance: balance - totalPayable
+          });
+
+          remove(ref(db, `users/aditya/loans/${loanId}`));
+          showPopup(`Loan of ${totalPayable} coins repaid!`, "success");
+        }, { onlyOnce: true });
+      }, { onlyOnce: true });
+    };
+  </script>
+</body>
+</html>

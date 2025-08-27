@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="logo.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learnify</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="stars"></div>
+<div class="stars"></div>
+<div class="stars"></div>
+<div class="stars"></div>
+<div class="stars"></div>
+<div class="stars"></div>
+<div class="stars"></div>
+<div class="stars"></div>
+<div class="stars"></div>
+<div class="stars"></div>
+<div class="stars"></div>
+<div class="stars"></div>
+
+  <!-- Header -->
+  <header style="display:flex; align-items:center; justify-content:space-between; padding:10px;">
+    
+
+    <!-- Left side: Logo + Title -->
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="logo.png" alt="Logo" style="width:50px; height:50px; border-radius:8px;">
+      <h1 style="margin:0;">Learnify</h1>
+    </div>
+    
+    <!-- Right side: Balance + Streak -->
+    <div class="header-actions" style="display:flex; gap:20px; align-items:center;">
+      <div class="balance-box" style="font-weight:bold;">
+        Balance: <span id="balance">0</span> 💰
+      </div>
+      <div class="streak_tracker" style="font-weight:bold;">
+        Streak: <span id="streak">0</span> 🔥
+      </div>
+    </div>
+  </header>
+  
+  
+<button onclick="navigate('loan')" class="floating-btn">🪙Loan</button>
+<button onclick="navigate('garage')" class="garagefloating-btn">🚘Garage</button>
+  <!-- Main Section -->
+  <main>
+    
+    <div class="card-grid">
+      <!-- Card 1 -->
+      <div class="card" onclick="navigate('study')">
+        <h2>📖 Study Sessions</h2>
+        <p>Track and manage focused study sessions.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card" onclick="navigate('doitnow')">
+        <h2>✅ Daily Goals</h2>
+        <p>Enter daily questions solved and tasks done.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card" onclick="navigate('shop')">
+        <h2>🛒 Shop</h2>
+        <p>Spend your earned coins on rewards.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="card" onclick="navigate('jar')">
+        <h2>🪙 Jar</h2>
+        <p>Save or manage your coins here.</p>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="card" onclick="navigate('city')">
+        <h2>🏙️🌆 Virtual City</h2>
+        <p>Grow your city with coins you earn.</p>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="card" onclick="navigate('sleep')">
+        <h2>Sleep Tracker🌙</h2>
+        <p>See your sleep progress here.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Made with ❤️ for personal growth by Aditya Soni</p>
+  </footer>
+
+  <script src="main.js"></script>
+  <script type="module">
+    // Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+      authDomain: "learnify-ada08.firebaseapp.com",
+      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com", // 🔴 Needed for Realtime DB
+      projectId: "learnify-ada08",
+      storageBucket: "learnify-ada08.firebasestorage.app",
+      messagingSenderId: "380617329082",
+      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+      measurementId: "G-DT4WG6622N"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // Reference for user
+    const userRef = ref(db, "users/aditya");
+
+    // Fetch balance + streak
+    get(userRef).then((snapshot) => {
+      if (snapshot.exists()) {
+        const data = snapshot.val();
+        document.getElementById("balance").innerText = data.balance ?? 0;
+        document.getElementById("streak").innerText = data.streak ?? 0;
+      } else {
+        console.log("No data found, setting defaults...");
+        set(userRef, { balance: 0, streak: 0 });
+        document.getElementById("balance").innerText = 0;
+        document.getElementById("streak").innerText = 0;
+      }
+    });
+
+    // Function to update streak when daily goal completed
+    function completeDailyGoal() {
+      update(userRef, {
+        balance: (parseInt(document.getElementById("balance").innerText) || 0) + 100,
+        streak: (parseInt(document.getElementById("streak").innerText) || 0) + 1
+      });
+    }
+
+    // Example usage: Call `completeDailyGoal()` after completing daily goal
+  </script>
+</body>
+</html>

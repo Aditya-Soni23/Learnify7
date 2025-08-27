@@ -1,0 +1,219 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 2rem;
+    background: #00bcd4;
+    backdrop-filter: blur(6px);
+  }
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* space between buttons */
+  }
+  
+  header h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  
+  .balance-box {
+    background: #ffcc00;
+    color: #000;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-weight: 600;
+  }
+  
+  .streak_tracker {
+    background: linear-gradient(135deg, #ff512f, #dd2476);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .streak_tracker:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 4px 15px rgba(255, 81, 47, 0.6);
+  }
+  
+  /* Main Grid */
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1.5rem;
+    max-width: 1100px;
+    width: 100%;
+  }
+  
+  /* Cards */
+  .card {
+    background: linear-gradient(135deg, #8e2de2, #4a00e0);
+    padding: 1.5rem;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    color: #ffd54f;
+  }
+  
+  .card h2 {
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+  }
+  
+  .card p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+  }
+  
+  .card:hover {
+    transform: translateY(-8px) scale(1.02);
+    background: black;
+    color: yellow;
+    box-shadow: 0 10px 20px rgb(255, 234, 3);
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 1rem;
+    background: #00838f;
+    font-size: 0.9rem;
+  }
+  .stars {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: star-move 20s linear infinite;
+  }
+  
+  .stars:nth-child(1) {
+    top: 10%;
+    left: 20%;
+    animation-duration: 8s;
+  }
+  .stars:nth-child(2) {
+    top: 25%;
+    left: 70%;
+    animation-duration: 12s;
+  }
+  .stars:nth-child(3) {
+    top: 40%;
+    left: 15%;
+    animation-duration: 15s;
+  }
+  .stars:nth-child(4) {
+    top: 55%;
+    left: 50%;
+    animation-duration: 9s;
+  }
+  .stars:nth-child(5) {
+    top: 20%;
+    left: 85%;
+    animation-duration: 11s;
+  }
+  .stars:nth-child(6) {
+    top: 65%;
+    left: 30%;
+    animation-duration: 14s;
+  }
+  .stars:nth-child(7) {
+    top: 75%;
+    left: 60%;
+    animation-duration: 10s;
+  }
+  .stars:nth-child(8) {
+    top: 85%;
+    left: 40%;
+    animation-duration: 13s;
+  }
+  .stars:nth-child(9) {
+    top: 90%;
+    left: 80%;
+    animation-duration: 16s;
+  }
+  
+  
+  @keyframes star-move {
+    from {
+      transform: translateY(0px);
+      opacity: 1;
+    }
+    to {
+      transform: translateY(-100vh);
+      opacity: 2;
+    }
+  }
+  .floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 15px 25px;   /* gives space for text */
+    border-radius: 50px;  /* makes it pill shaped */
+    background: #007BFF;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: 0.3s;
+  }
+
+  .floating-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+  }
+  .garagefloating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 150px;
+    padding: 15px 25px;   /* gives space for text */
+    border-radius: 50px;  /* makes it pill shaped */
+    background: #007BFF;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: 0.3s;
+  }
+
+  .garagefloating-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+  }

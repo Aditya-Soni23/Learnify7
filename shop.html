@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="logo.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productivity Shop</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: 28px;
+      color: #222;
+      margin: 10px 0;
+    }
+    .coin-balance {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  z-index: 1000; /* ensures it stays above other elements */
+}
+
+    .shop-section {
+      margin-bottom: 40px;
+    }
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 20px 0 15px;
+      text-align: left;
+      color: #111;
+      padding-left: 5px;
+      border-left: 6px solid #ff5e62;
+    }
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .item {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+    .item:hover {
+      transform: scale(1.05);
+    }
+    .item h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .item p {
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+    .buy-btn {
+      background: linear-gradient(135deg, #ff9966, #ff5e62);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .buy-btn:hover {
+      background: linear-gradient(135deg, #ff5e62, #ff9966);
+    }
+    .history {
+      margin-top: 40px;
+      background: rgba(255,255,255,0.8);
+      padding: 20px;
+      border-radius: 15px;
+    }
+    .history h2 {
+      margin-bottom: 10px;
+    }
+    .history ul {
+      list-style: none;
+      padding: 0;
+    }
+    .history ul li {
+      margin: 5px 0;
+      padding: 10px;
+      background: #f1f1f1;
+      border-radius: 8px;
+    }
+  </style>
+  </head>
+  <body>
+    <button onclick="window.location.href='index.html'" 
+    style="position: fixed;
+           top: 20px;
+           left: 20px;
+           padding: 12px 20px;
+           border: none;
+           border-radius: 8px;
+           background: linear-gradient(135deg, #ff5ac0, #ffea00);
+           color: black;
+           font-size: 16px;
+           font-weight: bold;
+           cursor: pointer;
+           box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+           transition: all 0.3s ease;">
+🏠 Home
+</button>
+    <header>
+      <div class="coin-balance">Coins: <span id="coinBalance">0</span></div>
+    </header><center><h1>🎁 Productivity Shop</h1></center>
+
+    
+  
+    <section class="shop-section">
+      <h2 class="section-title">📺 Youtube</h2>
+      <div class="shop-grid">
+        <div class="item">
+          <h2>📽️ 10 Min Youtube Pass</h2>
+          <p>Cost: 15 Coins</p>
+          <button class="buy-btn" onclick="buyItem('📽️ 10 Min Youtube Pass', 15)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>📽️ 15 Min Youtube Pass</h2>
+          <p>Cost: 25 Coins</p>
+          <button class="buy-btn" onclick="buyItem('📽️ 15 Min Youtube Pass', 25)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>📽️ 30 Min Youtube Pass</h2>
+          <p>Cost: 50 Coins</p>
+          <button class="buy-btn" onclick="buyItem('📽️ 30 Min Youtube Pass', 50)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>📽️ 60 Min Youtube Pass</h2>
+          <p>Cost: 100 Coins</p>
+          <button class="buy-btn" onclick="buyItem('📽️ 60 Min Youtube Pass', 100)">Buy</button>
+        </div>
+      </div>
+    </section>
+  
+    <section class="shop-section">
+      <h2 class="section-title">🕹️ Roblox</h2>
+      <div class="shop-grid">
+        <div class="item">
+          <h2>✈️ 10 Min Other</h2>
+          <p>Cost: 20 Coins</p>
+          <button class="buy-btn" onclick="buyItem('✈️ 10 Min Other', 20)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>✈️ 15 Min Other</h2>
+          <p>Cost: 30 Coins</p>
+          <button class="buy-btn" onclick="buyItem('✈️ 15 Min Other', 30)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>✈️ 30 Min Other</h2>
+          <p>Cost: 50 Coins</p>
+          <button class="buy-btn" onclick="buyItem('✈️ 30 Min Other', 50)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>⏹️ 30 Min Roblox</h2>
+          <p>Cost: 50 Coins</p>
+          <button class="buy-btn" onclick="buyItem('⏹️ 30 Min Roblox', 50)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>⏹️ 60 Min Roblox</h2>
+          <p>Cost: 100 Coins</p>
+          <button class="buy-btn" onclick="buyItem('⏹️ 60 Min Roblox', 100)">Buy</button>
+        </div>
+      </div>
+    </section>
+  
+    <section class="shop-section">
+      <h2 class="section-title">🎮 Valorant</h2>
+      <div class="shop-grid">
+        <div class="item">
+          <h2>🎮 30 Min Valorant</h2>
+          <p>Cost: 50 Coins</p>
+          <button class="buy-btn" onclick="buyItem('🎮 30 Min Valorant', 50)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>🎮 60 Min Valorant</h2>
+          <p>Cost: 100 Coins</p>
+          <button class="buy-btn" onclick="buyItem('🎮 60 Min Valorant', 100)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>🎮 Competitive Valorant</h2>
+          <p>Cost: 80 Coins</p>
+          <button class="buy-btn" onclick="buyItem('🎮 Competitive Valorant', 80)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>🎮 Unrated Valorant</h2>
+          <p>Cost: 80 Coins</p>
+          <button class="buy-btn" onclick="buyItem('🎮 Unrated Valorant', 80)">Buy</button>
+        </div>
+        <div class="item">
+          <h2>🎮 Swiftplay/SpikeRush/TDM</h2>
+          <p>Cost: 50 Coins</p>
+          <button class="buy-btn" onclick="buyItem('🎮 Swiftplay/SpikeRush/TDM Valorant', 50)">Buy</button>
+        </div>
+      </div>
+    </section>
+  
+
+  <section class="history">
+    <h2>🛒 Purchase History</h2>
+    <ul id="historyList"></ul>
+  </section>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getDatabase, ref, get, update, push, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+  
+    const firebaseConfig = {
+      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+      authDomain: "learnify-ada08.firebaseapp.com",
+      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+      projectId: "learnify-ada08",
+      storageBucket: "learnify-ada08.appspot.com",
+      messagingSenderId: "380617329082",
+      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+      measurementId: "G-DT4WG6622N"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+  
+    const balanceEl = document.getElementById("coinBalance");
+    const historyList = document.getElementById("historyList");
+    const userRef = ref(db, "users/aditya");
+  
+    // ✅ Live balance fetch
+    const balanceRef = ref(db, "users/aditya/balance");
+    onValue(balanceRef, (snapshot) => {
+      if (snapshot.exists()) {
+        balanceEl.innerText = "Balance: " + snapshot.val() + " 🪙";
+      }
+    });
+  
+    // ✅ Render purchase history
+    const purchasesRef = ref(db, "users/aditya/shopPurchases");
+    onValue(purchasesRef, (snapshot) => {
+      historyList.innerHTML = "";
+      const data = snapshot.val() || {};
+      Object.values(data).forEach((purchase) => {
+        let li = document.createElement("li");
+        li.textContent = `${purchase.item} - ${purchase.date} (${purchase.cost} coins)`;
+        historyList.appendChild(li);
+      });
+    });
+  
+    // ✅ Popup function
+    function showPurchasePopup(message, color) {
+      let popup = document.getElementById("purchasePopup");
+      if (!popup) {
+        popup = document.createElement("div");
+        popup.id = "purchasePopup";
+        popup.style.position = "fixed";
+        popup.style.bottom = "20px";
+        popup.style.left = "50%";
+        popup.style.transform = "translateX(-50%)";
+        popup.style.padding = "15px 25px";
+        popup.style.borderRadius = "12px";
+        popup.style.fontSize = "18px";
+        popup.style.fontWeight = "bold";
+        popup.style.color = "white";
+        popup.style.display = "none";
+        document.body.appendChild(popup);
+      }
+  
+      popup.innerText = message;
+      popup.style.background = color;
+      popup.style.display = "block";
+  
+      setTimeout(() => {
+        popup.style.display = "none";
+      }, 5000);
+    }
+  
+    // ✅ Buy item logic
+    window.buyItem = async function(item, cost) {
+      const snapshot = await get(userRef);
+      const val = snapshot.val() || {};
+      let currentBalance = val.balance || 0;
+  
+      if (currentBalance >= cost) {
+        let newBalance = currentBalance - cost;
+  
+        // Update balance
+        await update(userRef, { balance: newBalance });
+  
+        // Save purchase
+        await push(purchasesRef, {
+          item: item,
+          cost: cost,
+          date: new Date().toLocaleString()
+        });
+  
+        showPurchasePopup(`✅ You bought: ${item} (-${cost} coins)`, "linear-gradient(135deg, #43cea2, #185a9d)");
+        new Audio("coin.mp3").play();
+
+      } else {
+        showPurchasePopup("❌ Not enough coins!", "linear-gradient(135deg, #ff512f, #dd2476)");
+      }
+    };
+  </script>
+<div id="purchasePopup" style="display:none; position:fixed; 
+bottom:10%; left:50%; transform:translate(-50%, -50%);
+padding:15px 25px; border-radius:12px; font-size:18px; color:white; font-weight:bold;
+background: linear-gradient(135deg, #43cea2, #185a9d); text-align:center; z-index:9999;">
+</div>
+
+
+
+
+</body>
+</html>

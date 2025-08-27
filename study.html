@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="logo.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .stopwatch {
+      font-size: 6rem;
+      margin-bottom: 30px;
+    }
+
+    .controls button {
+      font-size: 1.5rem;
+      padding: 15px 30px;
+      margin: 10px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      background: #1e293b;
+      color: white;
+      transition: 0.3s;
+    }
+
+    .controls button.active {
+      background: #facc15;
+      color: black;
+    }
+
+    #addSession {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      background: #22c55e;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #addSession:hover {
+      background: #16a34a;
+    }
+
+    /* Popup styles */
+    .popup {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .popup-content input {
+      margin: 10px;
+      padding: 10px;
+      font-size: 1rem;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      width: 100px;
+    }
+
+    .popup-content button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    #saveSession {
+      background: #3b82f6;
+      color: white;
+    }
+
+    #closePopup {
+      background: #ef4444;
+      color: white;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+    <button onclick="window.location.href='index.html'" 
+    style="position: fixed;
+           top: 20px;
+           left: 20px;
+           padding: 12px 20px;
+           border: none;
+           border-radius: 8px;
+           background: linear-gradient(135deg, #ff5ac0, #ffea00);
+           color: black;
+           font-size: 16px;
+           font-weight: bold;
+           cursor: pointer;
+           box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+           transition: all 0.3s ease;">
+🏠 Home💰 Coins: <span id="balance">0</span>
+</button>
+
+  <div class="stopwatch" id="display">00:00:00</div>
+
+  <div class="controls">
+    <button id="startStop">Start</button>
+    <button id="pauseResume">Pause</button>
+  </div>
+
+  <button id="addSession">+ Add Past Study Session</button>
+
+  <!-- Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <h2>Add Study Session</h2>
+      <input type="number" id="hours" placeholder="Hours" min="0">
+      <input type="number" id="minutes" placeholder="Minutes" min="0" max="59">
+      <br>
+      <button id="saveSession">Save</button>
+      <button id="closePopup">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Coin popup -->
+  <div id="coinPopup" style="
+  position: fixed; top: 20%; left: 50%; transform: translateX(-50%);
+  background: #22c55e; color: white; font-size: 2rem; font-weight: bold;
+  padding: 12px 25px; border-radius: 12px; opacity: 0; pointer-events: none;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  z-index: 1000;">+0 coins</div>
+
+  <!-- History -->
+  <div id="sessionHistory" style="margin-top: 40px; width: 90%; max-width: 700px;">
+    <h2>Study Session History</h2>
+    <div style="max-height:300px; overflow-y:auto; border:1px solid #444; border-radius:8px;">
+      <table style="width: 100%; border-collapse: collapse; color: white;">
+        <thead>
+          <tr>
+            <th style="border-bottom:1px solid #555; padding:8px;">Date</th>
+            <th style="border-bottom:1px solid #555; padding:8px;">Duration (min)</th>
+            <th style="border-bottom:1px solid #555; padding:8px;">Coins Earned</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <audio id="coinSound" src="coin.mp3" preload="auto"></audio>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getDatabase, ref, push, update, onValue, set } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+    authDomain: "learnify-ada08.firebaseapp.com",
+    databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+    projectId: "learnify-ada08",
+    storageBucket: "learnify-ada08.appspot.com",
+    messagingSenderId: "380617329082",
+    appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+    measurementId: "G-DT4WG6622N"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const userNode = "aditya";
+  const timerRef = ref(db, `users/${userNode}/timer`);
+  const display = document.getElementById("display");
+  const startStopBtn = document.getElementById("startStop");
+  const pauseResumeBtn = document.getElementById("pauseResume");
+  const addSessionBtn = document.getElementById("addSession");
+  const popup = document.getElementById("popup");
+  const closePopup = document.getElementById("closePopup");
+  const saveSessionBtn = document.getElementById("saveSession");
+  const coinPopup = document.getElementById("coinPopup");
+  const coinSound = document.getElementById("coinSound");
+  const historyBody = document.getElementById("historyBody");
+
+
+  function formatTime(sec) {
+    let h = Math.floor(sec / 3600);
+    let m = Math.floor((sec % 3600) / 60);
+    let s = sec % 60;
+    return [h,m,s].map(v => String(v).padStart(2,"0")).join(":");
+  }
+
+  function renderTimer(state) {
+    if (!state) { display.textContent = "00:00:00"; return; }
+    let elapsed = state.elapsedBeforePause || 0;
+    if (state.running && !state.paused) {
+      elapsed += Math.floor((Date.now() - state.startTime) / 1000);
+    }
+    display.textContent = formatTime(elapsed);
+  }
+
+  function showCoinPopup(coins) {
+    coinPopup.textContent = `+${coins} coins`;
+    coinPopup.style.opacity = "1";
+    coinPopup.style.transform = "translateX(-50%) translateY(-20px)";
+    coinSound.play();
+    setTimeout(() => {
+      coinPopup.style.opacity = "0";
+      coinPopup.style.transform = "translateX(-50%) translateY(0)";
+    }, 3000);
+  }
+
+  function saveStudySession(duration) {
+    const coinsEarned = duration * 2;
+    const now = new Date().toISOString();
+
+    push(ref(db, `users/${userNode}/studySessions`), {
+      date: now,
+      duration: duration,
+      coinsEarned: coinsEarned
+    });
+
+    const userRef = ref(db, `users/${userNode}`);
+    onValue(userRef, snap => {
+      let bal = snap.val()?.balance || 0;
+      update(userRef, { balance: bal + coinsEarned });
+    }, { onlyOnce: true });
+
+    showCoinPopup(coinsEarned);
+    new Audio("coin.mp3").play();
+    loadHistory();
+    updateBalanceDisplay();
+  }
+
+  function loadHistory() {
+    const historyRef = ref(db, `users/${userNode}/studySessions`);
+    onValue(historyRef, snapshot => {
+      const data = snapshot.val() || {};
+      historyBody.innerHTML = "";
+      Object.values(data).reverse().forEach(session => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td style="border-bottom:1px solid #555; padding:8px;">${new Date(session.date).toLocaleString()}</td>
+          <td style="border-bottom:1px solid #555; padding:8px;">${session.duration}</td>
+          <td style="border-bottom:1px solid #555; padding:8px;">${session.coinsEarned}</td>
+        `;
+        historyBody.appendChild(tr);
+      });
+    });
+  }
+
+  function updateBalanceDisplay() {
+    const userRef = ref(db, `users/${userNode}/balance`);
+    onValue(userRef, snapshot => {
+      document.getElementById("balance").textContent = snapshot.val() || 0;
+    }, { onlyOnce: true });
+  }
+
+  // 🔥 Sync timer state
+  onValue(timerRef, snapshot => {
+    let state = snapshot.val();
+    renderTimer(state);
+  });
+
+  setInterval(() => {
+    onValue(timerRef, snapshot => {
+      let state = snapshot.val();
+      renderTimer(state);
+    }, { onlyOnce: true });
+  }, 1000);
+
+  startStopBtn.addEventListener("click", () => {
+    onValue(timerRef, snap => {
+      let state = snap.val();
+      if (!state || !state.running) {
+        set(timerRef, {
+          running: true,
+          paused: false,
+          startTime: Date.now(),
+          elapsedBeforePause: state?.elapsedBeforePause || 0
+        });
+        startStopBtn.textContent = "Stop";
+        startStopBtn.classList.add("active");
+      } else {
+        let elapsed = state.elapsedBeforePause || 0;
+        if (state.running && !state.paused) {
+          elapsed += Math.floor((Date.now() - state.startTime) / 1000);
+        }
+        let minutes = Math.floor(elapsed / 60);
+        if (minutes > 0) saveStudySession(minutes);
+        set(timerRef, { running: false, paused: false, elapsedBeforePause: 0 });
+        startStopBtn.textContent = "Start";
+        startStopBtn.classList.remove("active");
+      }
+    }, { onlyOnce: true });
+  });
+
+  pauseResumeBtn.addEventListener("click", () => {
+    onValue(timerRef, snap => {
+      let state = snap.val();
+      if (!state?.running) return;
+      if (!state.paused) {
+        let elapsed = state.elapsedBeforePause || 0;
+        elapsed += Math.floor((Date.now() - state.startTime) / 1000);
+        set(timerRef, { running: true, paused: true, elapsedBeforePause: elapsed });
+        pauseResumeBtn.textContent = "Resume";
+        pauseResumeBtn.classList.add("active");
+      } else {
+        set(timerRef, { running: true, paused: false, startTime: Date.now(), elapsedBeforePause: state.elapsedBeforePause });
+        pauseResumeBtn.textContent = "Pause";
+        pauseResumeBtn.classList.remove("active");
+      }
+    }, { onlyOnce: true });
+  });
+
+  addSessionBtn.addEventListener("click", () => popup.style.display = "flex");
+  closePopup.addEventListener("click", () => popup.style.display = "none");
+
+  saveSessionBtn.addEventListener("click", () => {
+    let hrs = parseInt(document.getElementById("hours").value) || 0;
+    let mins = parseInt(document.getElementById("minutes").value) || 0;
+    let totalMinutes = hrs * 60 + mins;
+    if (totalMinutes > 0) saveStudySession(totalMinutes);
+    popup.style.display = "none";
+  });
+
+  loadHistory();
+  updateBalanceDisplay();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="logo.png" type="image/png">
+  <title>🚗 3D Car Shop</title>
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      margin-bottom: 10px;
+    }
+    .balance {
+      margin-bottom: 20px;
+      font-size: 20px;
+      color: gold;
+    }
+    model-viewer {
+      width: 80vw;
+      height: 65vh;
+      background: #000;
+      border-radius: 16px;
+    }
+    .controls {
+      margin-top: 15px;
+      display: flex;
+      gap: 12px;
+    }
+    button {
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      transition: 0.3s;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .navBtn {
+      background: #ff5722;
+    }
+    .navBtn:hover {
+      background: #e64a19;
+    }
+    .buyBtn {
+      background: #00c853;
+    }
+    .buyBtn:hover {
+      background: #009624;
+    }
+    .sellBtn {
+      background: #ff1744;
+    }
+    .sellBtn:hover {
+      background: #b2102f;
+    }
+
+    /* Popup styling */
+    .popup {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.85);
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 16px;
+      display: none;
+      animation: fadeInOut 3s ease forwards;
+    }
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateY(20px); }
+      10% { opacity: 1; transform: translateY(0); }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(20px); }
+    }
+  </style>
+</head>
+<body>
+    <button onclick="window.location.href='index.html'" 
+    style="position: fixed;
+           top: 20px;
+           right: 50px;
+           padding: 12px 20px;
+           border: none;
+           border-radius: 8px;
+           background: linear-gradient(135deg, #ff5ac0, #ffea00);
+           color: black;
+           font-size: 16px;
+           font-weight: bold;
+           cursor: pointer;
+           box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+           transition: all 0.3s ease;">
+🏠 Home
+</button>
+  <h1>🚗 3D Car Garage</h1>
+  <div class="balance">Coins: <span id="balance">0</span> 💰</div>
+
+  <model-viewer id="carViewer" 
+    src="bmw.glb" 
+    alt="3D Car"
+    shadow-intensity="1" 
+    camera-controls 
+    auto-rotate 
+    ar>
+  </model-viewer>
+
+  <div class="controls">
+    <button class="navBtn" onclick="prevCar()">⬅ Prev</button>
+    <button id="buyBtn" class="buyBtn">Buy</button>
+    <button id="sellBtn" class="sellBtn">Sell</button>
+    <button class="navBtn" onclick="nextCar()">Next ➡</button>
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+      authDomain: "learnify-ada08.firebaseapp.com",
+      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+      projectId: "learnify-ada08",
+      storageBucket: "learnify-ada08.firebasestorage.app",
+      messagingSenderId: "380617329082",
+      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+      measurementId: "G-DT4WG6622N"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const userId = "aditya";
+    const userRef = ref(db, "users/" + userId);
+
+    const cars = [
+  { id: "car1", name: "BMW M3", price: 100, file: "bmw.glb" },
+  { id: "car2", name: "Rolls Royce", price: 300, file: "royce.glb" },
+  { id: "car3", name: "Bugatti", price: 300, file: "bugatti.glb" },
+  { id: "car4", name: "Lamborghini", price: 200, file: "lamborghini.glb" },
+  { id: "car5", name: "Ferrari", price: 200, file: "ferrari.glb" },
+  { id: "car6", name: "Mercedes", price: 100, file: "mercedes.glb" },
+  { id: "car7", name: "Tesla Roadster", price: 250, file: "roadster.glb" },
+  { id: "car8", name: "Mclaren", price: 200, file: "mclaren.glb" }
+]
+
+
+    let currentIndex = 0;
+    let balance = 0;
+    let ownedCars = {};
+
+    const viewer = document.getElementById("carViewer");
+    const balanceEl = document.getElementById("balance");
+    const buyBtn = document.getElementById("buyBtn");
+    const sellBtn = document.getElementById("sellBtn");
+    const popup = document.getElementById("popup");
+
+    // Show popup
+    function showPopup(msg) {
+      popup.innerText = msg;
+      popup.style.display = "block";
+      setTimeout(() => { popup.style.display = "none"; }, 2800);
+    }
+
+    // Load user data
+    async function loadUser() {
+      const snap = await get(userRef);
+      if (snap.exists()) {
+        const data = snap.val();
+        balance = data.balance || 0;
+        ownedCars = data.ownedCars || {};
+      } else {
+        await update(userRef, { balance: 500, ownedCars: {} });
+        balance = 500;
+        ownedCars = {};
+      }
+      balanceEl.innerText = balance;
+      updateUI();
+    }
+
+    function updateUI() {
+      const car = cars[currentIndex];
+      viewer.src = car.file;
+
+      if (ownedCars[car.id]) {
+        buyBtn.innerText = "✅ Owned";
+        buyBtn.disabled = true;
+        sellBtn.disabled = false;
+      } else {
+        buyBtn.innerText = `Buy ${car.name} (${car.price} coins)`;
+        buyBtn.disabled = false;
+        sellBtn.disabled = true;
+      }
+    }
+
+    async function buyCar() {
+      const car = cars[currentIndex];
+      if (ownedCars[car.id]) return;
+
+      if (balance < car.price) {
+        showPopup("❌ Not enough coins!");
+        return;
+      }
+
+      balance -= car.price;
+      ownedCars[car.id] = true;
+
+      await update(userRef, { balance, ownedCars });
+      balanceEl.innerText = balance;
+      showPopup(`✅ Bought ${car.name} for ${car.price} coins!`);
+      new Audio("coin.mp3").play();
+      updateUI();
+    }
+
+    async function sellCar() {
+      const car = cars[currentIndex];
+      if (!ownedCars[car.id]) return;
+
+      const sellPrice = Math.floor(car.price / 2);
+      balance += sellPrice;
+      delete ownedCars[car.id];
+
+      await update(userRef, { balance, ownedCars });
+      balanceEl.innerText = balance;
+      showPopup(`💸 Sold ${car.name} for ${sellPrice} coins!`);
+      new Audio("coin.mp3").play();
+      updateUI();
+    }
+
+    // Navigation
+    window.prevCar = function() {
+      currentIndex = (currentIndex - 1 + cars.length) % cars.length;
+      updateUI();
+    };
+
+    window.nextCar = function() {
+      currentIndex = (currentIndex + 1) % cars.length;
+      updateUI();
+    };
+
+    buyBtn.addEventListener("click", buyCar);
+    sellBtn.addEventListener("click", sellCar);
+
+    loadUser();
+  </script>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" href="logo.png" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Coin Jar</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+    overflow: hidden;
+  }
+
+  h1 {
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .balance {
+    margin-bottom: 20px;
+    font-size: 1.3em;
+    color: #555;
+  }
+
+  .jar-container {
+    position: relative;
+    width: 1000px;  /* 5 times bigger */
+    height: 500px; /* 5 times bigger */
+    border: 5px solid #555;
+    border-radius: 50% 50% 20% 20%;
+    background: linear-gradient(to top, #c0e0ff, #ffffff);
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  }
+
+  .coin {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffd700, #ffcc00);
+    position: absolute;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    animation: fall 2s ease forwards;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-50px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(var(--fall)); }
+  }
+</style>
+</head>
+<body>
+  <button onclick="window.location.href='index.html'" 
+    style="position: fixed;
+           top: 20px;
+           left: 20px;
+           padding: 12px 20px;
+           border: none;
+           border-radius: 8px;
+           background: linear-gradient(135deg, #ff5ac0, #ffea00);
+           color: black;
+           font-size: 16px;
+           font-weight: bold;
+           cursor: pointer;
+           box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+           transition: all 0.3s ease;">
+🏠 Home
+</button>
+
+<h1>My Coin Jar</h1>
+<div class="balance" id="balance">Coins: 0</div>
+<div class="jar-container" id="jar"></div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+  // Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+    authDomain: "learnify-ada08.firebaseapp.com",
+    databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+    projectId: "learnify-ada08",
+    storageBucket: "learnify-ada08.appspot.com",
+    messagingSenderId: "380617329082",
+    appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+    measurementId: "G-DT4WG6622N"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const jar = document.getElementById('jar');
+  const balanceText = document.getElementById('balance');
+  const jarWidth = jar.clientWidth;
+  const jarHeight = jar.clientHeight;
+  const coinSize = 20;
+
+  // function to render coins inside jar
+  function renderCoins(coins) {
+    jar.innerHTML = ""; // clear previous coins
+    balanceText.innerText = `Coins: ${coins}`;
+    new Audio("coin.mp3").play();
+
+
+    const coinsPerRow = Math.floor(jarWidth / coinSize);
+    const maxRows = Math.floor(jarHeight / coinSize);
+
+    let dropped = 0;
+    for (let row = 0; row < maxRows; row++) {
+      for (let col = 0; col < coinsPerRow; col++) {
+        if (dropped >= coins) break;
+
+        const coin = document.createElement("div");
+        coin.classList.add("coin");
+
+        let x = col * coinSize + Math.random() * 10;
+        coin.style.left = `${x}px`;
+
+        let y = jarHeight - coinSize - row * coinSize;
+        coin.style.top = "0px";
+        coin.style.setProperty("--fall", `${y}px`);
+        coin.style.animationDelay = `${Math.random() * 2}s`;
+
+        jar.appendChild(coin);
+        dropped++;
+      }
+      if (dropped >= coins) break;
+    }
+  }
+
+  // 🔥 Listen for real-time balance updates
+  const balanceRef = ref(db, "users/aditya/balance");
+  onValue(balanceRef, (snapshot) => {
+    if (snapshot.exists()) {
+      renderCoins(snapshot.val());
+    }
+  });
+</script>
+
+
+</body>
+</html>
