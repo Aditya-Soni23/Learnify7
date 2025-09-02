@@ -8,70 +8,100 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+      background: #0a0a0a; /* deep black */
       margin: 0;
       padding: 20px;
-      color: #333;
+      color: #eee;
     }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-    }
-    h1 {
-      font-size: 28px;
-      color: #222;
-      margin: 10px 0;
-    }
-    .coin-balance {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: linear-gradient(135deg, #f7971e, #ffd200);
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-weight: bold;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  z-index: 1000; /* ensures it stays above other elements */
-}
 
-    .shop-section {
-      margin-bottom: 40px;
-    }
-    .section-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 20px 0 15px;
+    /* --- Ticket Styling --- */
+    .ticket {
+      position: relative;
+      width: 600px;      /* consistent horizontal look */
+      min-height: 200px;
+      padding: 25px 25px;
+      margin: 10px auto;
+      color: white;
+      font-weight: bold;
       text-align: left;
-      color: #111;
-      padding-left: 5px;
-      border-left: 6px solid #ff5e62;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .shop-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+
+    /* Background styles */
+    .ticket.gold {
+      background: linear-gradient(135deg, #ffcc00, #ff9900);
+      box-shadow: 0 0 20px rgba(255,200,0,0.6);
     }
-    .item {
-      background: #fff;
-      border-radius: 15px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.2s ease;
+    .ticket.neon {
+      background: linear-gradient(135deg, #00f5ff, #0aff96);
+      box-shadow: 0 0 25px rgba(0,255,200,0.6);
     }
-    .item:hover {
+    .ticket.purple {
+      background: linear-gradient(135deg, #a855f7, #ec4899);
+      box-shadow: 0 0 25px rgba(200,100,255,0.6);
+    }
+    .ticket.redblue {
+      background: linear-gradient(135deg, #ff0000, #007bff);
+      box-shadow: 0 0 25px rgba(255,0,150,0.5);
+    }
+
+    /* Zigzag sides */
+    .ticket::before,
+    .ticket::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 14px;
+      background: repeating-linear-gradient(
+        #0a0a0a 0 8px,
+        transparent 8px 16px
+      );
+      z-index: 2;
+    }
+    .ticket::before {
+      left: -7px;
+    }
+    .ticket::after {
+      right: -7px;
+      transform: rotate(180deg);
+    }
+
+    /* Dotted tear line */
+    .ticket .cut-line {
+      position: absolute;
+      top: 15px;
+      bottom: 15px;
+      right: 120px;
+      width: 2px;
+      border-right: 2px dashed rgba(255,255,255,0.7);
+      z-index: 3;
+    }
+
+    /* Hover effect */
+    .ticket:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 40px rgba(255,255,255,0.9);
     }
-    .item h2 {
+
+    /* Ticket Content */
+    .ticket h2 {
+      margin: 0 0 10px;
       font-size: 20px;
-      margin-bottom: 10px;
     }
-    .item p {
+    .ticket p {
+      margin: 0 0 15px;
       font-size: 16px;
-      margin-bottom: 15px;
+      font-weight: normal;
     }
+
+    /* Buy Button */
     .buy-btn {
       background: linear-gradient(135deg, #ff9966, #ff5e62);
       color: white;
@@ -81,18 +111,44 @@
       cursor: pointer;
       font-weight: bold;
       transition: background 0.3s;
+      z-index: 5;
     }
     .buy-btn:hover {
       background: linear-gradient(135deg, #ff5e62, #ff9966);
     }
+
+    /* Sections */
+    .shop-section {
+      margin-bottom: 40px;
+    }
+    .section-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin: 20px 0 15px;
+      text-align: left;
+      color: #fff;
+      padding-left: 5px;
+      border-left: 6px solid #ff5e62;
+    }
+
+    /* Grid Layout */
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 180px;
+      justify-items: center;
+    }
+
+    /* History */
     .history {
       margin-top: 40px;
-      background: rgba(255,255,255,0.8);
+      background: rgba(255,255,255,0.1);
       padding: 20px;
       border-radius: 15px;
     }
     .history h2 {
       margin-bottom: 10px;
+      color: #fff;
     }
     .history ul {
       list-style: none;
@@ -101,123 +157,168 @@
     .history ul li {
       margin: 5px 0;
       padding: 10px;
-      background: #f1f1f1;
+      background: rgba(255,255,255,0.15);
       border-radius: 8px;
+      color: #fff;
+    }
+
+    /* Coin Balance */
+    .coin-balance {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #f7971e, #ffd200);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+      color: #000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+
+    /* Home Button */
+    .home-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ff5ac0, #ffea00);
+      color: black;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+    .home-btn:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #fff;
+      margin: 10px 0 30px;
+      text-align: center;
     }
   </style>
-  </head>
-  <body>
-    <button onclick="window.location.href='index.html'" 
-    style="position: fixed;
-           top: 20px;
-           left: 20px;
-           padding: 12px 20px;
-           border: none;
-           border-radius: 8px;
-           background: linear-gradient(135deg, #ff5ac0, #ffea00);
-           color: black;
-           font-size: 16px;
-           font-weight: bold;
-           cursor: pointer;
-           box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-           transition: all 0.3s ease;">
-🏠 Home
-</button>
-    <header>
-      <div class="coin-balance">Coins: <span id="coinBalance">0</span></div>
-    </header><center><h1>🎁 Productivity Shop</h1></center>
+</head>
+<body>
+  <button onclick="window.location.href='index.html'" class="home-btn">🏠 Home</button>
+  <header>
+    <div class="coin-balance">Coins: <span id="coinBalance">0</span></div>
+  </header>
 
-    
-  
-    <section class="shop-section">
-      <h2 class="section-title">📺 Youtube</h2>
-      <div class="shop-grid">
-        <div class="item">
-          <h2>📽️ 10 Min Youtube Pass</h2>
-          <p>Cost: 15 Coins</p>
-          <button class="buy-btn" onclick="buyItem('📽️ 10 Min Youtube Pass', 15)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>📽️ 15 Min Youtube Pass</h2>
-          <p>Cost: 25 Coins</p>
-          <button class="buy-btn" onclick="buyItem('📽️ 15 Min Youtube Pass', 25)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>📽️ 30 Min Youtube Pass</h2>
-          <p>Cost: 50 Coins</p>
-          <button class="buy-btn" onclick="buyItem('📽️ 30 Min Youtube Pass', 50)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>📽️ 60 Min Youtube Pass</h2>
-          <p>Cost: 100 Coins</p>
-          <button class="buy-btn" onclick="buyItem('📽️ 60 Min Youtube Pass', 100)">Buy</button>
-        </div>
-      </div>
-    </section>
-  
-    <section class="shop-section">
-      <h2 class="section-title">🕹️ Roblox</h2>
-      <div class="shop-grid">
-        <div class="item">
-          <h2>✈️ 10 Min Other</h2>
-          <p>Cost: 20 Coins</p>
-          <button class="buy-btn" onclick="buyItem('✈️ 10 Min Other', 20)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>✈️ 15 Min Other</h2>
-          <p>Cost: 30 Coins</p>
-          <button class="buy-btn" onclick="buyItem('✈️ 15 Min Other', 30)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>✈️ 30 Min Other</h2>
-          <p>Cost: 50 Coins</p>
-          <button class="buy-btn" onclick="buyItem('✈️ 30 Min Other', 50)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>⏹️ 30 Min Roblox</h2>
-          <p>Cost: 50 Coins</p>
-          <button class="buy-btn" onclick="buyItem('⏹️ 30 Min Roblox', 50)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>⏹️ 60 Min Roblox</h2>
-          <p>Cost: 100 Coins</p>
-          <button class="buy-btn" onclick="buyItem('⏹️ 60 Min Roblox', 100)">Buy</button>
-        </div>
-      </div>
-    </section>
-  
-    <section class="shop-section">
-      <h2 class="section-title">🎮 Valorant</h2>
-      <div class="shop-grid">
-        <div class="item">
-          <h2>🎮 30 Min Valorant</h2>
-          <p>Cost: 50 Coins</p>
-          <button class="buy-btn" onclick="buyItem('🎮 30 Min Valorant', 50)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>🎮 60 Min Valorant</h2>
-          <p>Cost: 100 Coins</p>
-          <button class="buy-btn" onclick="buyItem('🎮 60 Min Valorant', 100)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>🎮 Competitive Valorant</h2>
-          <p>Cost: 80 Coins</p>
-          <button class="buy-btn" onclick="buyItem('🎮 Competitive Valorant', 80)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>🎮 Unrated Valorant</h2>
-          <p>Cost: 80 Coins</p>
-          <button class="buy-btn" onclick="buyItem('🎮 Unrated Valorant', 80)">Buy</button>
-        </div>
-        <div class="item">
-          <h2>🎮 Swiftplay/SpikeRush/TDM</h2>
-          <p>Cost: 50 Coins</p>
-          <button class="buy-btn" onclick="buyItem('🎮 Swiftplay/SpikeRush/TDM Valorant', 50)">Buy</button>
-        </div>
-      </div>
-    </section>
-  
+  <h1>🎁 Productivity Shop</h1>
 
+  <!-- YOUTUBE -->
+  <section class="shop-section">
+    <h2 class="section-title">📺 Youtube</h2>
+    <div class="shop-grid">
+      <div class="ticket gold">
+        <div class="cut-line"></div>
+        <h2>📽️ 10 Min Youtube Pass</h2>
+        <p>Cost: 15 Coins</p>
+        <button class="buy-btn" onclick="buyItem('📽️ 10 Min Youtube Pass', 15)">Buy</button>
+      </div>
+      <div class="ticket neon">
+        <div class="cut-line"></div>
+        <h2>📽️ 15 Min Youtube Pass</h2>
+        <p>Cost: 25 Coins</p>
+        <button class="buy-btn" onclick="buyItem('📽️ 15 Min Youtube Pass', 25)">Buy</button>
+      </div>
+      <div class="ticket purple">
+        <div class="cut-line"></div>
+        <h2>📽️ 30 Min Youtube Pass</h2>
+        <p>Cost: 50 Coins</p>
+        <button class="buy-btn" onclick="buyItem('📽️ 30 Min Youtube Pass', 50)">Buy</button>
+      </div>
+      <div class="ticket redblue">
+        <div class="cut-line"></div>
+        <h2>📽️ 60 Min Youtube Pass</h2>
+        <p>Cost: 100 Coins</p>
+        <button class="buy-btn" onclick="buyItem('📽️ 60 Min Youtube Pass', 100)">Buy</button>
+      </div>
+    </div>
+  </section>
+<br><br><br><br><br><br><br><br><br><br><br><br>
+  <!-- ROBLOX -->
+  <section class="shop-section">
+    <h2 class="section-title">🕹️ Roblox</h2>
+    <div class="shop-grid">
+      <div class="ticket gold">
+        <div class="cut-line"></div>
+        <h2>✈️ 10 Min Other</h2>
+        <p>Cost: 20 Coins</p>
+        <button class="buy-btn" onclick="buyItem('✈️ 10 Min Other', 20)">Buy</button>
+      </div>
+      <div class="ticket neon">
+        <div class="cut-line"></div>
+        <h2>✈️ 15 Min Other</h2>
+        <p>Cost: 30 Coins</p>
+        <button class="buy-btn" onclick="buyItem('✈️ 15 Min Other', 30)">Buy</button>
+      </div>
+      <div class="ticket purple">
+        <div class="cut-line"></div>
+        <h2>✈️ 30 Min Other</h2>
+        <p>Cost: 50 Coins</p>
+        <button class="buy-btn" onclick="buyItem('✈️ 30 Min Other', 50)">Buy</button>
+      </div>
+      <div class="ticket redblue">
+        <div class="cut-line"></div>
+        <h2>⏹️ 30 Min Roblox</h2>
+        <p>Cost: 50 Coins</p>
+        <button class="buy-btn" onclick="buyItem('⏹️ 30 Min Roblox', 50)">Buy</button>
+      </div>
+      <div class="ticket gold">
+        <div class="cut-line"></div>
+        <h2>⏹️ 60 Min Roblox</h2>
+        <p>Cost: 100 Coins</p>
+        <button class="buy-btn" onclick="buyItem('⏹️ 60 Min Roblox', 100)">Buy</button>
+      </div>
+    </div>
+  </section><br><br><br><br><br><br><br><br><br><br><br><br>
+
+  <!-- VALORANT -->
+  <section class="shop-section">
+    <h2 class="section-title">🎮 Valorant</h2>
+    <div class="shop-grid">
+      <div class="ticket neon">
+        <div class="cut-line"></div>
+        <h2>🎮 30 Min Valorant</h2>
+        <p>Cost: 50 Coins</p>
+        <button class="buy-btn" onclick="buyItem('🎮 30 Min Valorant', 50)">Buy</button>
+      </div>
+      <div class="ticket purple">
+        <div class="cut-line"></div>
+        <h2>🎮 60 Min Valorant</h2>
+        <p>Cost: 100 Coins</p>
+        <button class="buy-btn" onclick="buyItem('🎮 60 Min Valorant', 100)">Buy</button>
+      </div>
+      <div class="ticket redblue">
+        <div class="cut-line"></div>
+        <h2>🎮 Competitive Valorant</h2>
+        <p>Cost: 80 Coins</p>
+        <button class="buy-btn" onclick="buyItem('🎮 Competitive Valorant', 80)">Buy</button>
+      </div>
+      <div class="ticket gold">
+        <div class="cut-line"></div>
+        <h2>🎮 Unrated Valorant</h2>
+        <p>Cost: 80 Coins</p>
+        <button class="buy-btn" onclick="buyItem('🎮 Unrated Valorant', 80)">Buy</button>
+      </div>
+      <div class="ticket neon">
+        <div class="cut-line"></div>
+        <h2>🎮 Swiftplay/SpikeRush/TDM</h2>
+        <p>Cost: 50 Coins</p>
+        <button class="buy-btn" onclick="buyItem('🎮 Swiftplay/SpikeRush/TDM Valorant', 50)">Buy</button>
+      </div>
+    </div>
+  </section>
+  <br><br><br><br><br><br><br><br><br><br><br><br>
+  <!-- HISTORY -->
   <section class="history">
     <h2>🛒 Purchase History</h2>
     <ul id="historyList"></ul>
