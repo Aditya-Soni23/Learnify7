@@ -157,6 +157,9 @@
 <button id="musicBtn" class="role-btn" style="display:flex; align-items:center; justify-content:center; gap:5px; background-color: yellow;">
     🎶 Music
   </button>
+  <button id="homeBtn" class="role-btn" style="display:flex; align-items:center; justify-content:center; gap:5px; background-color: #3498db;">
+    🏠 Home
+</button>
   <!-- Purchase History -->
 <div style="margin-top:20px;">
     <h3 style="text-align:center; margin-bottom:10px;">Purchase History</h3>
@@ -367,6 +370,9 @@ onValue(userRef,(snap)=>{
   renderAgents();
   renderPurchaseHistory();  // <--- render on page load
 });
+document.getElementById('homeBtn').onclick = () => {
+    window.location.href = 'index.html';
+};
 
 </script>
 </body>
