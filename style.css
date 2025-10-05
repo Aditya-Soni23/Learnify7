@@ -192,7 +192,7 @@
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
     transition: 0.3s;
   }
-
+  
   .floating-btn:hover {
     background: #0056b3;
     transform: scale(1.05);
@@ -214,6 +214,26 @@
   }
 
   .garagefloating-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+  }
+  .valorantfloating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 300px;
+    padding: 15px 25px;   /* gives space for text */
+    border-radius: 50px;  /* makes it pill shaped */
+    background: #007BFF;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    transition: 0.3s;
+  }
+
+  .valorantfloating-btn:hover {
     background: #0056b3;
     transform: scale(1.05);
   }

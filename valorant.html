@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valorant Agents</title>
+<style>
+  body {
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background: linear-gradient(135deg,#1f1c2c,#928dab);
+    color:white;
+    display:flex;
+    height:100vh;
+    overflow:hidden;
+  }
+
+  .agents-list {
+    width:25%;
+    background:rgba(0,0,0,0.4);
+    padding:10px;
+    overflow-y:auto;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .agent-card {
+    display:flex;
+    align-items:center;
+    padding:5px;
+    background:rgba(255,255,255,0.05);
+    border-radius:8px;
+    cursor:pointer;
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .agent-card:hover {
+    transform: scale(1.05);
+    background:rgba(255,255,255,0.15);
+  }
+
+  .agent-card img {
+    width:50px;
+    border-radius:5px;
+    margin-right:10px;
+  }
+
+  .center-display {
+    flex:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+  }
+
+  .center-display img {
+    max-width:80%;
+    max-height:80%;
+    border-radius:15px;
+    transition: transform 0.5s ease;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,100% {transform:translateY(0);}
+    50% {transform:translateY(-15px);}
+  }
+
+  .role-filter {
+    width:25%;
+    background:rgba(0,0,0,0.4);
+    padding:10px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+
+  .role-btn {
+    background: #00b894;
+    border:none;
+    padding:10px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+    transition: background 0.3s ease;
+  }
+
+  .role-btn:hover {background:#009975;}
+
+  .balance-box {
+    position:absolute;
+    top:10px;
+    left:10px;
+    background: rgba(0,0,0,0.5);
+    padding:10px;
+    border-radius:10px;
+    font-weight:bold;
+  }
+
+  .buy-btn {
+    position:absolute;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:#ffd700;
+    color:#000;
+    border:none;
+    padding:10px 20px;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+    transition: background 0.3s ease;
+  }
+
+  .buy-btn:hover {background:#e6c200;}
+
+  /* Popup notifications */
+  .popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 12px;
+    color: white;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 9999;
+  }
+  .popup.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .popup.success {background:linear-gradient(135deg,#28a745,#4cd964);}
+  .popup.error {background:linear-gradient(135deg,#ff4d4d,#ff6b81);}
+</style>
+</head>
+<body>
+
+<div class="agents-list" id="agentsList"></div>
+
+<div class="center-display" id="centerDisplay">
+  <div class="balance-box">Coins: <span id="balance">0</span> 💰</div>
+  <button class="buy-btn" id="buyBtn">Buy</button>
+</div>
+
+<div class="role-filter">
+  <button class="role-btn" onclick="filterRole('duelist')">Duelist</button>
+  <button class="role-btn" onclick="filterRole('initiator')">Initiator</button>
+  <button class="role-btn" onclick="filterRole('sentinel')">Sentinel</button>
+  <button class="role-btn" onclick="filterRole('controller')">Controller</button>
+  <button class="role-btn" onclick="filterRole('all')">All Roles</button>
+<!-- Music toggle button -->
+<button id="musicBtn" class="role-btn" style="display:flex; align-items:center; justify-content:center; gap:5px; background-color: yellow;">
+    🎶 Music
+  </button>
+  <!-- Purchase History -->
+<div style="margin-top:20px;">
+    <h3 style="text-align:center; margin-bottom:10px;">Purchase History</h3>
+    <div id="purchaseHistory" style="background:rgba(0,0,0,0.2); padding:10px; border-radius:10px; max-height:300px; overflow-y:auto;">
+      <p style="text-align:center; color: #ccc;">No purchases yet</p>
+    </div>
+  </div>
+  
+</div>
+
+
+  
+<div id="popupContainer"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import { getDatabase, ref, onValue, update, set, get, child } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+  authDomain: "learnify-ada08.firebaseapp.com",
+  databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+  projectId: "learnify-ada08",
+  storageBucket: "learnify-ada08.appspot.com",
+  messagingSenderId: "380617329082",
+  appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+  measurementId: "G-DT4WG6622N"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const userRef = ref(db, "users/aditya");
+
+// Sample agents list
+const agents = [
+  { name: "Brimstone", role: "controller", price: 300, img: 'valorant/brimstone.WEBP' },
+  { name: "Viper", role: "controller", price: 300, img: 'valorant/viper.WEBP' },
+  { name: "Omen", role: "controller", price: 300, img: 'valorant/omen.WEBP' },
+  { name: "Killjoy", role: "sentinel", price: 300, img: 'valorant/killjoy.WEBP' },
+  { name: "Cypher", role: "sentinel", price: 300, img: 'valorant/cypher.WEBP' },
+  { name: "Sova", role: "initiator", price: 300, img: 'valorant/sova.WEBP' },
+  { name: "Sage", role: "sentinel", price: 300, img: 'valorant/sage.WEBP' },
+  { name: "Phoenix", role: "duelist", price: 300, img: 'valorant/phoenix.WEBP' },
+  { name: "Jett", role: "duelist", price: 300, img: 'valorant/jett.WEBP' },
+  { name: "Reyna", role: "duelist", price: 300, img: 'valorant/reyna.WEBP' },
+  { name: "Raze", role: "duelist", price: 300, img: 'valorant/raze.WEBP' },
+  { name: "Breach", role: "initiator", price: 300, img: 'valorant/breach.WEBP' },
+  { name: "Skye", role: "initiator", price: 300, img: 'valorant/skye.WEBP' },
+  { name: "Yoru", role: "duelist", price: 300, img: 'valorant/yoru.WEBP' },
+  { name: "Astra", role: "controller", price: 300, img: 'valorant/astra.WEBP' },
+  { name: "KAY/O", role: "initiator", price: 300, img: 'valorant/kayo.WEBP' },
+  { name: "Chamber", role: "sentinel", price: 300, img: 'valorant/chamber.WEBP' },
+  { name: "Neon", role: "duelist", price: 300, img: 'valorant/neon.WEBP' },
+  { name: "Fade", role: "initiator", price: 300, img: 'valorant/fade.WEBP' },
+  { name: "Harbor", role: "controller", price: 300, img: 'valorant/harbor.WEBP' },
+  { name: "Gekko", role: "initiator", price: 300, img: 'valorant/gekko.WEBP' },
+  { name: "Deadlock", role: "sentinel", price: 300, img: 'valorant/deadlock.WEBP' },
+  { name: "Iso", role: "duelist", price: 300, img: 'valorant/iso.WEBP' },
+  { name: "Clove", role: "controller", price: 300, img: 'valorant/clove.WEBP' },
+  { name: "Vyse", role: "sentinel", price: 300, img: 'valorant/vyse.WEBP' },
+  { name: "Tejo", role: "initiator", price: 300, img: 'valorant/tejo.WEBP' },
+  { name: "Waylay", role: "duelist", price: 300, img: 'valorant/waylay.WEBP' }
+];
+
+
+let ownedAgents = [];
+let selectedAgent = null;
+let balance = 0;
+
+const agentsListEl = document.getElementById('agentsList');
+const centerDisplayEl = document.getElementById('centerDisplay');
+const balanceEl = document.getElementById('balance');
+const buyBtn = document.getElementById('buyBtn');
+
+function showPopup(message,type="info"){
+  const container=document.getElementById("popupContainer");
+  const popup=document.createElement("div");
+  popup.className=`popup ${type}`;
+  popup.textContent=message;
+  container.appendChild(popup);
+  setTimeout(()=>popup.classList.add("show"),10);
+  setTimeout(()=>{popup.classList.remove("show"); setTimeout(()=>popup.remove(),300);},3000);
+}
+
+// Fetch user data
+onValue(userRef,(snap)=>{
+  let data = snap.val() || {};
+  balance = data.balance || 0;
+  ownedAgents = data.ownedAgents || [];
+  balanceEl.textContent = balance;
+  renderAgents();
+});
+
+// Render agent list
+function renderAgents(filteredAgents=agents){
+  agentsListEl.innerHTML="";
+  filteredAgents.forEach((agent,index)=>{
+    const card=document.createElement("div");
+    card.className="agent-card";
+    card.innerHTML=`<img src="${agent.img}" alt="${agent.name}"><div>${agent.name}</div>`;
+    if(ownedAgents.includes(agent.name)){
+      card.style.opacity="0.6";
+    }
+    card.onclick=()=>selectAgent(agent);
+    agentsListEl.appendChild(card);
+  });
+}
+
+// Select agent
+function selectAgent(agent){
+  selectedAgent=agent;
+  centerDisplayEl.querySelector('img')?.remove();
+  const img=document.createElement("img");
+  img.src=agent.img;
+  img.alt=agent.name;
+  centerDisplayEl.appendChild(img);
+
+  if(ownedAgents.includes(agent.name)){
+    buyBtn.textContent="Owned";
+    buyBtn.disabled=true;
+  }else{
+    buyBtn.textContent=`Buy for ${agent.price} 💰`;
+    buyBtn.disabled=false;
+  }
+}
+
+// Buy agent
+buyBtn.onclick = async () => {
+    if (!selectedAgent) return;
+
+    if (balance < selectedAgent.price) {
+        showPopup("Not enough coins!", "error");
+        return;
+    }
+
+    balance -= selectedAgent.price;
+    ownedAgents.push(selectedAgent.name);
+
+    update(userRef, { balance: balance, ownedAgents: ownedAgents });
+
+    balanceEl.textContent = balance;
+    buyBtn.textContent = "Owned";
+    buyBtn.disabled = true;
+
+    showPopup(`You bought ${selectedAgent.name}!`, "success");
+
+    renderAgents();
+    renderPurchaseHistory(); // update history here
+
+    // Play coin sound
+    const coinSound = new Audio("coin.mp3");
+    coinSound.play();
+};
+
+
+
+// Filter roles
+window.filterRole = function(role){
+  if(role==="all") renderAgents();
+  else renderAgents(agents.filter(a=>a.role===role));
+}
+
+// Music setup
+const musicBtn = document.getElementById('musicBtn');
+const music = new Audio('valorant.mp3'); // make sure valorant.mp3 is in the same folder or adjust path
+let isPlaying = false;
+
+musicBtn.onclick = () => {
+  if(!isPlaying){
+    music.play();
+    isPlaying = true;
+    musicBtn.textContent = "🎶 Music On";
+  } else {
+    music.pause();
+    isPlaying = false;
+    musicBtn.textContent = "🎶 Music Off";
+  }
+};
+const purchaseHistoryEl = document.getElementById('purchaseHistory');
+
+function renderPurchaseHistory() {
+  purchaseHistoryEl.innerHTML = '';
+  if(ownedAgents.length === 0){
+    purchaseHistoryEl.innerHTML = `<p style="text-align:center; color: #ccc;">No purchases yet</p>`;
+    return;
+  }
+
+  ownedAgents.forEach(agentName => {
+    const agent = agents.find(a => a.name === agentName);
+    if(agent){
+      const item = document.createElement('div');
+      item.style.display = 'flex';
+      item.style.alignItems = 'center';
+      item.style.marginBottom = '8px';
+      item.innerHTML = `
+        <img src="${agent.img}" alt="${agent.name}" style="width:30px; border-radius:5px; margin-right:8px;">
+        <span>${agent.name}</span>
+      `;
+      purchaseHistoryEl.appendChild(item);
+    }
+  });
+}
+onValue(userRef,(snap)=>{
+  let data = snap.val() || {};
+  balance = data.balance || 0;
+  ownedAgents = data.ownedAgents || [];
+  balanceEl.textContent = balance;
+  renderAgents();
+  renderPurchaseHistory();  // <--- render on page load
+});
+
+</script>
+</body>
+</html>
