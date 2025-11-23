@@ -236,4 +236,26 @@
   .valorantfloating-btn:hover {
     background: #0056b3;
     transform: scale(1.05);
+  }.tier-popup {
+    position: fixed;
+    top: 80px; /* right below your navbar */
+    left: 5%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #ffd700, #ffb300);
+    color: #000;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+    z-index: 1000;
+    animation: popupFloat 2.5s ease-in-out infinite;
   }
+  
+  /* Small floating animation */
+  @keyframes popupFloat {
+    0% { transform: translate(-50%, 0px); }
+    50% { transform: translate(-50%, 6px); }
+    100% { transform: translate(-50%, 0px); }
+  }
+  
