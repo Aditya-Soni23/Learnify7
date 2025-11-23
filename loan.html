@@ -160,8 +160,7 @@
     const userRef = ref(db, "users/aditya");
 
     // Interest rate per minute (%)
-    const INTEREST_PER_MIN = 0.05; // now 0.1% per minute
-    const MAX_LOAN = 200;
+    const MAX_LOAN = 1000;
 
     // ==== Popup utility ====
     function showPopup(message, type = "info") {
@@ -245,51 +244,52 @@
 
         // start live timer + payable updater
         setInterval(() => {
-          let elapsed = Date.now() - loan.startTime;
-          let minutes = Math.floor(elapsed / 60000);
-          let seconds = Math.floor((elapsed % 60000) / 1000);
+  let elapsed = Date.now() - loan.startTime;
+  let minutes = Math.floor(elapsed / 60000);
+  let seconds = Math.floor((elapsed % 60000) / 1000);
 
-          // update timer
-          document.getElementById(`timer-${loanId}`).textContent =
-            `⏱ Timer: ${minutes}m ${seconds}s`;
+  document.getElementById(`timer-${loanId}`).textContent =
+    `⏱ Timer: ${minutes}m ${seconds}s`;
 
-          // interest calculation: 0.1% per minute
-          let totalPayable = (loan.amount * (1 + (INTEREST_PER_MIN * minutes) / 100)).toFixed(2);
+  // Fixed 25% interest
+  let totalPayable = (loan.amount * 1.25).toFixed(2);
 
-          document.getElementById(`payable-${loanId}`).textContent =
-            `Total Payable: ${totalPayable} coins`;
-        }, 1000);
+  document.getElementById(`payable-${loanId}`).textContent =
+    `Total Payable: ${totalPayable} coins`;
+}, 1000);
+
       });
     });
 
     // ==== Repay Loan ====
     window.repayLoan = function (loanId) {
-      onValue(ref(db, `users/aditya/loans/${loanId}`), (snap) => {
-        let loan = snap.val();
-        if (!loan) return;
+  onValue(ref(db, `users/aditya/loans/${loanId}`), (snap) => {
+    let loan = snap.val();
+    if (!loan) return;
 
-        let elapsed = Date.now() - loan.startTime;
-        let minutes = Math.floor(elapsed / 60000);
+    // Fixed 25% interest
+    let totalPayable = (loan.amount * 1.25).toFixed(2);
 
-        let totalPayable = (loan.amount * (1 + (INTEREST_PER_MIN * minutes) / 100)).toFixed(2);
+    onValue(userRef, (snapshot) => {
+      let data = snapshot.val();
+      let balance = data.balance || 0;
 
-        onValue(userRef, (snapshot) => {
-          let data = snapshot.val();
-          let balance = data.balance || 0;
-          if (balance < totalPayable) {
-            showPopup("Not enough balance to repay!", "error");
-            return;
-          }
+      if (balance < totalPayable) {
+        showPopup("Not enough balance to repay!", "error");
+        return;
+      }
 
-          update(userRef, {
-            balance: balance - totalPayable
-          });
+      update(userRef, {
+        balance: balance - totalPayable
+      });
 
-          remove(ref(db, `users/aditya/loans/${loanId}`));
-          showPopup(`Loan of ${totalPayable} coins repaid!`, "success");
-        }, { onlyOnce: true });
-      }, { onlyOnce: true });
-    };
+      remove(ref(db, `users/aditya/loans/${loanId}`));
+      showPopup(`Loan of ${totalPayable} coins repaid!`, "success");
+    }, { onlyOnce: true });
+
+  }, { onlyOnce: true });
+};
+
   </script>
 </body>
 </html>
