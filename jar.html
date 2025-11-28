@@ -1,152 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="logo.png" type="image/png">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coin Jar</title>
+<title>DGem Trading</title>
 <style>
-  body {
-    font-family: 'Poppins', sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    height: 100vh;
-    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
-    overflow: hidden;
-  }
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(160deg, #0f0c29, #302b63, #24243e);
+  color: white;
+  text-align: center;
+  padding: 30px;
+  margin: 0;
+}
 
-  h1 {
-    margin-bottom: 10px;
-    color: #333;
-  }
+h1 {
+  font-size: 2.2em;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 5px #000;
+}
 
-  .balance {
-    margin-bottom: 20px;
-    font-size: 1.3em;
-    color: #555;
-  }
+.coin-preview {
+  margin: 20px auto;
+  width: 150px;
+  height: 150px;
+  perspective: 800px;
+}
 
-  .jar-container {
-    position: relative;
-    width: 1000px;  /* 5 times bigger */
-    height: 500px; /* 5 times bigger */
-    border: 5px solid #555;
-    border-radius: 50% 50% 20% 20%;
-    background: linear-gradient(to top, #c0e0ff, #ffffff);
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  }
+.flipping-coin {
+  width: 100%;
+  height: 100%;
+  animation: flip 6s infinite linear;
+  transform-style: preserve-3d;
+  box-shadow: 0 0 20px rgba(255,153,0,0.7);
+  border-radius: 50%;
+  border: 3px solid #ff9900;
+}
 
-  .coin {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, #ffd700, #ffcc00);
-    position: absolute;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    animation: fall 2s ease forwards;
-  }
+@keyframes flip {
+  0% { transform: rotateY(0deg); }
+  50% { transform: rotateY(180deg); }
+  100% { transform: rotateY(360deg); }
+}
 
-  @keyframes fall {
-    0% { transform: translateY(-50px); opacity: 0; }
-    50% { opacity: 1; }
-    100% { transform: translateY(var(--fall)); }
-  }
+.balances {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.balance-card {
+  background: rgba(255,255,255,0.1);
+  padding: 25px 35px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  min-width: 160px;
+  font-size: 1.2em;
+  transition: transform 0.3s;
+}
+
+.balance-card:hover { transform: translateY(-5px); }
+
+.actions {
+  margin: 20px 0;
+}
+
+.actions button, .balances button {
+  margin: 10px;
+  padding: 12px 25px;
+  font-size: 1em;
+  cursor: pointer;
+  border: none;
+  border-radius: 15px;
+  background: linear-gradient(45deg, #ff9900, #ffcc33);
+  color: #000;
+  font-weight: bold;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 5px 15px rgba(255,153,0,0.6);
+}
+
+.actions button:hover, .balances button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 20px rgba(255,153,0,0.9);
+}
+
+.popup, .transaction-popup {
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -35%);
+  background: #1a1a1a;
+  border: 1px solid #ff9900;
+  padding: 25px;
+  border-radius: 15px;
+  z-index: 1000;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.9);
+  color: white;
+  font-weight: bold;
+}
+
+.popup button {
+  margin: 8px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(45deg, #ff9900, #ffcc33);
+  color: #000;
+  font-weight: bold;
+}
+
+input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  border-radius: 10px;
+  border: none;
+  font-weight: bold;
+  margin-left: 10px;
+  text-align: center;
+}
+
+#homeBtn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: linear-gradient(45deg, #33ccff, #33ffcc);
+  border: none;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #000;
+  box-shadow: 0 5px 15px rgba(0,255,255,0.6);
+  transition: transform 0.2s;
+}
+
+#homeBtn:hover { transform: scale(1.05); }
 </style>
 </head>
 <body>
-  <button onclick="window.location.href='index.html'" 
-    style="position: fixed;
-           top: 20px;
-           left: 20px;
-           padding: 12px 20px;
-           border: none;
-           border-radius: 8px;
-           background: linear-gradient(135deg, #ff5ac0, #ffea00);
-           color: black;
-           font-size: 16px;
-           font-weight: bold;
-           cursor: pointer;
-           box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-           transition: all 0.3s ease;">
-🏠 Home
-</button>
 
-<h1>My Coin Jar</h1>
-<div class="balance" id="balance">Coins: 0</div>
-<div class="jar-container" id="jar"></div>
+<h1>DGem Trading Platform</h1>
+
+<div class="coin-preview">
+  <img src="dgem.jpg" class="flipping-coin" alt="DGem">
+</div>
+
+<div class="balances">
+  <div class="balance-card">Coins: <span id="coins">0</span></div>
+  <div class="balance-card">DGM: <span id="dgm">0</span></div>
+  <div class="balance-card">Price: <span id="price">0</span> coins</div>
+</div>
+
+<div class="actions">
+  <label>Quantity:
+    <input type="number" id="buyQuantity" value="1" min="1">
+  </label>
+  <button id="buyBtn">Buy DGM</button>
+  <button id="sellBtn">Sell DGM</button>
+  <button id="updatePriceBtn">Update DGM Price</button>
+  <button id="jeeBtn">Solve JEE Question</button>
+</div>
+
+<button id="homeBtn" onclick="location.href='index.html'">Home</button>
+
+<div id="popupContainer"></div>
+<div id="transactionPopup" class="transaction-popup" style="display:none;"></div>
+
+<audio id="coinSound" src="coin.mp3"></audio>
 
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, onValue, update, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-  // Firebase config
-  const firebaseConfig = {
-    apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
-    authDomain: "learnify-ada08.firebaseapp.com",
-    databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
-    projectId: "learnify-ada08",
-    storageBucket: "learnify-ada08.appspot.com",
-    messagingSenderId: "380617329082",
-    appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
-    measurementId: "G-DT4WG6622N"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+  authDomain: "learnify-ada08.firebaseapp.com",
+  databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+  projectId: "learnify-ada08",
+  storageBucket: "learnify-ada08.appspot.com",
+  messagingSenderId: "380617329082",
+  appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+  measurementId: "G-DT4WG6622N"
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-  const jar = document.getElementById('jar');
-  const balanceText = document.getElementById('balance');
-  const jarWidth = jar.clientWidth;
-  const jarHeight = jar.clientHeight;
-  const coinSize = 20;
+let coins = 0, dgm = 0, currentPrice = Math.floor(Math.random()*21 + 10);
 
-  // function to render coins inside jar
-  function renderCoins(coins) {
-    jar.innerHTML = ""; // clear previous coins
-    balanceText.innerText = `Coins: ${coins}`;
-    new Audio("coin.mp3").play();
+const coinsEl = document.getElementById("coins");
+const dgmEl = document.getElementById("dgm");
+const priceEl = document.getElementById("price");
+const coinSound = document.getElementById("coinSound");
 
+const randomPrices = Array.from({length:10}, ()=>Math.floor(Math.random()*21 + 10));
+const sampleQuestions = [
+  { question: "If f(x)=x²+2x, f'(x)?", options: ["2x","2x+2","x²+2","x²+2x"], answer: "2x+2"},
+  { question: "∫1/x dx = ?", options: ["ln(x)","1/x","x","e^x"], answer:"ln(x)"}
+];
 
-    const coinsPerRow = Math.floor(jarWidth / coinSize);
-    const maxRows = Math.floor(jarHeight / coinSize);
+function playSound(){ coinSound.currentTime=0; coinSound.play(); }
+function updateUI(){ coinsEl.textContent=coins; dgmEl.textContent=dgm; priceEl.textContent=currentPrice; }
+function showTransactionPopup(msg){
+  const popup=document.getElementById("transactionPopup");
+  popup.style.display="block"; popup.textContent=msg;
+  setTimeout(()=>{popup.style.display="none";},2000);
+}
 
-    let dropped = 0;
-    for (let row = 0; row < maxRows; row++) {
-      for (let col = 0; col < coinsPerRow; col++) {
-        if (dropped >= coins) break;
+// Firebase listeners
+onValue(ref(db,"users/aditya/balance"), snapshot => { coins = snapshot.val() || 0; updateUI(); });
+onValue(ref(db,"users/aditya/dgm"), snapshot => { dgm = snapshot.val() || 0; updateUI(); });
 
-        const coin = document.createElement("div");
-        coin.classList.add("coin");
+// Buy DGM
+document.getElementById("buyBtn").addEventListener("click", () => {
+  const qty = parseInt(document.getElementById("buyQuantity").value) || 1;
+  const cost = qty * currentPrice;
+  if(coins >= cost){
+    coins -= cost; dgm += qty;
+    update(ref(db,"users/aditya"), { balance: coins, dgm: dgm });
+    playSound(); showTransactionPopup(`Bought ${qty} DGM for ${cost} coins`);
+    updateUI();
+  } else alert("Not enough coins!");
+});
 
-        let x = col * coinSize + Math.random() * 10;
-        coin.style.left = `${x}px`;
+// Sell DGM
+document.getElementById("sellBtn").addEventListener("click", () => {
+  const qty = parseInt(document.getElementById("buyQuantity").value) || 1;
+  if(dgm >= qty){
+    dgm -= qty; coins += qty * currentPrice;
+    update(ref(db,"users/aditya"), { balance: coins, dgm: dgm });
+    playSound(); showTransactionPopup(`Sold ${qty} DGM for ${qty*currentPrice} coins`);
+    updateUI();
+  } else alert("Not enough DGM!");
+});
 
-        let y = jarHeight - coinSize - row * coinSize;
-        coin.style.top = "0px";
-        coin.style.setProperty("--fall", `${y}px`);
-        coin.style.animationDelay = `${Math.random() * 2}s`;
+// Update DGM price
+document.getElementById("updatePriceBtn").addEventListener("click", () => {
+  currentPrice = randomPrices[Math.floor(Math.random()*randomPrices.length)];
+  updateUI();
+});
 
-        jar.appendChild(coin);
-        dropped++;
-      }
-      if (dropped >= coins) break;
-    }
-  }
+// JEE Question popup
+document.getElementById("jeeBtn").addEventListener("click", () => {
+  const q = sampleQuestions[Math.floor(Math.random()*sampleQuestions.length)];
+  const container = document.getElementById("popupContainer");
+  container.innerHTML = `<div class="popup"><h3>${q.question}</h3>` +
+    q.options.map(opt => `<button onclick="answer('${opt}','${q.answer}')">${opt}</button>`).join('') +
+    `</div>`;
+});
 
-  // 🔥 Listen for real-time balance updates
-  const balanceRef = ref(db, "users/aditya/balance");
-  onValue(balanceRef, (snapshot) => {
-    if (snapshot.exists()) {
-      renderCoins(snapshot.val());
-    }
-  });
+window.answer = (selected, correct) => {
+  document.getElementById("popupContainer").innerHTML = "";
+  if(selected === correct){ dgm += 4; showTransactionPopup("+4 DGM"); }
+  else { dgm -= 1; showTransactionPopup("-1 DGM"); }
+  update(ref(db,"users/aditya"), { dgm: dgm });
+  updateUI(); playSound();
+}
 </script>
-
 
 </body>
 </html>
