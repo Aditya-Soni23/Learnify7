@@ -170,94 +170,139 @@ input[type="number"] {
 <audio id="coinSound" src="coin.mp3"></audio>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, onValue, update, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
-  authDomain: "learnify-ada08.firebaseapp.com",
-  databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
-  projectId: "learnify-ada08",
-  storageBucket: "learnify-ada08.appspot.com",
-  messagingSenderId: "380617329082",
-  appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
-  measurementId: "G-DT4WG6622N"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-let coins = 0, dgm = 0, currentPrice = Math.floor(Math.random()*21 + 10);
-
-const coinsEl = document.getElementById("coins");
-const dgmEl = document.getElementById("dgm");
-const priceEl = document.getElementById("price");
-const coinSound = document.getElementById("coinSound");
-
-const randomPrices = Array.from({length:10}, ()=>Math.floor(Math.random()*21 + 10));
-const sampleQuestions = [
-  { question: "If f(x)=x²+2x, f'(x)?", options: ["2x","2x+2","x²+2","x²+2x"], answer: "2x+2"},
-  { question: "∫1/x dx = ?", options: ["ln(x)","1/x","x","e^x"], answer:"ln(x)"}
-];
-
-function playSound(){ coinSound.currentTime=0; coinSound.play(); }
-function updateUI(){ coinsEl.textContent=coins; dgmEl.textContent=dgm; priceEl.textContent=currentPrice; }
-function showTransactionPopup(msg){
-  const popup=document.getElementById("transactionPopup");
-  popup.style.display="block"; popup.textContent=msg;
-  setTimeout(()=>{popup.style.display="none";},2000);
-}
-
-// Firebase listeners
-onValue(ref(db,"users/aditya/balance"), snapshot => { coins = snapshot.val() || 0; updateUI(); });
-onValue(ref(db,"users/aditya/dgm"), snapshot => { dgm = snapshot.val() || 0; updateUI(); });
-
-// Buy DGM
-document.getElementById("buyBtn").addEventListener("click", () => {
-  const qty = parseInt(document.getElementById("buyQuantity").value) || 1;
-  const cost = qty * currentPrice;
-  if(coins >= cost){
-    coins -= cost; dgm += qty;
-    update(ref(db,"users/aditya"), { balance: coins, dgm: dgm });
-    playSound(); showTransactionPopup(`Bought ${qty} DGM for ${cost} coins`);
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, onValue, update, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+    authDomain: "learnify-ada08.firebaseapp.com",
+    databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+    projectId: "learnify-ada08",
+    storageBucket: "learnify-ada08.appspot.com",
+    messagingSenderId: "380617329082",
+    appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+    measurementId: "G-DT4WG6622N"
+  };
+  
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  
+  let coins = 0, dgm = 0, currentPrice = Math.floor(Math.random() * 21 + 10);
+  
+  const coinsEl = document.getElementById("coins");
+  const dgmEl = document.getElementById("dgm");
+  const priceEl = document.getElementById("price");
+  const coinSound = document.getElementById("coinSound");
+  
+  const randomPrices = Array.from({length: 10}, () => Math.floor(Math.random() * 21 + 10));
+  
+  const sampleQuestions = {
+    physics: [
+      { question: "A car accelerates from 0 to 20 m/s in 5s. Its acceleration?", options: ["2 m/s²", "4 m/s²", "5 m/s²", "1 m/s²"], answer: "4 m/s²" },
+      { question: "Newton's 3rd law explains?", options: ["Inertia", "Force pairs", "Gravity", "Friction"], answer: "Force pairs" },
+      { question: "Unit of electric current?", options: ["Volt", "Ampere", "Ohm", "Coulomb"], answer: "Ampere" },
+      { question: "Frequency of a wave formula?", options: ["v/λ", "λ/v", "v*λ", "v+λ"], answer: "v/λ" },
+      { question: "Gravitational acceleration on Earth?", options: ["9.8 m/s²", "10 m/s²", "8.9 m/s²", "9 m/s²"], answer: "9.8 m/s²" },
+      { question: "Energy stored in a capacitor?", options: ["1/2 C V²", "C V²", "1/2 m v²", "m g h"], answer: "1/2 C V²" },
+      { question: "Lens formula?", options: ["1/f = 1/v - 1/u", "f = u + v", "v = f - u", "1/f = 1/u + 1/v"], answer: "1/f = 1/u + 1/v" },
+      { question: "Unit of pressure?", options: ["Pascal", "Newton", "Joule", "Watt"], answer: "Pascal" },
+      { question: "Projectile motion max height?", options: ["u² sin²θ / 2g", "u² cos²θ / 2g", "u² / g", "u² sin2θ / g"], answer: "u² sin²θ / 2g" },
+      { question: "SI unit of resistance?", options: ["Ohm", "Volt", "Ampere", "Tesla"], answer: "Ohm" }
+    ],
+    chemistry: [
+      { question: "Molar mass of H2O?", options: ["18 g/mol", "20 g/mol", "16 g/mol", "22 g/mol"], answer: "18 g/mol" },
+      { question: "Which is a noble gas?", options: ["Oxygen", "Nitrogen", "Neon", "Hydrogen"], answer: "Neon" },
+      { question: "Electrolysis of water produces?", options: ["H2 only", "O2 only", "H2 + O2", "CO2"], answer: "H2 + O2" },
+      { question: "pH of neutral solution?", options: ["7", "0", "14", "1"], answer: "7" },
+      { question: "Atomic number of Carbon?", options: ["6", "12", "14", "8"], answer: "6" },
+      { question: "Most reactive metal?", options: ["Potassium", "Gold", "Iron", "Copper"], answer: "Potassium" },
+      { question: "Chemical formula of salt?", options: ["NaCl", "KCl", "CaCl2", "HCl"], answer: "NaCl" },
+      { question: "Oxidation state of oxygen in H2O?", options: ["-2", "0", "+1", "+2"], answer: "-2" },
+      { question: "Which gas is released in photosynthesis?", options: ["Oxygen", "CO2", "H2", "N2"], answer: "Oxygen" },
+      { question: "Avogadro's number?", options: ["6.022×10²³", "3.14", "9.8", "1.6×10⁻¹⁹"], answer: "6.022×10²³" }
+    ],
+    math: [
+      { question: "Derivative of sin(x)?", options: ["cos(x)", "-cos(x)", "sin(x)", "-sin(x)"], answer: "cos(x)" },
+      { question: "Integral of 1/x dx?", options: ["ln(x)", "1/x", "x", "e^x"], answer: "ln(x)" },
+      { question: "Solve 2x + 3 = 7", options: ["1", "2", "3", "4"], answer: "2" },
+      { question: "Limit of (sin x)/x as x→0?", options: ["1", "0", "∞", "-1"], answer: "1" },
+      { question: "Derivative of x²?", options: ["2x", "x²", "x", "1"], answer: "2x" },
+      { question: "Quadratic equation x² - 5x + 6 = 0, roots?", options: ["2,3", "1,6", "3,2", "0,5"], answer: "2,3" },
+      { question: "Value of π (approx)?", options: ["3.1416", "3", "3.15", "3.14"], answer: "3.1416" },
+      { question: "Sum of first n natural numbers?", options: ["n(n+1)/2", "n²", "n(n-1)/2", "n+1"], answer: "n(n+1)/2" },
+      { question: "Derivative of e^x?", options: ["e^x", "x", "1", "ln(x)"], answer: "e^x" },
+      { question: "Integral of x dx?", options: ["x²/2", "x²", "2x", "1/x"], answer: "x²/2" }
+    ]
+  };
+  
+  // Function to get a random question
+  function getRandomJEEQuestion() {
+    const subjects = Object.keys(sampleQuestions);
+    const randomSubject = subjects[Math.floor(Math.random() * subjects.length)];
+    const questions = sampleQuestions[randomSubject];
+    return questions[Math.floor(Math.random() * questions.length)];
+  }
+  
+  // Utility functions
+  function playSound() { coinSound.currentTime = 0; coinSound.play(); }
+  function updateUI() { coinsEl.textContent = coins; dgmEl.textContent = dgm; priceEl.textContent = currentPrice; }
+  function showTransactionPopup(msg) {
+    const popup = document.getElementById("transactionPopup");
+    popup.style.display = "block"; popup.textContent = msg;
+    setTimeout(() => { popup.style.display = "none"; }, 2000);
+  }
+  
+  // Firebase listeners
+  onValue(ref(db, "users/aditya/balance"), snapshot => { coins = snapshot.val() || 0; updateUI(); });
+  onValue(ref(db, "users/aditya/dgm"), snapshot => { dgm = snapshot.val() || 0; updateUI(); });
+  
+  // Buy DGM
+  document.getElementById("buyBtn").addEventListener("click", () => {
+    const qty = parseInt(document.getElementById("buyQuantity").value) || 1;
+    const cost = qty * currentPrice;
+    if(coins >= cost){
+      coins -= cost; dgm += qty;
+      update(ref(db,"users/aditya"), { balance: coins, dgm: dgm });
+      playSound(); showTransactionPopup(`Bought ${qty} DGM for ${cost} coins`);
+      updateUI();
+    } else alert("Not enough coins!");
+  });
+  
+  // Sell DGM
+  document.getElementById("sellBtn").addEventListener("click", () => {
+    const qty = parseInt(document.getElementById("buyQuantity").value) || 1;
+    if(dgm >= qty){
+      dgm -= qty; coins += qty * currentPrice;
+      update(ref(db,"users/aditya"), { balance: coins, dgm: dgm });
+      playSound(); showTransactionPopup(`Sold ${qty} DGM for ${qty*currentPrice} coins`);
+      updateUI();
+    } else alert("Not enough DGM!");
+  });
+  
+  // Update DGM price
+  document.getElementById("updatePriceBtn").addEventListener("click", () => {
+    currentPrice = randomPrices[Math.floor(Math.random() * randomPrices.length)];
     updateUI();
-  } else alert("Not enough coins!");
-});
-
-// Sell DGM
-document.getElementById("sellBtn").addEventListener("click", () => {
-  const qty = parseInt(document.getElementById("buyQuantity").value) || 1;
-  if(dgm >= qty){
-    dgm -= qty; coins += qty * currentPrice;
-    update(ref(db,"users/aditya"), { balance: coins, dgm: dgm });
-    playSound(); showTransactionPopup(`Sold ${qty} DGM for ${qty*currentPrice} coins`);
-    updateUI();
-  } else alert("Not enough DGM!");
-});
-
-// Update DGM price
-document.getElementById("updatePriceBtn").addEventListener("click", () => {
-  currentPrice = randomPrices[Math.floor(Math.random()*randomPrices.length)];
-  updateUI();
-});
-
-// JEE Question popup
-document.getElementById("jeeBtn").addEventListener("click", () => {
-  const q = sampleQuestions[Math.floor(Math.random()*sampleQuestions.length)];
-  const container = document.getElementById("popupContainer");
-  container.innerHTML = `<div class="popup"><h3>${q.question}</h3>` +
-    q.options.map(opt => `<button onclick="answer('${opt}','${q.answer}')">${opt}</button>`).join('') +
-    `</div>`;
-});
-
-window.answer = (selected, correct) => {
-  document.getElementById("popupContainer").innerHTML = "";
-  if(selected === correct){ dgm += 4; showTransactionPopup("+4 DGM"); }
-  else { dgm -= 1; showTransactionPopup("-1 DGM"); }
-  update(ref(db,"users/aditya"), { dgm: dgm });
-  updateUI(); playSound();
-}
-</script>
+  });
+  
+  // JEE Question popup
+  document.getElementById("jeeBtn").addEventListener("click", () => {
+    const q = getRandomJEEQuestion();
+    const container = document.getElementById("popupContainer");
+    container.innerHTML = `<div class="popup"><h3>${q.question}</h3>` +
+      q.options.map(opt => `<button onclick="answer('${opt}','${q.answer}')">${opt}</button>`).join('') +
+      `</div>`;
+  });
+  
+  window.answer = (selected, correct) => {
+    document.getElementById("popupContainer").innerHTML = "";
+    if(selected === correct){ dgm += 4; showTransactionPopup("+4 DGM"); }
+    else { dgm -= 1; showTransactionPopup("-1 DGM"); }
+    update(ref(db,"users/aditya"), { dgm: dgm });
+    updateUI(); playSound();
+  }
+  </script>
+  
 
 </body>
 </html>
