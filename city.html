@@ -210,21 +210,28 @@
     wheelCanvas.style.transform = `rotate(${randomAngle}deg)`;
 
     setTimeout(async () => {
-        const finalAngle = randomAngle % 360;
-        const segmentIndex = Math.floor((360 - finalAngle) / 72) % 5;
-        const result = segments[segmentIndex];
+    const finalAngle = randomAngle % 360;
+    const segmentIndex = Math.floor((360 - finalAngle) / 72) % 5;
+    const result = segments[segmentIndex];
 
-        if (result === "+100 Coins") {
-            set(balanceRef, coins + 100);
-        } else {
-            push(loansRef, { amount: 400, startTime: Date.now() });
-        }
+    if (result === "+100 Coins") {
+        // Add 100 coins
+        set(balanceRef, coins + 100);
 
-        push(historyRef, { result, time: Date.now() });
+    } else {
+        // Add 400 coins ALSO
+        set(balanceRef, coins + 400);
 
-        alert("You got: " + result);
-        spinning = false;
-    }, 4000);
+        // AND write loan entry
+        push(loansRef, { amount: 400, startTime: Date.now() });
+    }
+
+    push(historyRef, { result, time: Date.now() });
+
+    alert("You got: " + result);
+    spinning = false;
+}, 4000);
+
 }
 
 
