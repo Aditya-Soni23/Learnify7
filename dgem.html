@@ -257,19 +257,19 @@ document.getElementById("buyBtn").addEventListener("click", () => {
 document.getElementById("updatePriceBtn").addEventListener("click", () => {
 
 if (coins < 50) {
-  alert("You need at least 50 coins to update the price!");
+  alert("You need at least 10 coins to update the price!");
   return;
 }
 
 // Deduct 50 coins
-coins -= 50;
+coins -= 10;
 update(ref(db, "users/aditya"), { balance: coins });
 
 // Show popup
-showTransactionPopup("-50 Coins (Price Update)");
+showTransactionPopup("-10 Coins (Price Update)");
 
 // Save transaction in history
-saveTransaction("Price Update Charge", 0, 0, 50);
+saveTransaction("Price Update Charge", 0, 0, 10);
 
 // Update DGM price
 currentPrice = randomPrices[Math.floor(Math.random() * randomPrices.length)];

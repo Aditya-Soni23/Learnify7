@@ -107,7 +107,7 @@
     <canvas id="wheel" width="300" height="300"></canvas>
 </div>
 
-<button onclick="spinWheel()">SPIN (Cost: 5 DGM)</button>
+<button onclick="spinWheel()">SPIN (Cost: 1 DGM)</button>
 
 <h2>Spin History</h2>
 <div id="historyBox">Loading...</div>
@@ -206,13 +206,13 @@
         if (spinning) return;
         spinning = true;
 
-        if (dgm < 5) {
+        if (dgm < 1) {
             alert("Not enough DGM!");
             spinning = false;
             return;
         }
 
-        await set(dgmRef, dgm - 5);
+        await set(dgmRef, dgm - 1);
 
         const randomAngle = 360 * 5 + Math.floor(Math.random() * 360);
         wheelCanvas.style.transition = "transform 4s ease-out";
