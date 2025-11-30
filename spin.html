@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spin Wheel</title>
+
+<!-- Styling -->
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #0f0c29;
+        background: linear-gradient(160deg, #0f0c29, #302b63, #24243e);
+        color: #fff;
+        text-align: center;
+        padding: 20px;
+    }
+
+    h1 { margin-top: 10px; }
+
+    #balances {
+        margin: 20px 0;
+        font-size: 20px;
+        padding: 10px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 10px;
+        display: inline-block;
+    }
+
+    #wheelContainer {
+        margin: 40px auto;
+        position: relative;
+        width: 300px;
+        height: 300px;
+    }
+
+    #pointer {
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        border-bottom: 30px solid yellow;
+        position: absolute;
+        top: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+    }
+
+    #wheel {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        border: 6px solid #fff;
+        background: #222;
+    }
+
+    button {
+        margin-top: 25px;
+        padding: 12px 25px;
+        background: #ffbb00;
+        color: #000;
+        font-size: 18px;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover { background: #ffaa00; }
+
+    #historyBox {
+        margin-top: 30px;
+        background: rgba(255,255,255,0.1);
+        padding: 15px;
+        border-radius: 10px;
+        text-align: left;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .homeBtn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        padding: 8px 18px;
+        background: #fff;
+        border-radius: 10px;
+        color: #000;
+        font-weight: bold;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="homeBtn">🏠 Home</a>
+
+<h1>Spin Wheel</h1>
+
+<div id="balances">
+    DGM: <span id="dgm">0</span> |
+    Coins: <span id="coins">0</span>
+</div>
+
+<div id="wheelContainer">
+    <div id="pointer"></div>
+    <canvas id="wheel" width="300" height="300"></canvas>
+</div>
+
+<button onclick="spinWheel()">SPIN (Cost: 5 DGM)</button>
+
+<h2>Spin History</h2>
+<div id="historyBox">Loading...</div>
+
+<!-- Firebase + Script -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getDatabase, ref, get, set, update, push, onValue } 
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOjH0",
+        authDomain: "dgem-app.firebaseapp.com",
+        databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+        projectId: "dgem-app",
+        storageBucket: "dgem-app.appspot.com",
+        messagingSenderId: "401795267585",
+        appId: "1:401795267585:web:fb9dfc4881dd7c3a4bd70d"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const balanceRef = ref(db, "users/aditya/balance");
+    const dgmRef = ref(db, "users/aditya/dgm");
+    const loansRef = ref(db, "users/aditya/loans");
+    const historyRef = ref(db, "users/aditya/spinHistory");
+
+    let dgm = 0;
+    let coins = 0;
+
+    onValue(dgmRef, snap => {
+        dgm = snap.val() || 0;
+        document.getElementById("dgm").innerText = dgm;
+    });
+
+    onValue(balanceRef, snap => {
+        coins = snap.val() || 0;
+        document.getElementById("coins").innerText = coins;
+    });
+
+    onValue(historyRef, snap => {
+        const hist = snap.val();
+        let html = "";
+        if (!hist) html = "No spins yet.";
+        else {
+            const arr = Object.values(hist).reverse();
+            arr.forEach(h => {
+                html += `<div>🎯 ${h.result} <br><small>${new Date(h.time).toLocaleString()}</small></div><hr>`;
+            });
+        }
+        document.getElementById("historyBox").innerHTML = html;
+    });
+
+    // 🎯 6 SEGMENTS
+    const wheelCanvas = document.getElementById("wheel");
+    const ctx = wheelCanvas.getContext("2d");
+
+    const segments = [
+        "+100 Coins",
+        "+100 Coins",
+        "+100 Coins",
+        "Loan 400",
+        "Loan 400",
+        "Loan 400"
+    ];
+
+    const colors = ["#ff4444", "#44ff44", "#4444ff", "#ffbb00", "#aa44ff", "#00e6e6"];
+
+    // Draw 6-segment wheel
+    function drawWheel() {
+        const arc = (2 * Math.PI) / segments.length;
+
+        for (let i = 0; i < segments.length; i++) {
+            ctx.beginPath();
+            ctx.fillStyle = colors[i];
+            ctx.moveTo(150, 150);
+            ctx.arc(150, 150, 150, arc * i, arc * (i + 1));
+            ctx.lineTo(150, 150);
+            ctx.fill();
+
+            ctx.save();
+            ctx.translate(150, 150);
+            ctx.rotate(arc * (i + 0.5));
+            ctx.fillStyle = "#fff";
+            ctx.font = "16px Arial";
+            ctx.fillText(segments[i], 60, 10);
+            ctx.restore();
+        }
+    }
+    drawWheel();
+
+    let spinning = false;
+
+    async function spinWheel() {
+        if (spinning) return;
+        spinning = true;
+
+        if (dgm < 5) {
+            alert("Not enough DGM!");
+            spinning = false;
+            return;
+        }
+
+        await set(dgmRef, dgm - 5);
+
+        const randomAngle = 360 * 5 + Math.floor(Math.random() * 360);
+        wheelCanvas.style.transition = "transform 4s ease-out";
+        wheelCanvas.style.transform = `rotate(${randomAngle}deg)`;
+
+        setTimeout(async () => {
+            const finalAngle = randomAngle % 360;
+
+            // 6 segments → each 60 degrees
+            const segmentIndex = Math.floor((360 - finalAngle) / 60) % 6;
+            const result = segments[segmentIndex];
+
+            if (result === "+100 Coins") {
+                set(balanceRef, coins + 100);
+            } else {
+                set(balanceRef, coins + 400);
+                push(loansRef, { amount: 400, startTime: Date.now() });
+            }
+
+            push(historyRef, { result, time: Date.now() });
+
+            alert("You got: " + result);
+            spinning = false;
+        }, 4000);
+    }
+
+    window.spinWheel = spinWheel;
+</script>
+
+
+</body>
+</html>
