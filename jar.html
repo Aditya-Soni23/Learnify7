@@ -156,7 +156,6 @@ input[type="number"] {
     <input type="number" id="buyQuantity" value="1" min="1">
   </label>
   <button id="buyBtn">Buy DGM</button>
-  <button id="sellBtn">Sell DGM</button>
   <button id="updatePriceBtn">Update DGM Price</button>
   <button id="jeeBtn">Solve JEE Question</button>
 </div>
@@ -253,18 +252,6 @@ document.getElementById("buyBtn").addEventListener("click", () => {
   } else alert("Not enough coins!");
 });
 
-// SELL
-document.getElementById("sellBtn").addEventListener("click", () => {
-  const qty = parseInt(document.getElementById("buyQuantity").value) || 1;
-
-  if (dgm >= qty) {
-    dgm -= qty; coins += qty * currentPrice;
-    update(ref(db, "users/aditya"), { balance: coins, dgm });
-    showTransactionPopup(`Sold ${qty} DGM for ${qty*currentPrice} coins`);
-    saveTransaction("Sold", qty, currentPrice, qty*currentPrice);
-    playSound(); updateUI();
-  } else alert("Not enough DGM!");
-});
 
 // UPDATE PRICE
 document.getElementById("updatePriceBtn").addEventListener("click", () => {
@@ -338,13 +325,13 @@ window.answer = (selected, correct) => {
   document.getElementById("popupContainer").innerHTML = "";
 
   if (selected === correct) {
-    dgm += 4;
-    showTransactionPopup("+4 DGM");
-    saveTransaction("Answer Correct (+4 DGM)", 4, 0, 0);
+    dgm += 1;
+    showTransactionPopup("+1 DGM");
+    saveTransaction("Answer Correct (+1 DGM)", 1, 0, 0);
   } else {
-    dgm -= 1;
-    showTransactionPopup("-1 DGM");
-    saveTransaction("Answer Wrong (-1 DGM)", 1, 0, 0);
+    dgm -= 4;
+    showTransactionPopup("-4 DGM");
+    saveTransaction("Answer Wrong (-4 DGM)", 4, 0, 0);
   }
 
   update(ref(db, "users/aditya"), { dgm });
