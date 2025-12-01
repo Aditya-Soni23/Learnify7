@@ -200,18 +200,18 @@
       let coins = 0;
 
       // Question coins
-      if (totalQ <= 60) coins += totalQ * 2;
-      else coins += (60 * 2) + ((totalQ - 60) * 3);
+      if (totalQ <= 60) coins += totalQ * 5;
+      else coins += (60 * 2) + ((totalQ - 60) * 8);
 
       // Productivity bonuses
-      if (productivity.includes("oneshot")) coins += 50;
-      else if (productivity.includes("test")) coins += 40;
-      else if (productivity.includes("ipe")) coins += 20;
-      else if (productivity.includes("ncert")) coins += 30;
-      else if (productivity.includes("revision")) coins += 30;
-      else if (productivity.includes("reading")) coins += 10;
-      else if (productivity.includes("concept")) coins += 25;
-      else if (productivity.includes("formula sheet")) coins += 15;
+      if (productivity.includes("oneshot")) coins += 100;
+      else if (productivity.includes("test")) coins += 100;
+      else if (productivity.includes("ipe")) coins += 50;
+      else if (productivity.includes("ncert")) coins += 50;
+      else if (productivity.includes("revision")) coins += 50;
+      else if (productivity.includes("reading")) coins += 50;
+      else if (productivity.includes("concept")) coins += 100;
+      else if (productivity.includes("formula sheet")) coins += 100;
 
       // Daily goal
       let streakAdd = 0;

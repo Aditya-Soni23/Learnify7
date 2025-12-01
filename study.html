@@ -231,7 +231,7 @@
   }
 
   function saveStudySession(duration) {
-    const coinsEarned = duration * 2;
+    const coinsEarned = duration * 5;
     const now = new Date().toISOString();
 
     push(ref(db, `users/${userNode}/studySessions`), {
