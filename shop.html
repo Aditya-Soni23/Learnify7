@@ -14,108 +14,6 @@
       color: #eee;
     }
 
-    /* --- Ticket Styling --- */
-    .ticket {
-      position: relative;
-      width: 600px;      /* consistent horizontal look */
-      min-height: 200px;
-      padding: 25px 25px;
-      margin: 10px auto;
-      color: white;
-      font-weight: bold;
-      text-align: left;
-      border-radius: 12px;
-      overflow: hidden;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    /* Background styles */
-    .ticket.gold {
-      background: linear-gradient(135deg, #ffcc00, #ff9900);
-      box-shadow: 0 0 20px rgba(255,200,0,0.6);
-    }
-    .ticket.neon {
-      background: linear-gradient(135deg, #00f5ff, #0aff96);
-      box-shadow: 0 0 25px rgba(0,255,200,0.6);
-    }
-    .ticket.purple {
-      background: linear-gradient(135deg, #a855f7, #ec4899);
-      box-shadow: 0 0 25px rgba(200,100,255,0.6);
-    }
-    .ticket.redblue {
-      background: linear-gradient(135deg, #ff0000, #007bff);
-      box-shadow: 0 0 25px rgba(255,0,150,0.5);
-    }
-
-    /* Zigzag sides */
-    .ticket::before,
-    .ticket::after {
-      content: "";
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 14px;
-      background: repeating-linear-gradient(
-        #0a0a0a 0 8px,
-        transparent 8px 16px
-      );
-      z-index: 2;
-    }
-    .ticket::before {
-      left: -7px;
-    }
-    .ticket::after {
-      right: -7px;
-      transform: rotate(180deg);
-    }
-
-    /* Dotted tear line */
-    .ticket .cut-line {
-      position: absolute;
-      top: 15px;
-      bottom: 15px;
-      right: 120px;
-      width: 2px;
-      border-right: 2px dashed rgba(255,255,255,0.7);
-      z-index: 3;
-    }
-
-    /* Hover effect */
-    .ticket:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 40px rgba(255,255,255,0.9);
-    }
-
-    /* Ticket Content */
-    .ticket h2 {
-      margin: 0 0 10px;
-      font-size: 20px;
-    }
-    .ticket p {
-      margin: 0 0 15px;
-      font-size: 16px;
-      font-weight: normal;
-    }
-
-    /* Buy Button */
-    .buy-btn {
-      background: linear-gradient(135deg, #ff9966, #ff5e62);
-      color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: background 0.3s;
-      z-index: 5;
-    }
-    .buy-btn:hover {
-      background: linear-gradient(135deg, #ff5e62, #ff9966);
-    }
 
     /* Sections */
     .shop-section {
@@ -203,6 +101,72 @@
       margin: 10px 0 30px;
       text-align: center;
     }
+    .pack-box {
+  position: relative;
+  width: 600px;
+  height: 300px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* Pack image */
+.pack-box img {
+  width: 100%;
+  display: block;
+}
+
+/* Overlay bar */
+.buy-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 85%;
+  height: 40px;
+  background: rgba(0,0,0,0.6);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.35);
+}
+
+/* Text */
+.buy-overlay span {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Fill bar */
+.buy-overlay .fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  transition: width 0.7s ease;
+  z-index: 2;
+}
+
+/* Hover → fill */
+.pack-box:hover .fill {
+  width: 100%;
+}
+
+/* Extra polish */
+.pack-box:hover {
+  transform: scale(1.03);
+  transition: transform 0.25s ease;
+}
+
   </style>
 </head>
 <body>
@@ -216,108 +180,140 @@
   <section class="shop-section">
     <h2 class="section-title">📺 Youtube</h2>
     <div class="shop-grid">
-      <div class="ticket gold">
-        <div class="cut-line"></div>
-        <h2>📽️ 10 Min Youtube Pass</h2>
-        <p>Cost: 500 Coins</p>
-        <button class="buy-btn" onclick="buyItem('📽️ 10 Min Youtube Pass', 500)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="youtubepacket.png">
+        <div class="buy-overlay" onclick="buyItem('📽️ 10 Min Youtube Pass', 500)">
+          <div class="fill"></div>
+          <span>📽️ 10 Min Youtube Pass BUY – 500 🪙</span>
+        </div>
       </div>
-      <div class="ticket neon">
-        <div class="cut-line"></div>
-        <h2>📽️ 15 Min Youtube Pass</h2>
-        <p>Cost: 800 Coins</p>
-        <button class="buy-btn" onclick="buyItem('📽️ 15 Min Youtube Pass', 800)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="youtubepacket.png">
+        <div class="buy-overlay" onclick="buyItem('📽️ 15 Min Youtube Pass', 800)">
+          <div class="fill"></div>
+          <span>📽️ 15 Min Youtube Pass BUY – 800 🪙</span>
+        </div>
       </div>
-
-      <div class="ticket redblue">
-        <div class="cut-line"></div>
-        <h2>📽️ 20 Min Youtube Pass</h2>
-        <p>Cost: 1000 Coins</p>
-        <button class="buy-btn" onclick="buyItem('📽️ 20 Min Youtube Pass', 1000)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="youtubepacket.png">
+        <div class="buy-overlay" onclick="buyItem('📽️ 20 Min Youtube Pass', 1000)">
+          <div class="fill"></div>
+          <span>📽️ 20 Min Youtube Pass BUY – 1000 🪙</span>
+        </div>
       </div>
-
-      <div class="ticket purple">
-        <div class="cut-line"></div>
-        <h2>📽️ 30 Min Youtube Pass</h2>
-        <p>Cost: 1500 Coins</p>
-        <button class="buy-btn" onclick="buyItem('📽️ 30 Min Youtube Pass', 1500)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="youtubepacket.png">
+        <div class="buy-overlay" onclick="buyItem('📽️ 30 Min Youtube Pass', 1500)">
+          <div class="fill"></div>
+          <span>📽️ 30 Min Youtube Pass BUY – 1500 🪙</span>
+        </div>
       </div>
-      <div class="ticket gold">
-        <div class="cut-line"></div>
-        <h2>📽️ 60 Min Youtube Pass</h2>
-        <p>Cost: 3000 Coins</p>
-        <button class="buy-btn" onclick="buyItem('📽️ 60 Min Youtube Pass', 3000)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="youtubepacket.png">
+        <div class="buy-overlay" onclick="buyItem('📽️ 60 Min Youtube Pass', 3000)">
+          <div class="fill"></div>
+          <span>📽️ 60 Min Youtube Pass BUY – 3000 🪙</span>
+        </div>
       </div>
+  
     </div>
   </section>
+  
 <br><br><br><br><br><br><br><br><br><br><br><br>
   <!-- ROBLOX -->
   <section class="shop-section">
     <h2 class="section-title">🕹️ Any Game</h2>
     <div class="shop-grid">
-      <div class="ticket gold">
-        <div class="cut-line"></div>
-        <h2>✈️ 10 Min Any game</h2>
-        <p>Cost: 600 Coins</p>
-        <button class="buy-btn" onclick="buyItem('✈️ 10 Min Any game', 600)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="gamingpacket.png">
+        <div class="buy-overlay" onclick="buyItem('✈️ 10 Min Any game', 600)">
+          <div class="fill"></div>
+          <span>✈️ 10 Min Any game BUY – 600 🪙</span>
+        </div>
       </div>
-      <div class="ticket neon">
-        <div class="cut-line"></div>
-        <h2>✈️ 15 Min Any game</h2>
-        <p>Cost: 1000 Coins</p>
-        <button class="buy-btn" onclick="buyItem('✈️ 15 Min Any game', 1000)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="gamingpacket.png">
+        <div class="buy-overlay" onclick="buyItem('✈️ 15 Min Any game', 1000)">
+          <div class="fill"></div>
+          <span>✈️ 15 Min Any game BUY – 1000 🪙</span>
+        </div>
       </div>
-      <div class="ticket redblue">
-        <div class="cut-line"></div>
-        <h2>✈️ 20 Min Any game</h2>
-        <p>Cost: 1200 Coins</p>
-        <button class="buy-btn" onclick="buyItem('✈️ 20 Min Any game', 1200)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="gamingpacket.png">
+        <div class="buy-overlay" onclick="buyItem('✈️ 20 Min Any game', 1200)">
+          <div class="fill"></div>
+          <span>✈️ 20 Min Any game BUY – 1200 🪙</span>
+        </div>
       </div>
-      <div class="ticket purple">
-        <div class="cut-line"></div>
-        <h2>✈️ 30 Min Any game</h2>
-        <p>Cost: 1500 Coins</p>
-        <button class="buy-btn" onclick="buyItem('✈️ 30 Min Any game', 1500)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="gamingpacket.png">
+        <div class="buy-overlay" onclick="buyItem('✈️ 30 Min Any game', 1500)">
+          <div class="fill"></div>
+          <span>✈️ 30 Min Any game BUY – 1500 🪙</span>
+        </div>
       </div>
-      <div class="ticket gold">
-        <div class="cut-line"></div>
-        <h2>✈️ 60 Min Any game</h2>
-        <p>Cost: 3000 Coins</p>
-        <button class="buy-btn" onclick="buyItem('✈️ 60 Min Any game', 3000)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="gamingpacket.png">
+        <div class="buy-overlay" onclick="buyItem('✈️ 60 Min Any game', 3000)">
+          <div class="fill"></div>
+          <span>✈️ 60 Min Any game BUY – 3000 🪙</span>
+        </div>
       </div>
+  
     </div>
-  </section><br><br><br><br><br><br><br><br><br><br><br><br>
+  </section>
+  <br><br><br><br><br><br><br><br><br><br><br><br>
 
   <!-- VALORANT -->
   <section class="shop-section">
     <h2 class="section-title">🎮 Valorant</h2>
     <div class="shop-grid">
-      <div class="ticket neon">
-        <div class="cut-line"></div>
-        <h2>🎮 30 Min Valorant</h2>
-        <p>Cost: 1500 Coins</p>
-        <button class="buy-btn" onclick="buyItem('🎮 30 Min Valorant', 1500)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="valorantpacket.png">
+        <div class="buy-overlay" onclick="buyItem('🎮 30 Min Valorant', 1500)">
+          <div class="fill"></div>
+          <span>🎮 30 Min Valorant BUY – 1500 🪙</span>
+        </div>
       </div>
-      <div class="ticket purple">
-        <div class="cut-line"></div>
-        <h2>🎮 60 Min Valorant</h2>
-        <p>Cost: 3000 Coins</p>
-        <button class="buy-btn" onclick="buyItem('🎮 60 Min Valorant', 3000)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="valorantpacket.png">
+        <div class="buy-overlay" onclick="buyItem('🎮 60 Min Valorant', 3000)">
+          <div class="fill"></div>
+          <span>🎮 60 Min Valorant BUY – 3000 🪙</span>
+        </div>
       </div>
-      <div class="ticket redblue">
-        <div class="cut-line"></div>
-        <h2>🎮 Competitive/Unrated Valorant</h2>
-        <p>Cost: 2500 Coins</p>
-        <button class="buy-btn" onclick="buyItem('🎮 Competitive Valorant', 2500)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="valorantpacket.png">
+        <div class="buy-overlay" onclick="buyItem('🎮 Competitive Valorant', 2500)">
+          <div class="fill"></div>
+          <span>🎮 Competitive Valorant BUY – 2500 🪙</span>
+        </div>
       </div>
-      <div class="ticket neon">
-        <div class="cut-line"></div>
-        <h2>🎮 Swiftplay/SpikeRush/TDM</h2>
-        <p>Cost: 1500 Coins</p>
-        <button class="buy-btn" onclick="buyItem('🎮 Swiftplay/SpikeRush/TDM Valorant', 1500)">Buy</button>
+  
+      <div class="pack-box">
+        <img src="valorantpacket.png">
+        <div class="buy-overlay" onclick="buyItem('🎮 Swiftplay/SpikeRush/TDM Valorant', 1500)">
+          <div class="fill"></div>
+          <span>🎮 Swiftplay/SpikeRush/TDM Valorant BUY – 1500 🪙</span>
+        </div>
       </div>
+  
     </div>
   </section>
+  
   <br><br><br><br><br><br><br><br><br><br><br><br>
   <!-- HISTORY -->
   <section class="history">
@@ -421,6 +417,12 @@
         showPurchasePopup("❌ Not enough coins!", "linear-gradient(135deg, #ff512f, #dd2476)");
       }
     };
+
+
+    function buyItem(item, cost) {
+  console.log("Buying:", item, cost);
+}
+
   </script>
 <div id="purchasePopup" style="display:none; position:fixed; 
 bottom:10%; left:50%; transform:translate(-50%, -50%);
