@@ -167,12 +167,12 @@
     const ctx = wheelCanvas.getContext("2d");
 
     const segments = [
-        "+100 Coins",
-        "Loan 400",
-        "+100 Coins",
-        "Loan 400",
-        "+100 Coins",
-        "+100 Coins"
+        "+1000 Coins",
+        "Loan 4000",
+        "+1000 Coins",
+        "Loan 4000",
+        "+1000 Coins",
+        "+1000 Coins"
     ];
 
     const colors = ["#ff4444", "#44ff44", "#4444ff", "#ffbb00", "#aa44ff", "#00e6e6"];
@@ -225,11 +225,11 @@
             const segmentIndex = Math.floor((360 - finalAngle) / 60) % 6;
             const result = segments[segmentIndex];
 
-            if (result === "+100 Coins") {
-                set(balanceRef, coins + 100);
+            if (result === "+1000 Coins") {
+                set(balanceRef, coins + 1000);
             } else {
-                set(balanceRef, coins + 400);
-                push(loansRef, { amount: 400, startTime: Date.now() });
+                set(balanceRef, coins + 4000);
+                push(loansRef, { amount: 4000, startTime: Date.now() });
             }
 
             push(historyRef, { result, time: Date.now() });
