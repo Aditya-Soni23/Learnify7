@@ -503,6 +503,7 @@ function showToast(text) {
 balanceRef.on("value", snap => {
   document.getElementById("coinBalance").textContent = snap.val() || 0;
 });
+const trackerRef = db.ref("users/aditya/tracker");
 
 /* ================= RENDER ================= */
 days.forEach((day, dIndex) => {
@@ -522,25 +523,31 @@ days.forEach((day, dIndex) => {
     checkbox.type = "checkbox";
 
     const key = `day${dIndex}_ch${cIndex}`;
-    checkbox.checked = localStorage.getItem(key) === "1";
+    trackerRef.child(key).on("value", snap => {
+  checkbox.checked = snap.val() === true;
+});
 
-    checkbox.onchange = () => {
-      balanceRef.get().then(snap => {
-        let balance = snap.val() || 0;
-        if (checkbox.checked) {
-          balance += 1000;
-          localStorage.setItem(key, "1");
-          showToast("+1000 Coins 🪙");
-        } else {
-          balance -= 1000;
-          localStorage.removeItem(key);
-          showToast("-1000 Coins 🪙");
-        }
-        balanceRef.set(balance);
-        coinSound.currentTime = 0;
-        coinSound.play();
-      });
-    };
+
+checkbox.onchange = () => {
+  balanceRef.get().then(snap => {
+    let balance = snap.val() || 0;
+
+    if (checkbox.checked) {
+      balance += 1000;
+      trackerRef.child(key).set(true);   // ✅ save tick
+      showToast("+1000 Coins 🪙");
+    } else {
+      balance -= 1000;
+      trackerRef.child(key).remove();    // ❌ remove tick
+      showToast("-1000 Coins 🪙");
+    }
+
+    balanceRef.set(balance);
+    coinSound.currentTime = 0;
+    coinSound.play();
+  });
+};
+
 
     const text = document.createElement("span");
     text.textContent = ch;
