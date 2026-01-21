@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Learnify – 30 Day Challenge</title>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<style>
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #faf5fa;
+    color: #222;
+  }
+
+  /* Top bar */
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgb(193, 193, 8);
+    padding: 15px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  /* Day card */
+  .day-card {
+    background: white;
+    margin: 18px;
+    padding: 15px 18px;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(225, 241, 1, 0.06);
+  }
+
+  .day-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+
+  /* Chapter row */
+  .chapter {
+    display: flex;
+    align-items: center;
+    margin: 8px 0;
+  }
+
+  .chapter input {
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid #999;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .chapter input:checked {
+    background: #4caf50;
+    border-color: #4caf50;
+    transform: scale(1.1);
+  }
+
+  .chapter span {
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .chapter input:checked + span {
+    opacity: 0.55;
+    text-decoration: line-through;
+  }
+
+  /* Toast popup */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: #222;
+    color: white;
+    padding: 14px 18px;
+    border-radius: 10px;
+    font-size: 15px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: 0.3s;
+    pointer-events: none;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* Grid layout for day cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+  padding: 18px;
+}
+
+/* Remove margin since grid handles spacing */
+.day-card {
+  margin: 0;
+}
+.motivator-btn {
+  background: black;
+  color: white;
+  border: 1px solid #333;
+  padding: 10px 18px;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 100px;
+}
+
+.motivator-btn:hover {
+  background: #222;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 900px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.modal video {
+  width: 100%;
+  height: auto;
+}
+.home{
+    background-color: black;
+    color: white;
+    border-radius: 5px;
+    margin-left: 100px;
+    cursor: pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="top-bar">
+  🪙 <span id="coinBalance">0</span> -Coins
+  <button onclick="home()" class="home">←Home</button>
+  <button id="motivatorBtn" class="motivator-btn">Motivator ▶️♪</button>
+
+</div>
+
+<div id="content" class="grid"></div>
+
+
+<div id="toast" class="toast"></div>
+
+<audio id="coinSound" src="coin.mp3"></audio>
+<!-- Motivator Modal -->
+<div id="motivatorModal" class="modal">
+    <div class="modal-content">
+      <video id="motivatorVideo" src="motivator.mp4" muted></video>
+    </div>
+  </div>
+  
+  <audio id="motivatorAudio" src="motivator.mp3"></audio>
+<script>
+/* ================= FIREBASE ================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+  authDomain: "learnify-ada08.firebaseapp.com",
+  databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+  projectId: "learnify-ada08",
+  storageBucket: "learnify-ada08.firebasestorage.app",
+  messagingSenderId: "380617329082",
+  appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+  measurementId: "G-DT4WG6622N"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const balanceRef = db.ref("users/aditya/balance");
+
+/* ================= DATA ================= */
+const days = [
+  {
+    title: "Day 1 – Jan 22",
+    chapters: [
+      "JEE Phy – Units and Measurements",
+      "JEE Phy – Vector and Calculus",
+      "IPE Phy – Physical World",
+      "IPE Phy – Units and Measurements",
+      "IPE Phy – Motion in a Straight Line",
+      "English – Father, Dear Father",
+      "English – The Green Champion – Thimmakka",
+      "English – The First Four Minutes",
+      "English – Odd Sounds",
+      "English – Syllable Identification"
+    ]
+  },
+  {
+    title: "Day 2 – Jan 23",
+    chapters: [
+      "JEE Phy – Motion in a Straight Line",
+      "JEE Phy – Motion in a Plane",
+      "JEE Chem – Some Basic Concepts of Chemistry",
+      "IPE Math IA – Functions",
+      "IPE Phy – Motion in a Plane",
+      "IPE Phy – Laws of Motion",
+      "IPE Phy – Work Power Energy",
+      "English – Playing the Game",
+      "English – The Five Boons of Life",
+      "English – Keep Going",
+      "English – Happiness"
+    ]
+  },
+  {
+    title: "Day 3 – Jan 24",
+    chapters: [
+      "JEE Math – Basic Mathematics and Logarithm",
+      "JEE Chem – Atomic Structure",
+      "JEE Chem – Periodic Table and Periodicity",
+      "IPE Chem – Atomic Structure",
+      "IPE Chem – Periodic Classification of Elements",
+      "Sanskrit – भर्तृहरिसुभाषितानि",
+      "Sanskrit – रामो विग्रहवान् धर्म:",
+      "Sanskrit – लक्ष्यशुद्धि:",
+      "English – The Beggar",
+      "English – Phonetics",
+      "English – Silent Consonants",
+      "English – Missing Letters",
+      "English – Question Tags"
+    ]
+  },
+  {
+    title: "Day 4 – Jan 25",
+    chapters: [
+      "JEE Phy – Newton’s Laws of Motion",
+      "JEE Phy – Friction",
+      "IPE Phy – System of Particles",
+      "IPE Phy – Oscillations",
+      "IPE Phy – Mechanical Properties of Solids",
+      "IPE Phy – Mechanical Properties of Fluids",
+      "English – The Short-sighted Brothers",
+      "English – Glossary",
+      "English – Direct & Indirect Speech",
+      "English – Degrees of Comparison",
+      "English – Correction of Sentences"
+    ]
+  },
+  {
+    title: "Day 5 – Jan 26",
+    chapters: [
+      "JEE Chem – Mole Concept",
+      "JEE Chem – Chemical Bonding",
+      "JEE Chem – Redox Reactions",
+      "IPE Chem – Chemical Bonding & Molecular Structure",
+      "IPE Chem – Stoichiometry",
+      "IPE Chem – Chemical Equilibrium & Acids",
+      "Sanskrit – श्रीकृष्णस्य गुरुदक्षिणा",
+      "Sanskrit – गानपरीक्षा"
+    ]
+  },
+  {
+    title: "Day 6 – Jan 27",
+    chapters: [
+      "JEE Math – Quadratic Equations",
+      "IPE Math IB – Locus",
+      "IPE Math IB – Transformation of Axis",
+      "IPE Phy – Thermal Properties of Matter",
+      "IPE Phy – Thermodynamics",
+      "IPE Phy – Kinetic Theory of Gases",
+      "English – Box and Cox",
+      "English – The Noble Nature",
+      "English – The Dinner Party"
+    ]
+  },
+  {
+    title: "Day 7 – Jan 28",
+    chapters: [
+      "JEE Math – Matrices and Determinants",
+      "JEE Phy – Work Power Energy",
+      "JEE Chem – States of Matter",
+      "IPE Phy – Gravitation",
+      "IPE Chem – States of Matter",
+      "IPE Chem – Thermodynamics",
+      "IPE Chem – Hydrogen & Its Compounds"
+    ]
+  },
+  {
+    title: "Day 8 – Jan 29",
+    chapters: [
+      "JEE Math – Functions",
+      "JEE Math – Limits of Functions",
+      "IPE Math IA – Addition of Vectors",
+      "IPE Math IA – Product of Vectors",
+      "Sanskrit – मातृगीतम्",
+      "Sanskrit – अनुवादवाक्यानि",
+      "Sanskrit – सन्धयः",
+      "Sanskrit – धातुरुपाणि"
+    ]
+  },
+  {
+    title: "Day 9 – Jan 30",
+    chapters: [
+      "JEE Math – Trigonometric Ratios & Identities",
+      "JEE Math – Trigonometric Equations",
+      "JEE Math – Inverse Trigonometric Functions",
+      "JEE Phy – Circular Motion",
+      "JEE Chem – Ionic Equilibrium",
+      "JEE Chem – Chemical Equilibrium",
+      "English – Parts of Speech",
+      "English – Verb Forms (Tense)",
+      "Sanskrit – शब्दरुपाणि"
+    ]
+  },
+  {
+    title: "Day 10 – Jan 31",
+    chapters: [
+      "JEE Phy – Surface Tension",
+      "JEE Phy – Elasticity & Viscosity",
+      "JEE Phy – Fluid Mechanics",
+      "JEE Chem – IUPAC Nomenclature",
+      "JEE Chem – Structural Isomerism",
+      "JEE Chem – Purification of Organic Compounds",
+      "IPE Chem – IA & IIA Groups",
+      "Sanskrit – दयालुः दानशील: नागार्जुनः"
+    ]
+  },
+  {
+    title: "Day 11 – Feb 1",
+    chapters: [
+      "JEE Math – Continuity",
+      "JEE Chem – GOC-1",
+      "JEE Chem – GOC-2",
+      "IPE Math IB – Straight Line",
+      "IPE Math IB – Pair of Straight Lines",
+      "IPE Math IB – Three Dimensional Coordinates",
+      "English – Articles",
+      "English – Prepositions",
+      "English – The Essential Compendium",
+      "English – Voice",
+      "Sanskrit – वीरवनिता कीर्तिसेना"
+    ]
+  },
+  {
+    title: "Day 12 – Feb 2",
+    chapters: [
+      "JEE Math – Differentiability & Methods",
+      "JEE Math – Application of Derivatives",
+      "JEE Phy – Simple Harmonic Motion",
+      "JEE Phy – Waves on String",
+      "Sanskrit – टिट्टिभदम्पतीकथा",
+      "Sanskrit – शरणागतरक्षणम्",
+      "Sanskrit – पितृसेवापरः श्रवणकुमारः",
+      "Sanskrit – जगदीशचन्द्रबोसः",
+      "Sanskrit – उद्योगिनं पुरुषसिंहमुपैति लक्ष्मीः"
+    ]
+  },
+  {
+    title: "Day 13 – Feb 3",
+    chapters: [
+      "JEE Phy – Centre of Mass",
+      "JEE Phy – Rigid Body Dynamics",
+      "JEE Phy – Mechanical Properties of Solids",
+      "JEE Chem – Gaseous State",
+      "JEE Chem – Solid State",
+      "IPE Math IA – Trigonometric Ratios",
+      "IPE Math IA – Trigonometric Equations",
+      "Sanskrit – भाग्यचक्रम्",
+      "Sanskrit – किमस्ति पेटिकायाम्?"
+    ]
+  },
+  {
+    title: "Day 14 – Feb 4",
+    chapters: [
+      "JEE Math – Indefinite Integration",
+      "JEE Math – Definite Integration",
+      "JEE Math – Application of Integrals",
+      "IPE Math IA – Inverse Trigonometric Functions",
+      "Sanskrit – शाश्वतं हि कार्य करणीयम्",
+      "Sanskrit – स्वावलम्बी राजीवः",
+      "Sanskrit – विद्वान् कुलीनो न करोति गर्वम्"
+    ]
+  },
+  {
+    title: "Day 15 – Feb 5",
+    chapters: [
+      "JEE Chem – s-Block Elements",
+      "JEE Chem – p-Block Elements",
+      "IPE Math IA – Mathematical Induction",
+      "IPE Math IB – Limits & Continuity",
+      "IPE Chem – P-Block Group 13",
+      "IPE Chem – P-Block Group 14",
+      "Sanskrit – संवित्परीक्षा"
+    ]
+  },
+  {
+    title: "Day 16 – Feb 6",
+    chapters: [
+      "JEE Phy – Thermal Properties of Matter",
+      "JEE Phy – Kinetic Theory of Gases",
+      "JEE Phy – Thermodynamics",
+      "JEE Chem – Thermodynamics",
+      "JEE Chem – Thermochemistry",
+      "JEE Chem – Electrochemistry"
+    ]
+  },
+  {
+    title: "Day 17 – Feb 7",
+    chapters: [
+      "JEE Math – Straight Lines",
+      "JEE Phy – Gravitation",
+      "JEE Chem – Solutions",
+      "JEE Chem – Hydrogen",
+      "JEE Chem – Hydrocarbons",
+      "IPE Math IB – Differentiation"
+    ]
+  },
+  {
+    title: "Day 18 – Feb 8",
+    chapters: [
+      "JEE Math – Sequence and Series",
+      "IPE Math IA – Properties of Triangles",
+      "IPE Math IB – AOD Errors & Approximations",
+      "IPE Math IB – Rate Measure",
+      "IPE Math IB – Tangent & Normal",
+      "IPE Math IB – Maxima & Minima"
+    ]
+  },
+  {
+    title: "Day 19 – Feb 9",
+    chapters: [
+      "JEE Math – Vector Algebra",
+      "JEE Math – Three Dimensional Geometry",
+      "JEE Math – Set Theory & Relations",
+      "IPE Math IB – Direction Cosines & Ratios",
+      "IPE Math IB – The Plane",
+      "IPE Chem – General Organic Chemistry",
+      "IPE Chem – Environmental Chemistry"
+    ]
+  },
+  {
+    title: "Day 20 – Feb 10",
+    chapters: [
+      "JEE Math – Complex Numbers",
+      "JEE Math – Solutions of Triangles",
+      "JEE Math – Differential Equations",
+      "IPE Math IA – Matrices",
+      "IPE Math IA – Hyperbolic Functions",
+      "IPE Math IA – Additional Information"
+    ]
+  },
+  {
+    title: "Day 21 – Feb 11",
+    chapters: [
+      "JEE Math – Circle",
+      "JEE Math – Parabola",
+      "JEE Math – Ellipse",
+      "JEE Math – Hyperbola",
+      "JEE Math – Probability",
+      "JEE Math – Statistics"
+    ]
+  },
+  {
+    title: "Day 22 – Feb 12",
+    chapters: [
+      "JEE Math – Binomial Theorem",
+      "JEE Math – Permutations and Combinations"
+    ]
+  }
+];
+
+/* ================= UI ================= */
+const content = document.getElementById("content");
+const toast = document.getElementById("toast");
+const coinSound = document.getElementById("coinSound");
+
+function showToast(text) {
+  toast.textContent = text;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 1500);
+}
+
+/* ================= BALANCE ================= */
+balanceRef.on("value", snap => {
+  document.getElementById("coinBalance").textContent = snap.val() || 0;
+});
+
+/* ================= RENDER ================= */
+days.forEach((day, dIndex) => {
+  const card = document.createElement("div");
+  card.className = "day-card";
+
+  const title = document.createElement("div");
+  title.className = "day-title";
+  title.textContent = day.title;
+  card.appendChild(title);
+
+  day.chapters.forEach((ch, cIndex) => {
+    const row = document.createElement("div");
+    row.className = "chapter";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+
+    const key = `day${dIndex}_ch${cIndex}`;
+    checkbox.checked = localStorage.getItem(key) === "1";
+
+    checkbox.onchange = () => {
+      balanceRef.get().then(snap => {
+        let balance = snap.val() || 0;
+        if (checkbox.checked) {
+          balance += 1000;
+          localStorage.setItem(key, "1");
+          showToast("+1000 Coins 🪙");
+        } else {
+          balance -= 1000;
+          localStorage.removeItem(key);
+          showToast("-1000 Coins 🪙");
+        }
+        balanceRef.set(balance);
+        coinSound.currentTime = 0;
+        coinSound.play();
+      });
+    };
+
+    const text = document.createElement("span");
+    text.textContent = ch;
+
+    row.appendChild(checkbox);
+    row.appendChild(text);
+    card.appendChild(row);
+  });
+
+  content.appendChild(card);
+});
+</script>
+<script>
+    const motivatorBtn = document.getElementById("motivatorBtn");
+    const modal = document.getElementById("motivatorModal");
+    const video = document.getElementById("motivatorVideo");
+    const audio = document.getElementById("motivatorAudio");
+    
+    motivatorBtn.addEventListener("click", () => {
+      modal.style.display = "flex";
+    
+      video.currentTime = 0;
+      audio.currentTime = 0;
+    
+      video.play();
+      audio.play();
+    
+      setTimeout(() => {
+        video.pause();
+        audio.pause();
+        modal.style.display = "none";
+      }, 20000);
+    });
+
+    function home(){
+        window.location = "index.html";
+    };
+    </script>
+    
+</body>
+</html>
