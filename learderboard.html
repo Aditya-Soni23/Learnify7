@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnify | Study Rivalry</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --neon-cyan: #00f3ff; --neon-pink: #ff00ff; --dark-bg: #050505; }
+        body { background: var(--dark-bg); color: #e0e0e0; font-family: 'Rajdhani', sans-serif; margin: 0; height: 100vh; overflow: hidden; }
+        .header { text-align: center; font-family: 'Orbitron'; padding: 15px; border-bottom: 1px solid rgba(0, 243, 255, 0.2); }
+        .header h1 { margin: 0; background: linear-gradient(to right, var(--neon-cyan), var(--neon-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .container { display: flex; height: calc(100vh - 70px); }
+        .side { flex: 1; padding: 20px; display: flex; flex-direction: column; align-items: center; border: 1px solid rgba(255,255,255,0.05); }
+        .aditya-text { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
+        .shushanth-text { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); }
+        .bar-wrapper { height: 150px; width: 40px; background: #111; border: 1px solid #333; border-radius: 4px; position: relative; margin: 15px 0; }
+        .bar-fill { position: absolute; bottom: 0; width: 100%; border-radius: 2px; transition: height 1s ease; }
+        .aditya-fill { background: var(--neon-cyan); box-shadow: 0 0 15px var(--neon-cyan); }
+        .shushanth-fill { background: var(--neon-pink); box-shadow: 0 0 15px var(--neon-pink); }
+        .stat-card { background: rgba(20, 20, 30, 0.8); width: 85%; margin: 6px 0; padding: 10px; border-radius: 8px; }
+        .label { font-size: 0.7rem; color: #888; text-transform: uppercase; display: flex; justify-content: space-between; }
+        .value { font-size: 1rem; font-weight: bold; display: block; }
+        .progress-bg { background: #222; height: 6px; border-radius: 3px; margin-top: 5px; }
+        .progress-fill { height: 100%; width: 0%; transition: 1s; }
+        .home-btn {
+    position: fixed;
+    top: 15px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--neon-cyan);
+    border-radius: 5px;
+    color: var(--neon-cyan);
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.8rem;
+    transition: 0.3s;
+    box-shadow: 0 0 5px var(--neon-cyan);
+}
+
+.home-btn:hover {
+    background: var(--neon-cyan);
+    color: #000;
+    box-shadow: 0 0 15px var(--neon-cyan);
+}
+
+/* Adjust header to not overlap */
+.header h1 {
+    padding-left: 50px;
+}
+    </style>
+</head>
+<body>
+    <a href="index.html" class="home-btn">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        HOME
+    </a>
+    <div class="header"><h1>LEARNIFY LEADERBOARD</h1></div>
+
+    <div class="container">
+        <div class="side" id="aditya-side">
+            <h2 class="aditya-text">ADITYA</h2>
+            <div class="bar-wrapper"><div id="a-bar" class="bar-fill aditya-fill"></div></div>
+            <div class="aditya-text" id="a-net" style="font-size:1.2rem">0 Coins</div>
+            
+            <div class="stat-card">
+                <span class="label">Assets</span>
+                <span class="value" id="a-assets">Agents: 0 | Cars: 0</span>
+            </div>
+
+            <div class="stat-card">
+                <span class="label">Progress <span><b id="a-count">0</b> / 180</span></span>
+                <div class="progress-bg"><div id="a-prog" class="progress-fill aditya-fill"></div></div>
+            </div>
+
+            <div class="stat-card">
+                <span class="label">Study Session</span>
+                <span class="value" id="a-duration">Last: --</span>
+            </div>
+
+            <div class="stat-card">
+                <span class="label">Last Purchase</span>
+                <span class="value" id="a-purchase" style="color:var(--neon-cyan); font-size: 0.8rem;">None</span>
+            </div>
+        </div>
+
+        <div class="side" id="shushanth-side">
+            <h2 class="shushanth-text">SHUSHANTH</h2>
+            <div class="bar-wrapper"><div id="s-bar" class="bar-fill shushanth-fill"></div></div>
+            <div class="shushanth-text" id="s-net" style="font-size:1.2rem">0 Coins</div>
+            
+            <div class="stat-card">
+                <span class="label">Assets</span>
+                <span class="value" id="s-assets">Agents: 0 | Cars: 0</span>
+            </div>
+
+            <div class="stat-card">
+                <span class="label">Progress <span><b id="s-count">0</b> / 180</span></span>
+                <div class="progress-bg"><div id="s-prog" class="progress-fill shushanth-fill"></div></div>
+            </div>
+
+            <div class="stat-card">
+                <span class="label">Study Session</span>
+                <span class="value" id="s-duration">Last: --</span>
+            </div>
+
+            <div class="stat-card">
+                <span class="label">Last Purchase</span>
+                <span class="value" id="s-purchase" style="color:var(--neon-pink); font-size: 0.8rem;">None</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const adityaConfig = { apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk", authDomain: "learnify-ada08.firebaseapp.com", databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com", projectId: "learnify-ada08" };
+        const shushanthConfig = { apiKey: "AIzaSyATCUjWe1bbp2yOiZwOzBATrHfU2CE7rPY", authDomain: "shushant-3b425.firebaseapp.com", databaseURL: "https://shushant-3b425-default-rtdb.firebaseio.com", projectId: "shushant-3b425" };
+
+        const appA = firebase.initializeApp(adityaConfig, "aditya");
+        const appS = firebase.initializeApp(shushanthConfig, "shushanth");
+        let aNet = 0, sNet = 0;
+
+        function updateUI(snap, prefix) {
+            const data = snap.val() || {};
+            
+            // 1. ASSETS & NET WORTH
+            const agents = data.ownedAgents ? Object.keys(data.ownedAgents).length : 0;
+            const cars = data.ownedCars ? Object.keys(data.ownedCars).length : 0;
+            const net = (data.balance || 0) + (agents * 10000) + (cars * 2000); // Net worth logic restored
+            document.getElementById(`${prefix}-assets`).innerText = `Agents: ${agents} | Cars: ${cars}`;
+            document.getElementById(`${prefix}-net`).innerText = net.toLocaleString() + " Coins";
+            if(prefix === 'a') aNet = net; else sNet = net;
+
+            // 2. PROGRESS (Numeric display added)
+            const done = Object.values(data.tracker || {}).filter(v => v === true).length;
+            document.getElementById(`${prefix}-count`).innerText = done;
+            document.getElementById(`${prefix}-prog`).style.width = (done/180 * 100) + "%";
+
+            // 3. STUDY SESSIONS (Simplified to "Last")
+            const sessions = data.studySessions || {};
+            const sessValues = Object.values(sessions);
+            if(sessValues.length > 0) {
+                const lastSess = sessValues[sessValues.length - 1];
+                document.getElementById(`${prefix}-duration`).innerText = `Last: ${lastSess.duration || 0}m`;
+            }
+
+            // 4. SHOP PURCHASES
+            const shop = data.shopPurchases || {};
+            const shopValues = Object.values(shop);
+            if(shopValues.length > 0) {
+                const lastP = shopValues[shopValues.length - 1];
+                document.getElementById(`${prefix}-purchase`).innerText = lastP.item || "No Item";
+            }
+
+            // Update Bars
+            const max = Math.max(aNet, sNet, 1);
+            document.getElementById('a-bar').style.height = (aNet/max * 100) + "%";
+            document.getElementById('s-bar').style.height = (sNet/max * 100) + "%";
+        }
+
+        appA.database().ref('users/aditya').on('value', s => updateUI(s, 'a'));
+        appS.database().ref('users/aditya').on('value', s => updateUI(s, 's'));
+    </script>
+</body>
+</html>
