@@ -135,7 +135,7 @@
             // 1. ASSETS & NET WORTH
             const agents = data.ownedAgents ? Object.keys(data.ownedAgents).length : 0;
             const cars = data.ownedCars ? Object.keys(data.ownedCars).length : 0;
-            const net = (data.balance || 0) + (agents * 10000) + (cars * 2000); // Net worth logic restored
+            const net = (data.balance || 0); // Net worth logic restored
             document.getElementById(`${prefix}-assets`).innerText = `Agents: ${agents} | Cars: ${cars}`;
             document.getElementById(`${prefix}-net`).innerText = net.toLocaleString() + " Coins";
             if(prefix === 'a') aNet = net; else sNet = net;
