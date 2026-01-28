@@ -90,6 +90,10 @@
             </div>
 
             <div class="stat-card">
+                <span class="label">Current Streak</span>
+                <span class="value" id="a-streak">0 Days</span> </div>
+
+            <div class="stat-card">
                 <span class="label">Last Purchase</span>
                 <span class="value" id="a-purchase" style="color:var(--neon-cyan); font-size: 0.8rem;">None</span>
             </div>
@@ -117,6 +121,10 @@
             </div>
 
             <div class="stat-card">
+                <span class="label">Current Streak</span>
+                <span class="value" id="a-streak">0 Days</span> </div>
+
+            <div class="stat-card">
                 <span class="label">Last Purchase</span>
                 <span class="value" id="s-purchase" style="color:var(--neon-pink); font-size: 0.8rem;">None</span>
             </div>
@@ -126,49 +134,53 @@
     <script>
         const adityaConfig = { apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk", authDomain: "learnify-ada08.firebaseapp.com", databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com", projectId: "learnify-ada08" };
         const shushanthConfig = { apiKey: "AIzaSyATCUjWe1bbp2yOiZwOzBATrHfU2CE7rPY", authDomain: "shushant-3b425.firebaseapp.com", databaseURL: "https://shushant-3b425-default-rtdb.firebaseio.com", projectId: "shushant-3b425" };
-
+    
         const appA = firebase.initializeApp(adityaConfig, "aditya");
         const appS = firebase.initializeApp(shushanthConfig, "shushanth");
         let aNet = 0, sNet = 0;
-
+    
         function updateUI(snap, prefix) {
             const data = snap.val() || {};
             
             // 1. ASSETS & NET WORTH
             const agents = data.ownedAgents ? Object.keys(data.ownedAgents).length : 0;
             const cars = data.ownedCars ? Object.keys(data.ownedCars).length : 0;
-            const net = (data.balance || 0); // Net worth logic restored
+            const net = (data.balance || 0); 
             document.getElementById(`${prefix}-assets`).innerText = `Agents: ${agents} | Cars: ${cars}`;
             document.getElementById(`${prefix}-net`).innerText = net.toLocaleString() + " Coins";
             if(prefix === 'a') aNet = net; else sNet = net;
-
-            // 2. PROGRESS (Numeric display added)
+    
+            // 2. PROGRESS
             const done = Object.values(data.tracker || {}).filter(v => v === true).length;
             document.getElementById(`${prefix}-count`).innerText = done;
             document.getElementById(`${prefix}-prog`).style.width = (done/180 * 100) + "%";
-
-            // 3. STUDY SESSIONS (Simplified to "Last")
+    
+            // 3. STUDY SESSIONS
             const sessions = data.studySessions || {};
             const sessValues = Object.values(sessions);
             if(sessValues.length > 0) {
                 const lastSess = sessValues[sessValues.length - 1];
                 document.getElementById(`${prefix}-duration`).innerText = `Last: ${lastSess.duration || 0}m`;
             }
-
-            // 4. SHOP PURCHASES
+    
+            // 4. STREAK (New Section Added)
+            const currentStreak = data.streak || 0;
+            document.getElementById(`${prefix}-streak`).innerText = `${currentStreak} Days 🔥`;
+    
+            // 5. SHOP PURCHASES
             const shop = data.shopPurchases || {};
             const shopValues = Object.values(shop);
             if(shopValues.length > 0) {
                 const lastP = shopValues[shopValues.length - 1];
                 document.getElementById(`${prefix}-purchase`).innerText = lastP.item || "No Item";
             }
-
+    
             // Update Bars
             const max = Math.max(aNet, sNet, 1);
             document.getElementById('a-bar').style.height = (aNet/max * 100) + "%";
             document.getElementById('s-bar').style.height = (sNet/max * 100) + "%";
         }
-
+    
         appA.database().ref('users/aditya').on('value', s => updateUI(s, 'a'));
         appS.database().ref('users/aditya').on('value', s => updateUI(s, 's'));
     </script>
