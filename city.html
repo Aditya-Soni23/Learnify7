@@ -284,7 +284,7 @@
   
     window.setCityCoins = function(actualCoins){
       coins = actualCoins;                       // show real coins
-      buildsUnlocked = Math.floor(coins / 40);    // 40 coins = 1 building unlocked
+      buildsUnlocked = Math.floor(coins / 1000);    // 40 coins = 1 building unlocked
       updateHUD();
       draw();
     }
