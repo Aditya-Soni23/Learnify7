@@ -8,14 +8,12 @@
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background: #0a0a0a; /* deep black */
+      background: #0a0a0a;
       margin: 0;
       padding: 20px;
       color: #eee;
     }
 
-
-    /* Sections */
     .shop-section {
       margin-bottom: 40px;
     }
@@ -29,7 +27,6 @@
       border-left: 6px solid #ff5e62;
     }
 
-    /* Grid Layout */
     .shop-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -37,7 +34,6 @@
       justify-items: center;
     }
 
-    /* History */
     .history {
       margin-top: 40px;
       background: rgba(255,255,255,0.1);
@@ -60,7 +56,6 @@
       color: #fff;
     }
 
-    /* Coin Balance */
     .coin-balance {
       position: fixed;
       top: 20px;
@@ -74,7 +69,6 @@
       z-index: 1000;
     }
 
-    /* Home Button */
     .home-btn {
       position: fixed;
       top: 20px;
@@ -101,337 +95,359 @@
       margin: 10px 0 30px;
       text-align: center;
     }
+
     .pack-box {
-  position: relative;
-  width: 600px;
-  height: 300px;
-  border-radius: 14px;
-  overflow: hidden;
-  cursor: pointer;
-}
+      position: relative;
+      width: 600px;
+      height: 300px;
+      border-radius: 14px;
+      overflow: hidden;
+      cursor: pointer;
+    }
 
-/* Pack image */
-.pack-box img {
-  width: 100%;
-  display: block;
-}
+    .pack-box img {
+      width: 100%;
+      display: block;
+    }
 
-/* Overlay bar */
-.buy-overlay {
-  position: absolute;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 85%;
-  height: 40px;
-  background: rgba(0,0,0,0.6);
-  border-radius: 10px;
-  overflow: hidden;
-  border: 2px solid rgba(255,255,255,0.35);
-}
+    .buy-overlay {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 85%;
+      height: 40px;
+      background: rgba(0,0,0,0.6);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 2px solid rgba(255,255,255,0.35);
+    }
 
-/* Text */
-.buy-overlay span {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: white;
-  z-index: 3;
-  pointer-events: none;
-}
+    .buy-overlay span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      z-index: 3;
+      pointer-events: none;
+    }
 
-/* Fill bar */
-.buy-overlay .fill {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 0%;
-  background: linear-gradient(90deg, #22c55e, #16a34a);
-  transition: width 0.7s ease;
-  z-index: 2;
-}
+    .buy-overlay .fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #22c55e, #16a34a);
+      transition: width 0.7s ease;
+      z-index: 2;
+    }
 
-/* Hover → fill */
-.pack-box:hover .fill {
-  width: 100%;
-}
+    .pack-box:hover .fill {
+      width: 100%;
+    }
 
-/* Extra polish */
-.pack-box:hover {
-  transform: scale(1.03);
-  transition: transform 0.25s ease;
-}
-
+    .pack-box:hover {
+      transform: scale(1.03);
+      transition: transform 0.25s ease;
+    }
   </style>
 </head>
 <body>
-  <button onclick="window.location.href='index.html'" class="home-btn">🏠 Home</button>
-  <header>
-    <div class="coin-balance">Coins: <span id="coinBalance">0</span></div>
-  </header>
 
-  <h1>🎁 Productivity Shop</h1>
-  <!-- YOUTUBE -->
-  <section class="shop-section">
-    <h2 class="section-title">📺 Youtube</h2>
-    <div class="shop-grid">
-  
-      <div class="pack-box">
-        <img src="youtubepacket.png">
-        <div class="buy-overlay" onclick="buyItem('📽️ 10 Min Youtube Pass', 500)">
-          <div class="fill"></div>
-          <span>📽️ 10 Min Youtube Pass BUY – 1000 🪙</span>
-        </div>
+<button onclick="window.location.href='index.html'" class="home-btn">🏠 Home</button>
+
+<header>
+  <div class="coin-balance">Coins: <span id="coinBalance">0</span></div>
+</header>
+
+<h1>🎁 Productivity Shop</h1>
+
+<!-- =================== YOUTUBE =================== -->
+<section class="shop-section">
+  <h2 class="section-title">📺 Youtube</h2>
+  <div class="shop-grid">
+
+    <div class="pack-box">
+      <img src="youtubepacket.png">
+      <div class="buy-overlay"
+           data-name="📽️ 10 Min Youtube Pass"
+           data-price="2000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
       </div>
-  
-      <div class="pack-box">
-        <img src="youtubepacket.png">
-        <div class="buy-overlay" onclick="buyItem('📽️ 15 Min Youtube Pass', 800)">
-          <div class="fill"></div>
-          <span>📽️ 15 Min Youtube Pass BUY – 1600 🪙</span>
-        </div>
-      </div>
-  
-      <div class="pack-box">
-        <img src="youtubepacket.png">
-        <div class="buy-overlay" onclick="buyItem('📽️ 20 Min Youtube Pass', 1000)">
-          <div class="fill"></div>
-          <span>📽️ 20 Min Youtube Pass BUY – 2000 🪙</span>
-        </div>
-      </div>
-  
-      <div class="pack-box">
-        <img src="youtubepacket.png">
-        <div class="buy-overlay" onclick="buyItem('📽️ 30 Min Youtube Pass', 1500)">
-          <div class="fill"></div>
-          <span>📽️ 30 Min Youtube Pass BUY – 3000 🪙</span>
-        </div>
-      </div>
-  
-      <div class="pack-box">
-        <img src="youtubepacket.png">
-        <div class="buy-overlay" onclick="buyItem('📽️ 60 Min Youtube Pass', 3000)">
-          <div class="fill"></div>
-          <span>📽️ 60 Min Youtube Pass BUY – 6000 🪙</span>
-        </div>
-      </div>
-  
     </div>
-  </section>
-  
-<br><br><br><br><br><br><br><br><br><br><br><br>
-  <!-- ROBLOX -->
-  <section class="shop-section">
-    <h2 class="section-title">🕹️ Any Game</h2>
-    <div class="shop-grid">
-  
-      <div class="pack-box">
-        <img src="gamingpacket.png">
-        <div class="buy-overlay" onclick="buyItem('✈️ 10 Min Any game', 600)">
-          <div class="fill"></div>
-          <span>✈️ 10 Min Any game BUY – 1200 🪙</span>
-        </div>
+
+    <div class="pack-box">
+      <img src="youtubepacket.png">
+      <div class="buy-overlay"
+           data-name="📽️ 15 Min Youtube Pass"
+           data-price="3000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
       </div>
-  
-      <div class="pack-box">
-        <img src="gamingpacket.png">
-        <div class="buy-overlay" onclick="buyItem('✈️ 15 Min Any game', 1000)">
-          <div class="fill"></div>
-          <span>✈️ 15 Min Any game BUY – 2000 🪙</span>
-        </div>
-      </div>
-  
-      <div class="pack-box">
-        <img src="gamingpacket.png">
-        <div class="buy-overlay" onclick="buyItem('✈️ 20 Min Any game', 1200)">
-          <div class="fill"></div>
-          <span>✈️ 20 Min Any game BUY –2400 🪙</span>
-        </div>
-      </div>
-  
-      <div class="pack-box">
-        <img src="gamingpacket.png">
-        <div class="buy-overlay" onclick="buyItem('✈️ 30 Min Any game', 1500)">
-          <div class="fill"></div>
-          <span>✈️ 30 Min Any game BUY – 3000 🪙</span>
-        </div>
-      </div>
-  
-      <div class="pack-box">
-        <img src="gamingpacket.png">
-        <div class="buy-overlay" onclick="buyItem('✈️ 60 Min Any game', 3000)">
-          <div class="fill"></div>
-          <span>✈️ 60 Min Any game BUY – 6000 🪙</span>
-        </div>
-      </div>
-  
     </div>
-  </section>
-  <br><br><br><br><br><br><br><br><br><br><br><br>
 
-  <!-- VALORANT -->
-  <section class="shop-section">
-    <h2 class="section-title">🎮 Valorant</h2>
-    <div class="shop-grid">
-  
-      <div class="pack-box">
-        <img src="valorantpacket.png">
-        <div class="buy-overlay" onclick="buyItem('🎮 30 Min Valorant', 1500)">
-          <div class="fill"></div>
-          <span>🎮 30 Min Valorant BUY – 3000 🪙</span>
-        </div>
+    <div class="pack-box">
+      <img src="youtubepacket.png">
+      <div class="buy-overlay"
+           data-name="📽️ 20 Min Youtube Pass"
+           data-price="4000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
       </div>
-  
-      <div class="pack-box">
-        <img src="valorantpacket.png">
-        <div class="buy-overlay" onclick="buyItem('🎮 60 Min Valorant', 3000)">
-          <div class="fill"></div>
-          <span>🎮 60 Min Valorant BUY – 6000 🪙</span>
-        </div>
-      </div>
-  
-      <div class="pack-box">
-        <img src="valorantpacket.png">
-        <div class="buy-overlay" onclick="buyItem('🎮 Competitive Valorant', 2500)">
-          <div class="fill"></div>
-          <span>🎮 Competitive Valorant BUY – 5000 🪙</span>
-        </div>
-      </div>
-  
-      <div class="pack-box">
-        <img src="valorantpacket.png">
-        <div class="buy-overlay" onclick="buyItem('🎮 Swiftplay/SpikeRush/TDM Valorant', 1500)">
-          <div class="fill"></div>
-          <span>🎮 Swiftplay/SpikeRush/TDM Valorant BUY – 3000 🪙</span>
-        </div>
-      </div>
-  
     </div>
-  </section>
-  
-  <br><br><br><br><br><br><br><br><br><br><br><br>
-  <!-- HISTORY -->
-  <section class="history">
-    <h2>🛒 Purchase History</h2>
-    <ul id="historyList"></ul>
-  </section>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getDatabase, ref, get, update, push, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
-  
-    const firebaseConfig = {
-      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
-      authDomain: "learnify-ada08.firebaseapp.com",
-      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
-      projectId: "learnify-ada08",
-      storageBucket: "learnify-ada08.appspot.com",
-      messagingSenderId: "380617329082",
-      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
-      measurementId: "G-DT4WG6622N"
-    };
-  
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-  
-    const balanceEl = document.getElementById("coinBalance");
-    const historyList = document.getElementById("historyList");
-    const userRef = ref(db, "users/aditya");
-  
-    // ✅ Live balance fetch
-    const balanceRef = ref(db, "users/aditya/balance");
-    onValue(balanceRef, (snapshot) => {
-      if (snapshot.exists()) {
-        balanceEl.innerText = "Balance: " + snapshot.val() + " 🪙";
-      }
-    });
-  
-    // ✅ Render purchase history
-    const purchasesRef = ref(db, "users/aditya/shopPurchases");
-    onValue(purchasesRef, (snapshot) => {
-      historyList.innerHTML = "";
-      const data = snapshot.val() || {};
-      Object.values(data).forEach((purchase) => {
-        let li = document.createElement("li");
-        li.textContent = `${purchase.item} - ${purchase.date} (${purchase.cost} coins)`;
-        historyList.appendChild(li);
-      });
-    });
-  
-    // ✅ Popup function
-    function showPurchasePopup(message, color) {
-      let popup = document.getElementById("purchasePopup");
-      if (!popup) {
-        popup = document.createElement("div");
-        popup.id = "purchasePopup";
-        popup.style.position = "fixed";
-        popup.style.bottom = "20px";
-        popup.style.left = "50%";
-        popup.style.transform = "translateX(-50%)";
-        popup.style.padding = "15px 25px";
-        popup.style.borderRadius = "12px";
-        popup.style.fontSize = "18px";
-        popup.style.fontWeight = "bold";
-        popup.style.color = "white";
-        popup.style.display = "none";
-        document.body.appendChild(popup);
-      }
-  
-      popup.innerText = message;
-      popup.style.background = color;
-      popup.style.display = "block";
-  
-      setTimeout(() => {
-        popup.style.display = "none";
-      }, 5000);
-    }
-  
-    // ✅ Buy item logic
-    window.buyItem = async function(item, cost) {
-      const snapshot = await get(userRef);
-      const val = snapshot.val() || {};
-      let currentBalance = val.balance || 0;
-  
-      if (currentBalance >= cost) {
-        let newBalance = currentBalance - cost;
-  
-        // Update balance
-        await update(userRef, { balance: newBalance });
-  
-        // Save purchase
-        await push(purchasesRef, {
-          item: item,
-          cost: cost,
-          date: new Date().toLocaleString()
-        });
-  
-        showPurchasePopup(`✅ You bought: ${item} (-${cost} coins)`, "linear-gradient(135deg, #43cea2, #185a9d)");
-        new Audio("coin.mp3").play();
+    <div class="pack-box">
+      <img src="youtubepacket.png">
+      <div class="buy-overlay"
+           data-name="📽️ 30 Min Youtube Pass"
+           data-price="6000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
 
-      } else {
-        showPurchasePopup("❌ Not enough coins!", "linear-gradient(135deg, #ff512f, #dd2476)");
-      }
-    };
+    <div class="pack-box">
+      <img src="youtubepacket.png">
+      <div class="buy-overlay"
+           data-name="📽️ 60 Min Youtube Pass"
+           data-price="12000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
 
+  </div>
+</section>
 
-    function buyItem(item, cost) {
-  console.log("Buying:", item, cost);
+<!-- =================== ANY GAME =================== -->
+<section class="shop-section">
+  <h2 class="section-title">🕹️ Any Game</h2>
+  <div class="shop-grid">
+
+    <div class="pack-box">
+      <img src="gamingpacket.png">
+      <div class="buy-overlay"
+           data-name="✈️ 10 Min Any game"
+           data-price="2000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
+
+    <div class="pack-box">
+      <img src="gamingpacket.png">
+      <div class="buy-overlay"
+           data-name="✈️ 15 Min Any game"
+           data-price="4000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
+
+    <div class="pack-box">
+      <img src="gamingpacket.png">
+      <div class="buy-overlay"
+           data-name="✈️ 20 Min Any game"
+           data-price="5000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
+
+    <div class="pack-box">
+      <img src="gamingpacket.png">
+      <div class="buy-overlay"
+           data-name="✈️ 30 Min Any game"
+           data-price="6000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
+
+    <div class="pack-box">
+      <img src="gamingpacket.png">
+      <div class="buy-overlay"
+           data-name="✈️ 60 Min Any game"
+           data-price="12000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =================== VALORANT =================== -->
+<section class="shop-section">
+  <h2 class="section-title">🎮 Valorant</h2>
+  <div class="shop-grid">
+
+    <div class="pack-box">
+      <img src="valorantpacket.png">
+      <div class="buy-overlay"
+           data-name="🎮 30 Min Valorant"
+           data-price="6000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
+
+    <div class="pack-box">
+      <img src="valorantpacket.png">
+      <div class="buy-overlay"
+           data-name="🎮 60 Min Valorant"
+           data-price="12000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
+
+    <div class="pack-box">
+      <img src="valorantpacket.png">
+      <div class="buy-overlay"
+           data-name="🎮 Competitive Valorant"
+           data-price="10000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
+
+    <div class="pack-box">
+      <img src="valorantpacket.png">
+      <div class="buy-overlay"
+           data-name="🎮 Swiftplay/SpikeRush/TDM Valorant"
+           data-price="6000"
+           onclick="buyItem(this.dataset.name, this.dataset.price)">
+        <div class="fill"></div>
+        <span class="price-text"></span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="history">
+  <h2>🛒 Purchase History</h2>
+  <ul id="historyList"></ul>
+</section>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getDatabase, ref, get, update, push, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+  authDomain: "learnify-ada08.firebaseapp.com",
+  databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+  projectId: "learnify-ada08",
+  storageBucket: "learnify-ada08.appspot.com",
+  messagingSenderId: "380617329082",
+  appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+  measurementId: "G-DT4WG6622N"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const balanceEl = document.getElementById("coinBalance");
+const historyList = document.getElementById("historyList");
+const userRef = ref(db, "users/aditya");
+
+// Live balance fetch
+const balanceRef = ref(db, "users/aditya/balance");
+onValue(balanceRef, (snapshot) => {
+  if (snapshot.exists()) {
+    balanceEl.innerText = "Balance: " + snapshot.val() + " 🪙";
+  }
+});
+
+// Render purchase history
+const purchasesRef = ref(db, "users/aditya/shopPurchases");
+onValue(purchasesRef, (snapshot) => {
+  historyList.innerHTML = "";
+  const data = snapshot.val() || {};
+  Object.values(data).forEach((purchase) => {
+    let li = document.createElement("li");
+    li.textContent = `${purchase.item} - ${purchase.date} (${purchase.cost} coins)`;
+    historyList.appendChild(li);
+  });
+});
+
+// --------- 🔥 NEW: AUTO-FILL ALL PRICES 🔥 ---------
+document.querySelectorAll(".buy-overlay").forEach(box => {
+  const name = box.dataset.name;
+  const price = box.dataset.price;
+  box.querySelector(".price-text").innerHTML =
+    `${name} BUY – ${price} 🪙`;
+});
+// ---------------------------------------------------
+
+function showPurchasePopup(message, color) {
+  let popup = document.getElementById("purchasePopup");
+  popup.innerText = message;
+  popup.style.background = color;
+  popup.style.display = "block";
+
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 5000);
 }
 
-  </script>
+window.buyItem = async function(item, cost) {
+  const snapshot = await get(userRef);
+  const val = snapshot.val() || {};
+  let currentBalance = val.balance || 0;
+
+  if (currentBalance >= cost) {
+    let newBalance = currentBalance - cost;
+
+    await update(userRef, { balance: newBalance });
+
+    await push(purchasesRef, {
+      item: item,
+      cost: cost,
+      date: new Date().toLocaleString()
+    });
+
+    showPurchasePopup(`✅ You bought: ${item} (-${cost} coins)`,
+      "linear-gradient(135deg, #43cea2, #185a9d)");
+
+    new Audio("coin.mp3").play();
+  } else {
+    showPurchasePopup("❌ Not enough coins!",
+      "linear-gradient(135deg, #ff512f, #dd2476)");
+  }
+};
+
+function buyItem(item, cost) {
+  console.log("Buying:", item, cost);
+}
+</script>
+
 <div id="purchasePopup" style="display:none; position:fixed; 
 bottom:10%; left:50%; transform:translate(-50%, -50%);
 padding:15px 25px; border-radius:12px; font-size:18px; color:white; font-weight:bold;
 background: linear-gradient(135deg, #43cea2, #185a9d); text-align:center; z-index:9999;">
 </div>
-
-
-
 
 </body>
 </html>
