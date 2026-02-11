@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnify - Coin Capsules</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <style>
+        :root {
+            --primary-glow: #00f2ff;
+            --bg-dark: #0a0a0c;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .balance-card {
+            background: var(--glass);
+            padding: 20px 40px;
+            border-radius: 20px;
+            margin: 30px;
+            border: 1px solid var(--primary-glow);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+        }
+
+        .capsules-container {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .capsule-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* The Liquid Animation */
+        .capsule {
+            width: 80px;
+            height: 180px;
+            border: 3px solid var(--glass);
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            background: rgba(255,255,255,0.05);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        .liquid {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: linear-gradient(180deg, var(--primary-glow), #0066ff);
+            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .liquid::after {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            filter: blur(2px);
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        button {
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: none;
+            background: var(--primary-glow);
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover { opacity: 0.8; transform: scale(1.05); }
+        button:disabled { background: #444; cursor: not-allowed; }
+
+        input {
+            width: 80px;
+            background: #222;
+            border: 1px solid #444;
+            color: white;
+            border-radius: 5px;
+            padding: 5px;
+            text-align: center;
+        }
+        .home-btn {
+  display: inline-block;
+  padding: 12px 28px;
+  background: linear-gradient(45deg, #1e3c72, #2a5298);
+  color: white;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+  font-family: Arial, sans-serif;
+}
+
+.home-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+  background: linear-gradient(45deg, #2a5298, #1e3c72);
+}
+
+    </style>
+</head>
+<body><br>
+    <a href="index.html" class="home-btn">🏠 Home</a>
+
+    <div class="balance-card">
+        Main Balance: <span id="main-balance">0</span> Coins
+    </div>
+
+    <div class="capsules-container" id="capsules-grid">
+        </div>
+        <h3>Invest here, everyday your money increases by 25% in each capsule!</h3>
+
+<script>
+    // --- Firebase Setup ---
+    const firebaseConfig = {
+        apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+        authDomain: "learnify-ada08.firebaseapp.com",
+        databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+        projectId: "learnify-ada08",
+        storageBucket: "learnify-ada08.firebasestorage.app",
+        messagingSenderId: "380617329082",
+        appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+        measurementId: "G-DT4WG6622N"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const userRef = db.ref('users/aditya');
+    const MAX_CAPACITY = 100000;
+
+    let localData = { balance: 0, capsules: [0, 0, 0, 0, 0] };
+
+    // Initialize UI
+    function init() {
+        const grid = document.getElementById('capsules-grid');
+        for(let i=0; i<5; i++) {
+            grid.innerHTML += `
+                <div class="capsule-wrapper">
+                    <div class="capsule">
+                        <div id="liquid-${i}" class="liquid" style="height: 0%"></div>
+                    </div>
+                    <div id="val-${i}">0</div>
+                    <input type="number" id="input-${i}" placeholder="Amt">
+                    <div class="controls">
+                        <button onclick="deposit(${i})">Deposit</button>
+                        <button onclick="redeem(${i})">Withdraw</button>
+                    </div>
+                </div>
+            `;
+        }
+        syncFromFirebase();
+        setInterval(growCoins, 60000); // 1-minute growth cycle
+    }
+
+    // Sync Data
+    function syncFromFirebase() {
+        userRef.on('value', (snapshot) => {
+            const data = snapshot.val();
+            if(data) {
+                localData.balance = data.balance || 0;
+                localData.capsules = data.capsules || [0, 0, 0, 0, 0];
+                updateUI();
+            }
+        });
+    }
+
+    function updateUI() {
+        document.getElementById('main-balance').innerText = localData.balance.toLocaleString();
+        localData.capsules.forEach((val, i) => {
+            const percent = (val / MAX_CAPACITY) * 100;
+            document.getElementById(`liquid-${i}`).style.height = `${percent}%`;
+            document.getElementById(`val-${i}`).innerText = `${Math.floor(val).toLocaleString()}`;
+        });
+    }
+
+    // Growth Logic (25% every minute)
+    function growCoins() {
+        let updated = false;
+        localData.capsules = localData.capsules.map(val => {
+            if (val > 0 && val < MAX_CAPACITY) {
+                updated = true;
+                let newVal = val * 1.25;
+                return newVal > MAX_CAPACITY ? MAX_CAPACITY : newVal;
+            }
+            return val;
+        });
+        if(updated) userRef.update({ capsules: localData.capsules });
+    }
+
+    // Action Functions
+    window.deposit = (index) => {
+        const amt = parseInt(document.getElementById(`input-${index}`).value);
+        if(isNaN(amt) || amt <= 0) return alert("Enter valid amount");
+        if(amt > localData.balance) return alert("Insufficient balance");
+        
+        const spaceLeft = MAX_CAPACITY - localData.capsules[index];
+        const actualDeposit = Math.min(amt, spaceLeft);
+
+        if(actualDeposit <= 0) return alert("Capsule is full!");
+
+        localData.balance -= actualDeposit;
+        localData.capsules[index] += actualDeposit;
+        userRef.set(localData);
+    };
+
+    window.redeem = (index) => {
+        const amt = parseInt(document.getElementById(`input-${index}`).value);
+        if(isNaN(amt) || amt <= 0) return alert("Enter valid amount");
+        if(amt > localData.capsules[index]) return alert("Not enough in capsule");
+
+        localData.balance += amt;
+        localData.capsules[index] -= amt;
+        userRef.set(localData);
+    };
+
+    init();
+</script>
+</body>
+</html>
