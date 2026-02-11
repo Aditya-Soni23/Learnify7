@@ -148,108 +148,156 @@
     <h3>Invest here! Your money increases by 25% every 24 hours.</h3>
 
 <script>
-    // --- Firebase Setup ---
-    const firebaseConfig = {
-      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
-      authDomain: "learnify-ada08.firebaseapp.com",
-      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
-      projectId: "learnify-ada08",
-      storageBucket: "learnify-ada08.firebasestorage.app",
-      messagingSenderId: "380617329082",
-      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
-      measurementId: "G-DT4WG6622N"
-    };
+// --- Firebase Setup ---
+const firebaseConfig = {
+    apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+    authDomain: "learnify-ada08.firebaseapp.com",
+    databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+    projectId: "learnify-ada08",
+    storageBucket: "learnify-ada08.firebasestorage.app",
+    messagingSenderId: "380617329082",
+    appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+    measurementId: "G-DT4WG6622N"
+};
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    const userRef = db.ref('users/aditya');
-    const MAX = 100000;
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const userRef = db.ref('users/aditya');
+const MAX = 100000;
+const DAY_MS = 24 * 60 * 60 * 1000; 
 
-    let localData = { balance: 0, capsules: [0, 0, 0, 0, 0] };
+// Initial state - values will be overwritten by Firebase immediately
+let localData = { balance: 0, capsules: [0, 0, 0, 0, 0], lastUpdated: null };
 
-    // 1. Create UI
-    const grid = document.getElementById('capsule-grid');
-    for(let i=0; i<5; i++) {
-        grid.innerHTML += `
-            <div class="cap-box">
-                <div class="capsule"><div id="lq-${i}" class="liquid" style="height:0%"></div></div>
-                <div style="font-weight: bold; color: var(--primary-glow); margin: 5px 0;">
-                    <span id="val-${i}">0</span>
-                </div>
-                <input type="number" id="in-${i}" placeholder="Amount">
-                <div class="controls">
-                    <button onclick="handleAction(${i}, 'deposit')">Deposit</button>
-                    <button onclick="handleAction(${i}, 'redeem')" style="background:#ff4d4d; color: white;">Redeem</button>
-                </div>
-            </div>`;
-    }
+// 1. Create UI
+const grid = document.getElementById('capsule-grid');
+for(let i=0; i<5; i++) {
+    grid.innerHTML += `
+        <div class="cap-box">
+            <div class="capsule"><div id="lq-${i}" class="liquid" style="height:0%"></div></div>
+            <div style="font-weight: bold; color: var(--primary-glow); margin: 5px 0;">
+                <span id="val-${i}">0</span>
+            </div>
+            <input type="number" id="in-${i}" placeholder="Amount">
+            <div class="controls">
+                <button onclick="handleAction(${i}, 'deposit')">Deposit</button>
+                <button onclick="handleAction(${i}, 'withdraw')" style="background:#ff4d4d; color: white;">Withdraw</button>
+            </div>
+        </div>`;
+}
 
-    // 2. Listen for Data
-    userRef.on('value', (snap) => {
-        const data = snap.val();
-        if(data) {
-            localData.balance = data.balance || 0;
-            if(data.capsules) localData.capsules = data.capsules;
-            updateDisplay();
-        }
-    });
+document.querySelector('.balance-card').insertAdjacentHTML('afterend', `
+    <div id="timer-display" style="color: #00f2ff; margin-bottom: 10px; font-family: monospace; font-size: 1.2rem;">
+        Calculating cycle...
+    </div>
+`);
 
-    function updateDisplay() {
-        document.getElementById('main-balance').innerText = Math.floor(localData.balance).toLocaleString();
-        localData.capsules.forEach((amt, i) => {
-            let percent = Math.min((amt / MAX) * 100, 100);
-            document.getElementById(`lq-${i}`).style.height = percent + "%";
-            document.getElementById(`val-${i}`).innerText = Math.floor(amt).toLocaleString();
-        });
-    }
-
-    async function saveData() {
-        try {
-            await userRef.update({
-                balance: localData.balance,
-                capsules: localData.capsules
-            });
-        } catch (e) {
-            console.error("Save failed", e);
-        }
-    }
-
-    window.handleAction = (i, type) => {
-        const input = document.getElementById(`in-${i}`);
-        const amt = parseInt(input.value);
-        if(!amt || amt <= 0) return;
-
-        if(type === 'deposit') {
-            if(amt > localData.balance) return alert("Not enough coins in balance!");
-            let space = MAX - localData.capsules[i];
-            let canAdd = Math.min(amt, space);
-            if(canAdd <= 0) return alert("Capsule Full!");
-            
-            localData.balance -= canAdd;
-            localData.capsules[i] += canAdd;
+// 2. Listen for Data
+userRef.on('value', (snap) => {
+    const data = snap.val();
+    if(data) {
+        localData.balance = data.balance || 0;
+        localData.capsules = data.capsules || [0, 0, 0, 0, 0];
+        
+        // CRITICAL FIX: Only set a new timestamp if the DB doesn't have one
+        if (!data.lastUpdated) {
+            localData.lastUpdated = Date.now();
+            saveData(); 
         } else {
-            if(amt > localData.capsules[i]) return alert("Not enough in capsule!");
-            localData.balance += amt;
-            localData.capsules[i] -= amt;
+            localData.lastUpdated = data.lastUpdated;
         }
-        saveData();
-        input.value = "";
-    };
+        
+        applyOfflineGrowth();
+        updateDisplay();
+    }
+});
 
-    // 3. Growth logic (25% every 24 hours)
-    setInterval(() => {
+function applyOfflineGrowth() {
+    if (!localData.lastUpdated) return;
+
+    const now = Date.now();
+    const elapsed = now - localData.lastUpdated;
+    
+    if (elapsed >= DAY_MS) {
+        const cycles = Math.floor(elapsed / DAY_MS);
         let changed = false;
+
         localData.capsules = localData.capsules.map(amt => {
-            if(amt > 0 && amt < MAX) {
+            if (amt > 0 && amt < MAX) {
                 changed = true;
-                let grow = amt * 1.25;
-                return grow > MAX ? MAX : grow;
+                // Compound interest for the number of days missed
+                let newAmt = amt * Math.pow(1.25, cycles);
+                return Math.min(newAmt, MAX);
             }
             return amt;
         });
-        if(changed) saveData();
-    }, 24 * 60 * 60 * 1000); 
 
+        // Move the timestamp forward by the number of completed 24h cycles
+        localData.lastUpdated += (cycles * DAY_MS);
+        saveData();
+    }
+}
+
+function updateDisplay() {
+    document.getElementById('main-balance').innerText = Math.floor(localData.balance).toLocaleString();
+    localData.capsules.forEach((amt, i) => {
+        let percent = Math.min((amt / MAX) * 100, 100);
+        document.getElementById(`lq-${i}`).style.height = percent + "%";
+        document.getElementById(`val-${i}`).innerText = Math.floor(amt).toLocaleString();
+    });
+}
+
+// 3. Persistent Timer Logic
+setInterval(() => {
+    if (!localData.lastUpdated) return;
+
+    const now = Date.now();
+    const timeSinceLast = now - localData.lastUpdated;
+    const timeLeft = DAY_MS - (timeSinceLast % DAY_MS);
+    
+    const h = Math.floor(timeLeft / 3600000).toString().padStart(2, '0');
+    const m = Math.floor((timeLeft % 3600000) / 60000).toString().padStart(2, '0');
+    const s = Math.floor((timeLeft % 60000) / 1000).toString().padStart(2, '0');
+    
+    document.getElementById('timer-display').innerText = `Next Payout in: ${h}:${m}:${s}`;
+    
+    // Check for growth if the timer naturally hits zero
+    if (timeLeft < 1000) applyOfflineGrowth();
+}, 1000);
+
+async function saveData() {
+    try {
+        await userRef.update({
+            balance: localData.balance,
+            capsules: localData.capsules,
+            lastUpdated: localData.lastUpdated
+        });
+    } catch (e) {
+        console.error("Save failed", e);
+    }
+}
+
+window.handleAction = (i, type) => {
+    const input = document.getElementById(`in-${i}`);
+    const amt = parseInt(input.value);
+    if(!amt || amt <= 0) return;
+
+    if(type === 'deposit') {
+        if(amt > localData.balance) return alert("Not enough coins!");
+        let space = MAX - localData.capsules[i];
+        let canAdd = Math.min(amt, space);
+        if(canAdd <= 0) return alert("Capsule Full!");
+        
+        localData.balance -= canAdd;
+        localData.capsules[i] += canAdd;
+    } else {
+        if(amt > localData.capsules[i]) return alert("Not enough in capsule!");
+        localData.balance += amt;
+        localData.capsules[i] -= amt;
+    }
+    saveData();
+    input.value = "";
+};
 </script>
 </body>
 </html>
