@@ -22,6 +22,7 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            padding-bottom: 50px;
         }
 
         .balance-card {
@@ -31,6 +32,7 @@
             margin: 30px;
             border: 1px solid var(--primary-glow);
             box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
+            font-size: 1.2rem;
         }
 
         .capsules-container {
@@ -39,24 +41,28 @@
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
+            max-width: 1000px;
         }
 
-        .capsule-wrapper {
+        .cap-box {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
+            background: rgba(255,255,255,0.03);
+            padding: 20px;
+            border-radius: 25px;
+            transition: 0.3s;
         }
 
-        /* The Liquid Animation */
         .capsule {
-            width: 80px;
-            height: 180px;
+            width: 70px;
+            height: 160px;
             border: 3px solid var(--glass);
-            border-radius: 50px;
+            border-radius: 40px;
             position: relative;
             overflow: hidden;
-            background: rgba(255,255,255,0.05);
+            background: rgba(0,0,0,0.3);
             box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
         }
 
@@ -66,26 +72,25 @@
             left: 0;
             width: 100%;
             background: linear-gradient(180deg, var(--primary-glow), #0066ff);
-            transition: height 1s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 20px var(--primary-glow);
+            transition: height 0.8s ease-in-out;
+            box-shadow: 0 0 15px var(--primary-glow);
         }
 
         .liquid::after {
             content: "";
             position: absolute;
-            top: -10px;
+            top: -5px;
             left: 0;
             width: 100%;
-            height: 20px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 50%;
+            height: 10px;
+            background: rgba(255,255,255,0.4);
             filter: blur(2px);
         }
 
         .controls {
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 8px;
         }
 
         button {
@@ -96,53 +101,51 @@
             color: black;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.2s;
+            width: 100%;
+        }
+
+        button:hover { opacity: 0.8; transform: translateY(-2px); }
+        button:active { transform: scale(0.95); }
+
+        input {
+            width: 90px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+            outline: none;
+        }
+
+        .home-btn {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 12px 28px;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 30px;
             transition: 0.3s;
         }
 
-        button:hover { opacity: 0.8; transform: scale(1.05); }
-        button:disabled { background: #444; cursor: not-allowed; }
-
-        input {
-            width: 80px;
-            background: #222;
-            border: 1px solid #444;
-            color: white;
-            border-radius: 5px;
-            padding: 5px;
-            text-align: center;
-        }
-        .home-btn {
-  display: inline-block;
-  padding: 12px 28px;
-  background: linear-gradient(45deg, #1e3c72, #2a5298);
-  color: white;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-decoration: none;
-  border-radius: 30px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
-  font-family: Arial, sans-serif;
-}
-
-.home-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
-  background: linear-gradient(45deg, #2a5298, #1e3c72);
-}
-
+        h3 { color: #888; font-weight: 400; text-align: center; padding: 0 20px; }
     </style>
 </head>
-<body><br>
+<body>
+
     <a href="index.html" class="home-btn">🏠 Home</a>
 
     <div class="balance-card">
         Main Balance: <span id="main-balance">0</span> Coins
     </div>
 
-    <div class="capsules-container" id="capsules-grid">
+    <div class="capsules-container" id="capsule-grid">
         </div>
-        <h3>Invest here, everyday your money increases by 25% in each capsule!</h3>
+    
+    <h3>Invest here! Your money increases by 25% every 24 hours.</h3>
 
 <script>
     // --- Firebase Setup ---
@@ -157,7 +160,7 @@
       measurementId: "G-DT4WG6622N"
     };
 
-firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     const userRef = db.ref('users/aditya');
     const MAX = 100000;
@@ -170,19 +173,22 @@ firebase.initializeApp(firebaseConfig);
         grid.innerHTML += `
             <div class="cap-box">
                 <div class="capsule"><div id="lq-${i}" class="liquid" style="height:0%"></div></div>
-                <div id="val-${i}">0</div>
-                <input type="number" id="in-${i}" placeholder="Coins">
-                <button onclick="handleAction(${i}, 'deposit')">Deposit</button>
-                <button onclick="handleAction(${i}, 'redeem')" style="background:#ff4d4d">Redeem</button>
+                <div style="font-weight: bold; color: var(--primary-glow); margin: 5px 0;">
+                    <span id="val-${i}">0</span>
+                </div>
+                <input type="number" id="in-${i}" placeholder="Amount">
+                <div class="controls">
+                    <button onclick="handleAction(${i}, 'deposit')">Deposit</button>
+                    <button onclick="handleAction(${i}, 'redeem')" style="background:#ff4d4d; color: white;">Redeem</button>
+                </div>
             </div>`;
     }
 
-    // 2. Listen for Data (Real-time)
+    // 2. Listen for Data
     userRef.on('value', (snap) => {
         const data = snap.val();
         if(data) {
             localData.balance = data.balance || 0;
-            // Only update capsules if they exist, otherwise keep zeroes
             if(data.capsules) localData.capsules = data.capsules;
             updateDisplay();
         }
@@ -191,16 +197,14 @@ firebase.initializeApp(firebaseConfig);
     function updateDisplay() {
         document.getElementById('main-balance').innerText = Math.floor(localData.balance).toLocaleString();
         localData.capsules.forEach((amt, i) => {
-            let percent = (amt / MAX) * 100;
+            let percent = Math.min((amt / MAX) * 100, 100);
             document.getElementById(`lq-${i}`).style.height = percent + "%";
             document.getElementById(`val-${i}`).innerText = Math.floor(amt).toLocaleString();
         });
     }
 
-    // 3. SAFE UPDATE FUNCTION (Crucial)
     async function saveData() {
         try {
-            // .update() only touches these two keys, leaves everything else alone!
             await userRef.update({
                 balance: localData.balance,
                 capsules: localData.capsules
@@ -232,7 +236,7 @@ firebase.initializeApp(firebaseConfig);
         input.value = "";
     };
 
-    // 4. Growth logic (25% every 1 min)
+    // 3. Growth logic (25% every 24 hours)
     setInterval(() => {
         let changed = false;
         localData.capsules = localData.capsules.map(amt => {
@@ -244,7 +248,8 @@ firebase.initializeApp(firebaseConfig);
             return amt;
         });
         if(changed) saveData();
-    }, 24 * 60 * 60 * 1000);
+    }, 24 * 60 * 60 * 1000); 
+
 </script>
 </body>
 </html>
