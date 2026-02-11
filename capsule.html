@@ -147,107 +147,104 @@
 <script>
     // --- Firebase Setup ---
     const firebaseConfig = {
-        apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
-        authDomain: "learnify-ada08.firebaseapp.com",
-        databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
-        projectId: "learnify-ada08",
-        storageBucket: "learnify-ada08.firebasestorage.app",
-        messagingSenderId: "380617329082",
-        appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
-        measurementId: "G-DT4WG6622N"
+      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+      authDomain: "learnify-ada08.firebaseapp.com",
+      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+      projectId: "learnify-ada08",
+      storageBucket: "learnify-ada08.firebasestorage.app",
+      messagingSenderId: "380617329082",
+      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+      measurementId: "G-DT4WG6622N"
     };
 
-    firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
     const userRef = db.ref('users/aditya');
-    const MAX_CAPACITY = 100000;
+    const MAX = 100000;
 
     let localData = { balance: 0, capsules: [0, 0, 0, 0, 0] };
 
-    // Initialize UI
-    function init() {
-        const grid = document.getElementById('capsules-grid');
-        for(let i=0; i<5; i++) {
-            grid.innerHTML += `
-                <div class="capsule-wrapper">
-                    <div class="capsule">
-                        <div id="liquid-${i}" class="liquid" style="height: 0%"></div>
-                    </div>
-                    <div id="val-${i}">0</div>
-                    <input type="number" id="input-${i}" placeholder="Amt">
-                    <div class="controls">
-                        <button onclick="deposit(${i})">Deposit</button>
-                        <button onclick="redeem(${i})">Withdraw</button>
-                    </div>
-                </div>
-            `;
+    // 1. Create UI
+    const grid = document.getElementById('capsule-grid');
+    for(let i=0; i<5; i++) {
+        grid.innerHTML += `
+            <div class="cap-box">
+                <div class="capsule"><div id="lq-${i}" class="liquid" style="height:0%"></div></div>
+                <div id="val-${i}">0</div>
+                <input type="number" id="in-${i}" placeholder="Coins">
+                <button onclick="handleAction(${i}, 'deposit')">Deposit</button>
+                <button onclick="handleAction(${i}, 'redeem')" style="background:#ff4d4d">Redeem</button>
+            </div>`;
+    }
+
+    // 2. Listen for Data (Real-time)
+    userRef.on('value', (snap) => {
+        const data = snap.val();
+        if(data) {
+            localData.balance = data.balance || 0;
+            // Only update capsules if they exist, otherwise keep zeroes
+            if(data.capsules) localData.capsules = data.capsules;
+            updateDisplay();
         }
-        syncFromFirebase();
-        setInterval(growCoins, 60000); // 1-minute growth cycle
-    }
+    });
 
-    // Sync Data
-    function syncFromFirebase() {
-        userRef.on('value', (snapshot) => {
-            const data = snapshot.val();
-            if(data) {
-                localData.balance = data.balance || 0;
-                localData.capsules = data.capsules || [0, 0, 0, 0, 0];
-                updateUI();
-            }
+    function updateDisplay() {
+        document.getElementById('main-balance').innerText = Math.floor(localData.balance).toLocaleString();
+        localData.capsules.forEach((amt, i) => {
+            let percent = (amt / MAX) * 100;
+            document.getElementById(`lq-${i}`).style.height = percent + "%";
+            document.getElementById(`val-${i}`).innerText = Math.floor(amt).toLocaleString();
         });
     }
 
-    function updateUI() {
-        document.getElementById('main-balance').innerText = localData.balance.toLocaleString();
-        localData.capsules.forEach((val, i) => {
-            const percent = (val / MAX_CAPACITY) * 100;
-            document.getElementById(`liquid-${i}`).style.height = `${percent}%`;
-            document.getElementById(`val-${i}`).innerText = `${Math.floor(val).toLocaleString()}`;
-        });
+    // 3. SAFE UPDATE FUNCTION (Crucial)
+    async function saveData() {
+        try {
+            // .update() only touches these two keys, leaves everything else alone!
+            await userRef.update({
+                balance: localData.balance,
+                capsules: localData.capsules
+            });
+        } catch (e) {
+            console.error("Save failed", e);
+        }
     }
 
-    // Growth Logic (25% every minute)
-    function growCoins() {
-        let updated = false;
-        localData.capsules = localData.capsules.map(val => {
-            if (val > 0 && val < MAX_CAPACITY) {
-                updated = true;
-                let newVal = val * 1.25;
-                return newVal > MAX_CAPACITY ? MAX_CAPACITY : newVal;
-            }
-            return val;
-        });
-        if(updated) userRef.update({ capsules: localData.capsules });
-    }
+    window.handleAction = (i, type) => {
+        const input = document.getElementById(`in-${i}`);
+        const amt = parseInt(input.value);
+        if(!amt || amt <= 0) return;
 
-    // Action Functions
-    window.deposit = (index) => {
-        const amt = parseInt(document.getElementById(`input-${index}`).value);
-        if(isNaN(amt) || amt <= 0) return alert("Enter valid amount");
-        if(amt > localData.balance) return alert("Insufficient balance");
-        
-        const spaceLeft = MAX_CAPACITY - localData.capsules[index];
-        const actualDeposit = Math.min(amt, spaceLeft);
-
-        if(actualDeposit <= 0) return alert("Capsule is full!");
-
-        localData.balance -= actualDeposit;
-        localData.capsules[index] += actualDeposit;
-        userRef.set(localData);
+        if(type === 'deposit') {
+            if(amt > localData.balance) return alert("Not enough coins in balance!");
+            let space = MAX - localData.capsules[i];
+            let canAdd = Math.min(amt, space);
+            if(canAdd <= 0) return alert("Capsule Full!");
+            
+            localData.balance -= canAdd;
+            localData.capsules[i] += canAdd;
+        } else {
+            if(amt > localData.capsules[i]) return alert("Not enough in capsule!");
+            localData.balance += amt;
+            localData.capsules[i] -= amt;
+        }
+        saveData();
+        input.value = "";
     };
 
-    window.redeem = (index) => {
-        const amt = parseInt(document.getElementById(`input-${index}`).value);
-        if(isNaN(amt) || amt <= 0) return alert("Enter valid amount");
-        if(amt > localData.capsules[index]) return alert("Not enough in capsule");
-
-        localData.balance += amt;
-        localData.capsules[index] -= amt;
-        userRef.set(localData);
-    };
-
-    init();
+    // 4. Growth logic (25% every 1 min)
+    setInterval(() => {
+        let changed = false;
+        localData.capsules = localData.capsules.map(amt => {
+            if(amt > 0 && amt < MAX) {
+                changed = true;
+                let grow = amt * 1.25;
+                return grow > MAX ? MAX : grow;
+            }
+            return amt;
+        });
+        if(changed) saveData();
+    }, 24 * 60 * 60 * 1000);
 </script>
 </body>
 </html>
