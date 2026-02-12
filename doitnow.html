@@ -200,23 +200,23 @@
       let coins = 0;
 
 // Question coins  
-coins += totalQ * 150;
+coins += totalQ * 600;
 
-
+    const productivitybonus = 10000
       // Productivity bonuses
-      if (productivity.includes("oneshot")) coins += 5000;
-      else if (productivity.includes("test")) coins += 5000;
-      else if (productivity.includes("ipe")) coins += 5000;
-      else if (productivity.includes("ncert")) coins += 5000;
-      else if (productivity.includes("revision")) coins += 5000;
-      else if (productivity.includes("reading")) coins += 5000;
-      else if (productivity.includes("concept")) coins += 5000;
-      else if (productivity.includes("formula")) coins += 5000;
+      if (productivity.includes("oneshot")) coins += productivitybonus;
+      else if (productivity.includes("test")) coins += productivitybonus;
+      else if (productivity.includes("ipe")) coins += productivitybonus;
+      else if (productivity.includes("ncert")) coins += productivitybonus;
+      else if (productivity.includes("revision")) coins += productivitybonus;
+      else if (productivity.includes("reading")) coins += productivitybonus;
+      else if (productivity.includes("concept")) coins += productivitybonus;
+      else if (productivity.includes("formula")) coins += productivitybonus;
 
       // Daily goal
       let streakAdd = 0;
       if (goal === "yes") { 
-          coins += 1000; 
+          coins += 10000; 
           streakAdd = 1;
       }
 

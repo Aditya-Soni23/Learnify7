@@ -192,37 +192,37 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const userRef = ref(db, "users/aditya");
-
+const agentprice = 80000;
 // Sample agents list
 const agents = [
-  { name: "Brimstone", role: "controller", price: 40000, img: 'valorant/brimstone.webp' },
-  { name: "Viper", role: "controller", price: 40000, img: 'valorant/viper.webp' },
-  { name: "Omen", role: "controller", price: 40000, img: 'valorant/omen.webp' },
-  { name: "Killjoy", role: "sentinel", price: 40000, img: 'valorant/killjoy.webp' },
-  { name: "Cypher", role: "sentinel", price: 40000, img: 'valorant/cypher.webp' },
-  { name: "Sova", role: "initiator", price: 40000, img: 'valorant/sova.webp' },
-  { name: "Sage", role: "sentinel", price: 40000, img: 'valorant/sage.webp' },
-  { name: "Phoenix", role: "duelist", price: 40000, img: 'valorant/phoenix.webp' },
-  { name: "Jett", role: "duelist", price: 40000, img: 'valorant/jett.webp' },
-  { name: "Reyna", role: "duelist", price: 40000, img: 'valorant/reyna.webp' },
-  { name: "Raze", role: "duelist", price: 40000, img: 'valorant/raze.webp' },
-  { name: "Breach", role: "initiator", price: 40000, img: 'valorant/breach.webp' },
-  { name: "Skye", role: "initiator", price: 40000, img: 'valorant/skye.webp' },
-  { name: "Yoru", role: "duelist", price: 40000, img: 'valorant/yoru.webp' },
-  { name: "Astra", role: "controller", price: 40000, img: 'valorant/astra.webp' },
-  { name: "KAY/O", role: "initiator", price: 40000, img: 'valorant/kayo.webp' },
-  { name: "Chamber", role: "sentinel", price: 40000, img: 'valorant/chamber.webp' },
-  { name: "Neon", role: "duelist", price: 40000, img: 'valorant/neon.webp' },
-  { name: "Fade", role: "initiator", price: 40000, img: 'valorant/fade.webp' },
-  { name: "Harbor", role: "controller", price: 40000, img: 'valorant/harbor.webp' },
-  { name: "Gekko", role: "initiator", price: 40000, img: 'valorant/gekko.webp' },
-  { name: "Deadlock", role: "sentinel", price: 40000, img: 'valorant/deadlock.webp' },
-  { name: "Iso", role: "duelist", price: 40000, img: 'valorant/iso.webp' },
-  { name: "Clove", role: "controller", price: 40000, img: 'valorant/clove.webp' },
-  { name: "Vyse", role: "sentinel", price: 40000, img: 'valorant/vyse.webp' },
-  { name: "Tejo", role: "initiator", price: 40000, img: 'valorant/tejo.webp' },
-  { name: "Veto", role: "sentinel", price: 40000, img: 'valorant/veto.webp' },
-  { name: "Waylay", role: "duelist", price: 40000, img: 'valorant/waylay.webp' }
+  { name: "Brimstone", role: "controller", price: agentprice, img: 'valorant/brimstone.webp' },
+  { name: "Viper", role: "controller", price: agentprice, img: 'valorant/viper.webp' },
+  { name: "Omen", role: "controller", price: agentprice, img: 'valorant/omen.webp' },
+  { name: "Killjoy", role: "sentinel", price: agentprice, img: 'valorant/killjoy.webp' },
+  { name: "Cypher", role: "sentinel", price: agentprice, img: 'valorant/cypher.webp' },
+  { name: "Sova", role: "initiator", price: agentprice, img: 'valorant/sova.webp' },
+  { name: "Sage", role: "sentinel", price: agentprice, img: 'valorant/sage.webp' },
+  { name: "Phoenix", role: "duelist", price: agentprice, img: 'valorant/phoenix.webp' },
+  { name: "Jett", role: "duelist", price: agentprice, img: 'valorant/jett.webp' },
+  { name: "Reyna", role: "duelist", price: agentprice, img: 'valorant/reyna.webp' },
+  { name: "Raze", role: "duelist", price: agentprice, img: 'valorant/raze.webp' },
+  { name: "Breach", role: "initiator", price: agentprice, img: 'valorant/breach.webp' },
+  { name: "Skye", role: "initiator", price: agentprice, img: 'valorant/skye.webp' },
+  { name: "Yoru", role: "duelist", price: agentprice, img: 'valorant/yoru.webp' },
+  { name: "Astra", role: "controller", price: agentprice, img: 'valorant/astra.webp' },
+  { name: "KAY/O", role: "initiator", price: agentprice, img: 'valorant/kayo.webp' },
+  { name: "Chamber", role: "sentinel", price: agentprice, img: 'valorant/chamber.webp' },
+  { name: "Neon", role: "duelist", price: agentprice, img: 'valorant/neon.webp' },
+  { name: "Fade", role: "initiator", price: agentprice, img: 'valorant/fade.webp' },
+  { name: "Harbor", role: "controller", price: agentprice, img: 'valorant/harbor.webp' },
+  { name: "Gekko", role: "initiator", price: agentprice, img: 'valorant/gekko.webp' },
+  { name: "Deadlock", role: "sentinel", price: agentprice, img: 'valorant/deadlock.webp' },
+  { name: "Iso", role: "duelist", price: agentprice, img: 'valorant/iso.webp' },
+  { name: "Clove", role: "controller", price: agentprice, img: 'valorant/clove.webp' },
+  { name: "Vyse", role: "sentinel", price: agentprice, img: 'valorant/vyse.webp' },
+  { name: "Tejo", role: "initiator", price: agentprice, img: 'valorant/tejo.webp' },
+  { name: "Veto", role: "sentinel", price: agentprice, img: 'valorant/veto.webp' },
+  { name: "Waylay", role: "duelist", price: agentprice, img: 'valorant/waylay.webp' }
 ];
 
 
