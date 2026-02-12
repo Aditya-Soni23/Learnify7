@@ -9,129 +9,230 @@
     <style>
         :root {
             --primary-glow: #00f2ff;
-            --bg-dark: #0a0a0c;
-            --glass: rgba(255, 255, 255, 0.1);
+            --secondary-glow: #7000ff;
+            --accent-red: #ff2d55;
+            --bg-dark: #050508;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
         }
-
+    
         body {
             background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 242, 255, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(112, 0, 255, 0.15) 0px, transparent 50%);
             color: white;
-            font-family: 'Segoe UI', sans-serif;
+            font-family: 'Orbitron', 'Segoe UI', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            padding-bottom: 50px;
+            overflow-x: hidden;
         }
-
+    
+        /* Animated Background Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.3;
+            z-index: -1;
+            pointer-events: none;
+        }
+    
+        .home-btn {
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            color: var(--primary-glow);
+            text-decoration: none;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            transition: 0.4s;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+        }
+    
+        .home-btn:hover {
+            background: var(--primary-glow);
+            color: black;
+            box-shadow: 0 0 30px var(--primary-glow);
+        }
+    
         .balance-card {
             background: var(--glass);
-            padding: 20px 40px;
+            backdrop-filter: blur(20px);
+            padding: 25px 60px;
             border-radius: 20px;
-            margin: 30px;
-            border: 1px solid var(--primary-glow);
-            box-shadow: 0 0 20px rgba(0, 242, 255, 0.2);
-            font-size: 1.2rem;
+            margin: 40px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05);
+            text-align: center;
         }
-
+    
+        #main-balance {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(to right, #fff, var(--primary-glow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+        }
+    
         .capsules-container {
             display: flex;
-            gap: 30px;
+            gap: 40px;
             flex-wrap: wrap;
             justify-content: center;
-            padding: 20px;
-            max-width: 1000px;
+            padding: 40px;
+            perspective: 1000px;
         }
-
+    
         .cap-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            background: rgba(255,255,255,0.03);
-            padding: 20px;
-            border-radius: 25px;
-            transition: 0.3s;
+            position: relative;
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            padding: 30px;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
         }
-
+    
+        .cap-box:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            border-color: var(--primary-glow);
+            box-shadow: 0 20px 50px rgba(0, 242, 255, 0.15);
+        }
+    
+        /* THE FUTURISTIC CAPSULE */
         .capsule {
-            width: 70px;
-            height: 160px;
-            border: 3px solid var(--glass);
-            border-radius: 40px;
+            width: 80px;
+            height: 200px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 100px;
             position: relative;
             overflow: hidden;
-            background: rgba(0,0,0,0.3);
-            box-shadow: inset 0 0 15px rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
+            box-shadow: 
+                inset 0 0 25px rgba(0,0,0,0.9),
+                0 0 15px rgba(0, 242, 255, 0.1);
         }
-
+    
+        /* The glowing liquid energy */
         .liquid {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            background: linear-gradient(180deg, var(--primary-glow), #0066ff);
-            transition: height 0.8s ease-in-out;
-            box-shadow: 0 0 15px var(--primary-glow);
+            background: linear-gradient(0deg, var(--secondary-glow) 0%, var(--primary-glow) 100%);
+            transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 30px var(--primary-glow);
         }
-
-        .liquid::after {
+    
+        /* Liquid scanning/shimmer effect */
+        .liquid::before {
             content: "";
             position: absolute;
-            top: -5px;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: rgba(255,255,255,0.4);
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+    
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+    
+        /* Glass highlights on capsule */
+        .capsule::after {
+            content: "";
+            position: absolute;
+            top: 10%; left: 15%;
+            width: 20%; height: 80%;
+            background: rgba(255,255,255,0.1);
+            border-radius: 40px;
             filter: blur(2px);
         }
-
+    
         .controls {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 12px;
+            margin-top: 15px;
         }
-
+    
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--glass-border);
+            color: var(--primary-glow);
+            border-radius: 12px;
+            padding: 12px;
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            outline: none;
+            transition: 0.3s;
+        }
+    
+        input:focus {
+            border-color: var(--primary-glow);
+            background: rgba(0, 242, 255, 0.05);
+        }
+    
         button {
-            padding: 8px 15px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 12px;
             border: none;
             background: var(--primary-glow);
             color: black;
-            font-weight: bold;
+            font-weight: 900;
+            text-transform: uppercase;
             cursor: pointer;
-            transition: 0.2s;
-            width: 100%;
-        }
-
-        button:hover { opacity: 0.8; transform: translateY(-2px); }
-        button:active { transform: scale(0.95); }
-
-        input {
-            width: 90px;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            color: white;
-            border-radius: 8px;
-            padding: 8px;
-            text-align: center;
-            outline: none;
-        }
-
-        .home-btn {
-            margin-top: 20px;
-            display: inline-block;
-            padding: 12px 28px;
-            background: linear-gradient(45deg, #1e3c72, #2a5298);
-            color: white;
-            font-weight: 700;
-            text-decoration: none;
-            border-radius: 30px;
             transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
         }
-
-        h3 { color: #888; font-weight: 400; text-align: center; padding: 0 20px; }
+    
+        button:hover {
+            filter: brightness(1.2);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+    
+        button.withdraw {
+            background: transparent;
+            border: 1px solid var(--accent-red);
+            color: var(--accent-red);
+            box-shadow: none;
+        }
+    
+        button.withdraw:hover {
+            background: var(--accent-red);
+            color: white;
+            box-shadow: 0 0 20px var(--accent-red);
+        }
+    
+        #timer-display {
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px var(--primary-glow);
+            background: rgba(0,0,0,0.3);
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+    
+        h3 {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-top: 40px;
+        }
     </style>
 </head>
 <body>
