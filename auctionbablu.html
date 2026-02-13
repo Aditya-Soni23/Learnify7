@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learnify Pro - Sushanth</title>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+    <style>
+        :root { --pink: #ff007f; --dark: #0a0a0c; --green: #2ecc71; --gold: #f1c40f; }
+        body { margin: 0; background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; height: 100vh; overflow: hidden; }
+        .grid { display: grid; grid-template-rows: 40vh 60vh; height: 100vh; }
+        .top { border-bottom: 3px solid var(--pink); display: grid; grid-template-columns: 1fr 1.5fr 1fr; background: #16161d; padding: 15px; gap: 20px; }
+        .vault { background: #1a1a20; padding: 10px; border-radius: 12px; border: 1px solid #333; font-size: 0.8rem; }
+        .vault input { width: 70px; background: #000; color: var(--pink); border: 1px solid #444; padding: 5px; border-radius: 4px; margin-bottom: 5px; }
+        #p-img { width: 110px; height: 110px; border-radius: 50%; border: 4px solid var(--pink); object-fit: cover; }
+        .log-container { background: #000; border: 1px solid #222; height: 160px; overflow-y: auto; padding: 10px; font-family: monospace; font-size: 0.8rem; color: var(--pink); }
+        .main { display: grid; grid-template-columns: 1fr 1fr; height: 100%; }
+        .side { padding: 20px; border: 1px solid #1a1a1a; text-align: center; overflow-y: auto; }
+        .f-side { background: rgba(255, 0, 127, 0.05); border-left: 2px solid var(--pink); }
+        .btn { padding: 10px 20px; border: none; border-radius: 6px; font-weight: 800; cursor: pointer; text-transform: uppercase; font-size: 0.7rem;}
+        .btn-bid { background: var(--pink); color: white; }
+        .btn-bid:disabled { background: #333; color: #666; cursor: not-allowed; }
+        .balance { font-size: 1.8rem; color: var(--green); font-weight: 900; }
+        .team-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 15px; }
+        .player-card { background: #1a1a20; border: 1px solid var(--pink); border-radius: 10px; padding: 5px; width: 70px; text-align: center; font-size: 0.6rem; }
+        .player-card img { width: 40px; height: 40px; border-radius: 50%; }
+        #win-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); display: none; flex-direction: column; align-items: center; justify-content: center; z-index: 100; }
+    </style>
+</head>
+<body>
+    <div id="win-overlay">
+        <h1 id="winner-text" style="color:var(--gold); font-size: 3rem;">SEASON OVER</h1>
+        <p id="winner-sub" style="font-size: 1.5rem;"></p>
+        <p style="color:#666">Wait for Host to Restart...</p>
+    </div>
+
+    <div class="grid">
+        <div class="top">
+            <div class="vault">
+                <strong>BANK: $<span id="main-bal">0</span></strong><br>
+                <input type="number" id="bank-amount" placeholder="Amount">
+                <div style="display:flex; gap:5px">
+                    <button onclick="transfer('dep')" style="background:var(--green); color:black; border:none; padding:4px; border-radius:3px; cursor:pointer">DEPOSIT</button>
+                    <button onclick="transfer('red')" style="background:#e74c3c; color:white; border:none; padding:4px; border-radius:3px; cursor:pointer">WITHDRAW</button>
+                </div><br><h2>First deposit required money into auction wallet to bid!</h2><br><h2 style="color: greenyellow;">Auction prize - 50k</h2>
+            </div>
+            <div id="auction-box" style="text-align:center;">
+                <h2 id="wait-msg">WAITING FOR HOST...</h2>
+                <div id="p-ui" style="display:none;">
+                    <img id="p-img" src="" alt="Personality">
+                    <h2 id="p-name" style="color:var(--pink); margin:5px 0;">--</h2>
+                    <h3 id="p-info">BID: $<span id="cur-bid-disp">0</span></h3>
+                </div>
+            </div>
+            <div id="live-log" class="log-container"></div>
+        </div>
+        <div class="main">
+            <div class="side">
+                <h3 style="color:#00f2ff">ADITYA</h3>
+                <div class="balance" style="color:#00f2ff">$<span id="auc-bal-aditya">0</span></div>
+                <div style="color:var(--gold)">Stars: <span id="stars-aditya">0</span> ⭐</div>
+                <div id="aditya-team" class="team-box"></div>
+            </div>
+            <div class="side f-side">
+                <h3>SUSHANTH (YOU)</h3>
+                <div class="balance">$<span id="auc-bal-sushanth">0</span></div>
+                <div style="color:var(--gold)">Stars: <span id="stars-sushanth">0</span> ⭐</div>
+                <div id="controls" style="display:none; margin-top:20px;">
+                    <button class="btn btn-bid" id="bid-btn" onclick="act('bid')">BID</button>
+                    <button class="btn" style="background:#444; color:white; margin-left:10px;" id="rej-btn" onclick="act('reject')">REJECT</button>
+                </div>
+                <div id="my-team" class="team-box"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const aConfig = { apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk", databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com" };
+        const sConfig = { apiKey: "AIzaSyATCUjWe1bbp2yOiZwOzBATrHfU2CE7rPY", databaseURL: "https://shushant-3b425-default-rtdb.firebaseio.com" };
+        const aDb = firebase.initializeApp(aConfig, "auctionApp").database();
+        const sDb = firebase.initializeApp(sConfig, "bankApp").database();
+
+        const roster = [
+            {name: "Elon Musk", base: 30000, stars: 30, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRw8UfxvpY3ZNV_TTYb0pFMpb05L45B2XnLKA&s"},
+            {name: "MrBeast", base: 25000, stars: 25, img: "https://ichef.bbci.co.uk/news/480/cpsprodpb/017d/live/8703abf0-2180-11ef-9628-ff2abcc9602e.jpg.webp"},
+            {name: "Ronaldo", base: 20000, stars: 20, img: "https://assets.realmadrid.com/is/image/realmadrid/1330603286208?$Mobile$&fit=wrap&wid=312"},
+            {name: "Jett", base: 15000, stars: 15, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw4PmAfu6XKZEggplmgtGrDiSdn_VoAv5Ovg&s"},
+            {name: "Dheeraj Palepu", base: 10000, stars: 10, img: "https://aditya-soni23.github.io/dheeraj-website/WhatsApp%20Image%202021-07-17%20at%2012.27.46%20PM.jpeg"},
+            {name: "Hitler", base: 20000, stars: 20, img: "https://www.shutterstock.com/editorial/image-editorial/NaDeQ913MdT5Eb0bMDAxMQ==/adolf-hitler-1889-1945-german-politician-leader-nazi-440nw-4423909a.jpg"},
+            {name: "IShowSpeed", base: 15000, stars: 15, img: "https://upload.wikimedia.org/wikipedia/commons/e/ea/IShowSpeed_at_Chinatown_%28Portrait%29_04.jpg"},
+            {name: "OHHH Meme Banda", base: 30000, stars: 30, img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHD8VEE5QMVw8ebl1tE1CgbiWvtgCNPk5hyw&s"},
+            {name: "King Jong Un", base: 20000, stars: 20, img: "https://m.media-amazon.com/images/M/MV5BNjk5MGQ2ZjItMWZmMS00ZWQwLTgyMDQtYzUzNjA5ODIzZDg5XkEyXkFqcGc@._V1_.jpg"},
+            {name: "Albert Einstein", base: 25000, stars: 25, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Albert_Einstein_sticks_his_tongue.jpg/250px-Albert_Einstein_sticks_his_tongue.jpg"}
+        ];
+
+        sDb.ref('users/aditya/balance').on('value', s => document.getElementById('main-bal').innerText = s.val() || 0);
+        
+        function transfer(mode) {
+            const amt = parseInt(document.getElementById('bank-amount').value);
+            if(!amt || amt <= 0) return;
+            if(mode === 'dep') {
+                sDb.ref('users/aditya').update({ balance: firebase.database.ServerValue.increment(-amt) });
+                aDb.ref('auction/balances/sushanth').set(firebase.database.ServerValue.increment(amt));
+            } else {
+                aDb.ref('auction/balances/sushanth').once('value', s => {
+                    if(s.val() >= amt) {
+                        sDb.ref('users/aditya').update({ balance: firebase.database.ServerValue.increment(amt) });
+                        aDb.ref('auction/balances/sushanth').set(firebase.database.ServerValue.increment(-amt));
+                    } else { alert("Insufficient Wallet!"); }
+                });
+            }
+        }
+
+        aDb.ref('auction').on('value', snap => {
+            const d = snap.val() || {}; const g = d.game || {};
+            if(g.active && roster[g.pIdx]) {
+                document.getElementById('win-overlay').style.display = 'none';
+                document.getElementById('wait-msg').style.display = 'none';
+                document.getElementById('p-ui').style.display = 'block';
+                document.getElementById('controls').style.display = 'block';
+                const p = roster[g.pIdx];
+                document.getElementById('p-name').innerText = p.name;
+                document.getElementById('p-img').src = p.img;
+                document.getElementById('cur-bid-disp').innerText = g.price;
+                const myWallet = d.balances?.sushanth || 0;
+                document.getElementById('bid-btn').disabled = (g.turn !== 'sushanth' || myWallet < g.price);
+                document.getElementById('rej-btn').disabled = (g.turn !== 'sushanth');
+            } else if (g.ended) {
+                const winner = d.stars.aditya >= d.stars.sushanth ? 'aditya' : 'sushanth';
+                document.getElementById('win-overlay').style.display = 'flex';
+                document.getElementById('winner-text').innerText = winner.toUpperCase() + " WINS!";
+                document.getElementById('winner-sub').innerText = `Stars: ${d.stars[winner]} - $50,000 Awarded!`;
+            } else {
+                document.getElementById('p-ui').style.display = 'none';
+                document.getElementById('controls').style.display = 'none';
+                document.getElementById('wait-msg').style.display = 'block';
+            }
+            if(d.logs) document.getElementById('live-log').innerHTML = Object.values(d.logs).reverse().map(l => `<div>> ${l}</div>`).join('');
+            document.getElementById('auc-bal-sushanth').innerText = d.balances?.sushanth || 0;
+            document.getElementById('auc-bal-aditya').innerText = d.balances?.aditya || 0;
+            document.getElementById('stars-sushanth').innerText = d.stars?.sushanth || 0;
+            document.getElementById('stars-aditya').innerText = d.stars?.aditya || 0;
+            renderTeam('my-team', d.teams?.sushanth);
+            renderTeam('aditya-team', d.teams?.aditya);
+        });
+
+        function renderTeam(id, team) {
+            const arr = team ? Object.values(team) : [];
+            document.getElementById(id).innerHTML = arr.map(p => `<div class="player-card"><img src="${p.img}"><br><b>${p.name}</b></div>`).join('');
+        }
+
+        function act(type) {
+            aDb.ref('auction').once('value', s => {
+                const d = s.val(); const p = roster[d.game.pIdx];
+                if(type === 'bid') {
+                    aDb.ref('auction/game').update({ price: d.game.price + 10000, turn: 'aditya', lastBidder: 'sushanth' });
+                    aDb.ref('auction/logs').push(`Sushanth bid $${d.game.price}`);
+                } else {
+                    const winner = d.game.lastBidder === 'none' ? 'aditya' : d.game.lastBidder;
+                    const finalPrice = d.game.lastBidder === 'none' ? 0 : d.game.price - 10000;
+                    aDb.ref(`auction/balances/${winner}`).set(firebase.database.ServerValue.increment(-finalPrice));
+                    aDb.ref(`auction/stars/${winner}`).set(firebase.database.ServerValue.increment(p.stars));
+                    aDb.ref(`auction/teams/${winner}`).push({name: p.name, img: p.img});
+                    const next = d.game.pIdx + 1;
+                    const nextTurn = Math.random() > 0.5 ? 'aditya' : 'sushanth';
+                    aDb.ref('auction/game').update({ pIdx: next, price: roster[next]?.base || 0, turn: nextTurn, lastBidder: 'none' });
+                    aDb.ref('auction/logs').push(`${p.name} SOLD to ${winner} for $${finalPrice}`);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
