@@ -42,7 +42,7 @@
                 <div style="display:flex; gap:5px">
                     <button onclick="transfer('dep')" style="background:var(--green); color:black; border:none; padding:4px; border-radius:3px; cursor:pointer">DEPOSIT</button>
                     <button onclick="transfer('red')" style="background:#e74c3c; color:white; border:none; padding:4px; border-radius:3px; cursor:pointer">WITHDRAW</button>
-                </div><br><h2>First deposit required money into auction wallet to bid!</h2><br><h2 style="color: greenyellow;">Auction prize - 50k</h2>
+                </div><br><h2>Deposit to start!</h2><br><h2 style="color: greenyellow;">Prize - 50k</h2>
             </div>
             <div id="auction-box" style="text-align:center;">
                 <h2 id="wait-msg">WAITING FOR HOST...</h2>
@@ -129,7 +129,7 @@
                 const winner = d.stars.aditya >= d.stars.sushanth ? 'aditya' : 'sushanth';
                 document.getElementById('win-overlay').style.display = 'flex';
                 document.getElementById('winner-text').innerText = winner.toUpperCase() + " WINS!";
-                document.getElementById('winner-sub').innerText = `Stars: ${d.stars[winner]} - $50,000 Awarded!`;
+                document.getElementById('winner-sub').innerText = `Stars: ${d.stars[winner]} - $50k Prize + Full Refund Given!`;
             } else {
                 document.getElementById('p-ui').style.display = 'none';
                 document.getElementById('controls').style.display = 'none';
@@ -160,7 +160,8 @@
                     const finalPrice = d.game.lastBidder === 'none' ? 0 : d.game.price - 10000;
                     aDb.ref(`auction/balances/${winner}`).set(firebase.database.ServerValue.increment(-finalPrice));
                     aDb.ref(`auction/stars/${winner}`).set(firebase.database.ServerValue.increment(p.stars));
-                    aDb.ref(`auction/teams/${winner}`).push({name: p.name, img: p.img});
+                    // Store 'paid' amount for refund calculation
+                    aDb.ref(`auction/teams/${winner}`).push({name: p.name, img: p.img, paid: finalPrice});
                     const next = d.game.pIdx + 1;
                     const nextTurn = Math.random() > 0.5 ? 'aditya' : 'sushanth';
                     aDb.ref('auction/game').update({ pIdx: next, price: roster[next]?.base || 0, turn: nextTurn, lastBidder: 'none' });

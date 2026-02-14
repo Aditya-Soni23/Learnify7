@@ -42,7 +42,7 @@
                 <div style="display:flex; gap:5px">
                     <button onclick="transfer('dep')" style="background:var(--green); color:black; border:none; padding:4px; border-radius:3px; cursor:pointer">DEPOSIT</button>
                     <button onclick="transfer('red')" style="background:#e74c3c; color:white; border:none; padding:4px; border-radius:3px; cursor:pointer">WITHDRAW</button>
-                </div><br><h2>First deposit required money into auction wallet to bid!</h2><br><h2 style="color: greenyellow;">Auction prize - 50k</h2>
+                </div><br><h2>First deposit required!</h2><br><h2 style="color: greenyellow;">Prize - 50k</h2>
             </div>
             <div id="auction-box" style="text-align:center;">
                 <button class="btn" style="background:var(--green); margin-top:40px" id="start-btn" onclick="startGame()">START SEASON</button>
@@ -146,11 +146,25 @@
 
         function endSeason(d) {
             const winner = d.stars.aditya >= d.stars.sushanth ? 'aditya' : 'sushanth';
+            
+            // Calculate Total Spent for Refunds
+            let adiRefund = 0;
+            let susRefund = 0;
+            if(d.teams?.aditya) Object.values(d.teams.aditya).forEach(p => adiRefund += (p.paid || 0));
+            if(d.teams?.sushanth) Object.values(d.teams.sushanth).forEach(p => susRefund += (p.paid || 0));
+
             db.ref('auction/game').update({ ended: true, active: false });
+            
+            // Refund Everyone
+            db.ref('auction/balances/aditya').set(firebase.database.ServerValue.increment(adiRefund));
+            db.ref('auction/balances/sushanth').set(firebase.database.ServerValue.increment(susRefund));
+            
+            // Award Prize to Winner
             db.ref(`auction/balances/${winner}`).set(firebase.database.ServerValue.increment(50000));
+
             document.getElementById('win-overlay').style.display = 'flex';
             document.getElementById('winner-text').innerText = winner.toUpperCase() + " WINS!";
-            document.getElementById('winner-sub').innerText = `Stars: ${d.stars[winner]} - $50,000 Awarded!`;
+            document.getElementById('winner-sub').innerText = `Stars: ${d.stars[winner]} - $50k Prize + Full Refund Given!`;
         }
 
         function renderTeam(id, team) {
@@ -169,7 +183,8 @@
                     const finalPrice = d.game.lastBidder === 'none' ? 0 : d.game.price - 10000;
                     db.ref(`auction/balances/${winner}`).set(firebase.database.ServerValue.increment(-finalPrice));
                     db.ref(`auction/stars/${winner}`).set(firebase.database.ServerValue.increment(p.stars));
-                    db.ref(`auction/teams/${winner}`).push({name: p.name, img: p.img});
+                    // Store 'paid' amount for refund calculation
+                    db.ref(`auction/teams/${winner}`).push({name: p.name, img: p.img, paid: finalPrice});
                     const next = d.game.pIdx + 1;
                     const nextTurn = Math.random() > 0.5 ? 'aditya' : 'sushanth';
                     db.ref('auction/game').update({ pIdx: next, price: roster[next]?.base || 0, turn: nextTurn, lastBidder: 'none' });
