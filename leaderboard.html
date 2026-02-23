@@ -55,6 +55,34 @@
 .header h1 {
     padding-left: 50px;
 }
+.rank-header{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    margin-bottom:15px;
+}
+
+.rank-badge{
+    width:70px;
+    height:70px;
+    filter:drop-shadow(0 0 15px #00ffe7);
+}
+
+#aditya-side .rank-badge{
+    filter:drop-shadow(0 0 20px #8f00ff);
+}
+
+.immortal-mini{
+    margin-top:5px;
+    padding:4px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:700;
+    background:linear-gradient(90deg,#8f00ff,#00ffe7);
+    color:black;
+    display:inline-block;
+    box-shadow:0 0 15px rgba(143,0,255,0.6);
+}
     </style>
 </head>
 <body>
@@ -69,8 +97,14 @@
 
     <div class="container">
         <div class="side" id="aditya-side">
-            <h2 class="aditya-text">ADITYA (You)</h2>
-            <h3 class="aditya-text">Tier 10</h3>
+            <div class="rank-header">
+                <img src="rank/immortal.png" class="rank-badge">
+                <div>
+                    <h2 class="aditya-text">ADITYA (You)</h2>
+                    <h3 class="aditya-text">Tier 10 - Immortal I</h3>
+                    <div class="immortal-mini"><img style="width: 20px; height: 20px; border-radius: 20px;" src="rank/immortal.png"> IMMORTAL I</div>
+                </div>
+            </div>
             <div class="bar-wrapper"><div id="a-bar" class="bar-fill aditya-fill"></div></div>
             <div class="aditya-text" id="a-net" style="font-size:1.2rem">0 Coins</div>
             
@@ -100,8 +134,13 @@
         </div>
 
         <div class="side" id="shushanth-side">
-            <h2 class="shushanth-text">SUSHANTH</h2>
-            <h3 class="shushanth-text">Tier 6</h3>
+            <div class="rank-header">
+                <img src="rank/platinum.png" class="rank-badge">
+                <div>
+                    <h2 class="shushanth-text">SUSHANTH</h2>
+                    <h3 class="shushanth-text">Tier 6 - Platinum I</h3>
+                </div>
+            </div>
             <div class="bar-wrapper"><div id="s-bar" class="bar-fill shushanth-fill"></div></div>
             <div class="shushanth-text" id="s-net" style="font-size:1.2rem">0 Coins</div>
             
