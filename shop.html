@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Productivity Shop</title>
+
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -12,48 +13,6 @@
       margin: 0;
       padding: 20px;
       color: #eee;
-    }
-
-    .shop-section {
-      margin-bottom: 40px;
-    }
-    .section-title {
-      font-size: 24px;
-      font-weight: 600;
-      margin: 20px 0 15px;
-      text-align: left;
-      color: #fff;
-      padding-left: 5px;
-      border-left: 6px solid #ff5e62;
-    }
-
-    .shop-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 180px;
-      justify-items: center;
-    }
-
-    .history {
-      margin-top: 40px;
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 15px;
-    }
-    .history h2 {
-      margin-bottom: 10px;
-      color: #fff;
-    }
-    .history ul {
-      list-style: none;
-      padding: 0;
-    }
-    .history ul li {
-      margin: 5px 0;
-      padding: 10px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 8px;
-      color: #fff;
     }
 
     .coin-balance {
@@ -65,7 +24,6 @@
       border-radius: 20px;
       font-weight: bold;
       color: #000;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
       z-index: 1000;
     }
 
@@ -81,46 +39,50 @@
       font-size: 16px;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-      z-index: 1000;
-    }
-    .home-btn:hover {
-      transform: scale(1.05);
     }
 
     h1 {
-      font-size: 28px;
-      color: #fff;
-      margin: 10px 0 30px;
       text-align: center;
+      margin-top: 80px;
     }
+
+    .section-title {
+      font-size: 22px;
+      margin: 40px 0 20px;
+      border-left: 5px solid #ff5e62;
+      padding-left: 10px;
+    }
+
+    .shop-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 🔥 Always 2 per row */
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
     .pack-box {
       position: relative;
-      width: 600px;
-      height: 300px;
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
       cursor: pointer;
     }
 
     .pack-box img {
       width: 100%;
-      display: block;
     }
 
     .buy-overlay {
       position: absolute;
-      bottom: 12px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
       width: 85%;
       height: 40px;
       background: rgba(0,0,0,0.6);
       border-radius: 10px;
+      border: 2px solid rgba(255,255,255,0.3);
       overflow: hidden;
-      border: 2px solid rgba(255,255,255,0.35);
     }
 
     .buy-overlay span {
@@ -132,322 +94,304 @@
       justify-content: center;
       font-weight: bold;
       color: white;
-      z-index: 3;
-      pointer-events: none;
+      z-index: 2;
     }
 
     .buy-overlay .fill {
       position: absolute;
-      left: 0;
-      top: 0;
       height: 100%;
       width: 0%;
       background: linear-gradient(90deg, #22c55e, #16a34a);
-      transition: width 0.7s ease;
-      z-index: 2;
+      transition: 0.5s;
     }
 
     .pack-box:hover .fill {
       width: 100%;
     }
 
-    .pack-box:hover {
-      transform: scale(1.03);
-      transition: transform 0.25s ease;
+    .history {
+      margin-top: 60px;
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 15px;
     }
   </style>
 </head>
 <body>
 
 <button onclick="window.location.href='index.html'" class="home-btn">🏠 Home</button>
-
-<header>
-  <div class="coin-balance">Coins: <span id="coinBalance">0</span></div>
-</header>
+<div class="coin-balance">Coins: <span id="coinBalance">0</span></div>
 
 <h1>🎁 Productivity Shop</h1>
 
-<!-- =================== YOUTUBE =================== -->
-<section class="shop-section">
-  <h2 class="section-title">📺 Youtube</h2>
-  <div class="shop-grid">
-
-    <div class="pack-box">
-      <img src="youtubepacket.png">
-      <div class="buy-overlay"
-           data-name="📽️ 10 Min Youtube Pass"
-           data-price="10"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
+<!-- YOUTUBE -->
+<h2 class="section-title">📺 YouTube</h2>
+<div class="shop-grid">
+  <!-- 0 -->
+  <div class="pack-box">
+    <img src="youtubepacket.png">
+    <div class="buy-overlay" data-name="📽️ 10 Min YouTube" data-type="yt" data-index="0"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
     </div>
-
-    <div class="pack-box">
-      <img src="youtubepacket.png">
-      <div class="buy-overlay"
-           data-name="📽️ 15 Min Youtube Pass"
-           data-price="15"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
-    <div class="pack-box">
-      <img src="youtubepacket.png">
-      <div class="buy-overlay"
-           data-name="📽️ 20 Min Youtube Pass"
-           data-price="20"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
-    <div class="pack-box">
-      <img src="youtubepacket.png">
-      <div class="buy-overlay"
-           data-name="📽️ 30 Min Youtube Pass"
-           data-price="30"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
-    <div class="pack-box">
-      <img src="youtubepacket.png">
-      <div class="buy-overlay"
-           data-name="📽️ 60 Min Youtube Pass"
-           data-price="60"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
   </div>
-</section>
 
-<!-- =================== ANY GAME =================== -->
-<section class="shop-section">
-  <h2 class="section-title">🕹️ Any Game</h2>
-  <div class="shop-grid">
-
-    <div class="pack-box">
-      <img src="gamingpacket.png">
-      <div class="buy-overlay"
-           data-name="✈️ 10 Min Any game"
-           data-price="12"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
+  <!-- 1 -->
+  <div class="pack-box">
+    <img src="youtubepacket.png">
+    <div class="buy-overlay" data-name="📽️ 15 Min YouTube" data-type="yt" data-index="1"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
     </div>
-
-    <div class="pack-box">
-      <img src="gamingpacket.png">
-      <div class="buy-overlay"
-           data-name="✈️ 15 Min Any game"
-           data-price="18"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
-    <div class="pack-box">
-      <img src="gamingpacket.png">
-      <div class="buy-overlay"
-           data-name="✈️ 20 Min Any game"
-           data-price="24"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
-    <div class="pack-box">
-      <img src="gamingpacket.png">
-      <div class="buy-overlay"
-           data-name="✈️ 30 Min Any game"
-           data-price="32"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
-    <div class="pack-box">
-      <img src="gamingpacket.png">
-      <div class="buy-overlay"
-           data-name="✈️ 60 Min Any game"
-           data-price="65"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
   </div>
-</section>
 
-<!-- =================== VALORANT =================== -->
-<section class="shop-section">
-  <h2 class="section-title">🎮 Valorant</h2>
-  <div class="shop-grid">
-
-    <div class="pack-box">
-      <img src="valorantpacket.png">
-      <div class="buy-overlay"
-           data-name="🎮 30 Min Valorant"
-           data-price="35"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
+  <!-- 2 -->
+  <div class="pack-box">
+    <img src="youtubepacket.png">
+    <div class="buy-overlay" data-name="📽️ 20 Min YouTube" data-type="yt" data-index="2"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
     </div>
-
-    <div class="pack-box">
-      <img src="valorantpacket.png">
-      <div class="buy-overlay"
-           data-name="🎮 60 Min Valorant"
-           data-price="65"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
-    <div class="pack-box">
-      <img src="valorantpacket.png">
-      <div class="buy-overlay"
-           data-name="🎮 Competitive Valorant"
-           data-price="45"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
-    <div class="pack-box">
-      <img src="valorantpacket.png">
-      <div class="buy-overlay"
-           data-name="🎮 Swiftplay/SpikeRush/TDM Valorant"
-           data-price="15"
-           onclick="buyItem(this.dataset.name, this.dataset.price)">
-        <div class="fill"></div>
-        <span class="price-text"></span>
-      </div>
-    </div>
-
   </div>
-</section>
 
+  <!-- 3 -->
+  <div class="pack-box">
+    <img src="youtubepacket.png">
+    <div class="buy-overlay" data-name="📽️ 30 Min YouTube" data-type="yt" data-index="3"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="pack-box">
+    <img src="youtubepacket.png">
+    <div class="buy-overlay" data-name="📽️ 60 Min YouTube" data-type="yt" data-index="4"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+</div>
+
+<!-- GAME -->
+<h2 class="section-title">🕹️ Any Game</h2>
+<div class="shop-grid">
+
+  <div class="pack-box">
+    <img src="gamingpacket.png">
+    <div class="buy-overlay" data-name="🎮 10 Min Game" data-type="game" data-index="0"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+
+  <div class="pack-box">
+    <img src="gamingpacket.png">
+    <div class="buy-overlay" data-name="🎮 15 Min Game" data-type="game" data-index="1"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+
+  <div class="pack-box">
+    <img src="gamingpacket.png">
+    <div class="buy-overlay" data-name="🎮 20 Min Game" data-type="game" data-index="2"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+
+  <div class="pack-box">
+    <img src="gamingpacket.png">
+    <div class="buy-overlay" data-name="🎮 30 Min Game" data-type="game" data-index="3"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+
+  <div class="pack-box">
+    <img src="gamingpacket.png">
+    <div class="buy-overlay" data-name="🎮 60 Min Game" data-type="game" data-index="4"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+
+</div>
+
+<!-- VALORANT -->
+<h2 class="section-title">🎮 Valorant</h2>
+<div class="shop-grid">
+
+  <div class="pack-box">
+    <img src="valorantpacket.png">
+    <div class="buy-overlay" data-name="🎯 30 Min Valorant" data-type="val" data-index="0"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+
+  <div class="pack-box">
+    <img src="valorantpacket.png">
+    <div class="buy-overlay" data-name="🎯 60 Min Valorant" data-type="val" data-index="1"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+
+  <div class="pack-box">
+    <img src="valorantpacket.png">
+    <div class="buy-overlay" data-name="🎯 Competitive" data-type="val" data-index="2"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+
+  <div class="pack-box">
+    <img src="valorantpacket.png">
+    <div class="buy-overlay" data-name="🎯 Spike Rush" data-type="val" data-index="3"
+      onclick="buyItem(this.dataset.name, this.dataset.price)">
+      <div class="fill"></div>
+      <span class="price-text"></span>
+    </div>
+  </div>
+
+</div>
 <section class="history">
   <h2>🛒 Purchase History</h2>
   <ul id="historyList"></ul>
 </section>
-
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getDatabase, ref, get, update, push, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
-  authDomain: "learnify-ada08.firebaseapp.com",
-  databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
-  projectId: "learnify-ada08",
-  storageBucket: "learnify-ada08.appspot.com",
-  messagingSenderId: "380617329082",
-  appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
-  measurementId: "G-DT4WG6622N"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-
-const balanceEl = document.getElementById("coinBalance");
-const historyList = document.getElementById("historyList");
-const userRef = ref(db, "users/aditya");
-
-// Live balance fetch
-const balanceRef = ref(db, "users/aditya/balance");
-onValue(balanceRef, (snapshot) => {
-  if (snapshot.exists()) {
-    balanceEl.innerText = "Balance: " + snapshot.val() + " 🪙";
-  }
-});
-
-// Render purchase history
-const purchasesRef = ref(db, "users/aditya/shopPurchases");
-onValue(purchasesRef, (snapshot) => {
-  historyList.innerHTML = "";
-  const data = snapshot.val() || {};
-  Object.values(data).forEach((purchase) => {
-    let li = document.createElement("li");
-    li.textContent = `${purchase.item} - ${purchase.date} (${purchase.cost} coins)`;
-    historyList.appendChild(li);
-  });
-});
-
-// --------- 🔥 NEW: AUTO-FILL ALL PRICES 🔥 ---------
-document.querySelectorAll(".buy-overlay").forEach(box => {
-  const name = box.dataset.name;
-  const price = box.dataset.price;
-  box.querySelector(".price-text").innerHTML =
-    `${name} BUY – ${price} 🪙`;
-});
-// ---------------------------------------------------
-
-function showPurchasePopup(message, color) {
-  let popup = document.getElementById("purchasePopup");
-  popup.innerText = message;
-  popup.style.background = color;
-  popup.style.display = "block";
-
-  setTimeout(() => {
-    popup.style.display = "none";
-  }, 5000);
-}
-
-window.buyItem = async function(item, cost) {
-  const snapshot = await get(userRef);
-  const val = snapshot.val() || {};
-  let currentBalance = val.balance || 0;
-
-  if (currentBalance >= cost) {
-    let newBalance = currentBalance - cost;
-
-    await update(userRef, { balance: newBalance });
-
-    await push(purchasesRef, {
-      item: item,
-      cost: cost,
-      date: new Date().toLocaleString()
-    });
-
-    showPurchasePopup(`✅ You bought: ${item} (-${cost} coins)`,
-      "linear-gradient(135deg, #43cea2, #185a9d)");
-
-    new Audio("coin.mp3").play();
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import { getDatabase, ref, get, update, push, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+  
+  /* ================= FIREBASE ================= */
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+    authDomain: "learnify-ada08.firebaseapp.com",
+    databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+    projectId: "learnify-ada08",
+    storageBucket: "learnify-ada08.appspot.com",
+    messagingSenderId: "380617329082",
+    appId: "1:380617329082:web:c2242ea09e6f78f1f73583"
+  };
+  
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  
+  /* ================= MANUAL TIER ================= */
+  
+  const CURRENT_TIER = "Gold"; // 🔥 CHANGE HERE ONLY
+  
+  const userRef = ref(db, "users/aditya");
+  const balanceRef = ref(db, "users/aditya/balance");
+  const purchasesRef = ref(db, "users/aditya/shopPurchases");
+  
+  const balanceEl = document.getElementById("coinBalance");
+  const historyList = document.getElementById("historyList");
+  
+  /* ================= FULL TIER DATA ================= */
+  
+  const allTiers = [
+    { name: "Copper", yt:["10","15","20","30","60"], game:["15","20","25","35","65"], val:["35","65","45","15"] },
+    { name: "Iron", yt:["20","30","40","60","120"], game:["30","40","50","70","130"], val:["70","130","90","30"] },
+    { name: "Bronze", yt:["40","60","80","120","240"], game:["60","80","100","140","260"], val:["140","260","180","60"] },
+    { name: "Silver", yt:["80","120","150","250","500"], game:["120","150","200","300","500"], val:["300","500","350","120"] },
+    { name: "Gold", yt:["150","250","300","500","1000"], game:["250","300","400","550","1000"], val:["550","1000","720","250"] },
+    { name: "Platinum", yt:["320","500","650","1000","2000"], game:["500","640","800","1100","2000"], val:["1100","2100","1500","500"] },
+    { name: "Emerald", yt:["640","1000","1300","2000","4000"], game:["1000","1300","1600","2250","4000"], val:["2250","4000","3000","1000"] },
+    { name: "Diamond", yt:["1500","2000","2500","4000","8000"], game:["2000","2500","3000","4500","8000"], val:["4500","8000","6000","2000"] },
+    { name: "Netherite", yt:["2500","4000","5000","8000","15000"], game:["4000","5000","6500","9000","16000"], val:["9000","16000","12000","4000"] },
+    { name: "Immortal", yt:["5000","8000","10000","15000","30000"], game:["7500","10000","13000","20000","35000"], val:["20000","35000","25000","8000"] }
+  ];
+  
+  /* ================= APPLY PRICES ================= */
+  
+  const tierData = allTiers.find(t => t.name === CURRENT_TIER);
+  
+  if (!tierData) {
+    console.error("Tier not found:", CURRENT_TIER);
   } else {
-    showPurchasePopup("❌ Not enough coins!",
-      "linear-gradient(135deg, #ff512f, #dd2476)");
+    document.querySelectorAll(".buy-overlay").forEach(box => {
+      const type = box.dataset.type;
+      const index = parseInt(box.dataset.index);
+  
+      if (!tierData[type]) return;
+  
+      const price = parseInt(tierData[type][index]);
+      box.dataset.price = price;
+  
+      box.querySelector(".price-text").innerHTML =
+        `${box.dataset.name} – ${price} 🪙`;
+    });
   }
-};
-
-function buyItem(item, cost) {
-  console.log("Buying:", item, cost);
-}
-</script>
-
-<div id="purchasePopup" style="display:none; position:fixed; 
-bottom:10%; left:50%; transform:translate(-50%, -50%);
-padding:15px 25px; border-radius:12px; font-size:18px; color:white; font-weight:bold;
-background: linear-gradient(135deg, #43cea2, #185a9d); text-align:center; z-index:9999;">
-</div>
-
+  
+  /* ================= LIVE BALANCE ================= */
+  
+  onValue(balanceRef, (snap) => {
+    if (snap.exists()) {
+      balanceEl.innerText = snap.val() + " 🪙";
+    }
+  });
+  
+  /* ================= LOAD PURCHASE HISTORY ================= */
+  
+  onValue(purchasesRef, (snap) => {
+    historyList.innerHTML = "";
+  
+    if (!snap.exists()) return;
+  
+    snap.forEach(child => {
+      const data = child.val();
+      const li = document.createElement("li");
+      li.textContent = `${data.item} - ${data.cost} 🪙 (${data.date})`;
+      historyList.appendChild(li);
+    });
+  });
+  
+  /* ================= BUY FUNCTION ================= */
+  
+  window.buyItem = async function(item, cost) {
+  
+    cost = parseInt(cost); // 🔥 FIX STRING ISSUE
+  
+    const snapshot = await get(userRef);
+    const data = snapshot.val();
+    const currentBalance = data.balance || 0;
+  
+    if (currentBalance >= cost) {
+  
+      await update(userRef, {
+        balance: currentBalance - cost
+      });
+  
+      await push(purchasesRef, {
+        item: item,
+        cost: cost,
+        date: new Date().toLocaleString()
+      });
+  
+      alert("Purchased ✅");
+  
+    } else {
+      alert("Not enough coins ❌");
+    }
+  };
+  
+  </script>
 </body>
 </html>

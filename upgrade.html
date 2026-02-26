@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade Shop - Custom Tiers</title>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database-compat.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #313338;
+            --bg-darker: #2b2d31;
+            --bg-sidebar: #1e1f22;
+            --discord-purple: #5865f2;
+            --text-main: #dbdee1;
+            --text-muted: #949ba4;
+            --header-primary: #ffffff;
+            --border-color: #3f4147;
+            --accent-green: #23a559;
+            --accent-yellow: #f0b232;
+            --accent-red: #da373c;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'gg sans', 'Noto Sans', sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: 240px;
+            background-color: var(--bg-sidebar);
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            overflow-y: auto;
+        }
+
+        /* The Upgrade Button */
+        .upgrade-btn {
+            background-color: var(--discord-purple);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: 0.2s;
+            text-transform: uppercase;
+        }
+        .upgrade-btn:hover { background-color: #4752c4; }
+
+        .sidebar h2 {
+            font-size: 12px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            padding-left: 10px;
+        }
+
+        .nav-item {
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: 0.2s;
+            font-size: 14px;
+        }
+
+        .nav-item:hover { background-color: #35373c; color: var(--text-main); }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 40px;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+        }
+
+        .tier-card {
+            background-color: var(--bg-darker);
+            border-radius: 8px;
+            padding: 24px;
+            margin-bottom: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tier-title { font-size: 22px; margin-top: 0; margin-bottom: 15px; }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .info-box span { display: block; font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
+        .info-box strong { font-size: 16px; color: var(--accent-green); }
+
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; color: var(--text-muted); font-size: 11px; text-transform: uppercase; padding: 10px; border-bottom: 1px solid var(--border-color); }
+        td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .category-header { background: rgba(88, 101, 242, 0.1); color: var(--discord-purple); font-weight: bold; font-size: 13px; }
+        .coin { color: var(--accent-yellow); font-weight: bold; text-align: right; }
+
+        /* Status Popups */
+        #status-msg {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 4px;
+            color: white;
+            font-weight: bold;
+            display: none;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar" id="sidebar">
+        <button class="upgrade-btn" id="upgradeAction">Upgrade Tier</button>
+        <h2>Upgrade Tiers</h2>
+    </div>
+
+    <div class="main-content" id="content">
+        <h1 style="color: white; margin-bottom: 30px;">Upgrade Dashboard</h1>
+    </div>
+
+    <div id="status-msg"></div>
+
+    <script>
+        // FIREBASE SETUP
+        const firebaseConfig = {
+            apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+            authDomain: "learnify-ada08.firebaseapp.com",
+            databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+            projectId: "learnify-ada08",
+            storageBucket: "learnify-ada08.firebasestorage.app",
+            messagingSenderId: "380617329082",
+            appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+            measurementId: "G-DT4WG6622N"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // YOUR DATA ARRAYS
+        const allTiers = [
+    { name: "Copper", color: "#b87333",
+      timer: "5", question: "5", goal: "25", prod: "50",
+      yt: ["10","15","20","30","60"],
+      game: ["15","20","25","35","65"],
+      val: ["35","65","45","15"],
+      agents: "300", cars: "300", cash: "1000"
+    },
+
+    { name: "Iron", color: "#a19d94",
+      timer: "10", question: "10", goal: "50", prod: "100",
+      yt: ["20","30","40","60","120"],
+      game: ["30","40","50","70","130"],
+      val: ["70","130","90","30"],
+      agents: "600", cars: "600", cash: "2000"
+    },
+
+    { name: "Bronze", color: "#cd7f32",
+      timer: "20", question: "20", goal: "100", prod: "200",
+      yt: ["40","60","80","120","240"],
+      game: ["60","80","100","140","260"],
+      val: ["140","260","180","60"],
+      agents: "1200", cars: "1200", cash: "4000"
+    },
+
+    { name: "Silver", color: "#c0c0c0",
+      timer: "40", question: "40", goal: "200", prod: "400",
+      yt: ["80","120","150","250","500"],
+      game: ["120","150","200","300","500"],
+      val: ["300","500","350","120"],
+      agents: "2500", cars: "2500", cash: "8000"
+    },
+
+    { name: "Gold", color: "#ffd700",
+      timer: "50", question: "50", goal: "300", prod: "600",
+      yt: ["150","250","300","500","1000"],
+      game: ["250","300","400","550","1000"],
+      val: ["550","1000","720","250"],
+      agents: "5000", cars: "5000", cash: "16000"
+    },
+
+    { name: "Platinum", color: "#e5e4e2",
+      timer: "100", question: "100", goal: "600", prod: "1200",
+      yt: ["320","500","650","1000","2000"],
+      game: ["500","640","800","1100","2000"],
+      val: ["1100","2100","1500","500"],
+      agents: "10000", cars: "10000", cash: "32000"
+    },
+
+    { name: "Emerald", color: "#50c878",
+      timer: "150", question: "150", goal: "1200", prod: "2500",
+      yt: ["640","1000","1300","2000","4000"],
+      game: ["1000","1300","1600","2250","4000"],
+      val: ["2250","4000","3000","1000"],
+      agents: "20000", cars: "20000", cash: "64000"
+    },
+
+    { name: "Diamond", color: "#b9f2ff",
+      timer: "200", question: "200", goal: "2500", prod: "5000",
+      yt: ["1500","2000","2500","4000","8000"],
+      game: ["2000","2500","3000","4500","8000"],
+      val: ["4500","8000","6000","2000"],
+      agents: "40000", cars: "40000", cash: "130000"
+    },
+
+    { name: "Netherite", color: "#4d4949",
+      timer: "500", question: "500", goal: "5000", prod: "10000",
+      yt: ["2500","4000","5000","8000","15000"],
+      game: ["4000","5000","6500","9000","16000"],
+      val: ["9000","16000","12000","4000"],
+      agents: "75000", cars: "75000", cash: "250000"
+    },
+
+    { name: "Immortal", color: "#ff4655",
+      timer: "800", question: "800", goal: "10000", prod: "20000",
+      yt: ["5000","8000","10000","15000","30000"],
+      game: ["7500","10000","13000","20000","35000"],
+      val: ["20000","35000","25000","8000"],
+      agents: "150000", cars: "150000", cash: "500000"
+    }
+];
+
+        // LOGIC: Check Requirements
+        document.getElementById('upgradeAction').addEventListener('click', function() {
+            const userPath = db.ref('users/aditya');
+            
+            userPath.once('value').then((snapshot) => {
+                const data = snapshot.val();
+                if (!data) return notify("User data not found", "red");
+
+                // Check Agents (28) and Cars (8)
+                const agentCount = data.ownedAgents ? Object.keys(data.ownedAgents).length : 0;
+                const carCount = data.ownedCars ? Object.keys(data.ownedCars).length : 0;
+
+                if (agentCount >= 28 && carCount >= 8) {
+                    notify(`Success! Agents: ${agentCount}, Cars: ${carCount}. Ready to upgrade.`, "green");
+                    // Step-by-step logic continues here...
+                } else {
+                    notify(`Locked! You have ${agentCount}/28 Agents and ${carCount}/8 Cars.`, "red");
+                }
+            });
+        });
+
+        function notify(msg, type) {
+            const status = document.getElementById('status-msg');
+            status.innerText = msg;
+            status.style.backgroundColor = type === 'green' ? 'var(--accent-green)' : 'var(--accent-red)';
+            status.style.display = 'block';
+            setTimeout(() => { status.style.display = 'none'; }, 4000);
+        }
+
+        // GENERATE UI
+        const sideEl = document.getElementById('sidebar');
+        const contEl = document.getElementById('content');
+
+        allTiers.forEach(tier => {
+            const nav = document.createElement('a');
+            nav.className = 'nav-item';
+            nav.href = `#${tier.name.toLowerCase()}`;
+            nav.innerText = `# ${tier.name.toLowerCase()}-tier`;
+            sideEl.appendChild(nav);
+
+            const card = document.createElement('div');
+            card.className = 'tier-card';
+            card.id = tier.name.toLowerCase();
+            card.innerHTML = `
+                <h2 class="tier-title" style="color: ${tier.color}">${tier.name} Tier</h2>
+                <div class="info-grid">
+                    <div class="info-box"><span>Timer</span><strong>${tier.timer}🪙/m</strong></div>
+                    <div class="info-box"><span>Question</span><strong>${tier.question}🪙/m</strong></div>
+                    <div class="info-box"><span>Daily Goal</span><strong>${tier.goal}🪙</strong></div>
+                    <div class="info-box"><span>Prod.</span><strong>${tier.prod}🪙</strong></div>
+                </div>
+                <table>
+                    <thead><tr><th>Activity</th><th>Requirement</th><th style="text-align:right">Cost</th></tr></thead>
+                    <tbody>
+                        <tr class="category-header"><td colspan="3">YouTube</td></tr>
+                        <tr><td>Watch</td><td>10 min</td><td class="coin">${tier.yt[0]}🪙</td></tr>
+                        <tr><td>Watch</td><td>15 min</td><td class="coin">${tier.yt[1]}🪙</td></tr>
+                        <tr><td>Watch</td><td>20 min</td><td class="coin">${tier.yt[2]}🪙</td></tr>
+                        <tr><td>Watch</td><td>30 min</td><td class="coin">${tier.yt[3]}🪙</td></tr>
+                        <tr><td>Watch</td><td>60 min</td><td class="coin">${tier.yt[4]}🪙</td></tr>
+                        <tr class="category-header"><td colspan="3">Any Game</td></tr>
+                        <tr><td>Gaming</td><td>10 min</td><td class="coin">${tier.game[0]}🪙</td></tr>
+                        <tr><td>Gaming</td><td>15 min</td><td class="coin">${tier.game[1]}🪙</td></tr>
+                        <tr><td>Gaming</td><td>20 min</td><td class="coin">${tier.game[2]}🪙</td></tr>
+                        <tr><td>Gaming</td><td>30 min</td><td class="coin">${tier.game[3]}🪙</td></tr>
+                        <tr><td>Gaming</td><td>60 min</td><td class="coin">${tier.game[4]}🪙</td></tr>
+                        <tr class="category-header"><td colspan="3">Valorant</td></tr>
+                        <tr><td>Any Mode</td><td>30 min</td><td class="coin">${tier.val[0]}🪙</td></tr>
+                        <tr><td>Any Mode</td><td>60 min</td><td class="coin">${tier.val[1]}🪙</td></tr>
+                        <tr><td>Spike Rush</td><td>1 Match</td><td class="coin">${tier.val[2]}🪙</td></tr>
+                        <tr><td>Competitive</td><td>1 Match</td><td class="coin">${tier.val[3]}🪙</td></tr>
+                        <tr class="category-header"><td colspan="3">Unlockables (Permanant)</td></tr>
+                        <tr><td>Valorant Agent</td><td>1 Agent</td><td class="coin">${tier.agents}🪙</td></tr>
+                        <tr><td>New Car</td><td>1 Vehicle</td><td class="coin">${tier.cars}🪙</td></tr>
+                        <tr><td>Gift</td><td>Money</td><td class="coin">${tier.cash}🪙</td></tr>
+                    </tbody>
+                </table>
+            `;
+            contEl.appendChild(card);
+        });
+    </script>
+</body>
+</html>

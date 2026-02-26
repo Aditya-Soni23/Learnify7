@@ -148,16 +148,17 @@
     const db = getDatabase(app);
     const userId = "aditya";
     const userRef = ref(db, "users/" + userId);
+    const price = 5000;
 
     const cars = [
-  { id: "car1", name: "BMW M3", price: 10, file: "bmw.glb" },
-  { id: "car2", name: "Rolls Royce", price: 30, file: "royce.glb" },
-  { id: "car3", name: "Bugatti", price: 30, file: "bugatti.glb" },
-  { id: "car4", name: "Lamborghini", price: 20, file: "lamborghini.glb" },
-  { id: "car5", name: "Ferrari", price: 20, file: "ferrari.glb" },
-  { id: "car6", name: "Mercedes", price: 10, file: "mercedes.glb" },
-  { id: "car7", name: "Tesla Roadster", price: 20, file: "roadster.glb" },
-  { id: "car8", name: "Mclaren", price: 20, file: "mclaren.glb" }
+  { id: "car1", name: "BMW M3", price, file: "bmw.glb" },
+  { id: "car2", name: "Rolls Royce", price, file: "royce.glb" },
+  { id: "car3", name: "Bugatti", price, file: "bugatti.glb" },
+  { id: "car4", name: "Lamborghini", price, file: "lamborghini.glb" },
+  { id: "car5", name: "Ferrari", price, file: "ferrari.glb" },
+  { id: "car6", name: "Mercedes", price, file: "mercedes.glb" },
+  { id: "car7", name: "Tesla Roadster", price, file: "roadster.glb" },
+  { id: "car8", name: "Mclaren", price, file: "mclaren.glb" }
 ]
 
 
