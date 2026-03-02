@@ -200,9 +200,9 @@
       let coins = 0;
 
 // Question coins  
-coins += totalQ * 50;
+coins += totalQ * 100;
 
-    const productivitybonus = 600
+    const productivitybonus = 1200
       // Productivity bonuses
       if (productivity.includes("oneshot")) coins += productivitybonus;
       else if (productivity.includes("test")) coins += productivitybonus;
@@ -216,7 +216,7 @@ coins += totalQ * 50;
       // Daily goal
       let streakAdd = 0;
       if (goal === "yes") { 
-          coins += 300; 
+          coins += 600; 
           streakAdd = 1;
       }
 
