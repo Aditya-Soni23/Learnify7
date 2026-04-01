@@ -179,6 +179,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const userRef = ref(db, "users/aditya");
 
+// Change your let car line to this:
 let car = { fuel: 0, damaged: false, lastUpdate: Date.now() };
 let currentView = "running"; 
 let isTransitioning = false;
@@ -187,12 +188,20 @@ let isTransitioning = false;
 onValue(userRef, (snap) => {
     const data = snap.val();
     if (!data) return;
+    
     document.getElementById("balance").innerText = data.balance || 0;
     
-    // Only update local car object if not currently "driving" to prevent jitter
-    if (!car.fuel || Math.abs(car.fuel - data.car.fuel) > 2) {
-        car = data.car;
+    // Check if car data exists in Firebase before assigning it
+    if (data.car) {
+        // Only update local car object if not currently "driving" to prevent jitter
+        if (!car.fuel || Math.abs(car.fuel - data.car.fuel) > 2) {
+            car = data.car;
+        }
+    } else {
+        console.warn("Car data not found in Firebase for this user!");
     }
+    
+    updateUI(); // Make sure UI updates once data arrives
 });
 
 // 2. THE HEARTBEAT (Runs every 1 second)
