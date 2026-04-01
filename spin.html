@@ -225,10 +225,10 @@
             const segmentIndex = Math.floor((360 - finalAngle) / 60) % 6;
             const result = segments[segmentIndex];
 
-            if (result === "+5000 Coins") {
+            if (result === "+20 Coins") {
                 set(balanceRef, coins + 20);
             } else {
-                set(balanceRef, coins + 80);
+                set(balanceRef, coins + 100);
                 push(loansRef, { amount: 80, startTime: Date.now() });
             }
 
