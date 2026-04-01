@@ -129,7 +129,76 @@ main {
     color: yellow;
     box-shadow: 0 10px 20px rgb(255, 234, 3);
   }
-  
+  /* 🟡 GOLDEN SEASON CARD */
+.gcard {
+  position: relative;
+
+  background: linear-gradient(135deg, #c9a227, #e6c84f, #b8962e);
+  color: #111; /* black text */
+
+  padding: 1.5rem;
+  border-radius: 20px;
+  text-align: center;
+
+  overflow: hidden;
+  cursor: pointer;
+
+  transition: all 0.35s ease;
+
+  box-shadow:
+    0 6px 15px rgba(0, 0, 0, 0.4),
+    0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+/* ✨ MOVING LIGHT EFFECT */
+.gcard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.6),
+    transparent
+  );
+
+  transform: skewX(-20deg);
+  animation: shineMove 3s infinite;
+}
+
+/* 🧠 TEXT */
+.gcard h2 {
+  margin-bottom: 0.8rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.gcard p {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* 🔥 HOVER */
+.gcard:hover {
+  transform: translateY(-8px) scale(1.03);
+
+  background: linear-gradient(135deg, #fff176, #ffd700, #ffb300);
+
+  box-shadow:
+    0 12px 25px rgba(0,0,0,0.6),
+    0 0 25px rgba(255, 215, 0, 0.8);
+}
+
+/* ✨ SHINE ANIMATION */
+@keyframes shineMove {
+  0% { left: -100%; }
+  60% { left: 120%; }
+  100% { left: 120%; }
+}
   /* Footer */
   footer {
     text-align: center;
@@ -208,29 +277,70 @@ main {
   .tier-popup {
     position: fixed;
     top: 80px;
-    left: 10%;
-    transform: translateX(-50%);
+    left: 30px; /* 👈 stays on left side */
+
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 
-    background: linear-gradient(135deg, #d8bf00, #fad400);
-    padding: 12px 30px;
-    border-radius: 50px;
+    padding: 10px 24px;
+    border-radius: 40px;
 
-    border: 2px solid #8f00ff;
-    box-shadow: 0 0 25px rgba(143, 0, 255, 0.6);
+    background: linear-gradient(135deg, #b8860b, #ffd700, #fff4b5);
+    border: 1px solid rgba(255, 215, 0, 0.25);
 
+    box-shadow:
+        0 0 15px rgba(255, 215, 0, 0.15),
+        inset 0 0 10px rgba(255, 215, 0, 0.05);
+
+    overflow: hidden;
     z-index: 1000;
-    animation: popupFloat 3s ease-in-out infinite;
 }
 
+/* ✨ GOLD SHINE RAY */
+.tier-popup::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+
+    width: 60%;
+    height: 100%;
+
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(0, 238, 255, 0.6),
+        transparent
+    );
+
+    transform: skewX(-20deg);
+    animation: shineSweep 3.5s ease-in-out infinite;
+}
+
+/* 🪞 TEXT */
+.tier-popup span {
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 0.8px;
+    color: #000000;
+}
+
+/* 🪙 ICON */
 .tier-popup img {
-    width: 50px;
-    height: 50px;
-    filter: drop-shadow(0 0 15px #8f00ff);
+    width: 40px;
+    height: 40px;
+
+    filter:
+        drop-shadow(0 0 6px rgba(255, 215, 0, 0.5));
 }
 
+/* ✨ SMOOTH SHINE ANIMATION */
+@keyframes shineSweep {
+    0% { left: -120%; }
+    60% { left: 120%; }
+    100% { left: 120%; }
+}
 .badge-text {
     display: flex;
     flex-direction: column;

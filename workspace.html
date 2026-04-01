@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diamond Work Station</title>
+  <link rel="stylesheet" href="workstyle.css">
+</head>
+<body>
+
+<!-- Rocket -->
+<div class="rocket">🚀 <span id="rocketCount">0</span></div>
+<a href="index.html" class="back-btn">← Back</a>
+<!-- App Panel -->
+<div class="panel">
+  <div class="pages" id="pages">
+
+    <!-- Page 1 -->
+    <div class="page">
+        <div class="app" onclick="openApp('pw')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Physics_wallah_logo.jpg">
+          </div>
+          
+          <div class="app" onclick="openApp('youtube')">
+            <img src="https://cdn.iconscout.com/icon/free/png-256/free-youtube-icon-svg-download-png-432560.png?f=webp">
+          </div>
+      <div class="app" onclick="openApp('learnify')">
+            <img src="https://aditya-soni23.github.io/Learnify7/logo.png">
+          </div>
+          <div class="app" onclick="openApp('whatsapp')">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+          </div>
+    </div>
+
+    <!-- Page 2 -->
+    <div class="page">
+        <div class="app" onclick="openApp('diamond')">
+            <img src="https://diamondcompanyv2.netlify.app/Diamond_Comapny_Logo.png">
+          </div>
+        
+          <div class="app" onclick="openApp('whiteboard')">
+            <img src="https://www.ikea.com/in/en/images/products/elloven-whiteboard-noticeboard-with-castors-white__1160627_pe889019_s5.jpg">
+          </div>
+          
+      <div class="app" onclick="openApp('tdl')">
+            <img src="https://aditya-soni23.github.io/To_Do_List_App/tdl.png">
+          </div>
+    </div>
+
+  </div>
+
+  <!-- Dots -->
+  <div class="dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+  </div>
+</div>
+
+
+
+
+<div class="convert-panel">
+  <div class="convert-title">Convert Rockets to Coins</div>
+  <div class="balance-info">
+    <span id="rocket-display">🚀 0</span> → <span id="coin-preview">💰 0</span>
+  </div>
+  
+  <div class="swipe-container" id="swipe-track">
+    <div class="swipe-handle" id="swipe-handle">
+      <span>→</span>
+    </div>
+    <div class="swipe-text">SWIPE TO CONVERT</div>
+  </div>
+</div>
+
+
+
+
+<div class="ai-panel">
+
+    <div class="ai-app" onclick="openAI('chatgpt')">
+      <img src="https://pngimg.com/d/chatgpt_PNG1.png">
+    </div>
+  
+    <div class="ai-app" onclick="openAI('google')">
+      <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png">
+    </div>
+  
+    <div class="ai-app" onclick="openAI('gemini')">
+      <img src="https://static.vecteezy.com/system/resources/previews/055/687/065/non_2x/gemini-google-icon-symbol-logo-free-png.png">
+    </div>
+  
+  </div>
+
+  <div class="graph-panel">
+    <div class="y-axis-container">
+      <canvas id="yAxisChart"></canvas>
+    </div>
+    
+    <div class="scroll-wrapper">
+      <div class="chart-container">
+        <canvas id="studyChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="dp-planner-wrapper">
+    <div class="dp-hud-container">
+      <div class="dp-timeline-track">
+        <div class="dp-progress-bar" id="dpProgressFill"></div>
+        <div class="dp-nodes-layer" id="dpNodesContainer">
+          </div>
+      </div>
+
+      <div id="dpRewardZone" class="dp-reward-zone" style="display: none;">
+        <button class="dp-claim-btn" onclick="finishDiamondMission()">
+          MISSION COMPLETE: CLAIM ROCKET 🚀
+        </button>
+      </div>
+    
+      <div id="dpCreateZone" class="dp-create-zone">
+        <button class="dp-launch-btn" onclick="toggleDiamondModal(true)">+ INITIALIZE TIMELINE</button>
+      </div>
+    </div>
+    </div>
+  
+    
+  
+  <div class="dp-modal-overlay" id="dpModalOverlay">
+    <div class="dp-modal-content">
+      <h2 class="dp-modal-title">Mission Parameters</h2>
+      <div id="dpTaskInputsContainer">
+        <div class="dp-input-row">
+          <input type="text" placeholder="Task Name" class="dp-t-name">
+          <input type="number" placeholder="Mins" class="dp-t-time">
+        </div>
+      </div>
+      <div class="dp-modal-actions">
+        <button class="dp-add-row" onclick="addNewDiamondInputRow()">+ Add Task</button>
+        <button class="dp-set-btn" onclick="setDiamondTimeline()">START MISSION</button>
+        <button class="dp-cancel-link" onclick="toggleDiamondModal(false)">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="dp-planner-panel">
+    <h2 class="planner-title">Planner</h2>
+    <div class="planner-input">
+      <input type="text" placeholder="Add a new reminder..." id="plannerInput">
+      <button id="addPlannerBtn">+</button>
+    </div>
+    <ul class="planner-list" id="plannerList">
+      <!-- Reminders will appear here -->
+    </ul>
+  </div>
+
+
+
+<!-- Left Content -->
+<div class="left">
+    <h2 class="welcome">Welcome Aditya</h2>
+  
+    <div class="brand">
+      <h1 class="diamond">Diamond Work Staion</h1>
+      <img src="Dark_Border_Logo.png" class="logo">
+    </div>
+  
+  </div>
+<!-- Time -->
+<div class="time-box">
+    <div class="time" id="time"></div>
+  </div>
+  <div class="test-card">
+    <div class="test-label">NEXT TEST</div>
+    <div id="test-days" class="test-days">0 DAYS</div>
+    <div class="test-timer-line"></div>
+</div>
+<div class="syllabus-widget" onclick="toggleSyllabusModal(true)">
+  <span class="s-icon">📝</span>
+  <span class="s-text">SYLLABUS</span>
+</div>
+
+<div id="syllabusModal" class="modal-overlay">
+  <div class="modal-content">
+      <div class="modal-header">
+          <h3>TEST SYLLABUS</h3>
+          <button class="close-btn" onclick="toggleSyllabusModal(false)">×</button>
+      </div>
+      
+      <div id="syllabusDisplay" class="syllabus-view" onwheel="handleSyllabusZoom(event)">
+        <p id="noSyllabusText">No syllabus uploaded yet.</p>
+        <div id="zoomWrapper" style="display:none; transition: transform 0.2s ease-out;">
+            <img id="syllabusImg" src="" style="width: 100%; height: auto; display: block;">
+        </div>
+    </div>
+
+      <div class="upload-zone">
+          <input type="file" id="syllabusInput" accept="image/*" hidden>
+          <button class="upload-btn" onclick="document.getElementById('syllabusInput').click()">
+              REPLACE SYLLABUS
+          </button>
+      </div>
+  </div>
+</div>
+<div class="tracker-widget" onclick="toggleTrackerModal(true)">
+  <span class="t-icon">📊</span>
+  <span class="t-text">TRACKER</span>
+</div>
+
+<div id="trackerModal" class="modal-overlay">
+  <div class="tracker-content">
+      <div class="modal-header">
+          <h3>STUDY TRACKER</h3>
+          <button class="close-btn" onclick="toggleTrackerModal(false)">×</button>
+      </div>
+      
+      <div class="subject-tabs">
+          <button class="tab-btn active" onclick="switchSubject('Physics')">Physics</button>
+          <button class="tab-btn" onclick="switchSubject('Mathematics')">Maths</button>
+          <button class="tab-btn" onclick="switchSubject('Chemistry')">Chem</button>
+      </div>
+
+      <div id="chaptersContainer" class="chapters-grid">
+          </div>
+  </div>
+</div>
+  <script type="importmap">
+    {
+      "imports": {
+        "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+        "firebase/database": "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js"
+      }
+    }
+  </script>
+  <script type="module" src="convert.js"></script>
+  <script type="module" src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="graph.js"></script>
+</body>
+</html>

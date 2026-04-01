@@ -246,7 +246,7 @@
     <div class="capsules-container" id="capsule-grid">
         </div>
     
-    <h3>Invest here! Your money increases by x% every 24 hours.</h3>
+    <h3>Invest here! Your money increases by 25% every 24 hours.</h3>
 
 <script>
 // --- Firebase Setup ---
@@ -264,7 +264,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const userRef = db.ref('users/aditya');
-const MAX = 100000;
+const MAX = 100;
 const DAY_MS = 24 * 60 * 60 * 1000; 
 
 // Initial state - values will be overwritten by Firebase immediately

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta charset="UTF-8">
+    <title>Nature System Pro</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+            background: #000;
+            color: white;
+        }
+
+        /* 🎥 HIGH-QUALITY RENDERING */
+        video, #deadView {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            z-index: -2;
+            image-rendering: -webkit-optimize-contrast; 
+            filter: contrast(1.05) brightness(0.95);
+        }
+
+        #deadView {
+            background: url('died.png') center/cover no-repeat;
+            display: none;
+            z-index: -1; /* Sits above video but below UI */
+        }
+
+        #fadeLayer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: black;
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        .fade-active { opacity: 1 !important; }
+
+        .balance {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            z-index: 10;
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.4);
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #2ecc71;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10;
+            border: 1px solid rgba(46, 204, 113, 0.4);
+            backdrop-filter: blur(10px);
+        }
+
+        .panel {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            max-width: 400px;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 25px;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .water-container {
+            height: 18px;
+            background: #222;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+            border: 1px solid #444;
+        }
+
+        .water-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #2ecc71, #3498db);
+            width: 0%; /* Dynamic */
+            transition: width 0.5s ease-out;
+        }
+
+        .btn {
+            margin-top: 10px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            font-weight: 800;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .dead-text { color: #ff3e3e; font-size: 22px; font-weight: bold; margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+
+<div id="fadeLayer"></div>
+<div class="home-btn" onclick="goHome()">🏠 Home</div>
+<div class="balance">💰 <span id="balance">0</span></div>
+
+<video id="growingVideo" src="growing.mp4" autoplay loop muted playsinline></video>
+<div id="deadView"></div>
+
+<div class="panel" id="panel">
+    Loading System...
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getDatabase, ref, get, update, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+const firebaseConfig = {
+      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+      authDomain: "learnify-ada08.firebaseapp.com",
+      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+      projectId: "learnify-ada08",
+      storageBucket: "learnify-ada08.appspot.com",
+      messagingSenderId: "380617329082",
+      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+      measurementId: "G-DT4WG6622N"
+    };
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+const userRef = ref(db, "users/aditya");
+
+let tree = { water: 0, dead: false };
+let currentView = "growing";
+let isTransitioning = false;
+
+// 1. DATA SYNC
+onValue(userRef, (snap) => {
+    const data = snap.val();
+    if (!data) return;
+    
+    document.getElementById("balance").innerText = data.balance || 0;
+    
+    // If tree data doesn't exist, create it without wiping user
+    if (!data.tree) {
+        update(ref(db, "users/aditya/tree"), { water: 50, dead: false });
+    } else {
+        tree = data.tree;
+        // Check view state based on death
+        if (tree.dead && currentView !== "dead") triggerView("dead");
+        if (!tree.dead && currentView === "dead") triggerView("growing");
+    }
+    updateUI();
+});
+
+// 2. DRAIN LOGIC (1L per 48 mins)
+setInterval(() => {
+    if (tree.dead || tree.water <= 0) return;
+
+    const drainRate = 1 / (48 * 60);
+    tree.water = Math.max(0, tree.water - drainRate);
+
+    if (tree.water <= 0) {
+        tree.water = 0;
+        tree.dead = true;
+        saveTreeData();
+    }
+    updateUI();
+}, 1000);
+
+// Auto-save to Firebase every 10 seconds
+setInterval(saveTreeData, 10000);
+
+async function saveTreeData() {
+    await update(ref(db, "users/aditya/tree"), {
+        water: tree.water,
+        dead: tree.dead
+    });
+}
+
+// 3. UI & VIEW CONTROLLER
+function updateUI() {
+    const panel = document.getElementById("panel");
+    const percent = (tree.water / 90) * 100;
+
+    if (tree.dead) {
+        panel.innerHTML = `
+            <div class="dead-text">🥀 TREE HAS WITHERED</div>
+            <button class="btn" onclick="reviveTree()">REVIVE (3000)</button>
+        `;
+    } else {
+        panel.innerHTML = `
+            <div style="font-weight:bold; color:#2ecc71;">HYDRATION</div>
+            <div class="water-container"><div class="water-bar" style="width:${percent}%"></div></div>
+            <div style="font-size: 14px; color: #aaa;">${tree.water.toFixed(2)}L / 90.00L</div>
+            <button class="btn" onclick="buyWater()">ADD 10L (70)</button>
+        `;
+    }
+}
+
+async function triggerView(view) {
+    if (isTransitioning) return;
+    isTransitioning = true;
+    currentView = view;
+
+    const fade = document.getElementById("fadeLayer");
+    fade.classList.add("fade-active");
+
+    setTimeout(() => {
+        document.getElementById("growingVideo").style.display = (view === "growing") ? "block" : "none";
+        document.getElementById("deadView").style.display = (view === "dead") ? "block" : "none";
+        fade.classList.remove("fade-active");
+        isTransitioning = false;
+    }, 600);
+}
+
+// 4. ACTIONS (Global Scope)
+window.buyWater = async () => {
+    const snap = await get(userRef);
+    const balance = snap.val().balance || 0;
+    
+    if (balance < 70) return alert("Not enough coins!");
+    
+    const newWater = Math.min(90, tree.water + 10);
+    await update(userRef, { balance: balance - 70 });
+    await update(ref(db, "users/aditya/tree"), { water: newWater });
+};
+
+window.reviveTree = async () => {
+    const snap = await get(userRef);
+    const balance = snap.val().balance || 0;
+    
+    if (balance < 3000) return alert("Revival costs 3000!");
+    
+    await update(userRef, { balance: balance - 3000 });
+    await update(ref(db, "users/aditya/tree"), { water: 1, dead: false });
+    triggerView("growing");
+};
+
+window.goHome = () => {
+    document.getElementById("fadeLayer").classList.add("fade-active");
+    setTimeout(() => { window.location.href = "index.html"; }, 600);
+};
+
+</script>
+</body>
+</html>
