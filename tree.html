@@ -29,7 +29,7 @@
         #deadView {
             background: url('died.png') center/cover no-repeat;
             display: none;
-            z-index: -1; /* Sits above video but below UI */
+            z-index: -1; 
         }
 
         #fadeLayer {
@@ -39,7 +39,7 @@
             width: 100%;
             height: 100%;
             background: black;
-            z-index: 100;
+            z-index: 1000;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.6s ease-in-out;
@@ -103,7 +103,7 @@
         .water-bar {
             height: 100%;
             background: linear-gradient(90deg, #2ecc71, #3498db);
-            width: 0%; /* Dynamic */
+            width: 0%; 
             transition: width 0.5s ease-out;
         }
 
@@ -132,9 +132,7 @@
 <video id="growingVideo" src="growing.mp4" autoplay loop muted playsinline></video>
 <div id="deadView"></div>
 
-<div class="panel" id="panel">
-    Loading System...
-</div>
+<div class="panel" id="panel">Loading System...</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
@@ -147,58 +145,85 @@ const firebaseConfig = {
       projectId: "learnify-ada08",
       storageBucket: "learnify-ada08.appspot.com",
       messagingSenderId: "380617329082",
-      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
-      measurementId: "G-DT4WG6622N"
+      appId: "1:380617329082:web:c2242ea09e6f78f1f73583"
     };
+
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const userRef = ref(db, "users/aditya");
 
-let tree = { water: 0, dead: false };
+// --- CONFIGURATION ---
+const MINUTES_PER_LITER = 48; // Set to 1 for testing (1 min = 1L)
+const MS_PER_LITER = MINUTES_PER_LITER * 60 * 1000; 
+
+let tree = { water: 0, dead: false, lastUpdate: Date.now() };
 let currentView = "growing";
 let isTransitioning = false;
 
-// 1. DATA SYNC
+// 1. DATA SYNC & OFFLINE DRAIN
 onValue(userRef, (snap) => {
     const data = snap.val();
     if (!data) return;
     
     document.getElementById("balance").innerText = data.balance || 0;
     
-    // If tree data doesn't exist, create it without wiping user
-    if (!data.tree) {
-        update(ref(db, "users/aditya/tree"), { water: 50, dead: false });
-    } else {
-        tree = data.tree;
-        // Check view state based on death
+    if (data.tree) {
+        const now = Date.now();
+        const lastTime = data.tree.lastUpdate || now;
+        const elapsedMs = now - lastTime;
+        
+        // Calculate offline water loss
+        const waterLost = elapsedMs / MS_PER_LITER;
+        let calculatedWater = data.tree.water - waterLost;
+        let isDead = data.tree.dead;
+
+        if (calculatedWater <= 0 && !isDead) {
+            calculatedWater = 0;
+            isDead = true;
+            saveTreeData(0, true);
+        }
+
+        tree.water = Math.max(0, calculatedWater);
+        tree.dead = isDead;
+        tree.lastUpdate = now;
+
+        // View logic
         if (tree.dead && currentView !== "dead") triggerView("dead");
         if (!tree.dead && currentView === "dead") triggerView("growing");
+    } else {
+        // Initial setup for new users
+        saveTreeData(50, false);
     }
     updateUI();
-});
+}, { onlyOnce: true });
 
-// 2. DRAIN LOGIC (1L per 48 mins)
+// 2. REAL-TIME DRAIN (Every 1 Second)
 setInterval(() => {
-    if (tree.dead || tree.water <= 0) return;
+    if (tree.dead || isTransitioning || tree.water <= 0) return;
 
-    const drainRate = 1 / (48 * 60);
-    tree.water = Math.max(0, tree.water - drainRate);
+    const drainPerSec = 1 / (MINUTES_PER_LITER * 60);
+    tree.water = Math.max(0, tree.water - drainPerSec);
 
     if (tree.water <= 0) {
         tree.water = 0;
         tree.dead = true;
-        saveTreeData();
+        saveTreeData(0, true);
+        triggerView("dead");
     }
+
     updateUI();
 }, 1000);
 
-// Auto-save to Firebase every 10 seconds
-setInterval(saveTreeData, 10000);
+// Background sync every 10s to keep lastUpdate fresh
+setInterval(() => {
+    if (!tree.dead && !isTransitioning) saveTreeData();
+}, 10000);
 
-async function saveTreeData() {
+async function saveTreeData(w = tree.water, d = tree.dead) {
     await update(ref(db, "users/aditya/tree"), {
-        water: tree.water,
-        dead: tree.dead
+        water: w,
+        dead: d,
+        lastUpdate: Date.now()
     });
 }
 
@@ -209,15 +234,15 @@ function updateUI() {
 
     if (tree.dead) {
         panel.innerHTML = `
-            <div class="dead-text">🥀 TREE HAS WITHERED</div>
-            <button class="btn" onclick="reviveTree()">REVIVE (3000)</button>
+            <div class="dead-text">⚡🪫Out of Power</div>
+            <button class="btn" onclick="window.reviveTree()">REVIVE (3000)</button>
         `;
     } else {
         panel.innerHTML = `
-            <div style="font-weight:bold; color:#2ecc71;">HYDRATION</div>
+            <div style="font-weight:bold; color:#2ecc71;">Electricity</div>
             <div class="water-container"><div class="water-bar" style="width:${percent}%"></div></div>
-            <div style="font-size: 14px; color: #aaa;">${tree.water.toFixed(2)}L / 90.00L</div>
-            <button class="btn" onclick="buyWater()">ADD 10L (70)</button>
+            <div style="font-size: 14px; color: #aaa;">${tree.water.toFixed(4)} kW / 90.00 kW</div>
+            <button class="btn" onclick="window.buyWater()">ADD 10 kW (100)</button>
         `;
     }
 }
@@ -238,16 +263,17 @@ async function triggerView(view) {
     }, 600);
 }
 
-// 4. ACTIONS (Global Scope)
+// 4. ACTIONS
 window.buyWater = async () => {
     const snap = await get(userRef);
     const balance = snap.val().balance || 0;
     
-    if (balance < 70) return alert("Not enough coins!");
+    if (balance < 100) return alert("Not enough coins!");
     
-    const newWater = Math.min(90, tree.water + 10);
-    await update(userRef, { balance: balance - 70 });
-    await update(ref(db, "users/aditya/tree"), { water: newWater });
+    tree.water = Math.min(90, tree.water + 10);
+    await update(userRef, { balance: balance - 100 });
+    saveTreeData();
+    updateUI();
 };
 
 window.reviveTree = async () => {
@@ -256,8 +282,11 @@ window.reviveTree = async () => {
     
     if (balance < 3000) return alert("Revival costs 3000!");
     
+    tree.dead = false;
+    tree.water = 5.0; 
+
     await update(userRef, { balance: balance - 3000 });
-    await update(ref(db, "users/aditya/tree"), { water: 1, dead: false });
+    saveTreeData(5.0, false);
     triggerView("growing");
 };
 

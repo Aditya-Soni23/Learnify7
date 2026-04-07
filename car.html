@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta charset="UTF-8">
-    <title>Car System Pro</title>
+    <title>Car System Pro - Live Sync</title>
     <style>
         body {
             margin: 0;
@@ -20,13 +20,9 @@
             height: 100vh;
             object-fit: cover;
             z-index: -2;
-            image-rendering: high-quality; 
-            filter: contrast(1.1) brightness(0.9);
+            filter: contrast(1.05) brightness(0.95);
+            transform: translateZ(0);
         }
-        video {
-  width: 100vw;
-  height: 100vh;
-}
 
         #garageView {
             background: url('garage.png') center/cover no-repeat;
@@ -41,7 +37,7 @@
             width: 100%;
             height: 100%;
             background: black;
-            z-index: 10;
+            z-index: 1000;
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.6s ease-in-out;
@@ -60,6 +56,22 @@
             font-weight: bold;
             z-index: 5;
             box-shadow: 0 0 15px rgba(255,215,0,0.5);
+        }
+
+        .home-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #ffd700;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 100;
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
         .panel {
@@ -90,7 +102,7 @@
         .fuel-bar {
             height: 100%;
             background: linear-gradient(90deg, #ffd700, #c9a227);
-            transition: width 1s linear; /* Smooth movement */
+            transition: width 0.5s ease;
         }
 
         .btn {
@@ -107,45 +119,6 @@
         }
 
         .damage-text { color: #ff3e3e; font-size: 22px; font-weight: bold; margin-bottom: 15px; }
-        video, #garageView {
-  /* ... your existing code ... */
-  
-  /* Forces the browser to use the highest quality scaling */
-  image-rendering: -webkit-optimize-contrast; 
-  image-rendering: crisp-edges;
-  
-  /* Ensures the video doesn't stretch and lose its aspect ratio */
-  object-fit: cover; 
-  
-  /* Subtle sharpening via contrast */
-  filter: contrast(1.05) brightness(0.95); 
-  
-  /* Hardware acceleration (moves rendering to the GPU) */
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-.home-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #ffd700; /* Gold text */
-    padding: 10px 18px;
-    border-radius: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 100;
-    border: 1px solid rgba(255, 215, 0, 0.4);
-    backdrop-filter: blur(10px);
-    transition: all 0.3s ease;
-}
-
-.home-btn:hover {
-    background: #ffd700;
-    color: black;
-    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-    transform: scale(1.05);
-}
     </style>
 </head>
 <body>
@@ -161,176 +134,185 @@
 <div class="panel" id="panel"></div>
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getDatabase, ref, get, update, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+    import { getDatabase, ref, get, update, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
-const firebaseConfig = {
-      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
-      authDomain: "learnify-ada08.firebaseapp.com",
-      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
-      projectId: "learnify-ada08",
-      storageBucket: "learnify-ada08.appspot.com",
-      messagingSenderId: "380617329082",
-      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
-      measurementId: "G-DT4WG6622N"
+    const firebaseConfig = {
+        apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+        authDomain: "learnify-ada08.firebaseapp.com",
+        databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+        projectId: "learnify-ada08",
+        storageBucket: "learnify-ada08.appspot.com",
+        messagingSenderId: "380617329082",
+        appId: "1:380617329082:web:c2242ea09e6f78f1f73583"
     };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
-const userRef = ref(db, "users/aditya");
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const userRef = ref(db, "users/aditya");
 
-// Change your let car line to this:
-let car = { fuel: 0, damaged: false, lastUpdate: Date.now() };
-let currentView = "running"; 
-let isTransitioning = false;
+    // --- CONFIGURATION ---
+    const MINUTES_PER_LITER = 48;
+    const MS_PER_LITER = MINUTES_PER_LITER * 60 * 1000; 
 
-// 1. SYNC INITIAL DATA & BALANCE
-onValue(userRef, (snap) => {
-    const data = snap.val();
-    if (!data) return;
-    
-    document.getElementById("balance").innerText = data.balance || 0;
-    
-    // Check if car data exists in Firebase before assigning it
-    if (data.car) {
-        // Only update local car object if not currently "driving" to prevent jitter
-        if (!car.fuel || Math.abs(car.fuel - data.car.fuel) > 2) {
-            car = data.car;
+    let car = { fuel: 0, damaged: false, lastUpdate: Date.now() };
+    let currentView = "running"; 
+    let isTransitioning = false;
+
+    // 1. INITIAL SYNC & OFFLINE CALCULATION
+    onValue(userRef, (snap) => {
+        const data = snap.val();
+        if (!data) return;
+        
+        document.getElementById("balance").innerText = data.balance || 0;
+        
+        if (data.car) {
+            const now = Date.now();
+            const lastTime = data.car.lastUpdate || now;
+            const elapsedMs = now - lastTime;
+            
+            // Calculate how much fuel was lost while the app was closed
+            const fuelLost = elapsedMs / MS_PER_LITER;
+            let calculatedFuel = data.car.fuel - fuelLost;
+            let isDamaged = data.car.damaged;
+
+            // Trigger damage if fuel hit zero while offline
+            if (calculatedFuel <= 0 && !isDamaged) {
+                calculatedFuel = 0;
+                isDamaged = true;
+                syncToFirebase(0, true);
+            }
+
+            car.fuel = Math.max(0, calculatedFuel);
+            car.damaged = isDamaged;
+            car.lastUpdate = now;
+
+            // Set initial video state based on data
+            if (car.damaged && currentView === "running") {
+                triggerView("damaged");
+            }
         }
-    } else {
-        console.warn("Car data not found in Firebase for this user!");
-    }
-    
-    updateUI(); // Make sure UI updates once data arrives
-});
-
-// 2. THE HEARTBEAT (Runs every 1 second)
-// 2. THE HEARTBEAT (Runs every 1 second)
-setInterval(() => {
-    if (car.damaged || isTransitioning || car.fuel <= 0) return;
-
-    // 1 Liter lasts 48 minutes (2880 seconds)
-    // So, 1 / 2880 = 0.00034722... liters per second
-    const drainRatePerSecond = 1 / (48 * 60); 
-
-    // Subtract the drain rate for 1 elapsed second
-    car.fuel = Math.max(0, car.fuel - drainRatePerSecond);
-
-    if (car.fuel <= 0) {
-        car.fuel = 0;
-        car.damaged = true;
-        syncToFirebase();
-        triggerView("damaged");
-    }
-
-    updateUI();
-}, 1000);
-
-// Sync to Firebase every 5 seconds to save bandwidth/quota
-setInterval(syncToFirebase, 5000);
-
-async function syncToFirebase() {
-    await update(userRef, { 
-        "car/fuel": car.fuel, 
-        "car/damaged": car.damaged,
-        "car/lastUpdate": Date.now() 
-    });
-}
-
-// 3. VIEW CONTROLLER (With Fades)
-async function triggerView(newView) {
-    if (currentView === newView || isTransitioning) return;
-    isTransitioning = true;
-
-    const fade = document.getElementById("fadeLayer");
-    fade.classList.add("fade-active");
-
-    setTimeout(() => {
-        currentView = newView;
-        
-        // Toggle Elements
-        document.getElementById("runningVideo").style.display = (newView === "running") ? "block" : "none";
-        document.getElementById("damagedVideo").style.display = (newView === "damaged") ? "block" : "none";
-        document.getElementById("garageView").style.display = (newView === "garage") ? "block" : "none";
-        
         updateUI();
-        fade.classList.remove("fade-active");
-        isTransitioning = false;
-    }, 600);
-}
+    }, { onlyOnce: true }); // We use onlyOnce for initial load to prevent looping logic
 
-// 4. UI RENDERER
-function updateUI() {
-    const panel = document.getElementById("panel");
-    
-    if (car.damaged && currentView !== "garage") {
-        panel.innerHTML = `
-            <div class="damage-text">⚠️ ENGINE FAILURE</div>
-            <button class="btn" onclick="window.goToGarage()">TOW TO GARAGE</button>
-        `;
-    } else if (currentView === "garage") {
-        panel.innerHTML = `
-            <div style="margin-bottom:10px">🛠️ GARAGE SERVICES</div>
-            <button class="btn" onclick="window.repairNow()">REPAIR & START (3000)</button>
-            <button class="btn" style="background:#333; color:white;" onclick="window.exitGarage()">EXIT</button>
-        `;
-    } else {
-        const percent = (car.fuel / 90) * 100;
-        panel.innerHTML = `
-            <div class="fuel-container"><div class="fuel-bar" style="width:${percent}%"></div></div>
-            <div style="font-size: 14px; color: #ffd700;">${car.fuel.toFixed(2)}L / 90.00L</div>
-            <button class="btn" onclick="window.addFuel(10)">ADD 10L (100)</button>
-        `;
+    // 2. REAL-TIME DRAIN (Every 1 Second)
+    setInterval(() => {
+        if (car.damaged || isTransitioning || car.fuel <= 0) return;
+
+        const drainPerSec = 1 / (MINUTES_PER_LITER * 60);
+        car.fuel = Math.max(0, car.fuel - drainPerSec);
+
+        if (car.fuel <= 0) {
+            car.fuel = 0;
+            car.damaged = true;
+            syncToFirebase(0, true);
+            triggerView("damaged");
+        }
+
+        updateUI();
+    }, 1000);
+
+    // 3. BACKGROUND SYNC (Every 10 Seconds)
+    // Updates the timestamp in Firebase so we know when they last "drove"
+    setInterval(() => {
+        if (!car.damaged && !isTransitioning) {
+            syncToFirebase();
+        }
+    }, 10000);
+
+    async function syncToFirebase(f = car.fuel, d = car.damaged) {
+        await update(userRef, { 
+            "car/fuel": f, 
+            "car/damaged": d,
+            "car/lastUpdate": Date.now() 
+        });
     }
-}
 
-// 5. WINDOW ACTIONS
-window.goToGarage = () => triggerView("garage");
-window.exitGarage = () => triggerView(car.damaged ? "damaged" : "running");
+    // 4. VIEW ENGINE
+    async function triggerView(newView) {
+        if (currentView === newView || isTransitioning) return;
+        isTransitioning = true;
 
-window.addFuel = async (liters) => {
-    const snap = await get(userRef);
-    const bal = snap.val().balance;
-    if (bal < liters * 10) return alert("Not enough coins!");
-    
-    car.fuel = Math.min(90, car.fuel + liters);
-    await update(userRef, { 
-        balance: bal - (liters * 10),
-        "car/fuel": car.fuel 
-    });
-    updateUI();
-};
+        const fade = document.getElementById("fadeLayer");
+        fade.classList.add("fade-active");
 
-window.repairNow = async () => {
-    const snap = await get(userRef);
-    const bal = snap.val().balance;
-    if (bal < 3000) return alert("Repair costs 3000!");
+        setTimeout(() => {
+            currentView = newView;
+            document.getElementById("runningVideo").style.display = (newView === "running") ? "block" : "none";
+            document.getElementById("damagedVideo").style.display = (newView === "damaged") ? "block" : "none";
+            document.getElementById("garageView").style.display = (newView === "garage") ? "block" : "none";
+            
+            updateUI();
+            fade.classList.remove("fade-active");
+            isTransitioning = false;
+        }, 600);
+    }
 
-    // Set local state immediately for responsiveness
-    car.damaged = false;
-    car.fuel = 1.0; 
+    // 5. UI RENDERER
+    function updateUI() {
+        const panel = document.getElementById("panel");
+        if (car.damaged && currentView !== "garage") {
+            panel.innerHTML = `
+                <div class="damage-text">⚠️ ENGINE FAILURE</div>
+                <button class="btn" onclick="window.goToGarage()">TOW TO GARAGE</button>
+            `;
+        } else if (currentView === "garage") {
+            panel.innerHTML = `
+                <div style="margin-bottom:10px">🛠️ GARAGE SERVICES</div>
+                <button class="btn" onclick="window.repairNow()">REPAIR & START (3000)</button>
+                <button class="btn" style="background:#333; color:white;" onclick="window.exitGarage()">EXIT</button>
+            `;
+        } else {
+            const percent = (car.fuel / 90) * 100;
+            panel.innerHTML = `
+                <div class="fuel-container"><div class="fuel-bar" style="width:${percent}%"></div></div>
+                <div style="font-size: 14px; color: #ffd700;">${car.fuel.toFixed(4)}L / 90.00L</div>
+                <button class="btn" onclick="window.addFuel(10)">ADD 10L (150)</button>
+            `;
+        }
+    }
 
-    await update(userRef, {
-        balance: bal - 3000,
-        car: { fuel: 1.0, damaged: false, lastUpdate: Date.now() }
-    });
+    // 6. GLOBAL ACTIONS
+    window.goToGarage = () => triggerView("garage");
+    window.exitGarage = () => triggerView(car.damaged ? "damaged" : "running");
 
-    triggerView("running");
-};
+    window.addFuel = async (liters) => {
+        const snap = await get(userRef);
+        const bal = snap.val().balance || 0;
+        const cost = liters * 15;
+        
+        if (bal < cost) return alert("Not enough coins!");
+        
+        car.fuel = Math.min(90, car.fuel + liters);
+        await update(userRef, { 
+            balance: bal - cost,
+            "car/fuel": car.fuel,
+            "car/lastUpdate": Date.now()
+        });
+        updateUI();
+    };
 
-// Initial Load
-updateUI();
-window.goHome = function() {
-    const fade = document.getElementById("fadeLayer");
-    
-    // Trigger the black fade-out
-    fade.classList.add("fade-active");
+    window.repairNow = async () => {
+        const snap = await get(userRef);
+        const bal = snap.val().balance || 0;
+        if (bal < 3000) return alert("Repair costs 3000!");
 
-    // Wait for the animation (600ms) then redirect
-    setTimeout(() => {
-        window.location.href = "index.html"; // Change this to your actual home filename
-    }, 600);
-};
+        car.damaged = false;
+        car.fuel = 5.0; // Give them a head start
+
+        await update(userRef, {
+            balance: bal - 3000,
+            car: { fuel: 5.0, damaged: false, lastUpdate: Date.now() }
+        });
+
+        triggerView("running");
+    };
+
+    window.goHome = () => {
+        document.getElementById("fadeLayer").classList.add("fade-active");
+        setTimeout(() => window.location.href = "index.html", 600);
+    };
+
 </script>
 </body>
 </html>
