@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivator Desktop | OS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --accent: #ff00c8;
+            --bg: #03070c;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* 1-5. Animated Background Layers */
+        .aura {
+            position: fixed;
+            width: 60vw; height: 60vw;
+            background: radial-gradient(circle, var(--secondary) 0%, transparent 70%);
+            top: -20vw; right: -10vw;
+            opacity: 0.15;
+            filter: blur(100px);
+            animation: pulseAura 15s infinite alternate;
+            z-index: -1;
+        }
+        @keyframes pulseAura { 0% { transform: scale(1); } 100% { transform: scale(1.2) translate(-5%, 5%); } }
+
+        /* 6. Main Desktop Container */
+        .desktop-app {
+            width: 90vw;
+            max-width: 1200px;
+            height: 80vh;
+            background: var(--card-bg);
+            backdrop-filter: blur(40px);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            display: grid;
+            grid-template-columns: 320px 1fr 280px;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
+            animation: appEntry 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        @keyframes appEntry { from { opacity: 0; transform: scale(0.95) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+
+        /* Left Sidebar: Playlist */
+        .sidebar {
+            background: rgba(0,0,0,0.2);
+            border-right: 1px solid var(--border);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .home-link {
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 40px;
+            transition: 0.3s;
+        }
+        .home-link:hover { color: var(--primary); transform: translateX(5px); }
+
+        .playlist-scroll {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        .playlist-scroll::-webkit-scrollbar { width: 4px; }
+        .playlist-scroll::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        .track-item {
+            padding: 15px;
+            border-radius: 16px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid transparent;
+            animation: slideIn 0.5s ease backwards;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+
+        .track-item:hover { background: rgba(255,255,255,0.05); border-color: var(--border); }
+        .track-item.active { background: var(--primary); color: black; font-weight: 700; }
+
+        /* Main Console: Visualizer & Controls */
+        .main-console {
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .visualizer-stage {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            margin-bottom: 50px;
+        }
+
+        .v-bar {
+            width: 8px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 4px;
+            transition: 0.1s;
+        }
+        .playing .v-bar { animation: barDance 0.8s infinite alternate ease-in-out; }
+        @keyframes barDance { to { height: 180px; background: var(--secondary); filter: brightness(1.5); } }
+
+        .song-title { font-size: 42px; font-weight: 700; margin: 0; letter-spacing: -1px; }
+
+        /* 15-20. Seek Bar Styles */
+        .scrubber-container { width: 80%; margin: 40px 0; }
+        .scrubber-bar {
+            width: 100%; height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+        }
+        .scrubber-fill {
+            height: 100%; width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            position: relative;
+        }
+        .scrubber-fill::after {
+            content: ''; position: absolute; right: -5px; top: -5px;
+            width: 16px; height: 16px; background: white; border-radius: 50%;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .controls-row { display: flex; align-items: center; gap: 40px; }
+        .btn-circle {
+            background: none; border: 1px solid var(--border); color: white;
+            width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+            transition: 0.3s; font-size: 18px;
+        }
+        .btn-circle:hover { background: white; color: black; transform: scale(1.1); }
+        .btn-play {
+            width: 80px; height: 80px; background: var(--primary); color: black;
+            border: none; font-size: 28px;
+        }
+        .btn-play:hover { transform: scale(1.1) rotate(5deg); box-shadow: 0 0 30px var(--primary); }
+
+        /* Right Sidebar: Quotes & Stats */
+        .right-pane {
+            background: rgba(255,255,255,0.02);
+            padding: 30px;
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .quote-card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 20px;
+            font-style: italic;
+            line-height: 1.6;
+            border-left: 4px solid var(--accent);
+            animation: flicker 4s infinite;
+        }
+        @keyframes flicker { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+
+    </style>
+</head>
+<body>
+
+<div class="aura"></div>
+
+<div class="desktop-app" id="appBody">
+    <div class="sidebar">
+        <a href="index.html" class="home-link"><span>🏠</span> DASHBOARD CORE</a>
+        <h3 style="letter-spacing: 2px; font-size: 12px; opacity: 0.5; margin-bottom: 20px;">YOUR PLAYLIST</h3>
+        <div class="playlist-scroll" id="playlist">
+            </div>
+    </div>
+
+    <div class="main-console">
+        <div class="visualizer-stage">
+            <div class="v-bar" style="animation-delay: 0.1s"></div>
+            <div class="v-bar" style="animation-delay: 0.4s"></div>
+            <div class="v-bar" style="animation-delay: 0.2s"></div>
+            <div class="v-bar" style="animation-delay: 0.6s"></div>
+            <div class="v-bar" style="animation-delay: 0.3s"></div>
+            <div class="v-bar" style="animation-delay: 0.5s"></div>
+            <div class="v-bar" style="animation-delay: 0.1s"></div>
+            <div class="v-bar" style="animation-delay: 0.4s"></div>
+            <div class="v-bar" style="animation-delay: 0.2s"></div>
+            <div class="v-bar" style="animation-delay: 0.7s"></div>
+            <div class="v-bar" style="animation-delay: 0.3s"></div>
+        </div>
+
+        <h1 class="song-title" id="displayTitle">STATION IDLE</h1>
+        <p style="opacity: 0.5; margin-top: 10px;" id="displayArtist">System Ready</p>
+
+        <div class="scrubber-container">
+            <div class="scrubber-bar" id="seekObj">
+                <div class="scrubber-fill" id="seekFill"></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 12px; opacity: 0.6;">
+                <span id="curTime">0:00</span>
+                <span id="durTime">0:00</span>
+            </div>
+        </div>
+
+        <div class="controls-row">
+            <button class="btn-circle" onclick="prev()">⏮</button>
+            <button class="btn-circle btn-play" id="playBtn" onclick="toggle()">▶</button>
+            <button class="btn-circle" onclick="next()">⏭</button>
+        </div>
+    </div>
+
+    <div class="right-pane">
+        <div style="font-size: 10px; letter-spacing: 3px; margin-bottom: 15px; opacity: 0.5;">DAILY MANTRA</div>
+        <div class="quote-card" id="quoteText">
+            "Your results are a lagging measure of your habits."
+        </div>
+        
+        <div style="margin-top: 40px;">
+            <div style="font-size: 10px; letter-spacing: 3px; margin-bottom: 15px; opacity: 0.5;">SYSTEM STATUS</div>
+            <div style="display: flex; gap: 10px;">
+                <div style="flex:1; height:4px; background: var(--primary); border-radius:2px;"></div>
+                <div style="flex:1; height:4px; background: var(--primary); border-radius:2px;"></div>
+                <div style="flex:0.5; height:4px; background: rgba(255,255,255,0.1); border-radius:2px;"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<audio id="masterAudio"></audio>
+
+<script>
+    const library = [
+        { name: "Valorant Peak", file: "songs/valorant.mp3" },
+        { name: "Gold Kid", file: "songs/goldkid.mp3" },
+        { name: "Interstellar Theme", file: "songs/interstellar.mp3" },
+        { name: "Memory Reboot", file: "songs/memory_reboot.mp3" }
+    ];
+
+    const wisdom = [
+        "Don't stop until you're proud.",
+        "Work in silence. Let success be your noise.",
+        "You don't find willpower, you create it.",
+        "The best way to predict the future is to create it.",
+        "Stay hungry. Stay foolish."
+    ];
+
+    let index = 0;
+    const audio = document.getElementById('masterAudio');
+    const playBtn = document.getElementById('playBtn');
+    const fill = document.getElementById('seekFill');
+
+    function init() {
+        const list = document.getElementById('playlist');
+        library.forEach((s, i) => {
+            const div = document.createElement('div');
+            div.className = 'track-item';
+            div.style.animationDelay = `${i * 0.1}s`;
+            div.innerHTML = `<span>0${i+1}</span> <span>${s.name}</span>`;
+            div.onclick = () => { index = i; load(); play(); };
+            list.appendChild(div);
+        });
+        load();
+    }
+
+    function load() {
+        audio.src = library[index].file;
+        document.getElementById('displayTitle').innerText = library[index].name;
+        document.getElementById('quoteText').innerText = wisdom[Math.floor(Math.random()*wisdom.length)];
+        
+        document.querySelectorAll('.track-item').forEach((item, i) => {
+            item.classList.toggle('active', i === index);
+        });
+    }
+
+    function toggle() {
+        if (audio.paused) play(); else pause();
+    }
+
+    function play() {
+        audio.play().catch(e => console.log("Files missing"));
+        playBtn.innerText = "⏸";
+        document.getElementById('appBody').classList.add('playing');
+    }
+
+    function pause() {
+        audio.pause();
+        playBtn.innerText = "▶";
+        document.getElementById('appBody').classList.remove('playing');
+    }
+
+    function next() { index = (index + 1) % library.length; load(); play(); }
+    function prev() { index = (index - 1 + library.length) % library.length; load(); play(); }
+
+    audio.ontimeupdate = () => {
+        const pct = (audio.currentTime / audio.duration) * 100;
+        fill.style.width = pct + "%";
+        document.getElementById('curTime').innerText = format(audio.currentTime);
+        document.getElementById('durTime').innerText = format(audio.duration);
+    };
+
+    document.getElementById('seekObj').onclick = (e) => {
+        const pct = e.offsetX / e.target.offsetWidth;
+        audio.currentTime = pct * audio.duration;
+    };
+
+    function format(s) {
+        if (isNaN(s)) return "0:00";
+        let m = Math.floor(s/60);
+        let sec = Math.floor(s%60);
+        return `${m}:${sec < 10 ? '0'+sec : sec}`;
+    }
+
+    // Spacebar control
+    window.onkeydown = (e) => {
+        if(e.code === "Space") { e.preventDefault(); toggle(); }
+        if(e.code === "ArrowRight") audio.currentTime += 5;
+        if(e.code === "ArrowLeft") audio.currentTime -= 5;
+    };
+
+    audio.onended = next;
+    init();
+</script>
+</body>
+</html>
