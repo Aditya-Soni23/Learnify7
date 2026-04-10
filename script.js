@@ -617,68 +617,86 @@ window.switchSubject = (sub) => {
   });
   renderChapters();
 };
+// --- UPDATED TRACKER LOGIC ---
 
-// 3. Render Chapters and Markers
+// 1. Render Chapters and Markers (Now with DB Listener)
 function renderChapters() {
-  const container = document.getElementById('chaptersContainer');
-  container.innerHTML = '';
-
-  const chapters = subjectsData[currentSubject];
-  const books = ["RESO", "PW", "PYQ", "NOTES"]; // Resonance, PW, PYQ, Class Notes
-  if (currentSubject === "Physics") books.push("DCP"); // Add DC Pandey for Physics
-
-  chapters.forEach(chapter => {
-      const card = document.createElement('div');
-      card.className = 'chapter-card';
-      
-      card.innerHTML = `
-          <div class="chapter-info">
-              <h4>${chapter}</h4>
-          </div>
-          <div class="markers-row" id="markers-${chapter.replace(/\s/g, '')}"></div>
-      `;
-
-      const row = card.querySelector('.markers-row');
-      
-      books.forEach(book => {
-          const markerId = `${currentSubject}-${chapter}-${book}`;
-          const isDone = localStorage.getItem(markerId) === "true";
-          
-          const m = document.createElement('div');
-          m.className = `marker ${isDone ? 'done' : ''}`;
-          m.innerText = book;
-          m.onclick = () => toggleMarker(markerId, m);
-          row.appendChild(m);
+    const container = document.getElementById('chaptersContainer');
+    if (!container) return;
+    container.innerHTML = '';
+  
+    const chapters = subjectsData[currentSubject];
+    const books = ["RESO", "PW", "PYQ", "NOTES"];
+    if (currentSubject === "Physics") books.push("DCP");
+  
+    // Create a reference for the current subject
+    const subjectRef = ref(db, `user/study_tracker/${currentSubject}`);
+  
+    // Listen for realtime data for this specific subject
+    onValue(subjectRef, (snapshot) => {
+      const dbData = snapshot.val() || {};
+      container.innerHTML = ''; // Clear for fresh render
+  
+      chapters.forEach(chapter => {
+        const card = document.createElement('div');
+        card.className = 'chapter-card';
+        
+        // Sanitize chapter name for Firebase keys (remove dots/spaces)
+        const chapterKey = chapter.replace(/[.#$[\]\s]/g, '_');
+        
+        card.innerHTML = `
+            <div class="chapter-info">
+                <h4>${chapter}</h4>
+            </div>
+            <div class="markers-row" id="markers-${chapterKey}"></div>
+        `;
+  
+        const row = card.querySelector('.markers-row');
+        
+        books.forEach(book => {
+            const isDone = dbData[chapterKey] && dbData[chapterKey][book];
+            
+            const m = document.createElement('div');
+            m.className = `marker ${isDone ? 'done' : ''}`;
+            m.innerText = book;
+            
+            // Only allow clicking if it's not already done
+            m.onclick = () => {
+              if (!isDone) toggleMarker(chapterKey, book);
+            };
+            row.appendChild(m);
+        });
+  
+        container.appendChild(card);
       });
-
-      container.appendChild(card);
-  });
-}
-
-// 4. Toggle Marker & Grant Rocket
-async function toggleMarker(id, element) {
-  if (element.classList.contains('done')) return; // Already rewarded
-
-  // 1. Update UI
-  element.classList.add('done');
-  localStorage.setItem(id, "true");
-
-  // 2. Grant 1 Rocket via Firebase
-  try {
-      const { getDatabase, ref, get, set } = await import("firebase/database");
-      // Re-using your existing workstation database setup
-      const db = getDatabase(); 
-      const rocketsRef = ref(db, 'user/rockets');
-      
-      const snap = await get(rocketsRef);
-      const current = snap.val() || 0;
-      await set(rocketsRef, current + 5);
-      
-      console.log("Marker Complete! +5 Rocket granted.");
-  } catch (err) {
-      console.error("Rocket grant failed:", err);
+    }, { onlyOnce: false });
   }
-}
+  
+  // 2. Toggle Marker & Grant Rockets via .update()
+  async function toggleMarker(chapterKey, book) {
+    try {
+        // 1. Get current rocket count
+        const rocketsSnap = await get(rocketsRef);
+        const currentRockets = rocketsSnap.val() || 0;
+  
+        // 2. Prepare atomic updates
+        const updates = {};
+        
+        // Set the marker to true in the tracker
+        updates[`user/study_tracker/${currentSubject}/${chapterKey}/${book}`] = true;
+        
+        // Grant +5 Rockets
+        updates[`user/rockets`] = currentRockets + 5;
+  
+        // 3. Execute update (This is why we use .update - it changes only these keys)
+        await update(ref(db), updates);
+        
+        console.log(`Marker ${book} saved! +5 Rockets granted.`);
+    } catch (err) {
+        console.error("Tracker sync failed:", err);
+        alert("Database sync error. Check console.");
+    }
+  }
 // Add this to your JS file
 window.openAI = (appKey) => {
     const aiLinks = {
