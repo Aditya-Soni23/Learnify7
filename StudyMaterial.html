@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diamond Study Hub</title>
+    <style>
+        /* --- RESET & BASE STYLES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background: #0a0a16;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        /* --- BACKGROUND ANIMATION --- */
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* --- LAYOUT CONTAINER --- */
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            padding: 60px 0;
+            text-align: center;
+            z-index: 1;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            background: linear-gradient(45deg, #ff007f, #7f00ff, #00f0ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            animation: hueRotate 10s infinite linear;
+        }
+
+        header p {
+            color: #8a8a9e;
+            font-size: 1.1rem;
+            margin-bottom: 35px;
+        }
+
+        /* --- INTERACTIVE SEARCH BAR --- */
+        .search-container {
+            position: relative;
+            max-width: 500px;
+            margin: 0 auto 60px auto;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            color: #fff;
+            outline: none;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .search-input:focus {
+            border-color: #00f0ff;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .search-input::placeholder {
+            color: #5a5a75;
+        }
+
+        /* --- GRID & CARDS --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            perspective: 1000px;
+            transition: opacity 0.3s ease;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 35px 25px;
+            text-align: left;
+            text-decoration: none;
+            color: white;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: border 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease, opacity 0.4s ease, scale 0.4s ease;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Classes handled by JS filtering */
+        .card.hidden {
+            display: none;
+        }
+
+        .card:hover {
+            border-color: var(--clr);
+            box-shadow: 0 0 30px rgba(var(--clr-rgb), 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255,255,255,0.06), transparent 40%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        /* --- CARD INNER ELEMENTS --- */
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            transition: transform 0.3s ease, background 0.3s ease;
+            transform: translateZ(30px);
+        }
+
+        .card:hover .icon-box {
+            background: var(--clr);
+            color: #fff;
+            transform: translateZ(50px) scale(1.1);
+            box-shadow: 0 0 15px var(--clr);
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            font-weight: 600;
+            transform: translateZ(25px);
+        }
+
+        .card p {
+            color: #a0a0ba;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            transform: translateZ(20px);
+            margin-bottom: 20px;
+        }
+
+        .action-text {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--clr);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transform: translateZ(15px);
+        }
+
+        .action-text span {
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .action-text span {
+            transform: translateX(5px);
+        }
+
+        /* --- NO RESULTS STATE --- */
+        .no-results {
+            display: none;
+            color: #8a8a9e;
+            font-size: 1.2rem;
+            margin-top: 40px;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes hueRotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 768px) {
+            header h1 { font-size: 2.2rem; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <div class="container">
+        <header>
+            <h1>DIAMOND STUDY PORTAL</h1>
+            <p>Select a dimension to begin your learning journey</p>
+        </header>
+
+        <div class="search-container">
+            <input type="text" id="searchBar" class="search-input" placeholder="Search portals...">
+        </div>
+
+        <main class="card-grid" id="cardGrid">
+            
+            <a href="https://aditya-soni23.github.io/Dimentional_Quantities/" target="_blank" class="card" style="--clr: #00f0ff; --clr-rgb: 0, 240, 255;">
+                <div class="icon-box">🌌</div>
+                <h3>Dimentional Analysis</h3>
+                <p>Units and Dimenstions- all units and dimensional analysis of quantities ~86.</p>
+                <div class="action-text">Enter Portal <span>→</span></div>
+            </a>
+
+            <a href="https://aditya-soni23.github.io/PeriodicTable/" target="_blank" class="card" style="--clr: #ff007f; --clr-rgb: 255, 0, 127;">
+                <div class="icon-box">💎</div>
+                <h3>Periodic Table</h3>
+                <p>Periodic table which is highly animated and displays all info about the elemtns.</p>
+                <div class="action-text">Enter Portal <span>→</span></div>
+            </a>
+
+  
+        </main>
+
+        <div id="noResults" class="no-results">No cosmic portals match your search query.</div>
+    </div>
+
+    <script>
+        /* ==========================================================================
+           1. PARTICLES BACKGROUND SYSTEM
+           ========================================================================== */
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        let particles = [];
+        const particleCount = 60;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.color = `rgba(255, 255, 255, ${Math.random() * 0.3})`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 150) {
+                        ctx.strokeStyle = `rgba(127, 0, 255, ${0.15 * (1 - distance/150)})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+
+        /* ==========================================================================
+           2. INTERACTIVE 3D TILT EFFECT & MOUSE TRACKING
+           ========================================================================== */
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const mouseX = e.clientX - centerX;
+                const mouseY = e.clientY - centerY;
+
+                const maxTilt = 15; 
+                const rotateX = (-mouseY / (rect.height / 2)) * maxTilt;
+                const rotateY = (mouseX / (rect.width / 2)) * maxTilt;
+
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0)';
+            });
+        });
+
+
+        /* ==========================================================================
+           3. REAL-TIME CARD SEARCH/FILTER SYSTEM
+           ========================================================================== */
+        const searchBar = document.getElementById('searchBar');
+        const noResults = document.getElementById('noResults');
+
+        searchBar.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            let visibleCardsCount = 0;
+
+            cards.forEach(card => {
+                // Pull content from titles and descriptions to make the search smart
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+
+                if (title.includes(query) || description.includes(query)) {
+                    card.classList.remove('hidden');
+                    visibleCardsCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+
+            // Toggle the "No results found" warning message smoothly
+            if (visibleCardsCount === 0) {
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
