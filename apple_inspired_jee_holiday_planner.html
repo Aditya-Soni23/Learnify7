@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JEE Holiday Planner | 14–21 October 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            bg: '#fbfbfd',
+                            card: '#ffffff',
+                            darkBg: '#000000',
+                            darkCard: '#1c1c1e',
+                            text: '#1d1d1f',
+                            darkText: '#f5f5f7',
+                            muted: '#86868b',
+                            darkMuted: '#98989d',
+                            border: '#e5e5ea',
+                            darkBorder: '#38383a',
+                            accent: '#0066cc',
+                            darkAccent: '#0a84ff',
+                            surface: '#f5f5f7',
+                            darkSurface: '#2c2c2e'
+                        }
+                    },
+                    fontFamily: {
+                        sans: [
+                            '-apple-system',
+                            'BlinkMacSystemFont',
+                            '"SF Pro Display"',
+                            '"SF Pro Text"',
+                            '"SF Pro"',
+                            '"Helvetica Neue"',
+                            'Helvetica',
+                            'Arial',
+                            'sans-serif'
+                        ]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom Checkbox */
+        .apple-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #c7c7cc;
+            border-radius: 6px;
+            outline: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: transparent;
+            flex-shrink: 0;
+        }
+        .dark .apple-checkbox {
+            border-color: #48484a;
+        }
+        .apple-checkbox:checked {
+            background-color: #0066cc;
+            border-color: #0066cc;
+        }
+        .dark .apple-checkbox:checked {
+            background-color: #0a84ff;
+            border-color: #0a84ff;
+        }
+        .apple-checkbox:checked::after {
+            content: "";
+            width: 6px;
+            height: 11px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg) translateY(-1px);
+        }
+        .apple-checkbox:hover {
+            border-color: #0066cc;
+        }
+        .dark .apple-checkbox:hover {
+            border-color: #0a84ff;
+        }
+
+        /* Accordion transition */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+            opacity: 0;
+        }
+        .accordion-content.open {
+            max-height: 2000px;
+            opacity: 1;
+        }
+
+        /* Glassmorphism header */
+        .glass-header {
+            background: rgba(251, 251, 253, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .dark .glass-header {
+            background: rgba(0, 0, 0, 0.82);
+        }
+    </style>
+</head>
+<body class="bg-apple-bg dark:bg-apple-darkBg text-apple-text dark:text-apple-darkText min-h-screen selection:bg-apple-accent/20 selection:text-apple-accent">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass-header border-b border-apple-border dark:border-apple-darkBorder transition-colors duration-300">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div>
+                <h1 class="text-xl font-semibold tracking-tight">My Study Plan</h1>
+                <p class="text-xs text-apple-muted dark:text-apple-darkMuted mt-0.5 font-medium">
+                    14–21 October 2026 <span class="mx-1.5 opacity-60">·</span> Reso Major Test on 22 October
+                </p>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="inline-flex shrink-0 items-center gap-1 rounded-full px-3 py-2 text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-apple-text dark:text-apple-darkText">
+                    <span aria-hidden="true">←</span>
+                    <span>Home</span>
+                </a>
+                <button id="theme-toggle" aria-label="Toggle theme" class="p-2.5 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-apple-text dark:text-apple-darkText">
+                    <!-- Sun Icon -->
+                    <svg id="theme-icon-sun" class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"></path>
+                    </svg>
+                    <!-- Moon Icon -->
+                    <svg id="theme-icon-moon" class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-10 space-y-8">
+        
+        <!-- Progress Overview Section -->
+        <section class="bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-apple-darkBorder rounded-2xl p-6 shadow-sm transition-all duration-300">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                <div>
+                    <h2 class="text-sm font-medium uppercase tracking-wider text-apple-muted dark:text-apple-darkMuted">Preparation Progress</h2>
+                    <div class="flex items-baseline gap-2 mt-1">
+                        <span id="progress-count" class="text-3xl font-semibold tracking-tight">0 / 0</span>
+                        <span class="text-sm text-apple-muted dark:text-apple-darkMuted">tasks completed</span>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <span id="progress-percentage" class="text-2xl font-semibold tracking-tight text-apple-accent dark:text-apple-darkAccent">0%</span>
+                </div>
+            </div>
+            <!-- Thin Animated Progress Bar -->
+            <div class="w-full bg-apple-surface dark:bg-apple-darkSurface h-2 rounded-full overflow-hidden">
+                <div id="progress-bar" class="bg-apple-accent dark:bg-apple-darkAccent h-full w-0 transition-all duration-500 ease-out rounded-full"></div>
+            </div>
+        </section>
+
+        <!-- Eight-Day Timeline Section -->
+        <section class="space-y-4">
+            <div class="flex items-center justify-between px-1">
+                <h2 class="text-lg font-semibold tracking-tight">Daily Schedule</h2>
+                <span class="text-xs text-apple-muted dark:text-apple-darkMuted">14 Oct – 21 Oct 2026</span>
+            </div>
+
+            <div id="timeline-container" class="space-y-3">
+                <!-- Days will be dynamically generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Exam-Day Note & Footer Controls -->
+        <div class="pt-4 space-y-6">
+            <div class="bg-apple-surface dark:bg-apple-darkSurface border border-apple-border dark:border-apple-darkBorder rounded-2xl p-6 text-center space-y-2 transition-all duration-300">
+                <div class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-apple-accent/10 dark:bg-apple-darkAccent/10 text-apple-accent dark:text-apple-darkAccent mb-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h3 class="font-semibold text-base">22 October — Reso Major Test</h3>
+                <p class="text-sm text-apple-muted dark:text-apple-darkMuted max-w-lg mx-auto leading-relaxed">
+                    Your preparation ends here. Trust your revision, stay calm and do your best.
+                </p>
+            </div>
+
+            <!-- Reset Progress Button -->
+            <div class="flex justify-center pt-2">
+                <button id="reset-btn" class="text-xs font-medium text-apple-muted dark:text-apple-darkMuted hover:text-red-500 dark:hover:text-red-400 transition-colors py-2 px-4 rounded-lg hover:bg-red-50 dark:hover:bg-red-950/25">
+                    Reset progress data
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirm-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200">
+        <div id="confirm-dialog" class="bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-apple-darkBorder rounded-2xl p-6 max-w-sm w-full mx-4 shadow-2xl transform scale-95 transition-transform duration-200">
+            <h3 class="text-base font-semibold mb-2">Reset all progress?</h3>
+            <p class="text-sm text-apple-muted dark:text-apple-darkMuted mb-6 leading-relaxed">
+                This will clear all completed task checkmarks. This action cannot be undone.
+            </p>
+            <div class="flex justify-end gap-3">
+                <button id="modal-cancel" class="px-4 py-2 text-sm font-medium rounded-xl hover:bg-apple-surface dark:hover:bg-apple-darkSurface transition-colors">
+                    Cancel
+                </button>
+                <button id="modal-confirm" class="px-4 py-2 text-sm font-medium bg-red-600 hover:bg-red-700 text-white rounded-xl transition-colors shadow-sm">
+                    Reset Progress
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application JavaScript -->
+    <script>
+        // Schedule Data Definition
+        const scheduleData = [
+            {
+                id: "day1",
+                dayNum: 1,
+                date: "Wednesday, 14 October 2026",
+                focus: "Chemistry 1/2 + NSAT Preparation",
+                note: "",
+                tasks: [
+                    { id: "day1-task0", title: "Aldehydes, ketones and acid derivatives", duration: "3–4 hours" },
+                    { id: "day1-task1", title: "PW NSAT preparation", duration: "2 hours" },
+                    { id: "day1-task2", title: "Write and memorise organic reactions", duration: "45 minutes" },
+                    { id: "day1-task3", title: "Definite and indefinite integration formula revision", duration: "30 minutes" }
+                ]
+            },
+            {
+                id: "day2",
+                dayNum: 2,
+                date: "Thursday, 15 October 2026",
+                focus: "PW NSAT Exam + Chemistry 2/2",
+                note: "Important: The NSAT examination takes priority. Allow unfinished Chemistry tasks to remain unchecked and be completed later rather than automatically marking them complete.",
+                tasks: [
+                    { id: "day2-task0", title: "PW NSAT examination", duration: "Exam priority" },
+                    { id: "day2-task1", title: "Biomolecules", duration: "Study session" },
+                    { id: "day2-task2", title: "Aromatic compounds", duration: "Study session" },
+                    { id: "day2-task3", title: "P-block", duration: "Study session" },
+                    { id: "day2-task4", title: "Organic reaction recall", duration: "30 minutes" },
+                    { id: "day2-task5", title: "Integration formula revision", duration: "20 minutes" }
+                ]
+            },
+            {
+                id: "day3",
+                dayNum: 3,
+                date: "Friday, 16 October 2026",
+                focus: "Mathematics 1/3",
+                note: "",
+                tasks: [
+                    { id: "day3-task0", title: "Differential equations", duration: "3 hours" },
+                    { id: "day3-task1", title: "Matrices and determinants", duration: "2–3 hours" },
+                    { id: "day3-task2", title: "Conic sections formula revision", duration: "45 minutes" },
+                    { id: "day3-task3", title: "Organic reaction recall", duration: "30 minutes" },
+                    { id: "day3-task4", title: "Physics EMF/EMI practice", duration: "20 minutes" }
+                ]
+            },
+            {
+                id: "day4",
+                dayNum: 4,
+                date: "Saturday, 17 October 2026",
+                focus: "Mathematics 2/3",
+                note: "",
+                tasks: [
+                    { id: "day4-task0", title: "Permutations and combinations (P&C)", duration: "2.5 hours" },
+                    { id: "day4-task1", title: "Probability", duration: "2.5 hours" },
+                    { id: "day4-task2", title: "MOD", duration: "1.5 hours" },
+                    { id: "day4-task3", title: "Conic sections formula revision", duration: "45 minutes" },
+                    { id: "day4-task4", title: "Organic reaction recall", duration: "30 minutes" }
+                ]
+            },
+            {
+                id: "day5",
+                dayNum: 5,
+                date: "Sunday, 18 October 2026",
+                focus: "Mathematics 3/3",
+                note: "",
+                tasks: [
+                    { id: "day5-task0", title: "Complex numbers", duration: "2.5 hours" },
+                    { id: "day5-task1", title: "Vectors and 3D geometry", duration: "3 hours" },
+                    { id: "day5-task2", title: "Mixed practice from all seven Maths chapters", duration: "1 hour" },
+                    { id: "day5-task3", title: "Definite and indefinite integration formula revision", duration: "45 minutes" },
+                    { id: "day5-task4", title: "Organic reaction recall", duration: "30 minutes" }
+                ]
+            },
+            {
+                id: "day6",
+                dayNum: 6,
+                date: "Monday, 19 October 2026",
+                focus: "Physics Revision",
+                note: "",
+                tasks: [
+                    { id: "day6-task0", title: "EMF, EMI and AC", duration: "2 hours" },
+                    { id: "day6-task1", title: "Electromagnetic waves (EMW)", duration: "45 minutes" },
+                    { id: "day6-task2", title: "Modern Physics", duration: "2 hours" },
+                    { id: "day6-task3", title: "Semiconductors", duration: "1.5 hours" },
+                    { id: "day6-task4", title: "Mixed timed Physics PYQs", duration: "1 hour" },
+                    { id: "day6-task5", title: "Chemistry and Maths recall", duration: "45 minutes" }
+                ]
+            },
+            {
+                id: "day7",
+                dayNum: 7,
+                date: "Tuesday, 20 October 2026",
+                focus: "Three-Hour Mock Test",
+                note: "",
+                tasks: [
+                    { id: "day7-task0", title: "Light formula and reaction revision", duration: "45 minutes" },
+                    { id: "day7-task1", title: "Full PCM mock test", duration: "3 hours" },
+                    { id: "day7-task2", title: "Break and test analysis", duration: "1.5 hours" },
+                    { id: "day7-task3", title: "Review mistakes and revise weak areas", duration: "1–1.5 hours" }
+                ]
+            },
+            {
+                id: "day8",
+                dayNum: 8,
+                date: "Wednesday, 21 October 2026",
+                focus: "Final Revision",
+                note: "",
+                tasks: [
+                    { id: "day8-task0", title: "Chemistry final revision", duration: "2 hours" },
+                    { id: "day8-task1", title: "Mathematics final revision", duration: "2 hours" },
+                    { id: "day8-task2", title: "Physics final revision", duration: "1.5 hours" },
+                    { id: "day8-task3", title: "Mock-test mistake correction", duration: "1 hour" },
+                    { id: "day8-task4", title: "Final weak-point revision", duration: "1 hour" }
+                ]
+            }
+        ];
+
+        // State Management
+        let completedTasks = JSON.parse(localStorage.getItem('jee_planner_completed') || '{}');
+
+        // Theme Management
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem('jee_planner_theme');
+            if (savedTheme) {
+                if (savedTheme === 'dark') {
+                    htmlElement.classList.add('dark');
+                } else {
+                    htmlElement.classList.remove('dark');
+                }
+            } else {
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    htmlElement.classList.add('dark');
+                } else {
+                    htmlElement.classList.remove('dark');
+                }
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('jee_planner_theme', 'light');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('jee_planner_theme', 'dark');
+            }
+        });
+
+        // Determine default opened day
+        function getInitialOpenDayId() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth(); 
+            const date = now.getDate();
+
+            if (year === 2026 && month === 9 && date >= 14 && date <= 21) {
+                return `day${date - 13}`;
+            }
+
+            for (const day of scheduleData) {
+                const hasIncomplete = day.tasks.some(t => !completedTasks[t.id]);
+                if (hasIncomplete) {
+                    return day.id;
+                }
+            }
+            return scheduleData[0].id;
+        }
+
+        let openDayId = getInitialOpenDayId();
+
+        // Render Timeline
+        function renderTimeline() {
+            const container = document.getElementById('timeline-container');
+            container.innerHTML = '';
+
+            scheduleData.forEach((day) => {
+                const totalTasks = day.tasks.length;
+                const completedCount = day.tasks.filter(t => completedTasks[t.id]).length;
+                const progressPercent = totalTasks > 0 ? Math.round((completedCount / totalTasks) * 100) : 0;
+                const isOpen = day.id === openDayId;
+
+                const dayCard = document.createElement('div');
+                dayCard.className = `bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-apple-darkBorder rounded-2xl overflow-hidden transition-all duration-300 shadow-sm`;
+
+                dayCard.innerHTML = `
+                    <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none hover:bg-apple-surface/50 dark:hover:bg-apple-darkSurface/50 transition-colors cursor-pointer group" onclick="toggleDay('${day.id}')">
+                        <div class="flex items-center gap-4">
+                            <div class="w-9 h-9 rounded-xl bg-apple-surface dark:bg-apple-darkSurface flex items-center justify-center font-semibold text-sm group-hover:scale-105 transition-transform">
+                                ${day.dayNum}
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <h3 class="font-semibold text-base">${day.focus}</h3>
+                                    ${completedCount === totalTasks && totalTasks > 0 ? '<span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Completed</span>' : ''}
+                                </div>
+                                <p class="text-xs text-apple-muted dark:text-apple-darkMuted mt-0.5">${day.date}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="hidden sm:flex flex-col items-end">
+                                <span class="text-xs font-medium text-apple-muted dark:text-apple-darkMuted">${completedCount}/${totalTasks} done</span>
+                                <div class="w-20 bg-apple-surface dark:bg-apple-darkSurface h-1.5 rounded-full mt-1 overflow-hidden">
+                                    <div class="bg-apple-accent dark:bg-apple-darkAccent h-full transition-all duration-300 rounded-full" style="width: ${progressPercent}%"></div>
+                                </div>
+                            </div>
+                            <svg class="w-5 h-5 text-apple-muted dark:text-apple-darkMuted transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
+                    </button>
+
+                    <div id="content-${day.id}" class="accordion-content ${isOpen ? 'open' : ''}">
+                        <div class="px-6 pb-6 pt-2 border-t border-apple-border/50 dark:border-apple-darkBorder/50 space-y-4">
+                            ${day.note ? `
+                                <div class="p-3.5 bg-apple-surface dark:bg-apple-darkSurface rounded-xl text-xs text-apple-muted dark:text-apple-darkMuted leading-relaxed">
+                                    ${day.note}
+                                </div>
+                            ` : ''}
+                            <div class="space-y-3 pt-1">
+                                ${day.tasks.map(task => {
+                                    const isChecked = !!completedTasks[task.id];
+                                    return `
+                                        <label class="flex items-start gap-3.5 p-3 rounded-xl hover:bg-apple-surface/60 dark:hover:bg-apple-darkSurface/60 transition-colors cursor-pointer group">
+                                            <input type="checkbox" class="apple-checkbox mt-0.5" ${isChecked ? 'checked' : ''} onchange="handleTaskChange('${task.id}', this.checked)">
+                                            <div class="flex-1 min-w-0">
+                                                <span class="block text-sm font-medium leading-snug transition-colors ${isChecked ? 'line-through text-apple-muted dark:text-apple-darkMuted opacity-75' : 'text-apple-text dark:text-apple-darkText'}">
+                                                    ${task.title}
+                                                </span>
+                                                ${task.duration ? `<span class="inline-block text-xs text-apple-muted dark:text-apple-darkMuted mt-0.5">${task.duration}</span>` : ''}
+                                            </div>
+                                        </label>
+                                    `;
+                                }).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                container.appendChild(dayCard);
+            });
+        }
+
+        // Toggle Day Accordion
+        window.toggleDay = function(dayId) {
+            if (openDayId === dayId) {
+                openDayId = null;
+            } else {
+                openDayId = dayId;
+            }
+            renderTimeline();
+        }
+
+        // Handle Task Checkbox Change
+        window.handleTaskChange = function(taskId, isChecked) {
+            if (isChecked) {
+                completedTasks[taskId] = true;
+            } else {
+                delete completedTasks[taskId];
+            }
+            localStorage.setItem('jee_planner_completed', JSON.stringify(completedTasks));
+            updateOverallProgress();
+            renderTimeline();
+        }
+
+        // Update Overall Progress Statistics
+        function updateOverallProgress() {
+            let totalTasks = 0;
+            let completedCount = 0;
+
+            scheduleData.forEach(day => {
+                totalTasks += day.tasks.length;
+                day.tasks.forEach(task => {
+                    if (completedTasks[task.id]) {
+                        completedCount++;
+                    }
+                });
+            });
+
+            const percentage = totalTasks > 0 ? Math.round((completedCount / totalTasks) * 100) : 0;
+
+            document.getElementById('progress-count').textContent = `${completedCount} / ${totalTasks}`;
+            document.getElementById('progress-percentage').textContent = `${percentage}%`;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+        }
+
+        // Custom Reset Modal Logic
+        const resetBtn = document.getElementById('reset-btn');
+        const confirmModal = document.getElementById('confirm-modal');
+        const confirmDialog = document.getElementById('confirm-dialog');
+        const modalCancel = document.getElementById('modal-cancel');
+        const modalConfirm = document.getElementById('modal-confirm');
+
+        resetBtn.addEventListener('click', () => {
+            confirmModal.classList.remove('opacity-0', 'pointer-events-none');
+            confirmDialog.classList.remove('scale-95');
+            confirmDialog.classList.add('scale-100');
+        });
+
+        function closeModal() {
+            confirmModal.classList.add('opacity-0', 'pointer-events-none');
+            confirmDialog.classList.remove('scale-100');
+            confirmDialog.classList.add('scale-95');
+        }
+
+        modalCancel.addEventListener('click', closeModal);
+        confirmModal.addEventListener('click', (e) => {
+            if (e.target === confirmModal) {
+                closeModal();
+            }
+        });
+
+        modalConfirm.addEventListener('click', () => {
+            completedTasks = {};
+            localStorage.removeItem('jee_planner_completed');
+            updateOverallProgress();
+            renderTimeline();
+            closeModal();
+        });
+
+        // Initialize App on Window Load
+        window.onload = function() {
+            initTheme();
+            updateOverallProgress();
+            renderTimeline();
+        };
+    </script>
+</body>
+</html>
