@@ -178,6 +178,7 @@
                         <span id="progress-count" class="text-3xl font-semibold tracking-tight">0 / 0</span>
                         <span class="text-sm text-apple-muted dark:text-apple-darkMuted">tasks completed</span>
                     </div>
+                    <p class="text-xs text-apple-accent dark:text-apple-darkAccent font-medium mt-2">Complete a task to earn 🚀 5 in the Work Station.</p>
                 </div>
                 <div class="flex items-center gap-3">
                     <span id="progress-percentage" class="text-2xl font-semibold tracking-tight text-apple-accent dark:text-apple-darkAccent">0%</span>
@@ -243,7 +244,68 @@
     </div>
 
     <!-- Application JavaScript -->
-    <script>
+    <script type="module">
+        import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // Keep planner rewards in the same Firebase project as the Work Station rockets.
+        const workstationConfig = {
+            apiKey: "AIzaSyB_tE1HqkbHGXWTezhSZzr_eYyAUyN-J7s",
+            authDomain: "diamondworkstation.firebaseapp.com",
+            databaseURL: "https://diamondworkstation-default-rtdb.firebaseio.com",
+            projectId: "diamondworkstation",
+            storageBucket: "diamondworkstation.firebasestorage.app",
+            messagingSenderId: "664230863599",
+            appId: "1:664230863599:web:7af9a6a8a76c8ad86c711a"
+        };
+        const workstationApp = getApps().length ? getApp() : initializeApp(workstationConfig);
+        const workstationUserRef = ref(getDatabase(workstationApp), 'user');
+        const ROCKETS_PER_TASK = 5;
+        const PENDING_REWARDS_KEY = 'jee_planner_pending_rocket_rewards';
+
+        function getPendingRewards() {
+            return JSON.parse(localStorage.getItem(PENDING_REWARDS_KEY) || '[]');
+        }
+
+        function setPendingRewards(taskIds) {
+            localStorage.setItem(PENDING_REWARDS_KEY, JSON.stringify(taskIds));
+        }
+
+        function queueTaskReward(taskId) {
+            const pendingRewards = getPendingRewards();
+            if (!pendingRewards.includes(taskId)) {
+                pendingRewards.push(taskId);
+                setPendingRewards(pendingRewards);
+            }
+        }
+
+        function clearQueuedTaskReward(taskId) {
+            setPendingRewards(getPendingRewards().filter(id => id !== taskId));
+        }
+
+        async function rewardCompletedTask(taskId) {
+            // The reward ledger makes this idempotent, including across browsers and reloads.
+            const result = await runTransaction(workstationUserRef, (user) => {
+                const currentUser = user || {};
+                const rewardedTasks = currentUser.jee_holiday_planner_rewards || {};
+                if (rewardedTasks[taskId]) return;
+
+                return {
+                    ...currentUser,
+                    rockets: (Number(currentUser.rockets) || 0) + ROCKETS_PER_TASK,
+                    jee_holiday_planner_rewards: {
+                        ...rewardedTasks,
+                        [taskId]: true
+                    }
+                };
+            });
+
+            if (result.committed) {
+                console.log(`JEE planner task completed: +${ROCKETS_PER_TASK} rockets.`);
+            }
+            clearQueuedTaskReward(taskId);
+        }
+
         // Schedule Data Definition
         const scheduleData = [
             {
@@ -502,8 +564,13 @@
         window.handleTaskChange = function(taskId, isChecked) {
             if (isChecked) {
                 completedTasks[taskId] = true;
+                queueTaskReward(taskId);
+                rewardCompletedTask(taskId).catch((error) => {
+                    console.error('Unable to award task rockets:', error);
+                });
             } else {
                 delete completedTasks[taskId];
+                clearQueuedTaskReward(taskId);
             }
             localStorage.setItem('jee_planner_completed', JSON.stringify(completedTasks));
             updateOverallProgress();
@@ -570,6 +637,11 @@
             initTheme();
             updateOverallProgress();
             renderTimeline();
+            getPendingRewards().forEach(taskId => {
+                rewardCompletedTask(taskId).catch((error) => {
+                    console.error('Unable to retry task rocket reward:', error);
+                });
+            });
         };
     </script>
 </body>
