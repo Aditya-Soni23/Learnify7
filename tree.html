@@ -127,6 +127,7 @@
 
 <div id="fadeLayer"></div>
 <div class="home-btn" onclick="goHome()">🏠 Home</div>
+<div class="home-btn" style="left: 125px; color:#00f2fe; border-color:rgba(0,242,254,0.4);" onclick="window.location.href='decay.html'">⏳ Decay</div>
 <div class="balance">💰 <span id="balance">0</span></div>
 
 <video id="growingVideo" src="growing.mp4" autoplay loop muted playsinline></video>
@@ -137,6 +138,7 @@
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 import { getDatabase, ref, get, update, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+import { evaluateDecayCycle } from "./decay.js";
 
 const firebaseConfig = {
       apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
@@ -159,6 +161,7 @@ const MS_PER_LITER = MINUTES_PER_LITER * 60 * 1000;
 let tree = { water: 0, dead: false, lastUpdate: Date.now() };
 let currentView = "growing";
 let isTransitioning = false;
+let currentUserData = null;
 
 // 1. DATA SYNC & OFFLINE DRAIN
 onValue(userRef, (snap) => {
@@ -166,6 +169,7 @@ onValue(userRef, (snap) => {
     if (!data) return;
     
     document.getElementById("balance").innerText = data.balance || 0;
+    currentUserData = data;
     
     if (data.tree) {
         const now = Date.now();
@@ -204,6 +208,18 @@ setInterval(() => {
     const drainPerSec = 1 / (MINUTES_PER_LITER * 60);
     tree.water = Math.max(0, tree.water - drainPerSec);
 
+    // Check decay autofeed if enabled
+    if (currentUserData && currentUserData.decay?.enabled && tree.water <= 90) {
+        currentUserData.tree = { water: tree.water, dead: tree.dead, lastUpdate: tree.lastUpdate };
+        const decayRes = evaluateDecayCycle(currentUserData);
+        if (decayRes && decayRes.hasChanges && Object.keys(decayRes.updates).length > 0) {
+            update(userRef, decayRes.updates);
+            if (decayRes.trainInfo) {
+                tree.water = decayRes.trainInfo.power;
+            }
+        }
+    }
+
     if (tree.water <= 0) {
         tree.water = 0;
         tree.dead = true;
@@ -230,7 +246,7 @@ async function saveTreeData(w = tree.water, d = tree.dead) {
 // 3. UI & VIEW CONTROLLER
 function updateUI() {
     const panel = document.getElementById("panel");
-    const percent = (tree.water / 90) * 100;
+    const percent = (tree.water / 100) * 100;
 
     if (tree.dead) {
         panel.innerHTML = `
@@ -241,7 +257,7 @@ function updateUI() {
         panel.innerHTML = `
             <div style="font-weight:bold; color:#2ecc71;">Electricity</div>
             <div class="water-container"><div class="water-bar" style="width:${percent}%"></div></div>
-            <div style="font-size: 14px; color: #aaa;">${tree.water.toFixed(4)} kW / 90.00 kW</div>
+            <div style="font-size: 14px; color: #aaa;">${tree.water.toFixed(4)} kW / 100.00 kW</div>
             <button class="btn" onclick="window.buyWater()">ADD 10 kW (100)</button>
         `;
     }
@@ -270,7 +286,7 @@ window.buyWater = async () => {
     
     if (balance < 100) return alert("Not enough coins!");
     
-    tree.water = Math.min(90, tree.water + 10);
+    tree.water = Math.min(100, tree.water + 10);
     await update(userRef, { balance: balance - 100 });
     saveTreeData();
     updateUI();

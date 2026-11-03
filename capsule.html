@@ -3,31 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learnify - Coin Capsules</title>
+    <title>Learnify - Quantum Coin Capsule</title>
+    <link rel="icon" href="logo.png" type="image/png">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-glow: #00f2ff;
             --secondary-glow: #7000ff;
             --accent-red: #ff2d55;
+            --gold-glow: #ffd700;
             --bg-dark: #050508;
             --glass: rgba(255, 255, 255, 0.05);
             --glass-border: rgba(255, 255, 255, 0.15);
         }
     
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: var(--bg-dark);
             background-image: 
-                radial-gradient(at 0% 0%, rgba(0, 242, 255, 0.15) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(112, 0, 255, 0.15) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(0, 242, 255, 0.18) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(112, 0, 255, 0.2) 0px, transparent 50%);
             color: white;
-            font-family: 'Orbitron', 'Segoe UI', sans-serif;
+            font-family: 'Orbitron', 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            padding: 20px 15px 40px;
             overflow-x: hidden;
         }
     
@@ -43,7 +51,7 @@
         }
     
         .home-btn {
-            margin-top: 20px;
+            margin-top: 10px;
             padding: 12px 30px;
             background: rgba(255,255,255,0.05);
             border: 1px solid var(--glass-border);
@@ -53,7 +61,8 @@
             border-radius: 50px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
+            font-weight: 700;
             transition: 0.4s;
             box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
         }
@@ -62,14 +71,15 @@
             background: var(--primary-glow);
             color: black;
             box-shadow: 0 0 30px var(--primary-glow);
+            transform: translateY(-2px);
         }
     
         .balance-card {
             background: var(--glass);
             backdrop-filter: blur(20px);
-            padding: 25px 60px;
+            padding: 20px 45px;
             border-radius: 20px;
-            margin: 40px;
+            margin: 25px 0 15px;
             border: 1px solid var(--glass-border);
             box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(255,255,255,0.05);
             text-align: center;
@@ -77,50 +87,74 @@
     
         #main-balance {
             display: block;
-            font-size: 2.5rem;
+            font-size: 2.4rem;
             font-weight: 900;
             background: linear-gradient(to right, #fff, var(--primary-glow));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
         }
+
+        #timer-display {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            color: var(--primary-glow);
+            text-shadow: 0 0 12px var(--primary-glow);
+            background: rgba(0,0,0,0.45);
+            padding: 10px 25px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 242, 255, 0.3);
+            margin-bottom: 25px;
+            font-family: 'Orbitron', monospace;
+        }
     
-        .capsules-container {
+        /* MAIN SINGLE CAPSULE CONTAINER */
+        .single-capsule-wrapper {
             display: flex;
-            gap: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 40px;
-            perspective: 1000px;
-        }
-    
-        .cap-box {
-            position: relative;
+            flex-direction: column;
+            align-items: center;
             background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
-            padding: 30px;
-            border-radius: 30px;
+            padding: 35px 30px;
+            border-radius: 35px;
             border: 1px solid var(--glass-border);
-            transition: 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            max-width: 440px;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .single-capsule-wrapper:hover {
+            border-color: rgba(0, 242, 255, 0.5);
+            box-shadow: 0 20px 60px rgba(0, 242, 255, 0.15);
+        }
+
+        .capsule-badge {
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.2), rgba(112, 0, 255, 0.2));
+            border: 1px solid var(--primary-glow);
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
         }
     
-        .cap-box:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            border-color: var(--primary-glow);
-            box-shadow: 0 20px 50px rgba(0, 242, 255, 0.15);
-        }
-    
-        /* THE FUTURISTIC CAPSULE */
+        /* THE FUTURISTIC MEGA CAPSULE */
         .capsule {
-            width: 80px;
-            height: 200px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            width: 120px;
+            height: 280px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 100px;
             position: relative;
             overflow: hidden;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.7);
             box-shadow: 
-                inset 0 0 25px rgba(0,0,0,0.9),
-                0 0 15px rgba(0, 242, 255, 0.1);
+                inset 0 0 30px rgba(0,0,0,0.95),
+                0 0 25px rgba(0, 242, 255, 0.25);
+            margin-bottom: 20px;
         }
     
         /* The glowing liquid energy */
@@ -130,8 +164,8 @@
             left: 0;
             width: 100%;
             background: linear-gradient(0deg, var(--secondary-glow) 0%, var(--primary-glow) 100%);
-            transition: height 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 0 30px var(--primary-glow);
+            transition: height 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 0 35px var(--primary-glow);
         }
     
         /* Liquid scanning/shimmer effect */
@@ -139,7 +173,7 @@
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
             animation: shimmer 2s infinite;
         }
     
@@ -152,56 +186,209 @@
         .capsule::after {
             content: "";
             position: absolute;
-            top: 10%; left: 15%;
-            width: 20%; height: 80%;
-            background: rgba(255,255,255,0.1);
+            top: 8%; left: 14%;
+            width: 18%; height: 84%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.05));
             border-radius: 40px;
             filter: blur(2px);
+            pointer-events: none;
+        }
+
+        /* Tick marks for scale */
+        .scale-marks {
+            position: absolute;
+            right: 8px;
+            top: 15px;
+            bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        .tick {
+            width: 8px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .tick.major {
+            width: 14px;
+            background: var(--primary-glow);
+        }
+
+        .capsule-readout {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .capsule-val {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--primary-glow);
+            text-shadow: 0 0 15px rgba(0, 242, 255, 0.6);
+        }
+
+        .capsule-max {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 1px;
+        }
+
+        .capsule-pct-tag {
+            display: inline-block;
+            background: rgba(0, 242, 255, 0.15);
+            border: 1px solid rgba(0, 242, 255, 0.4);
+            border-radius: 12px;
+            padding: 3px 10px;
+            font-size: 0.8rem;
+            color: #fff;
+            margin-top: 5px;
         }
     
+        
+        /* AUTO-WITHDRAW TOGGLE BUTTON */
+        .auto-withdraw-wrapper {
+            margin: 15px 0 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .auto-withdraw-btn {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #94a3b8;
+            padding: 10px 22px;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .auto-withdraw-btn:hover {
+            transform: scale(1.03);
+        }
+
+        .auto-withdraw-btn.active {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.35));
+            border-color: #10b981;
+            color: #6ee7b7;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
+        }
+
+        .auto-withdraw-btn.active .toggle-dot {
+            background: #10b981;
+            box-shadow: 0 0 8px #10b981;
+        }
+
+        .toggle-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #64748b;
+            transition: all 0.3s ease;
+        }
+
+        .auto-withdraw-hint {
+            font-size: 0.73rem;
+            color: #94a3b8;
+            margin-top: 6px;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            max-width: 380px;
+            line-height: 1.4;
+        }
+
         .controls {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-top: 15px;
+            width: 100%;
+        }
+
+        .quick-chips {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .chip-btn {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ccc;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-family: 'Orbitron', sans-serif;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chip-btn:hover {
+            background: rgba(0, 242, 255, 0.2);
+            color: var(--primary-glow);
+            border-color: var(--primary-glow);
+            transform: scale(1.05);
         }
     
         input {
             width: 100%;
-            box-sizing: border-box;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.6);
             border: 1px solid var(--glass-border);
             color: var(--primary-glow);
             border-radius: 12px;
-            padding: 12px;
+            padding: 14px;
             text-align: center;
             font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
             outline: none;
             transition: 0.3s;
         }
     
         input:focus {
             border-color: var(--primary-glow);
-            background: rgba(0, 242, 255, 0.05);
+            background: rgba(0, 242, 255, 0.08);
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+        }
+
+        .button-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
     
-        button {
-            padding: 12px;
+        button.action-btn {
+            padding: 14px;
             border-radius: 12px;
             border: none;
             background: var(--primary-glow);
             color: black;
             font-weight: 900;
             text-transform: uppercase;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
             cursor: pointer;
             transition: 0.3s;
             box-shadow: 0 4px 15px rgba(0, 242, 255, 0.3);
         }
     
-        button:hover {
+        button.action-btn:hover {
             filter: brightness(1.2);
-            transform: scale(1.05);
-            box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px var(--primary-glow);
         }
     
         button.withdraw {
@@ -216,22 +403,29 @@
             color: white;
             box-shadow: 0 0 20px var(--accent-red);
         }
-    
-        #timer-display {
-            font-size: 1rem;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px var(--primary-glow);
-            background: rgba(0,0,0,0.3);
-            padding: 10px 25px;
-            border-radius: 50px;
-            border: 1px solid rgba(0, 242, 255, 0.2);
+
+        .growth-meta {
+            margin-top: 30px;
+            text-align: center;
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 15px 25px;
+            border-radius: 15px;
         }
     
         h3 {
-            color: rgba(255,255,255,0.5);
-            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
             letter-spacing: 1px;
-            margin-top: 40px;
+            margin: 0 0 6px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .highlight {
+            color: var(--primary-glow);
+            font-weight: bold;
         }
     </style>
 </head>
@@ -243,10 +437,64 @@
         Main Balance: <span id="main-balance">0</span> Coins
     </div>
 
-    <div class="capsules-container" id="capsule-grid">
+    <div id="timer-display">
+        Calculating cycle...
+    </div>
+
+    <div class="single-capsule-wrapper">
+        <div class="capsule-badge">⚡ Quantum Capsule [Storage: 2,000 Coins]</div>
+
+        <div class="capsule">
+            <div id="liquid" class="liquid" style="height:0%"></div>
+            <div class="scale-marks">
+                <div class="tick major" title="2000"></div>
+                <div class="tick"></div>
+                <div class="tick major" title="1500"></div>
+                <div class="tick"></div>
+                <div class="tick major" title="1000"></div>
+                <div class="tick"></div>
+                <div class="tick major" title="500"></div>
+                <div class="tick"></div>
+                <div class="tick major" title="0"></div>
+            </div>
         </div>
+
+                <div class="auto-withdraw-wrapper">
+            <button class="auto-withdraw-btn" id="auto-withdraw-btn" onclick="toggleAutoWithdraw()">
+                <span class="toggle-dot"></span>
+                <span id="auto-withdraw-label">AUTO-WITHDRAW 20% GROWTH: OFF</span>
+            </button>
+            <div class="auto-withdraw-hint" id="auto-withdraw-hint">
+                When enabled, your 20% daily payout profit (+0 Coins) is automatically deposited directly to your Main Balance.
+            </div>
+        </div>
+
+        <div class="capsule-readout">
+            <div class="capsule-val"><span id="capsule-val">0</span> <span class="capsule-max">/ 2,000 Coins</span></div>
+            <div class="capsule-pct-tag"><span id="capsule-pct">0.0%</span> Capacity</div>
+        </div>
+
+        <div class="controls">
+            <div class="quick-chips">
+                <button class="chip-btn" onclick="setAmount(100)">+100</button>
+                <button class="chip-btn" onclick="setAmount(500)">+500</button>
+                <button class="chip-btn" onclick="setAmount(1000)">+1000</button>
+                <button class="chip-btn" onclick="setMaxDeposit()">MAX</button>
+            </div>
+
+            <input type="number" id="capsule-input" placeholder="Enter coin amount" min="1">
+
+            <div class="button-row">
+                <button class="action-btn" onclick="handleAction('deposit')">Deposit</button>
+                <button class="action-btn withdraw" onclick="handleAction('withdraw')">Withdraw</button>
+            </div>
+        </div>
+    </div>
     
-    <h3>Invest here! Your money increases by 25% every 24 hours.</h3>
+    <div class="growth-meta">
+        <h3>Invest here! Your money grows by <span class="highlight">+20%</span> every 24 hours.</h3>
+        <h3 style="font-size: 0.75rem; color: rgba(255,255,255,0.45);">All 5 legacy capsules combined into 1 high-capacity Quantum Capsule (Max: 2,000 Coins).</h3>
+    </div>
 
 <script>
 // --- Firebase Setup ---
@@ -264,43 +512,31 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const userRef = db.ref('users/aditya');
-const MAX = 100;
+const MAX = 2000; // Combined 1 capsule total storage 2k
 const DAY_MS = 24 * 60 * 60 * 1000; 
 
-// Initial state - values will be overwritten by Firebase immediately
-let localData = { balance: 0, capsules: [0, 0, 0, 0, 0], lastUpdated: null };
+// State: single capsule
+let localData = { balance: 0, capsule: 0, autoWithdraw: false, lastUpdated: null };
 
-// 1. Create UI
-const grid = document.getElementById('capsule-grid');
-for(let i=0; i<5; i++) {
-    grid.innerHTML += `
-        <div class="cap-box">
-            <div class="capsule"><div id="lq-${i}" class="liquid" style="height:0%"></div></div>
-            <div style="font-weight: bold; color: var(--primary-glow); margin: 5px 0;">
-                <span id="val-${i}">0</span>
-            </div>
-            <input type="number" id="in-${i}" placeholder="Amount">
-            <div class="controls">
-                <button onclick="handleAction(${i}, 'deposit')">Deposit</button>
-                <button onclick="handleAction(${i}, 'withdraw')" style="background:#ff4d4d; color: white;">Withdraw</button>
-            </div>
-        </div>`;
-}
-
-document.querySelector('.balance-card').insertAdjacentHTML('afterend', `
-    <div id="timer-display" style="color: #00f2ff; margin-bottom: 10px; font-family: monospace; font-size: 1.2rem;">
-        Calculating cycle...
-    </div>
-`);
-
-// 2. Listen for Data
+// 1. Listen for Data
 userRef.on('value', (snap) => {
     const data = snap.val();
-    if(data) {
+    if (data) {
         localData.balance = data.balance || 0;
-        localData.capsules = data.capsules || [0, 0, 0, 0, 0];
+
+        // Backward compatibility: sum previous 5 capsules if they existed as an array
+        let storedAmount = 0;
+        if (typeof data.capsule === 'number') {
+            storedAmount = data.capsule;
+        } else if (Array.isArray(data.capsules)) {
+            storedAmount = data.capsules.reduce((sum, v) => sum + (Number(v) || 0), 0);
+        } else if (typeof data.capsules === 'number') {
+            storedAmount = data.capsules;
+        }
+
+        localData.capsule = Math.min(storedAmount, MAX);
+        localData.autoWithdraw = !!data.capsuleAutoWithdraw;
         
-        // CRITICAL FIX: Only set a new timestamp if the DB doesn't have one
         if (!data.lastUpdated) {
             localData.lastUpdated = Date.now();
             saveData(); 
@@ -321,19 +557,22 @@ function applyOfflineGrowth() {
     
     if (elapsed >= DAY_MS) {
         const cycles = Math.floor(elapsed / DAY_MS);
-        let changed = false;
 
-        localData.capsules = localData.capsules.map(amt => {
-            if (amt > 0 && amt < MAX) {
-                changed = true;
-                // Compound interest for the number of days missed
-                let newAmt = amt * Math.pow(1.25, cycles);
-                return Math.min(newAmt, MAX);
+        if (localData.capsule > 0) {
+            if (localData.autoWithdraw) {
+                // Auto-withdraw 20% growth per cycle straight into Main Balance
+                const growthRate = 0.20;
+                const totalGrowth = Math.floor(localData.capsule * growthRate * cycles);
+                localData.balance += totalGrowth;
+                localData.capsule = Math.min(localData.capsule, MAX);
+            } else {
+                // Compound inside capsule at 20%
+                let newAmt = localData.capsule * Math.pow(1.20, cycles);
+                localData.capsule = Math.min(newAmt, MAX);
             }
-            return amt;
-        });
+        }
 
-        // Move the timestamp forward by the number of completed 24h cycles
+        // Move timestamp forward
         localData.lastUpdated += (cycles * DAY_MS);
         saveData();
     }
@@ -341,14 +580,39 @@ function applyOfflineGrowth() {
 
 function updateDisplay() {
     document.getElementById('main-balance').innerText = Math.floor(localData.balance).toLocaleString();
-    localData.capsules.forEach((amt, i) => {
-        let percent = Math.min((amt / MAX) * 100, 100);
-        document.getElementById(`lq-${i}`).style.height = percent + "%";
-        document.getElementById(`val-${i}`).innerText = Math.floor(amt).toLocaleString();
-    });
+    const amt = localData.capsule || 0;
+    const percent = Math.min((amt / MAX) * 100, 100);
+    
+    document.getElementById('liquid').style.height = percent + "%";
+    document.getElementById('capsule-val').innerText = Math.floor(amt).toLocaleString();
+    document.getElementById('capsule-pct').innerText = percent.toFixed(1) + "%";
+
+    // Auto-withdraw button UI
+    const autoBtn = document.getElementById('auto-withdraw-btn');
+    const autoLabel = document.getElementById('auto-withdraw-label');
+    const autoHint = document.getElementById('auto-withdraw-hint');
+    const payoutEst = Math.floor(amt * 0.20);
+
+    if (localData.autoWithdraw) {
+        autoBtn.className = "auto-withdraw-btn active";
+        autoLabel.innerText = "⚡ AUTO-WITHDRAW 20% GROWTH: ON";
+        autoHint.innerHTML = `Auto-withdraw is <strong>ACTIVE</strong>. Next 20% payout (<strong>+${payoutEst} Coins</strong>) will automatically deposit straight to your Main Balance.`;
+    } else {
+        autoBtn.className = "auto-withdraw-btn";
+        autoLabel.innerText = "⏸ AUTO-WITHDRAW 20% GROWTH: OFF";
+        autoHint.innerHTML = `When enabled, your 20% daily payout (+${payoutEst} Coins) is automatically deposited directly to your Main Balance.`;
+    }
 }
 
-// 3. Persistent Timer Logic
+window.toggleAutoWithdraw = async () => {
+    localData.autoWithdraw = !localData.autoWithdraw;
+    await userRef.update({
+        capsuleAutoWithdraw: localData.autoWithdraw
+    });
+    updateDisplay();
+};
+
+// 2. Persistent Timer Logic (24 Hours cycle)
 setInterval(() => {
     if (!localData.lastUpdated) return;
 
@@ -362,7 +626,6 @@ setInterval(() => {
     
     document.getElementById('timer-display').innerText = `Next Payout in: ${h}:${m}:${s}`;
     
-    // Check for growth if the timer naturally hits zero
     if (timeLeft < 1000) applyOfflineGrowth();
 }, 1000);
 
@@ -370,7 +633,9 @@ async function saveData() {
     try {
         await userRef.update({
             balance: localData.balance,
-            capsules: localData.capsules,
+            capsule: localData.capsule,
+            capsules: localData.capsule, // Keep both fields updated
+            capsuleAutoWithdraw: !!localData.autoWithdraw,
             lastUpdated: localData.lastUpdated
         });
     } catch (e) {
@@ -378,25 +643,36 @@ async function saveData() {
     }
 }
 
-window.handleAction = (i, type) => {
-    const input = document.getElementById(`in-${i}`);
-    const amt = parseInt(input.value);
-    if(!amt || amt <= 0) return;
+window.setAmount = (val) => {
+    document.getElementById('capsule-input').value = val;
+};
 
-    if(type === 'deposit') {
-        if(amt > localData.balance) return alert("Not enough coins!");
-        let space = MAX - localData.capsules[i];
+window.setMaxDeposit = () => {
+    const space = MAX - (localData.capsule || 0);
+    const maxCanDeposit = Math.min(localData.balance, space);
+    document.getElementById('capsule-input').value = Math.max(0, maxCanDeposit);
+};
+
+window.handleAction = (type) => {
+    const input = document.getElementById('capsule-input');
+    const amt = parseInt(input.value);
+    if (!amt || amt <= 0) return alert("Please enter a valid coin amount!");
+
+    if (type === 'deposit') {
+        if (amt > localData.balance) return alert("Not enough coins in main balance!");
+        let space = MAX - (localData.capsule || 0);
         let canAdd = Math.min(amt, space);
-        if(canAdd <= 0) return alert("Capsule Full!");
+        if (canAdd <= 0) return alert("Capsule is already full (2,000 Coins Max)!");
         
         localData.balance -= canAdd;
-        localData.capsules[i] += canAdd;
+        localData.capsule = (localData.capsule || 0) + canAdd;
     } else {
-        if(amt > localData.capsules[i]) return alert("Not enough in capsule!");
+        if (amt > (localData.capsule || 0)) return alert("Not enough coins in capsule to withdraw!");
         localData.balance += amt;
-        localData.capsules[i] -= amt;
+        localData.capsule = (localData.capsule || 0) - amt;
     }
     saveData();
+    updateDisplay();
     input.value = "";
 };
 </script>

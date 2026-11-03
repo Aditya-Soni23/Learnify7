@@ -125,6 +125,7 @@
 
 <div id="fadeLayer"></div>
 <div class="home-btn" onclick="goHome()">🏠 Home</div>
+<div class="home-btn" style="left: 125px; color:#00f2fe; border-color:rgba(0,242,254,0.4);" onclick="window.location.href='decay.html'">⏳ Decay</div>
 <div class="balance">💰 <span id="balance">0</span></div>
 
 <video id="runningVideo" src="running.mp4" autoplay loop muted></video>
@@ -136,6 +137,7 @@
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
     import { getDatabase, ref, get, update, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+    import { evaluateDecayCycle } from "./decay.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
@@ -158,6 +160,7 @@
     let car = { fuel: 0, damaged: false, lastUpdate: Date.now() };
     let currentView = "running"; 
     let isTransitioning = false;
+    let currentUserData = null;
 
     // 1. INITIAL SYNC & OFFLINE CALCULATION
     onValue(userRef, (snap) => {
@@ -165,6 +168,7 @@
         if (!data) return;
         
         document.getElementById("balance").innerText = data.balance || 0;
+        currentUserData = data;
         
         if (data.car) {
             const now = Date.now();
@@ -201,6 +205,18 @@
 
         const drainPerSec = 1 / (MINUTES_PER_LITER * 60);
         car.fuel = Math.max(0, car.fuel - drainPerSec);
+
+        // Check decay autofeed if enabled
+        if (currentUserData && currentUserData.decay?.enabled && car.fuel <= 90) {
+            currentUserData.car = { fuel: car.fuel, damaged: car.damaged, lastUpdate: car.lastUpdate };
+            const decayRes = evaluateDecayCycle(currentUserData);
+            if (decayRes && decayRes.hasChanges && Object.keys(decayRes.updates).length > 0) {
+                update(userRef, decayRes.updates);
+                if (decayRes.carInfo) {
+                    car.fuel = decayRes.carInfo.fuel;
+                }
+            }
+        }
 
         if (car.fuel <= 0) {
             car.fuel = 0;
@@ -263,10 +279,10 @@
                 <button class="btn" style="background:#333; color:white;" onclick="window.exitGarage()">EXIT</button>
             `;
         } else {
-            const percent = (car.fuel / 90) * 100;
+            const percent = (car.fuel / 100) * 100;
             panel.innerHTML = `
                 <div class="fuel-container"><div class="fuel-bar" style="width:${percent}%"></div></div>
-                <div style="font-size: 14px; color: #ffd700;">${car.fuel.toFixed(4)}L / 90.00L</div>
+                <div style="font-size: 14px; color: #ffd700;">${car.fuel.toFixed(4)}L / 100.00L</div>
                 <button class="btn" onclick="window.addFuel(10)">ADD 10L (150)</button>
             `;
         }
@@ -283,7 +299,7 @@
         
         if (bal < cost) return alert("Not enough coins!");
         
-        car.fuel = Math.min(90, car.fuel + liters);
+        car.fuel = Math.min(100, car.fuel + liters);
         await update(userRef, { 
             balance: bal - cost,
             "car/fuel": car.fuel,

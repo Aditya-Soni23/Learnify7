@@ -75,10 +75,10 @@
         <p>Track your work progress here.</p>
       </div>
 
-      <div class="scard" onclick="navigate('apple_inspired_jee_holiday_planner')">
-        <span class="limited-badge">Special Event</span>
-        <h2>JEE Holiday Planner </h2>
-        <p>Plan your October study break.</p>
+      <div class="gcard" onclick="navigate('decay')">
+        <span class="limited-badge" style="background: linear-gradient(135deg, #00f2fe, #4facfe); color: black;">Auto-Feed</span>
+        <h2>⏳ Decay</h2>
+        <p>Auto-feed car & train with decay wallet.</p>
       </div>
 
       <!-- Card 6 -->
@@ -108,21 +108,19 @@
         <p>See your sleep progress here.</p>
       </div>
 
-      <a href="https://aditya-soni23.github.io/overclocking/" style="text-decoration: none; display: block;">
-        <div class="scard">
-          <span class="limited-badge">Limited Event</span>
-          <h2>Overclocking ⌚</h2>
-          <p>Powerful 14-days JEE planner</p>
-        </div>
-      </a>
+      <div class="card" onclick="navigate('capsule')">
+        <h2>💊Capsule</h2>
+        <p>Invest in 2K capsule here!</p>
+      </div>
+
       <div class="gcard" onclick="navigate('motivation')">
         <h2>🎵Motivator</h2>
         <p>Get motivated here!</p>
       </div>
 
-      <div class="card" onclick="navigate('capsule')">
-        <h2>💊Capsules</h2>
-        <p>Invest in capsule here!</p>
+      <div class="card" onclick="navigate('loan')">
+        <h2>🪙Loan</h2>
+        <p>Take loans here!</p>
       </div>
 
       <a href="https://aditya-soni23.github.io/collegesformlist/" style="text-decoration: none; display: block;">
@@ -132,10 +130,20 @@
         </div>
       </a>
 
-      <div class="card" onclick="navigate('loan')">
-        <h2>🪙Loan</h2>
-        <p>Take loans here!</p>
+      <div class="scard" onclick="navigate('apple_inspired_jee_holiday_planner')">
+        <span class="limited-badge">Special Event</span>
+        <h2>JEE Holiday Planner </h2>
+        <p>Plan your October study break.</p>
       </div>
+
+      <a href="https://aditya-soni23.github.io/overclocking/" style="text-decoration: none; display: block;">
+        <div class="scard">
+          <span class="limited-badge">Limited Event</span>
+          <h2>Overclocking ⌚</h2>
+          <p>Powerful 14-days JEE planner</p>
+        </div>
+      </a>
+
       <div class="card" onclick="navigate('tracker')">
         <h2>✅Tracker</h2>
         <p>Track your daily progress here!</p>
@@ -220,7 +228,7 @@
   <script type="module">
     // Import Firebase SDK
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getDatabase, ref, get, set, update } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+    import { getDatabase, ref, get, set, update, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
 
     // Firebase config
     const firebaseConfig = {
@@ -238,15 +246,25 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
+    import { evaluateDecayCycle } from "./decay.js";
+
     // Reference for user
     const userRef = ref(db, "users/aditya");
 
-    // Fetch balance + streak
-    get(userRef).then((snapshot) => {
+    // Fetch balance + streak (realtime)
+    onValue(userRef, (snapshot) => {
       if (snapshot.exists()) {
         const data = snapshot.val();
         document.getElementById("balance").innerText = data.balance ?? 0;
         document.getElementById("streak").innerText = data.streak ?? 0;
+
+        // Auto background decay process if enabled
+        if (data.decay?.enabled) {
+          const res = evaluateDecayCycle(data);
+          if (res && res.hasChanges && Object.keys(res.updates).length > 0) {
+            update(userRef, res.updates);
+          }
+        }
       } else {
         console.log("No data found, setting defaults...");
         set(userRef, { balance: 0, streak: 0 });
