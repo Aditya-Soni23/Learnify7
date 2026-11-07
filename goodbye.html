@@ -199,6 +199,17 @@
         <source src="coin.mp3" type="audio/mpeg">
     </audio>
 
+    <!-- Master Admin Inspector Banner -->
+    <div id="inspector-banner" style="display:none;" class="bg-gradient-to-r from-amber-600 to-amber-700 text-white px-4 py-2 text-xs flex items-center justify-between shadow-md">
+        <div class="flex items-center gap-2">
+            <span class="text-base">👑</span>
+            <span><b>Master Inspector View:</b> You are viewing <span id="inspecting-user-label" class="font-bold underline">user</span>'s syllabus.</span>
+        </div>
+        <button id="return-my-syllabus-btn" class="px-3 py-1 rounded-lg bg-black/40 hover:bg-black/60 text-white font-bold transition-all text-xs">
+            Return to My Syllabus
+        </button>
+    </div>
+
     <!-- Header Navigation -->
     <header class="sticky top-0 z-40 glass-header border-b border-apple-border dark:border-apple-darkBorder transition-colors duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
@@ -565,6 +576,12 @@
                 <label class="text-[11px] font-semibold text-apple-muted uppercase tracking-wider">User Identifier</label>
                 <input id="user-input-field" type="text" value="aditya" class="w-full mt-1 px-3.5 py-2 rounded-xl bg-apple-surface dark:bg-apple-darkSurface border border-apple-border dark:border-apple-darkBorder text-sm font-medium text-apple-text dark:text-apple-darkText focus:outline-none focus:ring-2 focus:ring-emerald-500">
             </div>
+                        <div>
+                <label class="text-[11px] font-semibold text-apple-muted uppercase tracking-wider">All Accounts (Master View)</label>
+                <div id="all-registered-users-list" class="flex flex-col gap-1.5 mt-1.5 max-h-40 overflow-y-auto pr-1">
+                    <div class="text-xs text-apple-muted py-2 text-center">Click User Badge to load users...</div>
+                </div>
+            </div>
             <div class="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/40 text-xs">
                 <span class="text-apple-muted dark:text-apple-darkMuted">Looking for Sushanth's page without coins?</span>
                 <a href="goodbyesus.html" class="block font-bold text-purple-600 dark:text-purple-400 hover:underline mt-0.5">
@@ -619,8 +636,35 @@
 
         // --- 2. CONSTANTS & USER RESOLUTION ---
         const COINS_PER_TOPIC = 700;
-        let currentUserId = localStorage.getItem("learnify_user"); if (!currentUserId) { window.location.href = "index.html"; }
-        document.getElementById("active-user-name").innerText = currentUserId;
+        const loggedInUserKey = localStorage.getItem("learnify_user");
+        if (!loggedInUserKey) { window.location.href = "index.html"; }
+
+        const loggedInEmail = (localStorage.getItem("learnify_email") || "").toLowerCase().trim();
+        const isMasterAdmin = loggedInEmail === "adityasonihyderabad@gmail.com" || loggedInUserKey === "aditya";
+
+        // Non-Aditya accounts can ONLY view their own syllabus!
+        let currentUserId = loggedInUserKey;
+        if (isMasterAdmin) {
+            const savedInspect = sessionStorage.getItem("goodbye_inspect_user");
+            if (savedInspect) currentUserId = savedInspect;
+        }
+
+        function updateInspectorBannerUI() {
+            const banner = document.getElementById("inspector-banner");
+            const label = document.getElementById("inspecting-user-label");
+            const nameEl = document.getElementById("active-user-name");
+            if (nameEl) nameEl.innerText = currentUserId;
+
+            if (banner && label) {
+                if (isMasterAdmin && currentUserId !== loggedInUserKey) {
+                    banner.style.display = "flex";
+                    label.innerText = currentUserId;
+                } else {
+                    banner.style.display = "none";
+                }
+            }
+        }
+        updateInspectorBannerUI();
 
         // Sound preferences
         let soundEnabled = localStorage.getItem("goodbye_sound") !== "false";
@@ -1346,46 +1390,127 @@
             return text.replace(regex, `<mark class="bg-amber-200 dark:bg-amber-900/60 dark:text-amber-200 px-0.5 rounded">$1</mark>`);
         }
 
-        // --- 12. USER SWITCHER MODAL ---
+        // --- 12. USER SWITCHER MODAL & PERMISSIONS ---
         const userBtn = document.getElementById("user-badge-btn");
         const userModal = document.getElementById("user-modal");
         const userInputField = document.getElementById("user-input-field");
         const userCancelBtn = document.getElementById("user-modal-cancel");
         const userSaveBtn = document.getElementById("user-modal-save");
+        const returnBtn = document.getElementById("return-my-syllabus-btn");
 
-        const quickAditya = document.getElementById("quick-user-aditya");
-        const quickSushanth = document.getElementById("quick-user-sushanth");
+        function renderMasterUserList(allUsers) {
+            let container = document.getElementById("all-registered-users-list");
+            if (!container) return;
+            container.innerHTML = "";
+            for (const uKey in allUsers) {
+                const u = allUsers[uKey];
+                const uName = u.profile?.name || (uKey === "aditya" ? "Aditya Soni" : (uKey === "sushanth" ? "Sushanth" : uKey));
+                const uEmail = u.profile?.email || (uKey === "aditya" ? "adityasonihyderabad@gmail.com" : "");
+                const isSelected = uKey === currentUserId;
 
-        if (quickAditya) {
-            quickAditya.addEventListener("click", () => {
-                userInputField.value = "aditya";
-            });
-        }
-        if (quickSushanth) {
-            quickSushanth.addEventListener("click", () => {
-                userInputField.value = "sushanth";
-            });
-        }
-
-        userBtn.addEventListener("click", () => {
-            userInputField.value = currentUserId;
-            userModal.classList.remove("opacity-0", "pointer-events-none");
-        });
-
-        userCancelBtn.addEventListener("click", () => {
-            userModal.classList.add("opacity-0", "pointer-events-none");
-        });
-
-        userSaveBtn.addEventListener("click", () => {
-            const newUid = userInputField.value.trim();
-            if (newUid && newUid !== currentUserId) {
-                currentUserId = newUid;
-                localStorage.setItem("learnify_user", currentUserId);
-                document.getElementById("active-user-name").innerText = currentUserId;
-                setupFirebaseSync();
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.className = `w-full text-left p-2 rounded-xl border flex items-center justify-between text-xs transition-colors ${
+                    isSelected 
+                        ? "border-emerald-500 bg-emerald-500/10 text-emerald-400 font-bold" 
+                        : "border-apple-border dark:border-apple-darkBorder bg-apple-surface dark:bg-apple-darkSurface text-apple-text dark:text-apple-darkText hover:border-emerald-500/50"
+                }`;
+                btn.innerHTML = `
+                    <div class="flex items-center gap-2 truncate">
+                        <span>${uKey === "aditya" ? "👑" : "👤"}</span>
+                        <div class="truncate">
+                            <div class="font-medium">${uName}</div>
+                            <div class="text-[10px] text-apple-muted dark:text-apple-darkMuted truncate">${uEmail || uKey}</div>
+                        </div>
+                    </div>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full ${isSelected ? "bg-emerald-500 text-black font-bold" : "bg-black/20 text-apple-muted"}">
+                        ${isSelected ? "Active" : "Inspect"}
+                    </span>
+                `;
+                btn.onclick = () => {
+                    userInputField.value = uKey;
+                };
+                container.appendChild(btn);
             }
-            userModal.classList.add("opacity-0", "pointer-events-none");
-        });
+        }
+
+        if (returnBtn) {
+            returnBtn.addEventListener("click", () => {
+                sessionStorage.removeItem("goodbye_inspect_user");
+                currentUserId = loggedInUserKey;
+                updateInspectorBannerUI();
+                setupFirebaseSync();
+                showToast("Returned", "Now viewing your own syllabus.", "👋");
+            });
+        }
+
+        if (!isMasterAdmin) {
+            // Other users can ONLY view their own syllabus!
+            if (userBtn) {
+                userBtn.title = "Personal Syllabus (Private to your account)";
+                userBtn.classList.remove("hover:border-emerald-500");
+                userBtn.addEventListener("click", () => {
+                    showToast("Private Account", "Each account can only view their own syllabus.", "🔒");
+                });
+            }
+        } else {
+            // Master Admin (Aditya) can view everyone else's!
+            if (userBtn) {
+                userBtn.title = "👑 Master Inspector: Click to view anyone's syllabus";
+                userBtn.classList.add("ring-1", "ring-amber-400/50");
+                const badgeLabel = userBtn.querySelector(".text-apple-muted");
+                if (badgeLabel) badgeLabel.innerText = "👑 Master View:";
+
+                userBtn.addEventListener("click", async () => {
+                    userInputField.value = currentUserId;
+                    userModal.classList.remove("opacity-0", "pointer-events-none");
+
+                    // Load all users from RTDB dynamically
+                    try {
+                        const usersSnap = await get(ref(db, "users"));
+                        if (usersSnap.exists()) {
+                            renderMasterUserList(usersSnap.val());
+                        }
+                    } catch (e) {
+                        console.error("Error loading users for master inspection:", e);
+                    }
+                });
+            }
+
+            const quickAditya = document.getElementById("quick-user-aditya");
+            const quickSushanth = document.getElementById("quick-user-sushanth");
+
+            if (quickAditya) {
+                quickAditya.addEventListener("click", () => {
+                    userInputField.value = "aditya";
+                });
+            }
+            if (quickSushanth) {
+                quickSushanth.addEventListener("click", () => {
+                    userInputField.value = "sushanth";
+                });
+            }
+
+            userCancelBtn.addEventListener("click", () => {
+                userModal.classList.add("opacity-0", "pointer-events-none");
+            });
+
+            userSaveBtn.addEventListener("click", () => {
+                const newUid = userInputField.value.trim();
+                if (newUid && newUid !== currentUserId) {
+                    currentUserId = newUid;
+                    if (currentUserId === loggedInUserKey) {
+                        sessionStorage.removeItem("goodbye_inspect_user");
+                    } else {
+                        sessionStorage.setItem("goodbye_inspect_user", currentUserId);
+                    }
+                    updateInspectorBannerUI();
+                    setupFirebaseSync();
+                    showToast("Switched User", `Now inspecting ${currentUserId}'s syllabus.`, "👀");
+                }
+                userModal.classList.add("opacity-0", "pointer-events-none");
+            });
+        }
 
         // --- 13. RESET PROGRESS MODAL ---
         const resetAllBtn = document.getElementById("reset-all-btn");

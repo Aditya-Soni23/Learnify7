@@ -310,7 +310,7 @@
         const userRef = db.ref('users/' + currentUserId);
         const ownerEl = document.getElementById('terminal-owner');
         if (ownerEl) ownerEl.innerText = `${currentUserName}'s Terminal`;
-        const growthRef = db.ref('countryGrowth');
+        const growthRef = db.ref('users/' + currentUserId + '/countryGrowth');
 
         // --- 2. THE AWESOME ANIMATIONS (GSAP & THREE.js) ---
 

@@ -565,6 +565,19 @@
         const db = getDatabase(app);
 
         // --- 2. CONSTANTS & DEDICATED USER STATE (EXCLUSIVELY SUSHANTH) ---
+        const loggedInUserKey = localStorage.getItem("learnify_user");
+        if (!loggedInUserKey) {
+            window.location.href = "index.html";
+        }
+        const loggedInEmail = (localStorage.getItem("learnify_email") || "").toLowerCase().trim();
+        const isMasterAdmin = loggedInEmail === "adityasonihyderabad@gmail.com" || loggedInUserKey === "aditya";
+        const isSushanth = loggedInUserKey === "sushanth";
+
+        if (!isMasterAdmin && !isSushanth) {
+            // Non-master users can only view their own syllabus
+            window.location.href = "goodbye.html";
+        }
+
         const currentUserId = "sushanth";
 
         // Sound preferences
