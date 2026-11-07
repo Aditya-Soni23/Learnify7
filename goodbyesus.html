@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="logo.png" type="image/png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOODBYE 👋 — JEE Syllabus Mastery Tracker | Sushanth</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        apple: {
+                            bg: '#fbfbfd',
+                            card: '#ffffff',
+                            darkBg: '#0b0c10',
+                            darkCard: '#15171e',
+                            text: '#1d1d1f',
+                            darkText: '#f5f5f7',
+                            muted: '#86868b',
+                            darkMuted: '#94959d',
+                            border: '#e5e5ea',
+                            darkBorder: '#272935',
+                            surface: '#f5f5f7',
+                            darkSurface: '#1c1e27',
+                            phy: '#0071e3',
+                            phyDark: '#38bdf8',
+                            chem: '#10b981',
+                            chemDark: '#34d399',
+                            math: '#8b5cf6',
+                            mathDark: '#a78bfa'
+                        }
+                    },
+                    fontFamily: {
+                        sans: [
+                            '-apple-system',
+                            'BlinkMacSystemFont',
+                            '"SF Pro Display"',
+                            '"SF Pro Text"',
+                            '"SF Pro"',
+                            '"Segoe UI"',
+                            'Roboto',
+                            'Helvetica',
+                            'Arial',
+                            'sans-serif'
+                        ]
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Canvas Confetti for Celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Glassmorphism Top Header */
+        .glass-header {
+            background: rgba(251, 251, 253, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .dark .glass-header {
+            background: rgba(11, 12, 16, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 9999px;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Apple Style Mastery Checkbox */
+        .mastery-checkbox {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 24px;
+            height: 24px;
+            border: 2px solid #c7c7cc;
+            border-radius: 7px;
+            outline: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background-color: transparent;
+            flex-shrink: 0;
+            position: relative;
+        }
+        .dark .mastery-checkbox {
+            border-color: #3e4252;
+        }
+        .mastery-checkbox:hover {
+            border-color: #10b981;
+            transform: scale(1.08);
+        }
+        .mastery-checkbox:checked {
+            background-color: #10b981;
+            border-color: #10b981;
+            transform: scale(1.02);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+        }
+        .mastery-checkbox:checked::after {
+            content: "";
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2.4px 2.4px 0;
+            transform: rotate(45deg) translateY(-1px);
+        }
+
+        /* Topic Item Hover & Completed State */
+        .topic-row {
+            transition: all 0.2s ease;
+        }
+        .topic-row:hover {
+            background: rgba(0, 0, 0, 0.025);
+        }
+        .dark .topic-row:hover {
+            background: rgba(255, 255, 255, 0.035);
+        }
+        .topic-row.completed {
+            background: rgba(16, 185, 129, 0.06);
+        }
+        .dark .topic-row.completed {
+            background: rgba(16, 185, 129, 0.1);
+        }
+        .topic-row.completed .topic-text {
+            color: #059669;
+            font-weight: 500;
+        }
+        .dark .topic-row.completed .topic-text {
+            color: #6ee7b7;
+        }
+
+        /* Accordion transition */
+        .accordion-content {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .accordion-content.open {
+            grid-template-rows: 1fr;
+        }
+        .accordion-inner {
+            overflow: hidden;
+        }
+
+        /* Chapter Card Finished Glow */
+        .chapter-mastered {
+            border-color: rgba(16, 185, 129, 0.4) !important;
+            background: linear-gradient(to right, rgba(16, 185, 129, 0.05), rgba(16, 185, 129, 0.01)) !important;
+        }
+        .dark .chapter-mastered {
+            border-color: rgba(16, 185, 129, 0.35) !important;
+            background: linear-gradient(to right, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.02)) !important;
+        }
+
+        /* Toast notification */
+        #goodbye-toast {
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        #goodbye-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-apple-bg dark:bg-apple-darkBg text-apple-text dark:text-apple-darkText min-h-screen selection:bg-emerald-500/20 selection:text-emerald-500 pb-20">
+
+    <!-- Audio Element for Tactile Mastery Chime -->
+    <audio id="completion-chime" preload="auto">
+        <source src="coin.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Header Navigation -->
+    <header class="sticky top-0 z-40 glass-header border-b border-apple-border dark:border-apple-darkBorder transition-colors duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+            <!-- Brand & Return -->
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-apple-muted dark:text-apple-darkMuted hover:text-apple-text dark:hover:text-apple-darkText">
+                    <span aria-hidden="true">←</span>
+                    <span>Dashboard</span>
+                </a>
+                <div class="h-4 w-px bg-apple-border dark:bg-apple-darkBorder"></div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xl sm:text-2xl">👋</span>
+                    <span class="font-bold tracking-tight text-lg sm:text-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-teal-600 dark:from-purple-400 dark:via-indigo-400 dark:to-teal-400 bg-clip-text text-transparent">GOODBYE</span>
+                    <span class="hidden md:inline-block px-2 py-0.5 rounded-full text-[10px] font-semibold bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800/60">JEE Main 2027</span>
+                </div>
+            </div>
+
+            <!-- Header Controls: User Identity, Live Sync, Sound, Theme -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Dedicated User Indicator (Exclusively Sushanth) -->
+                <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800/40 shadow-xs" title="Dedicated Workspace for Sushanth">
+                    <span>👤</span>
+                    <span class="font-bold">sushanth</span>
+                </div>
+
+                <!-- Live Firebase Connection Indicator -->
+                <div id="firebase-status" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/40" title="Connected to Firebase Realtime Database">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="firebase-status-text">Live Sync</span>
+                </div>
+
+                <!-- Sound FX Toggle -->
+                <button id="sound-toggle-btn" class="p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-apple-muted dark:text-apple-darkMuted" title="Toggle audio chime">
+                    <svg id="sound-icon-on" class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    <svg id="sound-icon-off" class="w-4 h-4 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <line x1="1" y1="1" x2="23" y2="23"></line>
+                        <path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path>
+                        <path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path>
+                    </svg>
+                </button>
+
+                <!-- Light / Dark Theme Toggle -->
+                <button id="theme-toggle-btn" class="p-2 rounded-xl hover:bg-black/5 dark:hover:bg-white/10 transition-colors text-apple-muted dark:text-apple-darkMuted" title="Toggle Light/Dark Theme">
+                    <svg id="theme-sun" class="w-4 h-4 hidden dark:block text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42m12.72-12.72l1.42-1.42"></path>
+                    </svg>
+                    <svg id="theme-moon" class="w-4 h-4 block dark:hidden text-slate-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 space-y-6 sm:space-y-8">
+
+        <!-- Hero Mastery Banner -->
+        <section class="bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-apple-darkBorder rounded-3xl p-6 sm:p-8 shadow-sm transition-all duration-300 relative overflow-hidden">
+            <div class="absolute -top-24 -right-24 w-72 h-72 bg-purple-500/10 dark:bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-teal-500/10 dark:bg-teal-500/15 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <!-- Title & Philosophy -->
+                <div class="space-y-2 max-w-xl">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800/60">
+                        <span>👋 Final JEE Revision & Mastery • Sushanth</span>
+                    </div>
+                    <h1 class="text-2xl sm:text-4xl font-bold tracking-tight text-apple-text dark:text-apple-darkText">
+                        GOODBYE.
+                    </h1>
+                    <p class="text-sm sm:text-base text-apple-muted dark:text-apple-darkMuted font-medium leading-relaxed">
+                        One topic at a time. One step closer to JEE. Master each concept, verify with questions, mark it done and officially say goodbye to the syllabus.
+                    </p>
+                </div>
+
+                <!-- Big Circular / Numerical Progress Overview -->
+                <div class="flex items-center gap-5 sm:gap-6 bg-apple-surface dark:bg-apple-darkSurface p-4 sm:p-5 rounded-2xl border border-apple-border dark:border-apple-darkBorder self-start md:self-auto">
+                    <div class="text-right">
+                        <div class="text-xs uppercase tracking-wider text-apple-muted dark:text-apple-darkMuted font-semibold">Total Mastery</div>
+                        <div id="overall-percentage" class="text-3xl sm:text-4xl font-extrabold text-purple-600 dark:text-purple-400 tracking-tight">0.0%</div>
+                        <div id="overall-fraction" class="text-xs text-apple-muted dark:text-apple-darkMuted mt-0.5 font-medium">0 / 716 subtopics</div>
+                    </div>
+
+                    <div class="w-14 h-14 sm:w-16 sm:h-16 relative flex items-center justify-center">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                            <path class="text-gray-200 dark:text-gray-800" stroke-width="3.5" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                            <path id="overall-ring-progress" class="text-purple-500 transition-all duration-700 ease-out" stroke-dasharray="0, 100" stroke-width="3.5" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                        </svg>
+                        <span class="absolute text-base">🎯</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Big Overall Progress Bar -->
+            <div class="mt-6 pt-5 border-t border-apple-border dark:border-apple-darkBorder space-y-2">
+                <div class="flex items-center justify-between text-xs font-semibold text-apple-muted dark:text-apple-darkMuted">
+                    <span id="overall-chapters-text">0 of 54 chapters fully mastered</span>
+                    <span id="overall-remaining-text">716 subtopics remaining</span>
+                </div>
+                <div class="w-full bg-apple-surface dark:bg-apple-darkSurface h-3 rounded-full overflow-hidden p-0.5 border border-apple-border/60 dark:border-apple-darkBorder/60">
+                    <div id="overall-progress-bar" class="bg-gradient-to-r from-purple-500 via-indigo-500 to-teal-500 h-full w-0 transition-all duration-700 ease-out rounded-full shadow-sm"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3 Subject Progress Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <!-- Physics Card -->
+            <div id="card-phy" class="cursor-pointer bg-apple-card dark:bg-apple-darkCard border-2 border-apple-border dark:border-apple-darkBorder hover:border-blue-500/60 dark:hover:border-blue-500/60 rounded-3xl p-5 sm:p-6 shadow-sm transition-all duration-300 relative group">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-xl font-bold border border-blue-200/60 dark:border-blue-800/40">
+                            ⚡
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-base sm:text-lg text-apple-text dark:text-apple-darkText">Physics</h3>
+                            <span class="text-xs text-apple-muted dark:text-apple-darkMuted font-medium">20 Official Units</span>
+                        </div>
+                    </div>
+                    <span id="phy-pct" class="text-xl sm:text-2xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">0%</span>
+                </div>
+
+                <div class="space-y-2 mt-4">
+                    <div class="w-full bg-apple-surface dark:bg-apple-darkSurface h-2 rounded-full overflow-hidden">
+                        <div id="phy-bar" class="bg-blue-600 dark:bg-blue-400 h-full w-0 transition-all duration-500 ease-out rounded-full"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-apple-muted dark:text-apple-darkMuted font-medium pt-1">
+                        <span id="phy-subtopics">0 / 255 topics</span>
+                        <span id="phy-chapters">0 / 20 chapters</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chemistry Card -->
+            <div id="card-chem" class="cursor-pointer bg-apple-card dark:bg-apple-darkCard border-2 border-apple-border dark:border-apple-darkBorder hover:border-emerald-500/60 dark:hover:border-emerald-500/60 rounded-3xl p-5 sm:p-6 shadow-sm transition-all duration-300 relative group">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl font-bold border border-emerald-200/60 dark:border-emerald-800/40">
+                            🧪
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-base sm:text-lg text-apple-text dark:text-apple-darkText">Chemistry</h3>
+                            <span class="text-xs text-apple-muted dark:text-apple-darkMuted font-medium">20 Official Units</span>
+                        </div>
+                    </div>
+                    <span id="chem-pct" class="text-xl sm:text-2xl font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight">0%</span>
+                </div>
+
+                <div class="space-y-2 mt-4">
+                    <div class="w-full bg-apple-surface dark:bg-apple-darkSurface h-2 rounded-full overflow-hidden">
+                        <div id="chem-bar" class="bg-emerald-600 dark:bg-emerald-400 h-full w-0 transition-all duration-500 ease-out rounded-full"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-apple-muted dark:text-apple-darkMuted font-medium pt-1">
+                        <span id="chem-subtopics">0 / 269 topics</span>
+                        <span id="chem-chapters">0 / 20 chapters</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mathematics Card -->
+            <div id="card-math" class="cursor-pointer bg-apple-card dark:bg-apple-darkCard border-2 border-apple-border dark:border-apple-darkBorder hover:border-purple-500/60 dark:hover:border-purple-500/60 rounded-3xl p-5 sm:p-6 shadow-sm transition-all duration-300 relative group">
+                <div class="flex items-center justify-between mb-3">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-10 h-10 rounded-2xl bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl font-bold border border-purple-200/60 dark:border-purple-800/40">
+                            📐
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-base sm:text-lg text-apple-text dark:text-apple-darkText">Mathematics</h3>
+                            <span class="text-xs text-apple-muted dark:text-apple-darkMuted font-medium">14 Official Units</span>
+                        </div>
+                    </div>
+                    <span id="math-pct" class="text-xl sm:text-2xl font-extrabold text-purple-600 dark:text-purple-400 tracking-tight">0%</span>
+                </div>
+
+                <div class="space-y-2 mt-4">
+                    <div class="w-full bg-apple-surface dark:bg-apple-darkSurface h-2 rounded-full overflow-hidden">
+                        <div id="math-bar" class="bg-purple-600 dark:bg-purple-400 h-full w-0 transition-all duration-500 ease-out rounded-full"></div>
+                    </div>
+                    <div class="flex items-center justify-between text-xs text-apple-muted dark:text-apple-darkMuted font-medium pt-1">
+                        <span id="math-subtopics">0 / 192 topics</span>
+                        <span id="math-chapters">0 / 14 chapters</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subject Navigation & Filtering Bar -->
+        <section class="space-y-4">
+            <!-- Three Subject Tabs -->
+            <div class="flex rounded-2xl bg-apple-surface dark:bg-apple-darkSurface p-1.5 border border-apple-border dark:border-apple-darkBorder">
+                <button id="tab-physics" class="flex-1 py-2.5 sm:py-3 px-4 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 text-white bg-blue-600 shadow-sm">
+                    <span>⚡</span>
+                    <span>PHYSICS</span>
+                    <span id="tab-count-physics" class="text-[11px] px-1.5 py-0.5 rounded-full bg-white/20 font-medium">0/255</span>
+                </button>
+                <button id="tab-chemistry" class="flex-1 py-2.5 sm:py-3 px-4 rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 text-apple-muted dark:text-apple-darkMuted hover:text-apple-text dark:hover:text-apple-darkText">
+                    <span>🧪</span>
+                    <span>CHEMISTRY</span>
+                    <span id="tab-count-chemistry" class="text-[11px] px-1.5 py-0.5 rounded-full bg-apple-border dark:bg-apple-darkBorder font-medium">0/269</span>
+                </button>
+                <button id="tab-mathematics" class="flex-1 py-2.5 sm:py-3 px-4 rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 text-apple-muted dark:text-apple-darkMuted hover:text-apple-text dark:hover:text-apple-darkText">
+                    <span>📐</span>
+                    <span>MATHEMATICS</span>
+                    <span id="tab-count-mathematics" class="text-[11px] px-1.5 py-0.5 rounded-full bg-apple-border dark:bg-apple-darkBorder font-medium">0/192</span>
+                </button>
+            </div>
+
+            <!-- Search, Status Filter & Accordion Toggles -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                <!-- Search input -->
+                <div class="relative flex-1 max-w-md">
+                    <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-apple-muted dark:text-apple-darkMuted">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </span>
+                    <input id="search-input" type="text" placeholder="Search chapters, formulas, concepts..." class="w-full pl-10 pr-9 py-2.5 rounded-2xl bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-apple-darkBorder text-sm text-apple-text dark:text-apple-darkText placeholder-apple-muted focus:outline-none focus:ring-2 focus:ring-purple-500/50 transition-all">
+                    <button id="clear-search-btn" class="absolute inset-y-0 right-0 pr-3 items-center text-apple-muted hover:text-apple-text hidden">
+                        ✕
+                    </button>
+                </div>
+
+                <!-- Status Filter Pills -->
+                <div class="flex items-center gap-2 self-start sm:self-auto overflow-x-auto pb-1 sm:pb-0 w-full sm:w-auto">
+                    <div class="flex rounded-xl bg-apple-surface dark:bg-apple-darkSurface p-1 border border-apple-border dark:border-apple-darkBorder text-xs font-semibold">
+                        <button id="filter-all" class="px-3 py-1.5 rounded-lg bg-apple-card dark:bg-apple-darkCard text-apple-text dark:text-apple-darkText shadow-sm transition-colors">
+                            All
+                        </button>
+                        <button id="filter-remaining" class="px-3 py-1.5 rounded-lg text-apple-muted dark:text-apple-darkMuted hover:text-apple-text transition-colors">
+                            Remaining
+                        </button>
+                        <button id="filter-completed" class="px-3 py-1.5 rounded-lg text-apple-muted dark:text-apple-darkMuted hover:text-apple-text transition-colors">
+                            Mastered
+                        </button>
+                    </div>
+
+                    <!-- Expand / Collapse All Toggle -->
+                    <button id="toggle-all-accordions" class="px-3 py-2 rounded-xl text-xs font-medium bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-apple-darkBorder hover:bg-apple-surface dark:hover:bg-apple-darkSurface text-apple-text dark:text-apple-darkText transition-colors flex items-center gap-1.5 whitespace-nowrap">
+                        <span id="accordion-toggle-icon">↕️</span>
+                        <span id="accordion-toggle-text">Expand All</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Subject Category Filter Pills -->
+            <div id="category-pills" class="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+                <!-- Dynamically populated per subject -->
+            </div>
+        </section>
+
+        <!-- Chapter Accordions List Container -->
+        <section id="chapters-container" class="space-y-3.5">
+            <!-- Dynamic Chapter Accordions will be rendered here by JavaScript -->
+        </section>
+
+        <!-- Empty state placeholder when filters/search find nothing -->
+        <div id="empty-state" class="hidden py-16 text-center space-y-3">
+            <div class="text-4xl">🔍</div>
+            <h3 class="text-base font-semibold text-apple-text dark:text-apple-darkText">No matching chapters or topics found</h3>
+            <p class="text-xs text-apple-muted dark:text-apple-darkMuted max-w-sm mx-auto">
+                Try adjusting your search keywords or switching your filter status back to "All".
+            </p>
+        </div>
+
+        <!-- Footer Stats & Reset Data -->
+        <footer class="pt-10 pb-6 border-t border-apple-border dark:border-apple-darkBorder text-center space-y-4">
+            <div class="text-xs text-apple-muted dark:text-apple-darkMuted font-medium">
+                Official NTA JEE Main 2027 Syllabus • Sushanth's Mastery Tracker
+            </div>
+            <div>
+                <button id="reset-all-btn" class="text-xs font-medium text-apple-muted dark:text-apple-darkMuted hover:text-red-600 dark:hover:text-red-400 py-1.5 px-3.5 rounded-xl hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors">
+                    Reset Sushanth's syllabus progress data
+                </button>
+            </div>
+        </footer>
+    </main>
+
+    <!-- Custom Undo Confirmation Modal -->
+    <div id="undo-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200 px-4">
+        <div id="undo-dialog" class="bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-apple-darkBorder rounded-3xl p-6 max-w-md w-full shadow-2xl transform scale-95 transition-transform duration-200 space-y-4">
+            <div class="flex items-start gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl shrink-0 border border-amber-200 dark:border-amber-800/40">
+                    ⚠️
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-apple-text dark:text-apple-darkText">Mark topic as incomplete?</h3>
+                    <p class="text-xs text-apple-muted dark:text-apple-darkMuted mt-1">
+                        You are unchecking a previously mastered subtopic.
+                    </p>
+                </div>
+            </div>
+
+            <div class="p-3.5 rounded-2xl bg-apple-surface dark:bg-apple-darkSurface border border-apple-border dark:border-apple-darkBorder text-sm font-medium text-apple-text dark:text-apple-darkText" id="undo-topic-title">
+                Topic Name
+            </div>
+
+            <p class="text-xs text-apple-muted dark:text-apple-darkMuted leading-relaxed">
+                Are you sure you want to mark this topic back to incomplete? Your chapter mastery percentage and overall JEE readiness will be updated immediately.
+            </p>
+
+            <div class="flex justify-end gap-2.5 pt-2">
+                <button id="undo-modal-cancel" class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl text-apple-muted dark:text-apple-darkMuted hover:bg-apple-surface dark:hover:bg-apple-darkSurface transition-colors">
+                    Keep Mastered
+                </button>
+                <button id="undo-modal-confirm" class="px-4 py-2 text-xs sm:text-sm font-semibold bg-red-600 hover:bg-red-700 text-white rounded-xl transition-colors shadow-sm">
+                    Yes, Mark Incomplete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset All Progress Modal -->
+    <div id="reset-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-200 px-4">
+        <div class="bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-apple-darkBorder rounded-3xl p-6 max-w-sm w-full shadow-2xl space-y-4">
+            <h3 class="text-base font-bold text-red-600 dark:text-red-400">Reset All JEE Progress?</h3>
+            <p class="text-xs text-apple-muted dark:text-apple-darkMuted leading-relaxed">
+                This will uncheck every completed topic across Physics, Chemistry, and Mathematics for Sushanth. This action cannot be undone.
+            </p>
+            <div class="flex justify-end gap-2.5 pt-2">
+                <button id="reset-modal-cancel" class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl text-apple-muted dark:text-apple-darkMuted hover:bg-apple-surface dark:hover:bg-apple-darkSurface transition-colors">
+                    Cancel
+                </button>
+                <button id="reset-modal-confirm" class="px-4 py-2 text-xs sm:text-sm font-semibold bg-red-600 hover:bg-red-700 text-white rounded-xl transition-colors shadow-sm">
+                    Reset Everything
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebratory Toast Notification -->
+    <div id="goodbye-toast" class="fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-apple-card dark:bg-apple-darkCard text-apple-text dark:text-apple-darkText px-5 py-3.5 rounded-2xl shadow-2xl border border-apple-border dark:border-apple-darkBorder pointer-events-none max-w-md">
+        <span id="toast-icon" class="text-2xl">🎉</span>
+        <div>
+            <div id="toast-title" class="text-xs font-bold uppercase tracking-wider text-purple-600 dark:text-purple-400">Milestone Reached!</div>
+            <div id="toast-msg" class="text-xs sm:text-sm font-medium mt-0.5">Chapter 100% Completed</div>
+        </div>
+    </div>
+
+    <!-- Application Script Module -->
+    <script type="module">
+        import { initializeApp, getApp, getApps } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, set, remove, update, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { JEE_SYLLABUS, SYLLABUS_METADATA } from "./goodbye-syllabus.js";
+
+        // --- 1. FIREBASE INITIALIZATION ---
+        const learnifyConfig = {
+            apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
+            authDomain: "learnify-ada08.firebaseapp.com",
+            databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com",
+            projectId: "learnify-ada08",
+            storageBucket: "learnify-ada08.firebasestorage.app",
+            messagingSenderId: "380617329082",
+            appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
+            measurementId: "G-DT4WG6622N"
+        };
+
+        let app;
+        try {
+            app = getApps().length > 0 ? getApp() : initializeApp(learnifyConfig);
+        } catch (e) {
+            app = initializeApp(learnifyConfig, "learnify-goodbyesus");
+        }
+        const db = getDatabase(app);
+
+        // --- 2. CONSTANTS & DEDICATED USER STATE (EXCLUSIVELY SUSHANTH) ---
+        const currentUserId = "sushanth";
+
+        // Sound preferences
+        let soundEnabled = localStorage.getItem("goodbye_sound") !== "false";
+        const chimeEl = document.getElementById("completion-chime");
+        updateSoundUI();
+
+        // Sets for tracking state
+        let completedTopics = new Set();
+        const inFlightTopics = new Set(); // Guard against double-clicks
+
+        // Load offline cache for instant boot
+        try {
+            const cachedCompleted = JSON.parse(localStorage.getItem(`goodbye_progress_${currentUserId}`) || "[]");
+            if (Array.isArray(cachedCompleted)) {
+                completedTopics = new Set(cachedCompleted);
+            }
+        } catch (e) {
+            console.warn("Failed to load local cache", e);
+        }
+
+        // Active View State
+        let activeSubject = "physics"; // 'physics' | 'chemistry' | 'mathematics'
+        let activeStatusFilter = "all"; // 'all' | 'remaining' | 'completed'
+        let activeCategoryFilter = "all";
+        let searchQuery = "";
+        let openChapters = new Set();
+
+        const subjectsConfig = SYLLABUS_METADATA.subjects;
+        const totalSyllabusTopics = SYLLABUS_METADATA.totalTopics; // 716
+        const totalSyllabusUnits = SYLLABUS_METADATA.totalUnits; // 54
+
+        // Undo Modal State
+        let pendingUndoTopic = null;
+
+        // --- 3. DOM ELEMENTS ---
+        const chaptersContainer = document.getElementById("chapters-container");
+        const emptyState = document.getElementById("empty-state");
+        const searchInput = document.getElementById("search-input");
+        const clearSearchBtn = document.getElementById("clear-search-btn");
+        const categoryPillsContainer = document.getElementById("category-pills");
+        const toggleAllBtn = document.getElementById("toggle-all-accordions");
+        const toggleAllText = document.getElementById("accordion-toggle-text");
+
+        // --- 4. THEME CONTROLLER ---
+        const htmlEl = document.documentElement;
+        const themeBtn = document.getElementById("theme-toggle-btn");
+
+        function initTheme() {
+            const savedTheme = localStorage.getItem("goodbye_theme") || localStorage.getItem("jee_planner_theme") || "dark";
+            if (savedTheme === "dark") {
+                htmlEl.classList.add("dark");
+            } else {
+                htmlEl.classList.remove("dark");
+            }
+        }
+        initTheme();
+
+        themeBtn.addEventListener("click", () => {
+            const isDark = htmlEl.classList.toggle("dark");
+            localStorage.setItem("goodbye_theme", isDark ? "dark" : "light");
+        });
+
+        // --- 5. AUDIO CONTROLLER ---
+        function updateSoundUI() {
+            const onIcon = document.getElementById("sound-icon-on");
+            const offIcon = document.getElementById("sound-icon-off");
+            if (soundEnabled) {
+                onIcon.classList.remove("hidden");
+                offIcon.classList.add("hidden");
+            } else {
+                onIcon.classList.add("hidden");
+                offIcon.classList.remove("hidden");
+            }
+        }
+
+        document.getElementById("sound-toggle-btn").addEventListener("click", () => {
+            soundEnabled = !soundEnabled;
+            localStorage.setItem("goodbye_sound", soundEnabled ? "true" : "false");
+            updateSoundUI();
+            if (soundEnabled) playChime();
+        });
+
+        function playChime() {
+            if (!soundEnabled || !chimeEl) return;
+            try {
+                chimeEl.currentTime = 0;
+                chimeEl.play().catch(() => {});
+            } catch (e) {}
+        }
+
+        // --- 6. CELEBRATION EFFECTS ---
+        function fireConfetti(type = "chapter") {
+            if (typeof confetti !== "function") return;
+            if (type === "chapter") {
+                confetti({
+                    particleCount: 50,
+                    spread: 60,
+                    origin: { y: 0.75 },
+                    colors: ['#a855f7', '#6366f1', '#10b981', '#f59e0b']
+                });
+            } else if (type === "subject") {
+                confetti({
+                    particleCount: 120,
+                    spread: 100,
+                    origin: { y: 0.6 },
+                    colors: ['#a855f7', '#8b5cf6', '#3b82f6', '#ec4899', '#10b981']
+                });
+            } else if (type === "grand") {
+                const duration = 3 * 1000;
+                const end = Date.now() + duration;
+                (function frame() {
+                    confetti({
+                        particleCount: 4,
+                        angle: 60,
+                        spread: 55,
+                        origin: { x: 0 },
+                        colors: ['#a855f7', '#fbbf24', '#38bdf8']
+                    });
+                    confetti({
+                        particleCount: 4,
+                        angle: 120,
+                        spread: 55,
+                        origin: { x: 1 },
+                        colors: ['#8b5cf6', '#ec4899', '#10b981']
+                    });
+                    if (Date.now() < end) {
+                        requestAnimationFrame(frame);
+                    }
+                }());
+            }
+        }
+
+        function showToast(title, msg, icon = "🎉") {
+            const toast = document.getElementById("goodbye-toast");
+            document.getElementById("toast-icon").innerText = icon;
+            document.getElementById("toast-title").innerText = title;
+            document.getElementById("toast-msg").innerText = msg;
+            toast.classList.add("show");
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 3000);
+        }
+
+        // --- 7. FIREBASE REALTIME SYNCHRONIZATION ---
+        function setupFirebaseSync() {
+            const userGoodbyeRef = ref(db, `users/${currentUserId}/goodbye`);
+            
+            // Connection status listener
+            const connectedRef = ref(db, ".info/connected");
+            onValue(connectedRef, (snap) => {
+                const statusEl = document.getElementById("firebase-status-text");
+                if (snap.val() === true) {
+                    statusEl.innerText = "Live Sync";
+                } else {
+                    statusEl.innerText = "Offline Mode";
+                }
+            });
+
+            // Main listener for Sushanth's goodbye data
+            onValue(userGoodbyeRef, (snapshot) => {
+                const data = snapshot.val();
+                completedTopics.clear();
+
+                if (data && data.subjects) {
+                    for (const sKey in data.subjects) {
+                        const chapters = data.subjects[sKey]?.chapters || {};
+                        for (const cKey in chapters) {
+                            const topics = chapters[cKey]?.topics || {};
+                            for (const tKey in topics) {
+                                if (topics[tKey] === true) {
+                                    completedTopics.add(tKey);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Update local storage backup for sushanth
+                localStorage.setItem(`goodbye_progress_${currentUserId}`, JSON.stringify([...completedTopics]));
+
+                // Update overall stats & UI
+                updateAllProgressMetrics();
+                renderChapters();
+            }, (error) => {
+                console.error("Firebase sync error:", error);
+                document.getElementById("firebase-status-text").innerText = "Sync Error";
+            });
+        }
+
+        setupFirebaseSync();
+
+        // --- 8. TOPIC TOGGLE HANDLER (NO COINS SYSTEM) ---
+        window.handleTopicClick = async function(subject, chapterId, topicId, topicName) {
+            if (inFlightTopics.has(topicId)) {
+                return;
+            }
+
+            const wasCompleted = completedTopics.has(topicId);
+
+            if (wasCompleted) {
+                // UNDO FLOW: Open custom confirmation modal
+                pendingUndoTopic = { subject, chapterId, topicId, topicName };
+                document.getElementById("undo-topic-title").innerText = topicName;
+                const modal = document.getElementById("undo-modal");
+                modal.classList.remove("opacity-0", "pointer-events-none");
+            } else {
+                // COMPLETION FLOW: Mark Done in Firebase for Sushanth (No Coins)
+                inFlightTopics.add(topicId);
+
+                // Optimistic UI update
+                completedTopics.add(topicId);
+                updateAllProgressMetrics();
+                renderChapters();
+                playChime();
+
+                try {
+                    const topicRef = ref(db, `users/${currentUserId}/goodbye/subjects/${subject}/chapters/${chapterId}/topics/${topicId}`);
+                    const metaRef = ref(db, `users/${currentUserId}/goodbye`);
+
+                    await set(topicRef, true);
+                    await update(metaRef, {
+                        syllabusVersion: "jee-main-2027",
+                        lastUpdated: Date.now()
+                    });
+
+                    localStorage.setItem(`goodbye_progress_${currentUserId}`, JSON.stringify([...completedTopics]));
+
+                    showToast("Mastered! ✓", `"${topicName}" marked complete.`, "✨");
+                    checkChapterCompletion(subject, chapterId);
+                } catch (err) {
+                    console.error("Database write error:", err);
+                    completedTopics.delete(topicId);
+                    updateAllProgressMetrics();
+                    renderChapters();
+                    showToast("Sync Error", "Could not complete topic. Please try again.", "⚠️");
+                } finally {
+                    inFlightTopics.delete(topicId);
+                }
+            }
+        };
+
+        // Undo Modal: Confirm Incomplete
+        document.getElementById("undo-modal-cancel").addEventListener("click", () => {
+            document.getElementById("undo-modal").classList.add("opacity-0", "pointer-events-none");
+            pendingUndoTopic = null;
+        });
+
+        document.getElementById("undo-modal-confirm").addEventListener("click", async () => {
+            if (!pendingUndoTopic) return;
+            const { subject, chapterId, topicId } = pendingUndoTopic;
+            
+            document.getElementById("undo-modal").classList.add("opacity-0", "pointer-events-none");
+
+            if (inFlightTopics.has(topicId)) return;
+            inFlightTopics.add(topicId);
+
+            // Optimistic UI update
+            completedTopics.delete(topicId);
+            updateAllProgressMetrics();
+            renderChapters();
+
+            try {
+                const topicRef = ref(db, `users/${currentUserId}/goodbye/subjects/${subject}/chapters/${chapterId}/topics/${topicId}`);
+                const metaRef = ref(db, `users/${currentUserId}/goodbye`);
+
+                await remove(topicRef);
+                await update(metaRef, {
+                    lastUpdated: Date.now()
+                });
+
+                localStorage.setItem(`goodbye_progress_${currentUserId}`, JSON.stringify([...completedTopics]));
+
+                showToast("Topic Reopened", `Marked as incomplete. Keep practicing!`, "✏️");
+            } catch (err) {
+                console.error("Database uncheck error:", err);
+                completedTopics.add(topicId);
+                updateAllProgressMetrics();
+                renderChapters();
+                showToast("Sync Error", "Could not update topic. Please try again.", "⚠️");
+            } finally {
+                inFlightTopics.delete(topicId);
+                pendingUndoTopic = null;
+            }
+        });
+
+        // Check if an entire chapter/subject is newly completed
+        function checkChapterCompletion(subject, chapterId) {
+            const chapter = JEE_SYLLABUS[subject].find(c => c.id === chapterId);
+            if (!chapter) return;
+            const allChecked = chapter.topics.every(t => completedTopics.has(t.id));
+            if (allChecked) {
+                fireConfetti("chapter");
+                showToast("Chapter Mastered! 🏆", `${chapter.name} is 100% complete!`);
+
+                const allSubjectChecked = JEE_SYLLABUS[subject].every(ch => 
+                    ch.topics.every(t => completedTopics.has(t.id))
+                );
+                if (allSubjectChecked) {
+                    setTimeout(() => {
+                        fireConfetti("subject");
+                        showToast("Subject Conquered! 👑", `All ${subject.toUpperCase()} units completed!`, "🏆");
+                    }, 800);
+                }
+
+                if (completedTopics.size === totalSyllabusTopics) {
+                    setTimeout(() => {
+                        fireConfetti("grand");
+                        showToast("GOODBYE JEE SYLLABUS! 🎓", "Every single topic has been conquered. Exam ready!", "🌟");
+                    }, 1500);
+                }
+            }
+        }
+
+        // --- 9. PROGRESS CALCULATION & UI UPDATE ---
+        function updateAllProgressMetrics() {
+            const totalMastered = completedTopics.size;
+            const overallPct = ((totalMastered / totalSyllabusTopics) * 100);
+            const overallPctFixed = overallPct.toFixed(1);
+
+            document.getElementById("overall-percentage").innerText = `${overallPctFixed}%`;
+            document.getElementById("overall-fraction").innerText = `${totalMastered} / ${totalSyllabusTopics} subtopics`;
+            document.getElementById("overall-progress-bar").style.width = `${overallPct}%`;
+            document.getElementById("overall-ring-progress").setAttribute("stroke-dasharray", `${overallPct}, 100`);
+
+            const remaining = totalSyllabusTopics - totalMastered;
+            document.getElementById("overall-remaining-text").innerText = `${remaining} subtopics remaining`;
+
+            let totalChaptersMastered = 0;
+
+            ['physics', 'chemistry', 'mathematics'].forEach(subjKey => {
+                const chapters = JEE_SYLLABUS[subjKey];
+                let subjDoneTopics = 0;
+                let subjDoneChapters = 0;
+                const subjTotalTopics = subjectsConfig[subjKey].totalTopics;
+
+                chapters.forEach(ch => {
+                    const doneInCh = ch.topics.filter(t => completedTopics.has(t.id)).length;
+                    subjDoneTopics += doneInCh;
+                    if (doneInCh === ch.topics.length && ch.topics.length > 0) {
+                        subjDoneChapters++;
+                        totalChaptersMastered++;
+                    }
+                });
+
+                const subjPct = Math.round((subjDoneTopics / subjTotalTopics) * 100);
+                const pShort = subjKey === 'physics' ? 'phy' : (subjKey === 'chemistry' ? 'chem' : 'math');
+                document.getElementById(`${pShort}-pct`).innerText = `${subjPct}%`;
+                document.getElementById(`${pShort}-bar`).style.width = `${subjPct}%`;
+                document.getElementById(`${pShort}-subtopics`).innerText = `${subjDoneTopics} / ${subjTotalTopics} topics`;
+                document.getElementById(`${pShort}-chapters`).innerText = `${subjDoneChapters} / ${chapters.length} chapters`;
+
+                document.getElementById(`tab-count-${subjKey}`).innerText = `${subjDoneTopics}/${subjTotalTopics}`;
+            });
+
+            document.getElementById("overall-chapters-text").innerText = `${totalChaptersMastered} of ${totalSyllabusUnits} chapters fully mastered`;
+        }
+
+        // --- 10. SUBJECT & CATEGORY FILTERING ---
+        function setupSubjectTabs() {
+            ['physics', 'chemistry', 'mathematics'].forEach(subjKey => {
+                const tab = document.getElementById(`tab-${subjKey}`);
+                const card = document.getElementById(`card-${subjKey === 'physics' ? 'phy' : (subjKey === 'chemistry' ? 'chem' : 'math')}`);
+
+                const switchFn = () => {
+                    activeSubject = subjKey;
+                    activeCategoryFilter = "all";
+                    openChapters.clear();
+                    updateTabStyling();
+                    renderCategoryPills();
+                    renderChapters();
+                };
+
+                tab.addEventListener("click", switchFn);
+                card.addEventListener("click", switchFn);
+            });
+        }
+        setupSubjectTabs();
+
+        function updateTabStyling() {
+            ['physics', 'chemistry', 'mathematics'].forEach(key => {
+                const btn = document.getElementById(`tab-${key}`);
+                const card = document.getElementById(`card-${key === 'physics' ? 'phy' : (key === 'chemistry' ? 'chem' : 'math')}`);
+
+                if (key === activeSubject) {
+                    btn.className = `flex-1 py-2.5 sm:py-3 px-4 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 text-white shadow-sm ${
+                        key === 'physics' ? 'bg-blue-600' : (key === 'chemistry' ? 'bg-emerald-600' : 'bg-purple-600')
+                    }`;
+                    card.classList.add('ring-2', 'ring-offset-2', key === 'physics' ? 'ring-blue-500' : (key === 'chemistry' ? 'ring-emerald-500' : 'ring-purple-500'));
+                } else {
+                    btn.className = `flex-1 py-2.5 sm:py-3 px-4 rounded-xl text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 text-apple-muted dark:text-apple-darkMuted hover:text-apple-text dark:hover:text-apple-darkText`;
+                    card.classList.remove('ring-2', 'ring-offset-2', 'ring-blue-500', 'ring-emerald-500', 'ring-purple-500');
+                }
+            });
+        }
+
+        function renderCategoryPills() {
+            categoryPillsContainer.innerHTML = "";
+            const currentUnits = JEE_SYLLABUS[activeSubject];
+            const categories = Array.from(new Set(currentUnits.map(u => u.category))).filter(Boolean);
+
+            if (categories.length <= 1) {
+                categoryPillsContainer.classList.add("hidden");
+                return;
+            }
+            categoryPillsContainer.classList.remove("hidden");
+
+            const allBtn = document.createElement("button");
+            allBtn.className = `px-3 py-1 rounded-full font-medium transition-colors ${
+                activeCategoryFilter === "all"
+                    ? "bg-apple-text dark:bg-apple-darkText text-apple-bg dark:text-apple-darkBg"
+                    : "bg-apple-surface dark:bg-apple-darkSurface text-apple-muted hover:text-apple-text"
+            }`;
+            allBtn.innerText = "All Categories";
+            allBtn.onclick = () => {
+                activeCategoryFilter = "all";
+                renderCategoryPills();
+                renderChapters();
+            };
+            categoryPillsContainer.appendChild(allBtn);
+
+            categories.forEach(cat => {
+                const catBtn = document.createElement("button");
+                catBtn.className = `px-3 py-1 rounded-full font-medium transition-colors whitespace-nowrap ${
+                    activeCategoryFilter === cat
+                        ? "bg-apple-text dark:bg-apple-darkText text-apple-bg dark:text-apple-darkBg"
+                        : "bg-apple-surface dark:bg-apple-darkSurface text-apple-muted hover:text-apple-text"
+                }`;
+                catBtn.innerText = cat;
+                catBtn.onclick = () => {
+                    activeCategoryFilter = cat;
+                    renderCategoryPills();
+                    renderChapters();
+                };
+                categoryPillsContainer.appendChild(catBtn);
+            });
+        }
+        renderCategoryPills();
+
+        // Status Filter Buttons
+        ['all', 'remaining', 'completed'].forEach(filterKey => {
+            const btn = document.getElementById(`filter-${filterKey}`);
+            btn.addEventListener("click", () => {
+                activeStatusFilter = filterKey;
+                ['all', 'remaining', 'completed'].forEach(k => {
+                    const b = document.getElementById(`filter-${k}`);
+                    if (k === filterKey) {
+                        b.className = "px-3 py-1.5 rounded-lg bg-apple-card dark:bg-apple-darkCard text-apple-text dark:text-apple-darkText shadow-sm transition-colors";
+                    } else {
+                        b.className = "px-3 py-1.5 rounded-lg text-apple-muted dark:text-apple-darkMuted hover:text-apple-text transition-colors";
+                    }
+                });
+                renderChapters();
+            });
+        });
+
+        // Search Input listeners
+        searchInput.addEventListener("input", (e) => {
+            searchQuery = e.target.value.trim().toLowerCase();
+            if (searchQuery.length > 0) {
+                clearSearchBtn.classList.remove("hidden");
+                clearSearchBtn.classList.add("flex");
+                JEE_SYLLABUS[activeSubject].forEach(ch => openChapters.add(ch.id));
+            } else {
+                clearSearchBtn.classList.add("hidden");
+                clearSearchBtn.classList.remove("flex");
+            }
+            renderChapters();
+        });
+
+        clearSearchBtn.addEventListener("click", () => {
+            searchInput.value = "";
+            searchQuery = "";
+            clearSearchBtn.classList.add("hidden");
+            clearSearchBtn.classList.remove("flex");
+            renderChapters();
+        });
+
+        // Toggle All Accordions
+        toggleAllBtn.addEventListener("click", () => {
+            const chapters = JEE_SYLLABUS[activeSubject];
+            if (openChapters.size === chapters.length) {
+                openChapters.clear();
+                toggleAllText.innerText = "Expand All";
+            } else {
+                chapters.forEach(ch => openChapters.add(ch.id));
+                toggleAllText.innerText = "Collapse All";
+            }
+            renderChapters();
+        });
+
+        // --- 11. RENDER CHAPTERS & SUBTOPICS ---
+        function renderChapters() {
+            chaptersContainer.innerHTML = "";
+            const chapters = JEE_SYLLABUS[activeSubject];
+            let visibleChaptersCount = 0;
+
+            chapters.forEach(chapter => {
+                if (activeCategoryFilter !== "all" && chapter.category !== activeCategoryFilter) {
+                    return;
+                }
+
+                const topics = chapter.topics;
+                const completedInChapter = topics.filter(t => completedTopics.has(t.id)).length;
+                const isChapter100 = completedInChapter === topics.length && topics.length > 0;
+
+                if (activeStatusFilter === "completed" && !isChapter100) return;
+                if (activeStatusFilter === "remaining" && isChapter100) return;
+
+                const filteredTopics = topics.filter(topic => {
+                    if (activeStatusFilter === "completed" && !completedTopics.has(topic.id)) return false;
+                    if (activeStatusFilter === "remaining" && completedTopics.has(topic.id)) return false;
+
+                    if (!searchQuery) return true;
+                    return topic.name.toLowerCase().includes(searchQuery) ||
+                           chapter.name.toLowerCase().includes(searchQuery);
+                });
+
+                if (searchQuery && filteredTopics.length === 0) {
+                    return;
+                }
+
+                visibleChaptersCount++;
+                const isOpen = openChapters.has(chapter.id) || (searchQuery.length > 0);
+                const chapterPct = Math.round((completedInChapter / topics.length) * 100);
+
+                const card = document.createElement("div");
+                card.className = `bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-apple-darkBorder rounded-2xl overflow-hidden transition-all duration-200 shadow-sm ${
+                    isChapter100 ? 'chapter-mastered' : ''
+                }`;
+
+                const header = document.createElement("div");
+                header.className = "p-4 sm:p-5 flex items-center justify-between cursor-pointer select-none hover:bg-apple-surface/50 dark:hover:bg-apple-darkSurface/50 transition-colors";
+                
+                header.innerHTML = `
+                    <div class="flex items-center gap-3.5 flex-1 min-w-0 pr-3">
+                        <div class="w-8 h-8 rounded-xl ${
+                            isChapter100 
+                                ? 'bg-emerald-500 text-white' 
+                                : 'bg-apple-surface dark:bg-apple-darkSurface text-apple-muted dark:text-apple-darkMuted border border-apple-border dark:border-apple-darkBorder'
+                        } flex items-center justify-center font-bold text-xs shrink-0 transition-colors">
+                            ${isChapter100 ? '✓' : chapter.unitNumber}
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-apple-surface dark:bg-apple-darkSurface text-apple-muted dark:text-apple-darkMuted border border-apple-border/60 dark:border-apple-darkBorder/60">
+                                    Unit ${chapter.unitNumber}
+                                </span>
+                                ${chapter.category ? `
+                                <span class="text-[11px] font-medium text-apple-muted dark:text-apple-darkMuted opacity-80">
+                                    ${chapter.category}
+                                </span>` : ''}
+                            </div>
+                            <h4 class="font-bold text-sm sm:text-base text-apple-text dark:text-apple-darkText truncate mt-0.5">
+                                ${chapter.name}
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 shrink-0">
+                        <div class="text-right hidden sm:block">
+                            <div class="flex items-center gap-1.5 justify-end">
+                                <span class="text-xs font-bold ${isChapter100 ? 'text-emerald-600 dark:text-emerald-400' : 'text-apple-muted dark:text-apple-darkMuted'}">
+                                    ${isChapter100 ? '100% MASTERED' : `${chapterPct}%`}
+                                </span>
+                            </div>
+                            <span class="text-[11px] text-apple-muted dark:text-apple-darkMuted">
+                                ${completedInChapter}/${topics.length} topics
+                            </span>
+                        </div>
+
+                        <span class="sm:hidden text-xs font-bold ${isChapter100 ? 'text-emerald-600 dark:text-emerald-400' : 'text-apple-muted dark:text-apple-darkMuted'}">
+                            ${completedInChapter}/${topics.length}
+                        </span>
+
+                        <svg class="w-5 h-5 text-apple-muted transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                `;
+
+                header.addEventListener("click", () => {
+                    if (openChapters.has(chapter.id)) {
+                        openChapters.delete(chapter.id);
+                    } else {
+                        openChapters.add(chapter.id);
+                    }
+                    renderChapters();
+                });
+
+                card.appendChild(header);
+
+                const chProgressBar = document.createElement("div");
+                chProgressBar.className = "w-full bg-apple-surface dark:bg-apple-darkSurface h-1";
+                chProgressBar.innerHTML = `<div class="h-full ${isChapter100 ? 'bg-emerald-500' : 'bg-apple-border dark:bg-apple-darkBorder'} transition-all duration-300" style="width: ${chapterPct}%;"></div>`;
+                card.appendChild(chProgressBar);
+
+                const content = document.createElement("div");
+                content.className = `accordion-content ${isOpen ? 'open' : ''}`;
+                
+                const inner = document.createElement("div");
+                inner.className = "accordion-inner border-t border-apple-border/70 dark:border-apple-darkBorder/70 bg-apple-bg/40 dark:bg-apple-darkBg/30 divide-y divide-apple-border/40 dark:divide-apple-darkBorder/40";
+
+                const topicsToRender = searchQuery ? filteredTopics : topics;
+
+                topicsToRender.forEach((topic) => {
+                    const isChecked = completedTopics.has(topic.id);
+                    const row = document.createElement("div");
+                    row.className = `topic-row px-4 sm:px-6 py-3 sm:py-3.5 flex items-center justify-between gap-3 cursor-pointer ${
+                        isChecked ? 'completed' : ''
+                    }`;
+
+                    row.innerHTML = `
+                        <div class="flex items-center gap-3.5 min-w-0 flex-1">
+                            <input type="checkbox" ${isChecked ? 'checked' : ''} class="mastery-checkbox shrink-0" aria-label="${topic.name}">
+                            <span class="topic-text text-xs sm:text-sm text-apple-text dark:text-apple-darkText leading-relaxed select-none">
+                                ${highlightSearch(topic.name, searchQuery)}
+                            </span>
+                        </div>
+                        <div class="shrink-0 flex items-center gap-2">
+                            ${isChecked ? `
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800">
+                                DONE ✓
+                            </span>` : `
+                            <span class="text-[11px] text-apple-muted dark:text-apple-darkMuted opacity-60">
+                                Pending
+                            </span>`}
+                        </div>
+                    `;
+
+                    row.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        handleTopicClick(activeSubject, chapter.id, topic.id, topic.name);
+                    });
+
+                    inner.appendChild(row);
+                });
+
+                content.appendChild(inner);
+                card.appendChild(content);
+                chaptersContainer.appendChild(card);
+            });
+
+            if (visibleChaptersCount === 0) {
+                emptyState.classList.remove("hidden");
+            } else {
+                emptyState.classList.add("hidden");
+            }
+        }
+
+        function highlightSearch(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, `<mark class="bg-amber-200 dark:bg-amber-900/60 dark:text-amber-200 px-0.5 rounded">$1</mark>`);
+        }
+
+        // --- 12. RESET PROGRESS MODAL ---
+        const resetAllBtn = document.getElementById("reset-all-btn");
+        const resetModal = document.getElementById("reset-modal");
+        const resetCancel = document.getElementById("reset-modal-cancel");
+        const resetConfirm = document.getElementById("reset-modal-confirm");
+
+        resetAllBtn.addEventListener("click", () => {
+            resetModal.classList.remove("opacity-0", "pointer-events-none");
+        });
+
+        resetCancel.addEventListener("click", () => {
+            resetModal.classList.add("opacity-0", "pointer-events-none");
+        });
+
+        resetConfirm.addEventListener("click", async () => {
+            resetModal.classList.add("opacity-0", "pointer-events-none");
+
+            completedTopics.clear();
+            localStorage.removeItem(`goodbye_progress_${currentUserId}`);
+
+            try {
+                const updates = {};
+                updates[`users/${currentUserId}/goodbye/subjects`] = null;
+                updates[`users/${currentUserId}/goodbye/lastUpdated`] = Date.now();
+                await update(ref(db), updates);
+            } catch (e) {
+                console.error("Reset error:", e);
+            }
+
+            updateAllProgressMetrics();
+            renderChapters();
+            showToast("Reset Complete", `All syllabus topics reset for ${currentUserId}.`, "🔄");
+        });
+
+        // Initial Render
+        updateAllProgressMetrics();
+        renderChapters();
+
+    </script>
+</body>
+</html>

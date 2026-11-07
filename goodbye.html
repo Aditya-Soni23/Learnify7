@@ -546,13 +546,32 @@
         <div class="bg-apple-card dark:bg-apple-darkCard border border-apple-border dark:border-apple-darkBorder rounded-3xl p-6 max-w-sm w-full shadow-2xl space-y-4">
             <h3 class="text-base font-bold text-apple-text dark:text-apple-darkText">User Profile / ID</h3>
             <p class="text-xs text-apple-muted dark:text-apple-darkMuted leading-relaxed">
-                Progress and coins are stored per user ID in Firebase Realtime Database. Learnify defaults to <span class="font-semibold text-emerald-600">aditya</span>.
+                Switch user profile to load syllabus progress and coin balance.
             </p>
+            <div>
+                <label class="text-[11px] font-semibold text-apple-muted uppercase tracking-wider">Quick Select Profile</label>
+                <div class="grid grid-cols-2 gap-2 mt-1.5">
+                    <button type="button" id="quick-user-aditya" class="py-2 px-3 rounded-xl border border-apple-border dark:border-apple-darkBorder bg-apple-surface dark:bg-apple-darkSurface text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:border-emerald-500 transition-colors flex items-center justify-center gap-1.5">
+                        <span>👤</span>
+                        <span>aditya</span>
+                    </button>
+                    <button type="button" id="quick-user-sushanth" class="py-2 px-3 rounded-xl border border-apple-border dark:border-apple-darkBorder bg-apple-surface dark:bg-apple-darkSurface text-xs font-bold text-purple-600 dark:text-purple-400 hover:border-purple-500 transition-colors flex items-center justify-center gap-1.5">
+                        <span>👤</span>
+                        <span>sushanth</span>
+                    </button>
+                </div>
+            </div>
             <div>
                 <label class="text-[11px] font-semibold text-apple-muted uppercase tracking-wider">User Identifier</label>
                 <input id="user-input-field" type="text" value="aditya" class="w-full mt-1 px-3.5 py-2 rounded-xl bg-apple-surface dark:bg-apple-darkSurface border border-apple-border dark:border-apple-darkBorder text-sm font-medium text-apple-text dark:text-apple-darkText focus:outline-none focus:ring-2 focus:ring-emerald-500">
             </div>
-            <div class="flex justify-end gap-2.5 pt-2">
+            <div class="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950/30 border border-purple-200 dark:border-purple-800/40 text-xs">
+                <span class="text-apple-muted dark:text-apple-darkMuted">Looking for Sushanth's page without coins?</span>
+                <a href="goodbyesus.html" class="block font-bold text-purple-600 dark:text-purple-400 hover:underline mt-0.5">
+                    Open goodbyesus.html →
+                </a>
+            </div>
+            <div class="flex justify-end gap-2.5 pt-1">
                 <button id="user-modal-cancel" class="px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl text-apple-muted dark:text-apple-darkMuted hover:bg-apple-surface dark:hover:bg-apple-darkSurface transition-colors">
                     Cancel
                 </button>
@@ -752,7 +771,31 @@
         }
 
         // --- 7. FIREBASE REALTIME SYNCHRONIZATION ---
+        let unsubGoodbye = null;
+        let unsubBalance = null;
+
         function setupFirebaseSync() {
+            if (typeof unsubGoodbye === 'function') unsubGoodbye();
+            if (typeof unsubBalance === 'function') unsubBalance();
+
+            completedTopics.clear();
+            rewardedTopics.clear();
+
+            // Load offline cache for switched user
+            try {
+                const cachedCompleted = JSON.parse(localStorage.getItem(`goodbye_progress_${currentUserId}`) || "[]");
+                if (Array.isArray(cachedCompleted)) {
+                    completedTopics = new Set(cachedCompleted);
+                }
+                const cachedRewards = JSON.parse(localStorage.getItem(`goodbye_rewards_${currentUserId}`) || "[]");
+                if (Array.isArray(cachedRewards)) {
+                    rewardedTopics = new Set(cachedRewards);
+                }
+            } catch (e) {}
+
+            updateAllProgressMetrics();
+            renderChapters();
+
             const userGoodbyeRef = ref(db, `users/${currentUserId}/goodbye`);
             const userBalanceRef = ref(db, `users/${currentUserId}/balance`);
             
@@ -768,7 +811,7 @@
             });
 
             // Live Main Account Balance Listener
-            onValue(userBalanceRef, (snap) => {
+            unsubBalance = onValue(userBalanceRef, (snap) => {
                 const bal = snap.val() ?? 0;
                 if (balanceDisplayEl) {
                     balanceDisplayEl.innerText = Number(bal).toLocaleString();
@@ -776,7 +819,7 @@
             });
 
             // Main listener for user's goodbye data
-            onValue(userGoodbyeRef, (snapshot) => {
+            unsubGoodbye = onValue(userGoodbyeRef, (snapshot) => {
                 const data = snapshot.val();
                 completedTopics.clear();
                 rewardedTopics.clear();
@@ -1309,6 +1352,20 @@
         const userInputField = document.getElementById("user-input-field");
         const userCancelBtn = document.getElementById("user-modal-cancel");
         const userSaveBtn = document.getElementById("user-modal-save");
+
+        const quickAditya = document.getElementById("quick-user-aditya");
+        const quickSushanth = document.getElementById("quick-user-sushanth");
+
+        if (quickAditya) {
+            quickAditya.addEventListener("click", () => {
+                userInputField.value = "aditya";
+            });
+        }
+        if (quickSushanth) {
+            quickSushanth.addEventListener("click", () => {
+                userInputField.value = "sushanth";
+            });
+        }
 
         userBtn.addEventListener("click", () => {
             userInputField.value = currentUserId;
