@@ -81,13 +81,21 @@
         <p>Auto-feed car & train with decay wallet.</p>
       </div>
 
-      <!-- Card 6 -->
-     
-        <div  class="scard" onclick="navigate('StudyMaterial')">
-          <span class="limited-badge">Concpet</span>
-          <h2>Study Material </h2>
-          <p>JEE Concepts</p>
+      <!-- Card 6: GOODBYE Card -->
+      <div class="scard goodbye-card" onclick="navigate('goodbye')">
+        <span class="limited-badge" style="background: linear-gradient(90deg, #10b981, #06b6d4);">JEE 2027</span>
+        <h2>GOODBYE 👋</h2>
+        <p>Master it. Mark it. Move on.</p>
+        <div style="margin-top: 10px; display: flex; flex-direction: column; gap: 4px;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600; opacity: 0.9;">
+            <span>Syllabus Mastered</span>
+            <span id="goodbye-dash-pct" style="color: #6ee7b7; font-weight: 700;">0%</span>
+          </div>
+          <div style="width: 100%; height: 6px; background: rgba(255, 255, 255, 0.2); border-radius: 9999px; overflow: hidden;">
+            <div id="goodbye-dash-bar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #10b981, #34d399); border-radius: 9999px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+          </div>
         </div>
+      </div>
 
 
       <div class="gcard" onclick="navigate('bank')">
@@ -129,6 +137,12 @@
           <p>Engineering exams</p>
         </div>
       </a>
+
+      <div class="scard" onclick="navigate('StudyMaterial')">
+        <span class="limited-badge">Concept</span>
+        <h2>Study Material </h2>
+        <p>JEE Concepts</p>
+      </div>
 
       <div class="scard" onclick="navigate('apple_inspired_jee_holiday_planner')">
         <span class="limited-badge">Special Event</span>
@@ -250,6 +264,46 @@
 
     // Reference for user
     const userRef = ref(db, "users/aditya");
+
+    // Fetch GOODBYE Syllabus Mastery (realtime)
+    const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+    const TOTAL_GOODBYE_TOPICS = 716;
+    const goodbyeRef = ref(db, `users/${currentUserId}/goodbye`);
+
+    // Instant local cache restore
+    try {
+      const cached = JSON.parse(localStorage.getItem(`goodbye_progress_${currentUserId}`) || "[]");
+      if (Array.isArray(cached) && cached.length > 0) {
+        const pct = Math.min(100, Math.round((cached.length / TOTAL_GOODBYE_TOPICS) * 100));
+        const pctEl = document.getElementById("goodbye-dash-pct");
+        const barEl = document.getElementById("goodbye-dash-bar");
+        if (pctEl) pctEl.innerText = `${pct}%`;
+        if (barEl) barEl.style.width = `${pct}%`;
+      }
+    } catch (e) {}
+
+    onValue(goodbyeRef, (snap) => {
+      let count = 0;
+      if (snap.exists()) {
+        const val = snap.val();
+        if (val && val.subjects) {
+          for (const sKey in val.subjects) {
+            const chs = val.subjects[sKey]?.chapters || {};
+            for (const cKey in chs) {
+              const top = chs[cKey]?.topics || {};
+              for (const tKey in top) {
+                if (top[tKey] === true) count++;
+              }
+            }
+          }
+        }
+      }
+      const pct = Math.min(100, Math.round((count / TOTAL_GOODBYE_TOPICS) * 100));
+      const pctEl = document.getElementById("goodbye-dash-pct");
+      const barEl = document.getElementById("goodbye-dash-bar");
+      if (pctEl) pctEl.innerText = `${pct}%`;
+      if (barEl) barEl.style.width = `${pct}%`;
+    });
 
     // Fetch balance + streak (realtime)
     onValue(userRef, (snapshot) => {

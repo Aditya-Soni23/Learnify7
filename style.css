@@ -475,3 +475,22 @@ main {
     50% { transform: translate(-50%, 6px); }
     100% { transform: translate(-50%, 0px); }
   }
+
+
+/* 🟢 GOODBYE CARD (EMERALD-CYAN MASTERY THEME) */
+.scard.goodbye-card {
+  background: linear-gradient(135deg, #064e3b, #047857, #0d9488, #0284c7);
+  background-size: 250% 250%;
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(16, 185, 129, 0.35);
+}
+
+.scard.goodbye-card:hover {
+  border-color: rgba(52, 211, 153, 0.9);
+  box-shadow:
+    0 15px 30px rgba(0, 0, 0, 0.6),
+    0 0 25px rgba(16, 185, 129, 0.7),
+    0 0 45px rgba(6, 182, 212, 0.5);
+}
