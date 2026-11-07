@@ -305,7 +305,7 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
-        const currentUserId = localStorage.getItem('learnify_user') || 'aditya';
+        const currentUserId = localStorage.getItem("learnify_user"); if (!currentUserId) { window.location.href = "index.html"; }
         const currentUserName = localStorage.getItem('learnify_name') || 'Aditya';
         const userRef = db.ref('users/' + currentUserId);
         const ownerEl = document.getElementById('terminal-owner');

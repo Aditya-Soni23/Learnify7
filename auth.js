@@ -47,7 +47,7 @@ export const db = getDatabase(app);
 const googleProvider = new GoogleAuthProvider();
 googleProvider.setCustomParameters({ prompt: 'select_account' });
 
-// Aditya's official email address
+// Aditya's official email address(es) that map to the master "aditya" database node
 export const ADITYA_OFFICIAL_EMAIL = "adityasonihyderabad@gmail.com";
 export const OWNER_EMAILS = [
     ADITYA_OFFICIAL_EMAIL.toLowerCase()
@@ -55,40 +55,42 @@ export const OWNER_EMAILS = [
 
 /**
  * Resolves the database user key for a given user.
- * - If email is adityasonihyderabad@gmail.com, returns "aditya" so ALL existing data is preserved 100%!
- * - For any friend, returns their unique Firebase UID (or safe sanitized ID) so no data clashes occur!
+ * - If email is adityasonihyderabad@gmail.com, returns "aditya" so ALL existing data is preserved!
+ * - For any friend, returns their unique Firebase UID so no data clashes occur!
+ * - If no user is logged in, returns NULL (never default to aditya).
  */
 export function resolveUserKey(user) {
     if (!user) {
-        return localStorage.getItem("learnify_user") || "aditya";
+        return null;
     }
     const email = (user.email || "").toLowerCase().trim();
     if (OWNER_EMAILS.includes(email)) {
         return "aditya";
     }
-    // For other users: Use their UID
+    // For other users: Use their unique UID
     return user.uid || email.replace(/[^a-zA-Z0-9]/g, "_");
 }
 
 /**
- * Returns the currently active user key synchronously from localStorage or fallback.
+ * Returns the currently active user key synchronously from localStorage.
+ * Returns NULL if the user is not signed in.
  */
 export function getCurrentUserId() {
-    return localStorage.getItem("learnify_user") || "aditya";
+    return localStorage.getItem("learnify_user") || null;
 }
 
 /**
  * Returns current user's display name
  */
 export function getCurrentUserName() {
-    return localStorage.getItem("learnify_name") || (getCurrentUserId() === "aditya" ? "Aditya" : "Friend");
+    return localStorage.getItem("learnify_name") || "";
 }
 
 /**
  * Returns current user's email
  */
 export function getCurrentUserEmail() {
-    return localStorage.getItem("learnify_email") || (getCurrentUserId() === "aditya" ? ADITYA_OFFICIAL_EMAIL : "");
+    return localStorage.getItem("learnify_email") || "";
 }
 
 /**
@@ -104,14 +106,26 @@ export function getCurrentUserPhoto() {
 export function isCurrentUserAditya() {
     const email = getCurrentUserEmail().toLowerCase().trim();
     const id = getCurrentUserId();
-    return email === ADITYA_OFFICIAL_EMAIL.toLowerCase() || id === "aditya";
+    return OWNER_EMAILS.includes(email) || id === "aditya";
+}
+
+/**
+ * Guards subpages: If user is not logged in, redirects immediately to index.html
+ */
+export function requireAuth() {
+    const user = getCurrentUserId();
+    if (!user) {
+        window.location.href = "index.html";
+        return false;
+    }
+    return true;
 }
 
 // Sync user profile with Firebase Realtime Database
 async function syncUserProfile(user, userKey) {
     if (!user || !userKey) return;
     try {
-        const isAditya = userKey === "aditya" || (user.email && user.email.toLowerCase() === ADITYA_OFFICIAL_EMAIL.toLowerCase());
+        const isAditya = userKey === "aditya" || (user.email && OWNER_EMAILS.includes(user.email.toLowerCase()));
         const userNodeRef = ref(db, `users/${userKey}`);
         
         if (isAditya) {
@@ -124,7 +138,7 @@ async function syncUserProfile(user, userKey) {
                 authPhoto: user.photoURL || "",
                 lastLoginAt: Date.now()
             });
-            console.log("Learnify: Aditya account verified. All precious data preserved under users/aditya.");
+            console.log("Learnify: Aditya master account verified.");
         } else {
             // Friend account: Check if user node exists; if not, initialize with default starting values
             const snap = await get(userNodeRef);
@@ -157,10 +171,12 @@ async function syncUserProfile(user, userKey) {
 }
 
 /**
- * Saves authenticated user details to localStorage for instant, synchronous multi-page access.
+ * Saves authenticated user details to localStorage for instant, synchronous access.
  */
 export function saveUserToLocalStorage(user, overrideKey = null) {
     const userKey = overrideKey || resolveUserKey(user);
+    if (!userKey) return null;
+
     const email = user ? (user.email || "") : "";
     const name = user ? (user.displayName || (user.email ? user.email.split("@")[0] : "Learner")) : "Learner";
     const photo = user ? (user.photoURL || "") : "";
@@ -197,6 +213,7 @@ try {
 
 /**
  * Triggers Google Sign In via Firebase Popup.
+ * ONLY Google Sign-In is allowed!
  */
 export async function signInWithGoogle() {
     try {
@@ -205,17 +222,20 @@ export async function signInWithGoogle() {
         const userKey = resolveUserKey(user);
         saveUserToLocalStorage(user, userKey);
         await syncUserProfile(user, userKey);
+        
+        // Hide modal if open
+        const modal = document.getElementById("learnify-auth-modal");
+        if (modal) modal.style.display = "none";
+
         showAuthNotification(`Signed in as ${user.displayName || user.email}!`, "success");
         return { user, userKey };
     } catch (error) {
         console.error("Learnify Google Sign-In error:", error);
         
-        // Check if provider is not yet enabled in Firebase Console or popup blocked
         if (error.code === 'auth/operation-not-allowed' || 
-            error.code === 'auth/configuration-not-found' ||
-            error.code === 'auth/popup-blocked') {
+            error.code === 'auth/configuration-not-found') {
             showFirebaseConfigModal(error);
-        } else {
+        } else if (error.code !== 'auth/popup-closed-by-user') {
             showAuthNotification(error.message || "Failed to sign in with Google", "error");
         }
         throw error;
@@ -223,7 +243,7 @@ export async function signInWithGoogle() {
 }
 
 /**
- * Signs out the currently authenticated user.
+ * Signs out the currently authenticated user and shows the compulsory sign-in gate.
  */
 export async function signOutUser() {
     try {
@@ -232,40 +252,12 @@ export async function signOutUser() {
         showAuthNotification("Signed out successfully", "info");
         setTimeout(() => {
             window.location.reload();
-        }, 600);
+        }, 500);
     } catch (error) {
         console.error("Learnify Sign-Out error:", error);
         clearUserLocalStorage();
         window.location.reload();
     }
-}
-
-/**
- * Simulates email sign in / switch account for testing or before Google provider is toggled in console.
- */
-export async function signInWithEmailDirect(email, displayName = null) {
-    if (!email || !email.includes("@")) {
-        alert("Please enter a valid email address.");
-        return;
-    }
-    const cleanEmail = email.toLowerCase().trim();
-    const isAditya = cleanEmail === ADITYA_OFFICIAL_EMAIL.toLowerCase();
-    const userKey = isAditya ? "aditya" : "user_" + cleanEmail.replace(/[^a-zA-Z0-9]/g, "_");
-    const name = displayName || (isAditya ? "Aditya Soni" : cleanEmail.split("@")[0]);
-
-    const fakeUser = {
-        email: cleanEmail,
-        displayName: name,
-        photoURL: isAditya ? "Learnify.png" : "",
-        uid: userKey
-    };
-
-    saveUserToLocalStorage(fakeUser, userKey);
-    await syncUserProfile(fakeUser, userKey);
-    showAuthNotification(`Welcome ${name}! (${userKey === "aditya" ? "Owner Account" : "Separate Friend Account"})`, "success");
-    setTimeout(() => {
-        window.location.reload();
-    }, 700);
 }
 
 /**
@@ -281,8 +273,7 @@ export function initAuthListener(onUserChanged) {
                 onUserChanged(user, userKey);
             }
         } else {
-            // No active Firebase Auth session detected.
-            // Check if user previously logged in via local session
+            // Not authenticated: clear cache if not verified
             const cachedKey = localStorage.getItem("learnify_user");
             if (typeof onUserChanged === 'function') {
                 onUserChanged(null, cachedKey || null);
@@ -301,12 +292,10 @@ export function renderHeaderAuthUI(containerElementOrId) {
         : containerElementOrId;
         
     if (!container) {
-        // Look for default header or header-actions
         container = document.querySelector(".header-actions") || document.querySelector("header");
     }
     if (!container) return;
 
-    // Check if auth badge already exists
     let authBox = document.getElementById("learnify-auth-badge");
     if (!authBox) {
         authBox = document.createElement("div");
@@ -331,7 +320,7 @@ export function updateHeaderAuthUI() {
     const photo = getCurrentUserPhoto();
     const userKey = getCurrentUserId();
     const isAditya = isCurrentUserAditya();
-    const isLoggedIn = !!localStorage.getItem("learnify_user");
+    const isLoggedIn = !!userKey;
 
     if (isLoggedIn) {
         const initial = name ? name.charAt(0).toUpperCase() : (isAditya ? "A" : "U");
@@ -370,14 +359,6 @@ export function updateHeaderAuthUI() {
                     <div class="auth-dropdown-storage">Key: <code>users/${userKey}</code></div>
                 </div>
                 <div class="auth-dropdown-divider"></div>
-                <button class="auth-dropdown-item" id="auth-btn-switch">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="8.5" cy="7" r="4"></circle>
-                        <polyline points="17 11 19 13 23 9"></polyline>
-                    </svg>
-                    Switch Account / Sign In
-                </button>
                 <button class="auth-dropdown-item auth-dropdown-signout" id="auth-btn-signout">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -412,11 +393,6 @@ export function updateHeaderAuthUI() {
             menu.onclick = (e) => e.stopPropagation();
         }
 
-        const switchBtn = document.getElementById("auth-btn-switch");
-        if (switchBtn) {
-            switchBtn.onclick = () => showSignInModal();
-        }
-
         const signoutBtn = document.getElementById("auth-btn-signout");
         if (signoutBtn) {
             signoutBtn.onclick = () => signOutUser();
@@ -438,15 +414,16 @@ export function updateHeaderAuthUI() {
 
         const loginBtn = document.getElementById("auth-google-login-btn");
         if (loginBtn) {
-            loginBtn.onclick = () => signInWithGoogle();
+            loginBtn.onclick = () => showCompulsorySignInModal();
         }
     }
 }
 
 /**
- * Displays the Sign In / Account Switch Modal.
+ * Displays the COMPULSORY Sign In Gate Modal.
+ * Only Google Sign-In is presented. Cannot be dismissed without signing in.
  */
-export function showSignInModal() {
+export function showCompulsorySignInModal() {
     let modal = document.getElementById("learnify-auth-modal");
     if (!modal) {
         modal = document.createElement("div");
@@ -456,12 +433,11 @@ export function showSignInModal() {
     }
 
     modal.innerHTML = `
-        <div class="learnify-auth-modal-card">
-            <button class="auth-modal-close" id="auth-modal-close-btn">&times;</button>
+        <div class="learnify-auth-modal-card compulsory-gate">
             <div class="auth-modal-header">
                 <img src="Learnify.png" alt="Logo" class="auth-modal-logo">
                 <h2>Welcome to Learnify</h2>
-                <p>Sign in to sync your progress, goals, study sessions and cars!</p>
+                <p>Sign in with your Google account to access your personalized workspace, classes, streak, and rewards.</p>
             </div>
 
             <div class="auth-modal-body">
@@ -473,19 +449,10 @@ export function showSignInModal() {
                         <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
                         <path fill="none" d="M0 0h48v48H0z"/>
                     </svg>
-                    <span>Sign in with Google Account</span>
+                    <span>Sign in with Google</span>
                 </button>
-
-                <div class="auth-divider"><span>OR SIGN IN BY EMAIL</span></div>
-
-                <div class="auth-email-form">
-                    <label>Google / Personal Email:</label>
-                    <input type="email" id="modal-email-input" placeholder="e.g. adityasonihyderabad@gmail.com" value="${getCurrentUserEmail()}">
-                    <div class="auth-hint">
-                        💡 <b>Aditya:</b> Use <code>adityasonihyderabad@gmail.com</code> to access all your existing progress & streak!<br>
-                        👥 <b>Friends:</b> Enter your email to get your own fresh, separate account.
-                    </div>
-                    <button class="auth-email-submit-btn" id="modal-email-submit-btn">Continue to Learnify</button>
+                <div class="auth-security-notice">
+                    🔒 Each user receives their own isolated account. Sign-in is required to access Learnify.
                 </div>
             </div>
         </div>
@@ -493,30 +460,34 @@ export function showSignInModal() {
 
     modal.style.display = "flex";
 
-    document.getElementById("auth-modal-close-btn").onclick = () => {
-        modal.style.display = "none";
-    };
-
-    document.getElementById("modal-google-signin-btn").onclick = async () => {
-        try {
-            await signInWithGoogle();
-            modal.style.display = "none";
-        } catch (e) {
-            // Error already logged and handled
-        }
-    };
-
-    document.getElementById("modal-email-submit-btn").onclick = () => {
-        const email = document.getElementById("modal-email-input").value;
-        if (email) {
-            signInWithEmailDirect(email);
-            modal.style.display = "none";
-        }
-    };
+    const googleBtn = document.getElementById("modal-google-signin-btn");
+    if (googleBtn) {
+        googleBtn.onclick = async () => {
+            try {
+                googleBtn.disabled = true;
+                googleBtn.style.opacity = "0.7";
+                googleBtn.innerHTML = `<span>Connecting to Google...</span>`;
+                await signInWithGoogle();
+            } catch (e) {
+                googleBtn.disabled = false;
+                googleBtn.style.opacity = "1";
+                googleBtn.innerHTML = `
+                    <svg class="google-icon" viewBox="0 0 48 48">
+                        <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                        <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                        <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                        <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+                        <path fill="none" d="M0 0h48v48H0z"/>
+                    </svg>
+                    <span>Sign in with Google</span>
+                `;
+            }
+        };
+    }
 }
 
 /**
- * Displays helpful guidance modal when Google provider needs to be toggled in Firebase Console.
+ * Displays guidance modal when Google provider needs to be toggled in Firebase Console.
  */
 function showFirebaseConfigModal(error) {
     let modal = document.getElementById("learnify-config-modal");
@@ -529,44 +500,31 @@ function showFirebaseConfigModal(error) {
 
     modal.innerHTML = `
         <div class="learnify-auth-modal-card" style="max-width: 540px;">
-            <button class="auth-modal-close" id="config-modal-close-btn">&times;</button>
             <div class="auth-modal-header">
                 <div style="font-size: 2.2rem; margin-bottom: 8px;">⚙️</div>
-                <h2>Enable Google Sign-In in Firebase</h2>
-                <p style="color: #ffb74d;">Firebase reported: <code>${error.code || error.message}</code></p>
+                <h2>Enable Google Sign-In in Firebase Console</h2>
+                <p style="color: #ffb74d;">Status: <code>${error.code || error.message}</code></p>
             </div>
 
-            <div class="auth-modal-body" style="font-size: 0.9rem; line-height: 1.5; color: #e0e0e0;">
-                <p>To enable 1-click Google Sign-In on your Firebase project (<b>learnify-ada08</b>):</p>
+            <div class="auth-modal-body" style="font-size: 0.9rem; line-height: 1.6; color: #e0e0e0;">
+                <p>Google Sign-In is required to enter Learnify. Please enable it in your Firebase project (<b>learnify-ada08</b>):</p>
                 <ol style="margin-left: 20px; margin-top: 10px; margin-bottom: 15px; display: flex; flex-direction: column; gap: 8px;">
-                    <li>Open <b><a href="https://console.firebase.google.com/project/learnify-ada08/authentication/providers" target="_blank" style="color:#00e5ff;">Firebase Console &rarr; Authentication &rarr; Sign-in method</a></b></li>
+                    <li>Open <b><a href="https://console.firebase.google.com/project/learnify-ada08/authentication/providers" target="_blank" style="color:#00e5ff; text-decoration:underline;">Firebase Console &rarr; Authentication &rarr; Sign-in method</a></b></li>
                     <li>Click <b>Add new provider &rarr; Google</b></li>
-                    <li>Toggle <b>Enable</b>, set support email to your email, and click <b>Save</b>.</li>
+                    <li>Toggle <b>Enable</b>, select project support email, and click <b>Save</b>.</li>
                 </ol>
-
-                <div class="auth-divider"><span>INSTANT ACCESS (WHILE YOU DO THAT)</span></div>
-
-                <div class="auth-email-form">
-                    <label>Enter email to login immediately:</label>
-                    <input type="email" id="config-modal-email" placeholder="adityasonihyderabad@gmail.com" value="${ADITYA_OFFICIAL_EMAIL}">
-                    <button class="auth-email-submit-btn" id="config-modal-submit">Login Directly with this Email</button>
-                </div>
+                <button class="auth-retry-btn" id="config-modal-retry">Retry Google Sign-In</button>
             </div>
         </div>
     `;
 
     modal.style.display = "flex";
 
-    document.getElementById("config-modal-close-btn").onclick = () => {
+    document.getElementById("config-modal-retry").onclick = async () => {
         modal.style.display = "none";
-    };
-
-    document.getElementById("config-modal-submit").onclick = () => {
-        const val = document.getElementById("config-modal-email").value;
-        if (val) {
-            signInWithEmailDirect(val);
-            modal.style.display = "none";
-        }
+        try {
+            await signInWithGoogle();
+        } catch (e) {}
     };
 }
 
@@ -791,8 +749,8 @@ function injectAuthStyles() {
             transform: translateY(-1px);
         }
         .google-icon {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             flex-shrink: 0;
         }
         .learnify-auth-modal-overlay {
@@ -801,9 +759,9 @@ function injectAuthStyles() {
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            z-index: 9999;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 99999;
             display: none;
             align-items: center;
             justify-content: center;
@@ -811,53 +769,40 @@ function injectAuthStyles() {
         }
         .learnify-auth-modal-card {
             background: #111827;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 24px;
             width: 100%;
             max-width: 440px;
-            padding: 28px;
+            padding: 36px 30px;
             position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8);
             color: #fff;
-            animation: modalPop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: modalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            text-align: center;
         }
         @keyframes modalPop {
-            from { opacity: 0; transform: scale(0.92); }
+            from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
-        .auth-modal-close {
-            position: absolute;
-            top: 16px;
-            right: 18px;
-            background: transparent;
-            border: none;
-            color: #9ca3af;
-            font-size: 24px;
-            cursor: pointer;
-            line-height: 1;
-        }
-        .auth-modal-close:hover {
-            color: #fff;
-        }
         .auth-modal-header {
-            text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         .auth-modal-logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 14px rgba(0, 229, 255, 0.4);
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 6px 20px rgba(0, 229, 255, 0.4);
         }
         .auth-modal-header h2 {
-            font-size: 1.4rem;
+            font-size: 1.55rem;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .auth-modal-header p {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #94a3b8;
+            line-height: 1.5;
         }
         .auth-google-large-btn {
             width: 100%;
@@ -868,83 +813,40 @@ function injectAuthStyles() {
             background: #fff;
             color: #1f2937;
             border: none;
-            padding: 12px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 0.95rem;
+            padding: 14px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
             transition: all 0.2s;
         }
         .auth-google-large-btn:hover {
-            background: #f3f4f6;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+            background: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
         }
-        .auth-divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            margin: 20px 0;
+        .auth-security-notice {
+            font-size: 0.78rem;
             color: #64748b;
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-        }
-        .auth-divider::before, .auth-divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .auth-divider span {
-            padding: 0 10px;
-        }
-        .auth-email-form {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .auth-email-form label {
-            font-size: 0.8rem;
-            color: #94a3b8;
-            font-weight: 500;
-        }
-        .auth-email-form input {
-            background: #1f2937;
-            border: 1px solid #374151;
-            border-radius: 10px;
-            padding: 10px 14px;
-            color: #fff;
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        .auth-email-form input:focus {
-            border-color: #00e5ff;
-        }
-        .auth-hint {
-            font-size: 0.75rem;
-            color: #9ca3af;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 8px 10px;
-            border-radius: 8px;
+            margin-top: 18px;
             line-height: 1.4;
-            margin: 4px 0 8px 0;
         }
-        .auth-email-submit-btn {
+        .auth-retry-btn {
+            width: 100%;
             background: linear-gradient(135deg, #00c6ff, #0072ff);
             color: #fff;
             border: none;
-            padding: 11px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
             cursor: pointer;
-            transition: opacity 0.2s, transform 0.2s;
+            margin-top: 15px;
+            transition: opacity 0.2s;
         }
-        .auth-email-submit-btn:hover {
-            opacity: 0.95;
-            transform: translateY(-1px);
+        .auth-retry-btn:hover {
+            opacity: 0.9;
         }
         .learnify-auth-toast {
             position: fixed;
@@ -956,7 +858,7 @@ function injectAuthStyles() {
             font-size: 0.88rem;
             font-weight: 600;
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-            z-index: 10000;
+            z-index: 100000;
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -979,9 +881,9 @@ window.LearnifyAuth = {
     resolveUserKey,
     signInWithGoogle,
     signOutUser,
-    signInWithEmailDirect,
-    showSignInModal,
+    showCompulsorySignInModal,
     renderHeaderAuthUI,
     updateHeaderAuthUI,
-    initAuthListener
+    initAuthListener,
+    requireAuth
 };

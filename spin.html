@@ -131,7 +131,7 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+    const currentUserId = localStorage.getItem("learnify_user"); if (!currentUserId) { window.location.href = "index.html"; }
     const balanceRef = ref(db, "users/" + currentUserId + "/balance");
     const dgmRef = ref(db, "users/" + currentUserId + "/dgm");
     const loansRef = ref(db, "users/" + currentUserId + "/loans");

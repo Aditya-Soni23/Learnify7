@@ -247,7 +247,8 @@
       db, 
       getCurrentUserId, 
       renderHeaderAuthUI, 
-      initAuthListener 
+      initAuthListener,
+      showCompulsorySignInModal 
     } from "./auth.js";
 
     // Render modern Google Firebase Auth UI in header
@@ -258,7 +259,24 @@
     let userUnsub = null;
     let goodbyeUnsub = null;
 
+    function resetDashboardToZero() {
+      if (userUnsub) { userUnsub(); userUnsub = null; }
+      if (goodbyeUnsub) { goodbyeUnsub(); goodbyeUnsub = null; }
+      const balEl = document.getElementById("balance");
+      const streakEl = document.getElementById("streak");
+      const pctEl = document.getElementById("goodbye-dash-pct");
+      const barEl = document.getElementById("goodbye-dash-bar");
+      if (balEl) balEl.innerText = "0";
+      if (streakEl) streakEl.innerText = "0";
+      if (pctEl) pctEl.innerText = "0%";
+      if (barEl) barEl.style.width = "0%";
+    }
+
     function subscribeUserData(userKey) {
+      if (!userKey) {
+        resetDashboardToZero();
+        return;
+      }
       if (userUnsub) userUnsub();
       if (goodbyeUnsub) goodbyeUnsub();
 
@@ -321,7 +339,6 @@
             }
           }
         } else {
-          console.log("New user node, setting defaults...");
           set(userRef, { balance: 0, streak: 0 });
           document.getElementById("balance").innerText = 0;
           document.getElementById("streak").innerText = 0;
@@ -329,19 +346,34 @@
       });
     }
 
-    // Subscribe immediately for current active user
-    subscribeUserData(activeUserKey);
+    if (!activeUserKey) {
+      // Default user: Never show Aditya's data. Require sign in!
+      resetDashboardToZero();
+      showCompulsorySignInModal();
+    } else {
+      subscribeUserData(activeUserKey);
+    }
 
-    // Re-subscribe whenever user signs in with Google or switches account
+    // Auth listener:
     initAuthListener((user, userKey) => {
-      if (userKey && userKey !== activeUserKey) {
-        activeUserKey = userKey;
-        subscribeUserData(activeUserKey);
+      if (user && userKey) {
+        const modal = document.getElementById("learnify-auth-modal");
+        if (modal) modal.style.display = "none";
+
+        if (userKey !== activeUserKey) {
+          activeUserKey = userKey;
+          subscribeUserData(activeUserKey);
+        }
+      } else {
+        activeUserKey = null;
+        resetDashboardToZero();
+        showCompulsorySignInModal();
       }
     });
 
     // Function to update streak when daily goal completed
     window.completeDailyGoal = function() {
+      if (!activeUserKey) return;
       const activeRef = ref(db, `users/${activeUserKey}`);
       update(activeRef, {
         balance: (parseInt(document.getElementById("balance").innerText) || 0) + 100,

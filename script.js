@@ -72,8 +72,11 @@ window.openApp = (appKey) => {
 const rocketsRef = ref(db, 'user/rockets');
 const plannerRef = ref(db, 'user/diamond_planner');
 const todoRef = ref(db, 'user/todo_list');
-const currentUserId = localStorage.getItem('learnify_user') || 'aditya';
-const learnifyBalanceRef = ref(dbLearnify, 'users/' + currentUserId + '/balance');
+const currentUserId = localStorage.getItem("learnify_user");
+if (!currentUserId) {
+    window.location.href = "index.html";
+}
+const learnifyBalanceRef = currentUserId ? ref(dbLearnify, 'users/' + currentUserId + '/balance') : null;
 
 let dpTasks = [];
 let currentPage = 0;

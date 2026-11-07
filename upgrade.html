@@ -241,7 +241,7 @@
 
         // LOGIC: Check Requirements
         document.getElementById('upgradeAction').addEventListener('click', function() {
-            const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+            const currentUserId = localStorage.getItem("learnify_user"); if (!currentUserId) { window.location.href = "index.html"; }
             const userPath = db.ref('users/' + currentUserId);
             
             userPath.once('value').then((snapshot) => {

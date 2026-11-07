@@ -935,7 +935,7 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+    const currentUserId = localStorage.getItem("learnify_user"); if (!currentUserId) { window.location.href = "index.html"; }
     const userRef = ref(db, "users/" + currentUserId);
 
     let currentUserData = null;

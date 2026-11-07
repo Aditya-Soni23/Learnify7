@@ -37,7 +37,7 @@ function formatStudyDate(dateString) {
  */
 async function loadStudyData() {
     try {
-        const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+        const currentUserId = localStorage.getItem("learnify_user"); if (!currentUserId) { return; }
         const studyRef = ref(db, "users/" + currentUserId + "/studySessions");
         const snapshot = await get(studyRef);
 

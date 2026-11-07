@@ -129,7 +129,7 @@
 
   const maxCoins = 100; // FULL JAR at 100 coins
 
-  const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+  const currentUserId = localStorage.getItem("learnify_user"); if (!currentUserId) { window.location.href = "index.html"; }
   const balanceRef = ref(db, "users/" + currentUserId + "/balance");
 
   onValue(balanceRef, (snapshot) => {

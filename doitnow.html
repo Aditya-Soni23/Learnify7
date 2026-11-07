@@ -172,7 +172,7 @@
   const coinSound = document.getElementById("coinSound");
 
   // Live Topbar Updates
-  const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+  const currentUserId = localStorage.getItem("learnify_user"); if (!currentUserId) { window.location.href = "index.html"; }
   const userRef = ref(db, "users/" + currentUserId);
   onValue(userRef, snap => {
     let v = snap.val() || {};
