@@ -241,7 +241,8 @@
 
         // LOGIC: Check Requirements
         document.getElementById('upgradeAction').addEventListener('click', function() {
-            const userPath = db.ref('users/aditya');
+            const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+            const userPath = db.ref('users/' + currentUserId);
             
             userPath.once('value').then((snapshot) => {
                 const data = snapshot.val();

@@ -172,7 +172,8 @@
   const coinSound = document.getElementById("coinSound");
 
   // Live Topbar Updates
-  const userRef = ref(db, "users/aditya");
+  const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+  const userRef = ref(db, "users/" + currentUserId);
   onValue(userRef, snap => {
     let v = snap.val() || {};
     document.getElementById("balanceDisplay").textContent = v.balance || 0;

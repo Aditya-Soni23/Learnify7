@@ -1,0 +1,7708 @@
+{
+  "balance": 23886,
+  "capsule": 2000,
+  "capsuleAutoWithdraw": true,
+  "capsules": 2000,
+  "car": {
+    "damaged": false,
+    "fuel": 96.93105902777786,
+    "lastUpdate": 1794070759577
+  },
+  "decay": {
+    "enabled": true,
+    "lastFeedTime": 1794070759577,
+    "logs": [
+      {
+        "text": "⛽ Car autofed 10L for 150 coins. Fuel restored to 96.9L.",
+        "time": 1794070759577,
+        "type": "car-autofeed"
+      },
+      {
+        "text": "🚅 Train autofed 10kW for 100 coins. Electricity restored to 96.9kW.",
+        "time": 1794070759577,
+        "type": "train-autofeed"
+      },
+      {
+        "text": "⛽ Car autofed 10L for 150 coins. Fuel restored to 97.8L.",
+        "time": 1794039515496,
+        "type": "car-autofeed"
+      },
+      {
+        "text": "🚅 Train autofed 10kW for 100 coins. Electricity restored to 97.8kW.",
+        "time": 1794039515496,
+        "type": "train-autofeed"
+      },
+      {
+        "text": "⛽ Car autofed 10L for 150 coins. Fuel restored to 90.8L.",
+        "time": 1794030777173,
+        "type": "car-autofeed"
+      },
+      {
+        "text": "🚅 Train autofed 10kW for 100 coins. Electricity restored to 90.8kW.",
+        "time": 1794030777173,
+        "type": "train-autofeed"
+      },
+      {
+        "text": "⛽ Car autofed 30L for 450 coins. Fuel restored to 97.9L.",
+        "time": 1793981460132,
+        "type": "car-autofeed"
+      },
+      {
+        "text": "🚅 Train autofed 30kW for 300 coins. Electricity restored to 97.9kW.",
+        "time": 1793981460132,
+        "type": "train-autofeed"
+      },
+      {
+        "text": "⛽ Car autofed 10L for 150 coins. Fuel restored to 95.8L.",
+        "time": 1793901210507,
+        "type": "car-autofeed"
+      },
+      {
+        "text": "🚅 Train autofed 10kW for 100 coins. Electricity restored to 95.8kW.",
+        "time": 1793901210507,
+        "type": "train-autofeed"
+      },
+      {
+        "text": "⛽ Car autofed 20L for 300 coins. Fuel restored to 91.3L.",
+        "time": 1793885369629,
+        "type": "car-autofeed"
+      },
+      {
+        "text": "🚅 Train autofed 20kW for 200 coins. Electricity restored to 91.3kW.",
+        "time": 1793885369629,
+        "type": "train-autofeed"
+      },
+      {
+        "text": "⛽ Car autofed 30L for 450 coins. Fuel restored to 97.3L.",
+        "time": 1793810523459,
+        "type": "car-autofeed"
+      },
+      {
+        "text": "🚅 Train autofed 30kW for 300 coins. Electricity restored to 97.3kW.",
+        "time": 1793810523459,
+        "type": "train-autofeed"
+      },
+      {
+        "text": "💰 Deposited 11000 coins from Main Balance to Decay Wallet.",
+        "time": 1793729666295,
+        "type": "wallet"
+      },
+      {
+        "text": "📤 Withdrew 250 coins from Decay Wallet to Main Balance.",
+        "time": 1793729657269,
+        "type": "wallet"
+      },
+      {
+        "text": "⛽ Car autofed 10L for 150 coins. Fuel restored to 95.8L.",
+        "time": 1793728279675,
+        "type": "car-autofeed"
+      },
+      {
+        "text": "🚅 Train autofed 10kW for 100 coins. Electricity restored to 95.8kW.",
+        "time": 1793728279675,
+        "type": "train-autofeed"
+      },
+      {
+        "text": "💰 Deposited 500 coins from Main Balance to Decay Wallet.",
+        "time": 1793728244413,
+        "type": "wallet"
+      }
+    ],
+    "wallet": 8000
+  },
+  "decayWallet": 8000,
+  "dgm": 9819,
+  "goodbye": {
+    "lastUpdated": 1794072636129,
+    "rewardedTopics": {
+      "chem_u01_01": true,
+      "chem_u01_02": true,
+      "chem_u01_03": true,
+      "chem_u01_04": true,
+      "chem_u01_05": true,
+      "chem_u01_06": true,
+      "chem_u01_07": true,
+      "chem_u01_08": true,
+      "chem_u01_09": true,
+      "chem_u02_01": true,
+      "chem_u02_02": true,
+      "chem_u02_03": true,
+      "chem_u02_04": true,
+      "chem_u02_05": true,
+      "chem_u02_06": true,
+      "chem_u02_07": true,
+      "chem_u02_08": true,
+      "chem_u02_09": true,
+      "chem_u02_10": true,
+      "chem_u02_11": true,
+      "chem_u02_12": true,
+      "chem_u05_01": true,
+      "chem_u05_02": true,
+      "chem_u06_01": true,
+      "chem_u06_02": true,
+      "chem_u06_03": true,
+      "chem_u07_01": true,
+      "chem_u07_02": true,
+      "chem_u09_01": true,
+      "chem_u09_02": true,
+      "chem_u10_01": true,
+      "chem_u11_01": true,
+      "chem_u14_03": true,
+      "chem_u14_04": true,
+      "chem_u19_01": true,
+      "chem_u19_02": true,
+      "chem_u19_04": true,
+      "chem_u19_05": true,
+      "chem_u19_06": true,
+      "chem_u19_07": true,
+      "chem_u19_12": true,
+      "chem_u19_14": true,
+      "chem_u19_15": true,
+      "chem_u19_16": true,
+      "chem_u19_17": true,
+      "math_u01_01": true,
+      "math_u01_02": true,
+      "math_u01_03": true,
+      "math_u01_05": true,
+      "math_u01_06": true,
+      "math_u01_07": true,
+      "math_u01_08": true,
+      "math_u01_09": true,
+      "math_u01_10": true,
+      "math_u02_01": true,
+      "math_u02_02": true,
+      "math_u02_03": true,
+      "math_u02_04": true,
+      "math_u02_05": true,
+      "math_u03_01": true,
+      "math_u03_02": true,
+      "math_u03_03": true,
+      "math_u06_01": true,
+      "math_u06_02": true,
+      "math_u06_03": true,
+      "math_u06_04": true,
+      "math_u06_05": true,
+      "math_u06_06": true,
+      "math_u06_07": true,
+      "math_u08_01": true,
+      "math_u08_02": true,
+      "math_u08_03": true,
+      "math_u08_04": true,
+      "math_u08_05": true,
+      "math_u08_06": true,
+      "math_u08_07": true,
+      "math_u08_08": true,
+      "math_u08_09": true,
+      "math_u09_01": true,
+      "math_u09_02": true,
+      "math_u09_03": true,
+      "math_u09_04": true,
+      "math_u09_05": true,
+      "math_u09_06": true,
+      "math_u09_07": true,
+      "math_u09_08": true,
+      "math_u09_09": true,
+      "math_u10_02": true,
+      "math_u11_01": true,
+      "math_u12_01": true,
+      "math_u12_02": true,
+      "math_u12_03": true,
+      "math_u12_04": true,
+      "math_u12_05": true,
+      "math_u12_06": true,
+      "math_u12_07": true,
+      "math_u12_08": true,
+      "math_u12_09": true,
+      "math_u12_10": true,
+      "math_u12_11": true,
+      "math_u12_12": true,
+      "math_u13_01": true,
+      "math_u13_11": true,
+      "math_u13_12": true,
+      "math_u14_01": true,
+      "phy_u01_01": true,
+      "phy_u01_02": true,
+      "phy_u01_03": true,
+      "phy_u01_04": true,
+      "phy_u01_05": true,
+      "phy_u01_06": true,
+      "phy_u01_07": true,
+      "phy_u01_08": true,
+      "phy_u01_09": true,
+      "phy_u02_01": true,
+      "phy_u02_02": true,
+      "phy_u02_03": true,
+      "phy_u02_04": true,
+      "phy_u02_05": true,
+      "phy_u02_06": true,
+      "phy_u02_07": true,
+      "phy_u02_08": true,
+      "phy_u02_09": true,
+      "phy_u02_10": true,
+      "phy_u02_11": true,
+      "phy_u03_01": true,
+      "phy_u03_02": true,
+      "phy_u03_03": true,
+      "phy_u03_04": true,
+      "phy_u03_05": true,
+      "phy_u03_06": true,
+      "phy_u03_07": true,
+      "phy_u04_01": true,
+      "phy_u04_02": true,
+      "phy_u04_03": true,
+      "phy_u05_01": true,
+      "phy_u05_02": true,
+      "phy_u05_03": true,
+      "phy_u05_04": true,
+      "phy_u05_05": true,
+      "phy_u05_06": true,
+      "phy_u05_07": true,
+      "phy_u05_08": true,
+      "phy_u05_09": true,
+      "phy_u06_01": true,
+      "phy_u06_02": true,
+      "phy_u06_03": true,
+      "phy_u06_04": true,
+      "phy_u06_06": true,
+      "phy_u06_07": true,
+      "phy_u06_08": true,
+      "phy_u06_09": true,
+      "phy_u07_05": true,
+      "phy_u07_09": true,
+      "phy_u07_10": true,
+      "phy_u07_11": true,
+      "phy_u07_14": true,
+      "phy_u09_01": true,
+      "phy_u09_02": true,
+      "phy_u09_05": true,
+      "phy_u09_10": true,
+      "phy_u11_01": true,
+      "phy_u11_02": true,
+      "phy_u11_04": true,
+      "phy_u11_07": true,
+      "phy_u11_08": true,
+      "phy_u11_09": true,
+      "phy_u11_11": true,
+      "phy_u11_15": true,
+      "phy_u11_16": true,
+      "phy_u11_17": true,
+      "phy_u11_18": true,
+      "phy_u12_02": true,
+      "phy_u12_03": true,
+      "phy_u12_04": true,
+      "phy_u12_05": true,
+      "phy_u12_06": true,
+      "phy_u12_08": true,
+      "phy_u12_09": true,
+      "phy_u12_10": true,
+      "phy_u12_11": true,
+      "phy_u13_01": true,
+      "phy_u13_02": true,
+      "phy_u13_03": true,
+      "phy_u13_04": true,
+      "phy_u13_05": true,
+      "phy_u13_07": true,
+      "phy_u13_08": true,
+      "phy_u13_11": true,
+      "phy_u13_16": true,
+      "phy_u13_17": true,
+      "phy_u14_01": true,
+      "phy_u14_02": true,
+      "phy_u14_03": true,
+      "phy_u14_07": true,
+      "phy_u14_08": true,
+      "phy_u14_09": true,
+      "phy_u14_10": true,
+      "phy_u14_11": true,
+      "phy_u14_12": true,
+      "phy_u14_13": true,
+      "phy_u14_14": true,
+      "phy_u15_01": true,
+      "phy_u15_02": true,
+      "phy_u15_03": true,
+      "phy_u15_04": true,
+      "phy_u15_05": true,
+      "phy_u15_06": true,
+      "phy_u15_07": true,
+      "phy_u16_01": true,
+      "phy_u16_02": true,
+      "phy_u16_17": true,
+      "phy_u17_01": true,
+      "phy_u17_02": true,
+      "phy_u17_04": true,
+      "phy_u17_05": true,
+      "phy_u17_07": true,
+      "phy_u17_08": true,
+      "phy_u18_01": true,
+      "phy_u18_03": true,
+      "phy_u18_05": true,
+      "phy_u18_06": true,
+      "phy_u18_07": true,
+      "phy_u18_08": true,
+      "phy_u19_01": true,
+      "phy_u19_02": true,
+      "phy_u19_03": true,
+      "phy_u19_04": true,
+      "phy_u19_05": true,
+      "phy_u19_06": true,
+      "phy_u19_07": true,
+      "phy_u19_08": true,
+      "phy_u19_09": true,
+      "phy_u19_10": true,
+      "phy_u19_11": true,
+      "phy_u19_12": true,
+      "phy_u19_13": true,
+      "phy_u19_14": true,
+      "phy_u20_01": true,
+      "phy_u20_02": true,
+      "phy_u20_04": true,
+      "phy_u20_10": true,
+      "phy_u20_11": true,
+      "phy_u20_16": true,
+      "phy_u20_17": true,
+      "phy_u20_18": true
+    },
+    "subjects": {
+      "chemistry": {
+        "chapters": {
+          "chem_u01": {
+            "topics": {
+              "chem_u01_01": true,
+              "chem_u01_02": true,
+              "chem_u01_03": true,
+              "chem_u01_04": true,
+              "chem_u01_05": true,
+              "chem_u01_06": true,
+              "chem_u01_07": true,
+              "chem_u01_08": true,
+              "chem_u01_09": true
+            }
+          },
+          "chem_u02": {
+            "topics": {
+              "chem_u02_01": true,
+              "chem_u02_02": true,
+              "chem_u02_03": true,
+              "chem_u02_04": true,
+              "chem_u02_05": true,
+              "chem_u02_06": true,
+              "chem_u02_07": true,
+              "chem_u02_08": true,
+              "chem_u02_09": true,
+              "chem_u02_10": true,
+              "chem_u02_11": true,
+              "chem_u02_12": true
+            }
+          },
+          "chem_u05": {
+            "topics": {
+              "chem_u05_01": true,
+              "chem_u05_02": true
+            }
+          },
+          "chem_u06": {
+            "topics": {
+              "chem_u06_01": true,
+              "chem_u06_02": true,
+              "chem_u06_03": true
+            }
+          },
+          "chem_u07": {
+            "topics": {
+              "chem_u07_01": true,
+              "chem_u07_02": true
+            }
+          },
+          "chem_u09": {
+            "topics": {
+              "chem_u09_01": true,
+              "chem_u09_02": true
+            }
+          },
+          "chem_u10": {
+            "topics": {
+              "chem_u10_01": true
+            }
+          },
+          "chem_u11": {
+            "topics": {
+              "chem_u11_01": true
+            }
+          },
+          "chem_u14": {
+            "topics": {
+              "chem_u14_03": true,
+              "chem_u14_04": true
+            }
+          },
+          "chem_u19": {
+            "topics": {
+              "chem_u19_01": true,
+              "chem_u19_02": true,
+              "chem_u19_04": true,
+              "chem_u19_05": true,
+              "chem_u19_06": true,
+              "chem_u19_07": true,
+              "chem_u19_12": true,
+              "chem_u19_14": true,
+              "chem_u19_15": true,
+              "chem_u19_16": true,
+              "chem_u19_17": true
+            }
+          }
+        }
+      },
+      "mathematics": {
+        "chapters": {
+          "math_u01": {
+            "topics": {
+              "math_u01_01": true,
+              "math_u01_02": true,
+              "math_u01_03": true,
+              "math_u01_05": true,
+              "math_u01_06": true,
+              "math_u01_07": true,
+              "math_u01_08": true,
+              "math_u01_09": true,
+              "math_u01_10": true
+            }
+          },
+          "math_u02": {
+            "topics": {
+              "math_u02_01": true,
+              "math_u02_02": true,
+              "math_u02_03": true,
+              "math_u02_04": true,
+              "math_u02_05": true
+            }
+          },
+          "math_u03": {
+            "topics": {
+              "math_u03_01": true,
+              "math_u03_02": true,
+              "math_u03_03": true
+            }
+          },
+          "math_u06": {
+            "topics": {
+              "math_u06_01": true,
+              "math_u06_02": true,
+              "math_u06_03": true,
+              "math_u06_04": true,
+              "math_u06_05": true,
+              "math_u06_06": true,
+              "math_u06_07": true
+            }
+          },
+          "math_u08": {
+            "topics": {
+              "math_u08_01": true,
+              "math_u08_02": true,
+              "math_u08_03": true,
+              "math_u08_04": true,
+              "math_u08_05": true,
+              "math_u08_06": true,
+              "math_u08_07": true,
+              "math_u08_08": true,
+              "math_u08_09": true
+            }
+          },
+          "math_u09": {
+            "topics": {
+              "math_u09_01": true,
+              "math_u09_02": true,
+              "math_u09_03": true,
+              "math_u09_04": true,
+              "math_u09_05": true,
+              "math_u09_06": true,
+              "math_u09_07": true,
+              "math_u09_08": true,
+              "math_u09_09": true
+            }
+          },
+          "math_u10": {
+            "topics": {
+              "math_u10_02": true
+            }
+          },
+          "math_u11": {
+            "topics": {
+              "math_u11_01": true
+            }
+          },
+          "math_u12": {
+            "topics": {
+              "math_u12_01": true,
+              "math_u12_02": true,
+              "math_u12_03": true,
+              "math_u12_04": true,
+              "math_u12_05": true,
+              "math_u12_06": true,
+              "math_u12_07": true,
+              "math_u12_08": true,
+              "math_u12_09": true,
+              "math_u12_10": true,
+              "math_u12_11": true,
+              "math_u12_12": true
+            }
+          },
+          "math_u13": {
+            "topics": {
+              "math_u13_01": true,
+              "math_u13_11": true,
+              "math_u13_12": true
+            }
+          },
+          "math_u14": {
+            "topics": {
+              "math_u14_01": true
+            }
+          }
+        }
+      },
+      "physics": {
+        "chapters": {
+          "phy_u01": {
+            "topics": {
+              "phy_u01_01": true,
+              "phy_u01_02": true,
+              "phy_u01_03": true,
+              "phy_u01_04": true,
+              "phy_u01_05": true,
+              "phy_u01_06": true,
+              "phy_u01_07": true,
+              "phy_u01_08": true,
+              "phy_u01_09": true
+            }
+          },
+          "phy_u02": {
+            "topics": {
+              "phy_u02_01": true,
+              "phy_u02_02": true,
+              "phy_u02_03": true,
+              "phy_u02_04": true,
+              "phy_u02_05": true,
+              "phy_u02_06": true,
+              "phy_u02_07": true,
+              "phy_u02_08": true,
+              "phy_u02_09": true,
+              "phy_u02_10": true,
+              "phy_u02_11": true
+            }
+          },
+          "phy_u03": {
+            "topics": {
+              "phy_u03_01": true,
+              "phy_u03_02": true,
+              "phy_u03_03": true,
+              "phy_u03_04": true,
+              "phy_u03_05": true,
+              "phy_u03_06": true,
+              "phy_u03_07": true
+            }
+          },
+          "phy_u04": {
+            "topics": {
+              "phy_u04_01": true,
+              "phy_u04_02": true,
+              "phy_u04_03": true
+            }
+          },
+          "phy_u05": {
+            "topics": {
+              "phy_u05_01": true,
+              "phy_u05_02": true,
+              "phy_u05_03": true,
+              "phy_u05_04": true,
+              "phy_u05_05": true,
+              "phy_u05_06": true,
+              "phy_u05_07": true,
+              "phy_u05_08": true,
+              "phy_u05_09": true
+            }
+          },
+          "phy_u06": {
+            "topics": {
+              "phy_u06_01": true,
+              "phy_u06_02": true,
+              "phy_u06_03": true,
+              "phy_u06_04": true,
+              "phy_u06_06": true,
+              "phy_u06_07": true,
+              "phy_u06_08": true,
+              "phy_u06_09": true
+            }
+          },
+          "phy_u07": {
+            "topics": {
+              "phy_u07_05": true,
+              "phy_u07_09": true,
+              "phy_u07_10": true,
+              "phy_u07_11": true,
+              "phy_u07_14": true
+            }
+          },
+          "phy_u09": {
+            "topics": {
+              "phy_u09_01": true,
+              "phy_u09_02": true,
+              "phy_u09_05": true,
+              "phy_u09_10": true
+            }
+          },
+          "phy_u11": {
+            "topics": {
+              "phy_u11_01": true,
+              "phy_u11_02": true,
+              "phy_u11_04": true,
+              "phy_u11_07": true,
+              "phy_u11_08": true,
+              "phy_u11_09": true,
+              "phy_u11_11": true,
+              "phy_u11_15": true,
+              "phy_u11_16": true,
+              "phy_u11_17": true,
+              "phy_u11_18": true
+            }
+          },
+          "phy_u12": {
+            "topics": {
+              "phy_u12_02": true,
+              "phy_u12_03": true,
+              "phy_u12_04": true,
+              "phy_u12_05": true,
+              "phy_u12_06": true,
+              "phy_u12_08": true,
+              "phy_u12_09": true,
+              "phy_u12_10": true,
+              "phy_u12_11": true
+            }
+          },
+          "phy_u13": {
+            "topics": {
+              "phy_u13_01": true,
+              "phy_u13_02": true,
+              "phy_u13_03": true,
+              "phy_u13_04": true,
+              "phy_u13_05": true,
+              "phy_u13_07": true,
+              "phy_u13_08": true,
+              "phy_u13_11": true,
+              "phy_u13_16": true,
+              "phy_u13_17": true
+            }
+          },
+          "phy_u14": {
+            "topics": {
+              "phy_u14_01": true,
+              "phy_u14_02": true,
+              "phy_u14_03": true,
+              "phy_u14_07": true,
+              "phy_u14_08": true,
+              "phy_u14_09": true,
+              "phy_u14_10": true,
+              "phy_u14_11": true,
+              "phy_u14_12": true,
+              "phy_u14_13": true,
+              "phy_u14_14": true
+            }
+          },
+          "phy_u15": {
+            "topics": {
+              "phy_u15_01": true,
+              "phy_u15_02": true,
+              "phy_u15_03": true,
+              "phy_u15_04": true,
+              "phy_u15_05": true,
+              "phy_u15_06": true,
+              "phy_u15_07": true
+            }
+          },
+          "phy_u16": {
+            "topics": {
+              "phy_u16_01": true,
+              "phy_u16_02": true,
+              "phy_u16_17": true
+            }
+          },
+          "phy_u17": {
+            "topics": {
+              "phy_u17_01": true,
+              "phy_u17_02": true,
+              "phy_u17_04": true,
+              "phy_u17_05": true,
+              "phy_u17_07": true,
+              "phy_u17_08": true
+            }
+          },
+          "phy_u18": {
+            "topics": {
+              "phy_u18_01": true,
+              "phy_u18_03": true,
+              "phy_u18_05": true,
+              "phy_u18_06": true,
+              "phy_u18_07": true,
+              "phy_u18_08": true
+            }
+          },
+          "phy_u19": {
+            "topics": {
+              "phy_u19_01": true,
+              "phy_u19_02": true,
+              "phy_u19_03": true,
+              "phy_u19_04": true,
+              "phy_u19_05": true,
+              "phy_u19_06": true,
+              "phy_u19_07": true,
+              "phy_u19_08": true,
+              "phy_u19_09": true,
+              "phy_u19_10": true,
+              "phy_u19_11": true,
+              "phy_u19_12": true,
+              "phy_u19_13": true,
+              "phy_u19_14": true
+            }
+          },
+          "phy_u20": {
+            "topics": {
+              "phy_u20_01": true,
+              "phy_u20_02": true,
+              "phy_u20_04": true,
+              "phy_u20_10": true,
+              "phy_u20_11": true,
+              "phy_u20_16": true,
+              "phy_u20_17": true,
+              "phy_u20_18": true
+            }
+          }
+        }
+      }
+    },
+    "syllabusVersion": "jee-main-2027"
+  },
+  "lastUpdated": 1793731431920,
+  "ownedAgents": [
+    "Waylay",
+    "Veto",
+    "Tejo",
+    "Vyse",
+    "Clove",
+    "Iso",
+    "Deadlock",
+    "Gekko",
+    "Harbor",
+    "Fade",
+    "Neon",
+    "Chamber",
+    "KAY/O",
+    "Astra",
+    "Yoru",
+    "Skye",
+    "Breach",
+    "Raze",
+    "Reyna",
+    "Jett",
+    "Phoenix",
+    "Sage",
+    "Sova",
+    "Cypher",
+    "Killjoy",
+    "Omen",
+    "Viper",
+    "Brimstone"
+  ],
+  "ownedCars": {
+    "car1": true,
+    "car2": true,
+    "car3": true,
+    "car4": true,
+    "car5": true,
+    "car6": true,
+    "car7": true,
+    "car8": true
+  },
+  "shopPurchases": {
+    "-OpC-ZDxuF4ZbSoxn4mg": {
+      "cost": 900,
+      "date": "4/2/2026, 12:34:47 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpC4jGf_xQCi3yc6qRA": {
+      "cost": 1800,
+      "date": "4/2/2026, 12:57:23 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpC6uH3KKIQW5BLSt8w": {
+      "cost": 900,
+      "date": "4/2/2026, 1:06:52 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpC8Pwbd96bJe0-Iybm": {
+      "cost": 900,
+      "date": "4/2/2026, 1:13:28 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpCCbS4aYfYCT76CKZt": {
+      "cost": 900,
+      "date": "4/2/2026, 1:31:48 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpCCcIicJIwKvQ_Kf7L": {
+      "cost": 900,
+      "date": "4/2/2026, 1:31:51 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpCEiyXJ1rYZX04uWJ3": {
+      "cost": 900,
+      "date": "4/2/2026, 1:41:03 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpCGDY26PjCRmxSs6bx": {
+      "cost": 300,
+      "date": "4/2/2026, 1:47:34 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OpDE97hQL9-qC7JHFbH": {
+      "cost": 1800,
+      "date": "4/2/2026, 6:18:09 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpDE9h4ft0rEPWCmBD4": {
+      "cost": 1800,
+      "date": "4/2/2026, 6:18:11 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpDEBS3uzniGcF0SigX": {
+      "cost": 900,
+      "date": "4/2/2026, 6:18:19 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpDXRFeZLP8yO-6Qq8K": {
+      "cost": 300,
+      "date": "4/2/2026, 7:42:24 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OpFWdMIeqYg4F1awEvA": {
+      "cost": 300,
+      "date": "4/3/2026, 4:58:10 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OpFjgtrVhjlBvh5JaAS": {
+      "cost": 300,
+      "date": "3/4/2026, 5:59:34 am",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OpH-HKS2_jpwh8ahRw7": {
+      "cost": 800,
+      "date": "4/3/2026, 11:51:39 AM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OpH-I64Kw0UfEF1Cxnc": {
+      "cost": 500,
+      "date": "4/3/2026, 11:51:43 AM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OpH-U5LA-hjuOAfedG6": {
+      "cost": 1800,
+      "date": "4/3/2026, 11:52:32 AM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpHPiHWsRGqFuT_H4G7": {
+      "cost": 1700,
+      "date": "4/3/2026, 1:47:10 PM",
+      "item": "🎮 60 Min Game"
+    },
+    "-OpHPlHN9KSUxgvBEaBE": {
+      "cost": 1800,
+      "date": "4/3/2026, 1:47:22 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpHPlwJDJilgPcJnFsc": {
+      "cost": 1800,
+      "date": "4/3/2026, 1:47:25 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpHZwDrbp-vaIumqTqE": {
+      "cost": 900,
+      "date": "4/3/2026, 2:31:48 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpHq3zuPDxv70FX3NzG": {
+      "cost": 800,
+      "date": "4/3/2026, 3:46:40 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OpICRQwMqTyZsX47BL7": {
+      "cost": 1800,
+      "date": "4/3/2026, 5:28:46 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpIXykorEXHFqaIXpqD": {
+      "cost": 500,
+      "date": "3/4/2026, 7:02:52 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OpIXzPEKZg_B94NS-rk": {
+      "cost": 500,
+      "date": "3/4/2026, 7:02:55 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OpJ4tICPS5AcmPsKhoV": {
+      "cost": 400,
+      "date": "3/4/2026, 9:35:25 pm",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OpJ4uBRacdIO64iy6j6": {
+      "cost": 800,
+      "date": "3/4/2026, 9:35:28 pm",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OpNOAR7GMT4lzqtMsx8": {
+      "cost": 900,
+      "date": "4/4/2026, 5:38:08 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpNPdxkuACrnYaZiYcF": {
+      "cost": 1800,
+      "date": "4/4/2026, 5:44:35 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpRr6i7x7YY_XKUJrAr": {
+      "cost": 400,
+      "date": "4/5/2026, 2:27:26 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OpSIQvHX19Ed-G36xEB": {
+      "cost": 1700,
+      "date": "4/5/2026, 4:31:09 PM",
+      "item": "🎮 60 Min Game"
+    },
+    "-OpSsUhVMBgZR__P-18z": {
+      "cost": 1800,
+      "date": "4/5/2026, 7:13:04 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpSsVIj4EeizcPx0nPW": {
+      "cost": 900,
+      "date": "4/5/2026, 7:13:06 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpSwDNBj1okytph1QNo": {
+      "cost": 900,
+      "date": "4/5/2026, 7:29:21 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpSxvnf0tI-DPwLOSsa": {
+      "cost": 900,
+      "date": "4/5/2026, 7:36:50 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpSzx_e8ZkF0jtL5Rde": {
+      "cost": 900,
+      "date": "4/5/2026, 7:45:41 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpT0l7_SNZchCBEM63i": {
+      "cost": 900,
+      "date": "4/5/2026, 7:53:35 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpT35SBdwkoL---R1ZR": {
+      "cost": 900,
+      "date": "4/5/2026, 8:03:46 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpTFqDOfJ-M_4QqcA-X": {
+      "cost": 600,
+      "date": "4/5/2026, 8:59:28 PM",
+      "item": "🎮 20 Min Game"
+    },
+    "-OpTOCW93GCwsKaMQKgk": {
+      "cost": 400,
+      "date": "4/5/2026, 9:36:00 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OpT_7Xvij6c97W5fEoG": {
+      "cost": 300,
+      "date": "4/5/2026, 10:28:05 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OpWa4VNTMZvsS-03guE": {
+      "cost": 800,
+      "date": "4/6/2026, 12:31:07 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OpWa5u7cszBPkno2Knq": {
+      "cost": 1800,
+      "date": "4/6/2026, 12:31:13 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpWgLPMXJX1Erv9KVMn": {
+      "cost": 900,
+      "date": "4/6/2026, 12:58:29 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpWgLwQVhWMbxChlNvh": {
+      "cost": 1800,
+      "date": "4/6/2026, 12:58:31 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpWhrvzui9qK1-U-7fp": {
+      "cost": 900,
+      "date": "4/6/2026, 1:05:08 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpXhjqFKt0DdE-ldIJJ": {
+      "cost": 1800,
+      "date": "4/6/2026, 5:44:12 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpXr14sTwTDDI7HXhIs": {
+      "cost": 900,
+      "date": "4/6/2026, 6:24:47 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpY1zK1D7VRCCNY24Fn": {
+      "cost": 500,
+      "date": "6/4/2026, 7:17:00 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OpY527xkeHsxU3_mfTP": {
+      "cost": 300,
+      "date": "6/4/2026, 7:30:22 pm",
+      "item": "🎮 10 Min Game"
+    },
+    "-OpbHUyfcvZYYygVF6nH": {
+      "cost": 300,
+      "date": "7/4/2026, 3:03:15 pm",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Opc0sbSYVj0ZEQ-gHwI": {
+      "cost": 1800,
+      "date": "4/7/2026, 6:30:17 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Opc0tH-a2nlsurjiaw4": {
+      "cost": 900,
+      "date": "4/7/2026, 6:30:20 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Opc2rPpsIkpw3LRR0L5": {
+      "cost": 900,
+      "date": "4/7/2026, 6:38:57 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Opc4NwI8bRA0kw12dCj": {
+      "cost": 900,
+      "date": "4/7/2026, 6:45:36 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Opg3fsqZl2gflhurVQQ": {
+      "cost": 500,
+      "date": "8/4/2026, 1:20:59 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Opg3gkmc3cA2AaCWc8i": {
+      "cost": 400,
+      "date": "8/4/2026, 1:21:02 pm",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OpgxlaUEA4Ppgb6RfFj": {
+      "cost": 1800,
+      "date": "4/8/2026, 5:30:27 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Oph6ClGFdopgVfWSB96": {
+      "cost": 1800,
+      "date": "4/8/2026, 6:11:41 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OphG81YhCynj48LcmyC": {
+      "cost": 900,
+      "date": "4/8/2026, 6:55:03 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OphG8_d7WBYZ1s0yLyD": {
+      "cost": 900,
+      "date": "4/8/2026, 6:55:05 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpkgBzqfDLdLyAVncPy": {
+      "cost": 500,
+      "date": "4/9/2026, 10:52:08 AM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OplI2LR6qFXGJ-cJaRD": {
+      "cost": 400,
+      "date": "4/9/2026, 1:41:52 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OplI2zXSzWxzV4IxVqI": {
+      "cost": 300,
+      "date": "4/9/2026, 1:41:55 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OplIBEgoOj9yZUzdTBy": {
+      "cost": 1400,
+      "date": "4/9/2026, 1:42:29 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-OplbBmh7p5jmKDqenqq": {
+      "cost": 500,
+      "date": "4/9/2026, 3:09:54 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OpmcufvquC0VO2sa42b": {
+      "cost": 1700,
+      "date": "4/9/2026, 7:57:02 PM",
+      "item": "🎮 60 Min Game"
+    },
+    "-Opmcw1bcJXd0KkPlzQb": {
+      "cost": 1800,
+      "date": "4/9/2026, 7:57:07 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Opml1q-WHj0bXc2q1FY": {
+      "cost": 800,
+      "date": "4/9/2026, 8:32:32 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OpqK2gqqvhTbswNX_Zt": {
+      "cost": 900,
+      "date": "10/4/2026, 1:08:43 pm",
+      "item": "🎯 Spike Rush"
+    },
+    "-OpqK3X1-H7WnT3wqQBH": {
+      "cost": 900,
+      "date": "10/4/2026, 1:08:46 pm",
+      "item": "🎯 Spike Rush"
+    },
+    "-OprRYTSo6DlrWhp_l_V": {
+      "cost": 1800,
+      "date": "4/10/2026, 6:21:07 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OprRZC-bWJuURCtXbjw": {
+      "cost": 1800,
+      "date": "4/10/2026, 6:21:10 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OprR_nBPCN0sgrbBova": {
+      "cost": 600,
+      "date": "4/10/2026, 6:21:17 PM",
+      "item": "🎮 20 Min Game"
+    },
+    "-OprRf0auiQiAv7UTH8G": {
+      "cost": 1800,
+      "date": "4/10/2026, 6:21:38 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OpraAFOv3IjyAui6oRb": {
+      "cost": 900,
+      "date": "4/10/2026, 7:03:09 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Oprq-EqTROEmNkA3znW": {
+      "cost": 800,
+      "date": "10/4/2026, 8:12:15 pm",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OpvVmetUGiQTwL3tse5": {
+      "cost": 1800,
+      "date": "11/4/2026, 1:18:04 pm",
+      "item": "🎯 Competitive"
+    },
+    "-OpvVw-0XxD7wdNPTPUi": {
+      "cost": 500,
+      "date": "11/4/2026, 1:18:42 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OpxM3LaWHAbj4YvvDSa": {
+      "cost": 1700,
+      "date": "4/11/2026, 9:54:52 PM",
+      "item": "🎮 60 Min Game"
+    },
+    "-OpxM41RysFjKNypRoyA": {
+      "cost": 1800,
+      "date": "4/11/2026, 9:54:55 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Oq4gdeRTt0c8Rev7l8F": {
+      "cost": 1800,
+      "date": "4/13/2026, 12:46:08 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Oq4geCQHIBLrI1JdTmr": {
+      "cost": 900,
+      "date": "4/13/2026, 12:46:10 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Oq4xMZPpg2LTqa_VBcF": {
+      "cost": 500,
+      "date": "4/13/2026, 1:59:07 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Oq4xU_E14Sf2VQJ7sR_": {
+      "cost": 800,
+      "date": "4/13/2026, 1:59:39 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OqBEnIhwYJUi2C9yJhX": {
+      "cost": 300,
+      "date": "14/4/2026, 7:17:22 pm",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OqEa--0zw--gvXd7K2A": {
+      "cost": 400,
+      "date": "4/15/2026, 10:53:16 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OqFC7k0ff37ThjyBlzk": {
+      "cost": 500,
+      "date": "15/4/2026, 1:44:11 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OqFC8Peb7tKr9pis3NA": {
+      "cost": 500,
+      "date": "15/4/2026, 1:44:14 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OqGFGrtIwy96n8n43Hb": {
+      "cost": 1800,
+      "date": "4/15/2026, 6:37:37 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OqGFconTxtujEKocCgO": {
+      "cost": 900,
+      "date": "4/15/2026, 6:39:11 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OqGI2ymROVd4Xx3aiAs": {
+      "cost": 900,
+      "date": "4/15/2026, 6:49:47 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OqGZ8xdZH-CvLEsUTXT": {
+      "cost": 500,
+      "date": "4/15/2026, 8:04:27 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OqGbsl-DJz3MMrAp6aP": {
+      "cost": 300,
+      "date": "4/15/2026, 8:20:45 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OqJaV8qtazqUeCPO5H0": {
+      "cost": 300,
+      "date": "4/16/2026, 10:13:34 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OqJuqzNFZEyNLpP0-ZC": {
+      "cost": 600,
+      "date": "16/4/2026, 11:42:26 am",
+      "item": "🎮 20 Min Game"
+    },
+    "-OqKR4u3ItBqKkxNTCan": {
+      "cost": 1700,
+      "date": "16/4/2026, 2:07:38 pm",
+      "item": "🎮 60 Min Game"
+    },
+    "-OqLIEL_fPYb9es5bG6L": {
+      "cost": 300,
+      "date": "4/16/2026, 6:08:39 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-OqLIFM3wiwWPthga3UC": {
+      "cost": 1800,
+      "date": "4/16/2026, 6:08:43 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OqLjKt1KBSA578vRfuS": {
+      "cost": 1400,
+      "date": "4/16/2026, 8:11:26 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-OqLjLaX6NwOBfmKDSuv": {
+      "cost": 300,
+      "date": "4/16/2026, 8:11:29 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OqPLxkusKp92pU3qwmj": {
+      "cost": 300,
+      "date": "4/17/2026, 1:03:24 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OqP_2_EJtMuw5qdA1DP": {
+      "cost": 1700,
+      "date": "17/4/2026, 2:04:58 pm",
+      "item": "🎮 60 Min Game"
+    },
+    "-OqQekX38fz0-vGXZlzk": {
+      "cost": 1700,
+      "date": "4/17/2026, 7:09:30 PM",
+      "item": "🎮 60 Min Game"
+    },
+    "-OqQelaqlB-ORRjQ_tyQ": {
+      "cost": 900,
+      "date": "4/17/2026, 7:09:35 PM",
+      "item": "🎮 30 Min Game"
+    },
+    "-OqQemccjpfLK3AbdhYT": {
+      "cost": 300,
+      "date": "4/17/2026, 7:09:39 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OqRDFbIVw30ZY5G2CeH": {
+      "cost": 500,
+      "date": "4/17/2026, 9:44:37 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OqZ3PPWjd741o8wawrO": {
+      "cost": 500,
+      "date": "4/19/2026, 10:18:33 AM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OqZ3Q3jLbCkBjXzYVmk": {
+      "cost": 400,
+      "date": "4/19/2026, 10:18:36 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Oqd9bI_l8-wKUnM3uJo": {
+      "cost": 300,
+      "date": "4/20/2026, 10:03:45 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OqdnczI3D9_TeSBby-W": {
+      "cost": 500,
+      "date": "4/20/2026, 1:03:00 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OqdndZpjGMZ1bPXRDms": {
+      "cost": 400,
+      "date": "4/20/2026, 1:03:02 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Oqf5zMU21DI4yFZ06dU": {
+      "cost": 1700,
+      "date": "4/20/2026, 7:07:09 PM",
+      "item": "🎮 60 Min Game"
+    },
+    "-OqfEW4VZlP7z_85ptzc": {
+      "cost": 300,
+      "date": "20/4/2026, 7:44:25 pm",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OqfEWeuT1jt7ZS6J6Hi": {
+      "cost": 400,
+      "date": "20/4/2026, 7:44:28 pm",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OqiqdxgcjfBJ_t8Vikd": {
+      "cost": 300,
+      "date": "4/21/2026, 12:34:16 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-Oqj-rWxgOFLEPCnLR99": {
+      "cost": 800,
+      "date": "4/21/2026, 1:18:53 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-Oqjz2QqXY0E_Kb5ulda": {
+      "cost": 900,
+      "date": "4/21/2026, 5:50:35 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Oqjz34JcDvyN9ew6E73": {
+      "cost": 900,
+      "date": "4/21/2026, 5:50:38 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Oqkgq-nc0GE7DTQ39FP": {
+      "cost": 800,
+      "date": "4/21/2026, 9:10:38 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OqoK1HIuDNlvnwRE_j_": {
+      "cost": 900,
+      "date": "4/22/2026, 2:05:07 PM",
+      "item": "🎮 30 Min Game"
+    },
+    "-Oqp9VgWZTJBOl-zhQ50": {
+      "cost": 1800,
+      "date": "4/22/2026, 5:58:45 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OquD62I_i4PsNkMaPIs": {
+      "cost": 500,
+      "date": "4/23/2026, 5:32:33 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OquEEyT9UKjN-RDf7P_": {
+      "cost": 900,
+      "date": "4/23/2026, 5:37:32 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OquXPnZd6CfzBJtj6aY": {
+      "cost": 1700,
+      "date": "4/23/2026, 7:01:17 PM",
+      "item": "🎮 60 Min Game"
+    },
+    "-Oqzagin2sACgrAlXHFQ": {
+      "cost": 900,
+      "date": "24/4/2026, 6:38:04 pm",
+      "item": "🎮 30 Min Game"
+    },
+    "-Or-4fhdNPPRAiM3oTQg": {
+      "cost": 1400,
+      "date": "4/24/2026, 8:53:28 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-Or-4gKbeaK16btcBoKS": {
+      "cost": 800,
+      "date": "4/24/2026, 8:53:30 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-Or-4guNKzzsE3imIsPe": {
+      "cost": 400,
+      "date": "4/24/2026, 8:53:33 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Or4KZVYAuXw4fVxVMRb": {
+      "cost": 300,
+      "date": "4/25/2026, 9:20:59 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Or4TYKPa5LxYh4gEuCB": {
+      "cost": 300,
+      "date": "4/25/2026, 10:00:12 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Or7a0ck02iJXtRHyLd5": {
+      "cost": 1400,
+      "date": "4/26/2026, 12:31:44 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-Or7ezo9APXjbgZsmdhS": {
+      "cost": 500,
+      "date": "4/26/2026, 12:53:27 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Or92M5XL7wOOoMHXwaG": {
+      "cost": 1800,
+      "date": "4/26/2026, 7:19:31 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Or9V-s_yMkY0Oax4mYS": {
+      "cost": 1400,
+      "date": "4/26/2026, 9:24:42 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-Or9V0tV3aHD1qEJ14pK": {
+      "cost": 500,
+      "date": "4/26/2026, 9:24:46 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OrCWo9TLRJYoL_B1owk": {
+      "cost": 400,
+      "date": "4/27/2026, 11:31:26 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OrCWojTpwGbPwJjrV8z": {
+      "cost": 300,
+      "date": "4/27/2026, 11:31:29 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OrD16fq9PVeN_hUa8Fh": {
+      "cost": 800,
+      "date": "4/27/2026, 1:52:35 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OrDATzt_0tH_ssr0sp1": {
+      "cost": 500,
+      "date": "4/27/2026, 2:33:29 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OrDvLO_dprTbSC4qh9S": {
+      "cost": 1800,
+      "date": "4/27/2026, 6:02:38 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OrEK2Ci5I2KYlh_7hWF": {
+      "cost": 400,
+      "date": "4/27/2026, 7:54:55 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OrJ88oirhZjcqfkoGzg": {
+      "cost": 1800,
+      "date": "4/28/2026, 6:21:02 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OrJ89OEsrEHqrwZP4Tu": {
+      "cost": 1800,
+      "date": "4/28/2026, 6:21:04 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OrJ89Ss9XaiZC5-VUHC": {
+      "cost": 1800,
+      "date": "4/28/2026, 6:21:04 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OrO53--S_HeEBESnSdW": {
+      "cost": 300,
+      "date": "4/29/2026, 5:25:38 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OrWu2Kf4hYmALrHzK2A": {
+      "cost": 600,
+      "date": "1/5/2026, 10:29:44 am",
+      "item": "🎮 20 Min Game"
+    },
+    "-OrYEtllAfGIc2eEdd_3": {
+      "cost": 1700,
+      "date": "1/5/2026, 4:44:49 pm",
+      "item": "🎮 60 Min Game"
+    },
+    "-OrYcISX-kH_1GcSyeYK": {
+      "cost": 1700,
+      "date": "1/5/2026, 6:31:26 pm",
+      "item": "🎮 60 Min Game"
+    },
+    "-OrYt8gXzIxWYJXxn7eo": {
+      "cost": 900,
+      "date": "5/1/2026, 7:45:02 PM",
+      "item": "🎮 30 Min Game"
+    },
+    "-OrZ07dmH17rNJKuMvdx": {
+      "cost": 800,
+      "date": "1/5/2026, 8:19:55 pm",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OrcU-L6Gj0tljcUifjr": {
+      "cost": 500,
+      "date": "5/2/2026, 5:08:55 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OrdXwsqEwCA62gOjbmY": {
+      "cost": 300,
+      "date": "5/2/2026, 10:05:46 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OrdXxQWFkJjXhc_xDBC": {
+      "cost": 400,
+      "date": "5/2/2026, 10:05:49 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OrhpBBACSd01VGUjCuX": {
+      "cost": 800,
+      "date": "5/3/2026, 6:03:56 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OrlJFx_I2svc21WSXAw": {
+      "cost": 800,
+      "date": "5/4/2026, 10:18:34 AM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OrlJGXzgc5H6e6RN_N9": {
+      "cost": 300,
+      "date": "5/4/2026, 10:18:37 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OrlW1RQqwAK3c-QfRnT": {
+      "cost": 500,
+      "date": "5/4/2026, 11:14:22 AM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Orm3LQnR_suGNe1UMTu": {
+      "cost": 1800,
+      "date": "5/4/2026, 1:48:39 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OrmLHtkCOj-b_05ykSC": {
+      "cost": 1800,
+      "date": "5/4/2026, 3:07:02 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OrmXR5jMhB2Qg8CxywJ": {
+      "cost": 400,
+      "date": "5/4/2026, 4:00:07 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OrmXRfWXtYOQMx4jsWN": {
+      "cost": 300,
+      "date": "5/4/2026, 4:00:09 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OrmvvS_eezyNJkBuyca": {
+      "cost": 300,
+      "date": "5/4/2026, 5:51:29 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ormxgo4_x-TSw5yQjSD": {
+      "cost": 1800,
+      "date": "5/4/2026, 5:59:13 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Orn7ri0iXEwJSW2Nv0Y": {
+      "cost": 900,
+      "date": "5/4/2026, 6:48:02 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OrnGb8t3GQnIICRHSa8": {
+      "cost": 500,
+      "date": "5/4/2026, 7:26:13 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OrnMnUY7UYsP_UVfEO_": {
+      "cost": 600,
+      "date": "4/5/2026, 7:53:15 pm",
+      "item": "🎮 20 Min Game"
+    },
+    "-Ors4dzutWcQ035IBzdi": {
+      "cost": 1800,
+      "date": "5/5/2026, 5:52:05 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Ors4emPjEQv7QkYVroI": {
+      "cost": 1800,
+      "date": "5/5/2026, 5:52:08 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OrsCt64CfATQo2BsHss": {
+      "cost": 900,
+      "date": "5/5/2026, 6:28:04 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OrsHUC-KmJPM9df9nwt": {
+      "cost": 900,
+      "date": "5/5/2026, 6:48:08 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OrsWAdxiHjgox7-gfkX": {
+      "cost": 800,
+      "date": "5/5/2026, 7:52:20 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OrsWBE2S0XEFmjrvKPw": {
+      "cost": 500,
+      "date": "5/5/2026, 7:52:23 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OrsfGYcN4qc83MbinWT": {
+      "cost": 900,
+      "date": "5/5/2026, 8:36:26 PM",
+      "item": "🎮 30 Min Game"
+    },
+    "-OrspRuiX260xreJhnTr": {
+      "cost": 400,
+      "date": "5/5/2026, 9:20:54 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OrspSV6N8SOTBEL3-dc": {
+      "cost": 300,
+      "date": "5/5/2026, 9:20:56 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Orx-6VZquAxYbK6o_zp": {
+      "cost": 1800,
+      "date": "5/6/2026, 4:45:59 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OrxVVEvvXuoE0olBO30": {
+      "cost": 300,
+      "date": "5/6/2026, 7:07:29 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Os1VxuElIx7Keh-FK3_": {
+      "cost": 1800,
+      "date": "5/7/2026, 6:27:36 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Os6_f9lqqzadol4TzKu": {
+      "cost": 1800,
+      "date": "5/8/2026, 6:06:16 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Os75eAuu6ldZwTooXU-": {
+      "cost": 300,
+      "date": "5/8/2026, 8:30:23 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Os7KOdOMHY6q11v77HN": {
+      "cost": 500,
+      "date": "5/8/2026, 9:34:47 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Os7QiyC6CJaq8v8Q0RQ": {
+      "cost": 300,
+      "date": "5/8/2026, 10:02:27 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OsBwwcevKdUnEe7enBg": {
+      "cost": 1800,
+      "date": "5/9/2026, 7:06:04 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsBwxB_tQXTr1nNOuiy": {
+      "cost": 1800,
+      "date": "5/9/2026, 7:06:06 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsBwxjm1Wnm9uBImc7B": {
+      "cost": 1800,
+      "date": "5/9/2026, 7:06:08 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsBwyGBIDzOgZVEITNw": {
+      "cost": 1800,
+      "date": "5/9/2026, 7:06:10 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsH7VfEIWuMN3n3Qdrw": {
+      "cost": 1800,
+      "date": "5/10/2026, 7:14:41 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsHBVd5uCoJuFknVJAa": {
+      "cost": 800,
+      "date": "5/10/2026, 7:32:09 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OsKP51XB51bPJ52CBHJ": {
+      "cost": 400,
+      "date": "5/11/2026, 10:30:22 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OsKwSmQAgfpysIbIjIU": {
+      "cost": 900,
+      "date": "5/11/2026, 1:00:32 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OsKwTLQ7Zv9XGBGOciE": {
+      "cost": 900,
+      "date": "5/11/2026, 1:00:35 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OsKwTs-xlg1g_BMzB3Z": {
+      "cost": 1800,
+      "date": "5/11/2026, 1:00:37 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsPFzeX3uekt0DVn2wA": {
+      "cost": 500,
+      "date": "5/12/2026, 9:08:43 AM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OsPPO9s8Ir9M3yCDOWT": {
+      "cost": 300,
+      "date": "5/12/2026, 9:49:47 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OsPuKmyMzHKOvvqJ3oo": {
+      "cost": 1800,
+      "date": "5/12/2026, 12:09:22 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsQ1qG7DMm36EBSMD0O": {
+      "cost": 900,
+      "date": "5/12/2026, 12:46:32 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OsQRSiGFGgHUWxajUly": {
+      "cost": 400,
+      "date": "5/12/2026, 2:38:27 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OsQZiZ13TozjoUYYZ2X": {
+      "cost": 500,
+      "date": "5/12/2026, 3:14:33 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OsRIbb8szJBN4tTWMQY": {
+      "cost": 1800,
+      "date": "12/5/2026, 6:39:25 pm",
+      "item": "🎯 Competitive"
+    },
+    "-OsWRe5bfPd_BUyxNl2w": {
+      "cost": 1800,
+      "date": "5/13/2026, 6:37:01 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsWRehDjZ5U8ELdTCHV": {
+      "cost": 1800,
+      "date": "5/13/2026, 6:37:03 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsWRfHxq2dgL6oaNbeK": {
+      "cost": 900,
+      "date": "5/13/2026, 6:37:06 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Os_Kw8pNyAKsfMjoHPz": {
+      "cost": 900,
+      "date": "5/14/2026, 12:46:09 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Os_L1KyPI_n0KTAeyX5": {
+      "cost": 900,
+      "date": "5/14/2026, 12:46:34 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Os_RqElAXR1DB2GNpkF": {
+      "cost": 900,
+      "date": "5/14/2026, 1:16:20 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Os_UGYxGH0vMiClki71": {
+      "cost": 900,
+      "date": "5/14/2026, 1:26:56 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Os_Xt6X_JjoHBgdq1q3": {
+      "cost": 1800,
+      "date": "5/14/2026, 1:42:44 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsaVinEU6sPJQrDALon": {
+      "cost": 800,
+      "date": "5/14/2026, 6:12:55 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OsbKjPApMZmXQv1Ev-n": {
+      "cost": 800,
+      "date": "14/5/2026, 10:04:30 pm",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OsbKkBtruVsGYwZF6wi": {
+      "cost": 500,
+      "date": "14/5/2026, 10:04:34 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Osfk3GbBEx5mlx7VlFI": {
+      "cost": 900,
+      "date": "5/15/2026, 6:38:01 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OsfmkXXT9lW6rZ9YlZJ": {
+      "cost": 900,
+      "date": "5/15/2026, 6:49:47 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OsfqOw-elAqd0khbo4e": {
+      "cost": 300,
+      "date": "5/15/2026, 7:05:43 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Osg-rrMzc7C0bdKleDe": {
+      "cost": 500,
+      "date": "5/15/2026, 7:51:27 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Osg-sRvWYxq1ifZGXjH": {
+      "cost": 500,
+      "date": "5/15/2026, 7:51:29 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OsgA3k2tePQ_T1YGhzW": {
+      "cost": 400,
+      "date": "5/15/2026, 8:36:01 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OsgO70rr5T2prrtbBpU": {
+      "cost": 400,
+      "date": "5/15/2026, 9:37:24 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OslAToXvvs4xw-H6R62": {
+      "cost": 800,
+      "date": "5/16/2026, 7:55:54 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-Osla5HytRAAgWPuQ0Wt": {
+      "cost": 300,
+      "date": "5/16/2026, 9:52:11 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-Osla7N6b06RaZWhqQ4l": {
+      "cost": 900,
+      "date": "5/16/2026, 9:52:20 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OslxD0tQwM-R-NjmC4c": {
+      "cost": 600,
+      "date": "5/16/2026, 11:33:12 PM",
+      "item": "🎮 20 Min Game"
+    },
+    "-OslxE4F9B_sHfdvhGSQ": {
+      "cost": 600,
+      "date": "5/16/2026, 11:33:17 PM",
+      "item": "🎮 20 Min Game"
+    },
+    "-Osq0kBlJHkdPb8wxsUs": {
+      "cost": 400,
+      "date": "5/17/2026, 6:31:30 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OsqEa5FMYl62yD8NqZz": {
+      "cost": 500,
+      "date": "5/17/2026, 7:31:58 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OsqSH6XW_s7W9XRc8pN": {
+      "cost": 900,
+      "date": "5/17/2026, 8:31:47 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OsqSPHoB5UtqVCaYRDQ": {
+      "cost": 900,
+      "date": "5/17/2026, 8:32:20 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OsqUpiblCfnaaK9w7az": {
+      "cost": 900,
+      "date": "5/17/2026, 8:42:57 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OsqX23DJPcP97PMgipX": {
+      "cost": 900,
+      "date": "5/17/2026, 8:52:36 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OstJUk8VC8vstCqf730": {
+      "cost": 500,
+      "date": "5/18/2026, 9:52:15 AM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OstJVIx5EHAS6gcrsFZ": {
+      "cost": 400,
+      "date": "5/18/2026, 9:52:17 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OstLGw5b8dLmmTEePDa": {
+      "cost": 1800,
+      "date": "5/18/2026, 10:00:03 AM",
+      "item": "🎯 Competitive"
+    },
+    "-OstpP3gV4lGHxQC51Cd": {
+      "cost": 1800,
+      "date": "5/18/2026, 12:16:02 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsubljmvBV3htT8xGJS": {
+      "cost": 500,
+      "date": "18/5/2026, 3:56:04 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Osuk7uUyMe9HwMnj8Ep": {
+      "cost": 1800,
+      "date": "18/5/2026, 4:32:36 pm",
+      "item": "🎯 Competitive"
+    },
+    "-OsuthQ884cXW_cJNoNX": {
+      "cost": 1800,
+      "date": "5/18/2026, 5:14:27 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Osv3wzSUhfbCdo9dd86": {
+      "cost": 1800,
+      "date": "5/18/2026, 6:03:35 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsvPcylnQp0lc7G3Zn3": {
+      "cost": 300,
+      "date": "5/18/2026, 7:38:20 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OsyyOEAblIJmMdSltyF": {
+      "cost": 1800,
+      "date": "5/19/2026, 12:13:24 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OsyyPkfPk2vazmWdo0U": {
+      "cost": 1800,
+      "date": "5/19/2026, 12:13:31 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Osz9F8fvxPAn-81iRGv": {
+      "cost": 1800,
+      "date": "5/19/2026, 1:05:13 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OszMBMH-KGRepIg5MWE": {
+      "cost": 500,
+      "date": "5/19/2026, 2:01:45 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OszMByOQAb-qWFfU1FF": {
+      "cost": 500,
+      "date": "5/19/2026, 2:01:48 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Ot3VF51ZLLccvHj_dv8": {
+      "cost": 1800,
+      "date": "5/20/2026, 1:59:26 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Ot3lxQ1Xg5dhKxmyDrM": {
+      "cost": 1800,
+      "date": "5/20/2026, 3:16:48 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Ot4ZWKYdtzEH7qTqfq3": {
+      "cost": 1800,
+      "date": "5/20/2026, 6:57:42 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Ot4ffuMMrBZUMgLow05": {
+      "cost": 800,
+      "date": "5/20/2026, 7:29:01 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-Ot7bclg6lyEu3Ii7jy2": {
+      "cost": 400,
+      "date": "5/21/2026, 9:10:10 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Ot7dmLRGF4KIASsu1GB": {
+      "cost": 300,
+      "date": "5/21/2026, 9:19:34 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ot84AjSyGLeYtNUdQQe": {
+      "cost": 900,
+      "date": "21/5/2026, 11:19:12 am",
+      "item": "🎮 30 Min Game"
+    },
+    "-Ot8r3uiS5fKLHJ_ieni": {
+      "cost": 400,
+      "date": "5/21/2026, 2:57:15 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Ot9F6fT8n9RN1t1aJce": {
+      "cost": 1800,
+      "date": "5/21/2026, 4:46:40 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Ot9Zl9RVg_kIC8IXCYS": {
+      "cost": 900,
+      "date": "5/21/2026, 6:16:53 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Ot9ZlgSXiLPStSNk8Ep": {
+      "cost": 900,
+      "date": "5/21/2026, 6:16:55 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Ot9ZmFG31foc4mK45yP": {
+      "cost": 1800,
+      "date": "5/21/2026, 6:16:57 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Ot9mMKEITUuJwPUcOeF": {
+      "cost": 1700,
+      "date": "21/5/2026, 7:16:13 pm",
+      "item": "🎮 60 Min Game"
+    },
+    "-Ot9y_meCRScax9nkTxg": {
+      "cost": 800,
+      "date": "5/21/2026, 8:09:42 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OtA071BJto39OLcr0wU": {
+      "cost": 300,
+      "date": "5/21/2026, 8:20:46 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OtDJ22gljcFWIDkPTkT": {
+      "cost": 300,
+      "date": "5/22/2026, 11:42:18 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OtDQ_1RGvRqjeCUfqCg": {
+      "cost": 900,
+      "date": "5/22/2026, 12:15:13 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OtDQfi8LKlOMcwcCW3Z": {
+      "cost": 1800,
+      "date": "5/22/2026, 12:15:40 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OtF4LeaqJkQFtKumFdz": {
+      "cost": 400,
+      "date": "5/22/2026, 7:57:21 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OtFA0Qk0dxZYgOaqPV2": {
+      "cost": 800,
+      "date": "5/22/2026, 8:22:07 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OtFL6zb03KRtQFkiIh1": {
+      "cost": 300,
+      "date": "5/22/2026, 9:10:37 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OtJpmWOnAzSopDJHJBX": {
+      "cost": 1800,
+      "date": "5/23/2026, 6:07:27 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OtNpdo00_tycS1jaEKm": {
+      "cost": 300,
+      "date": "5/24/2026, 12:45:20 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OtNpgybCAbHopCTJKU8": {
+      "cost": 400,
+      "date": "5/24/2026, 12:45:33 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OtPc74uv_qfcGV0aR0D": {
+      "cost": 900,
+      "date": "24/5/2026, 9:05:23 pm",
+      "item": "🎯 Spike Rush"
+    },
+    "-OtUCZV0dDJnNcDEQLur": {
+      "cost": 1800,
+      "date": "5/25/2026, 6:27:33 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OtV2I8KXezPzEFmYDpY": {
+      "cost": 500,
+      "date": "25/5/2026, 10:22:13 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OtZEWrWzGKmthZJ1Jt-": {
+      "cost": 1800,
+      "date": "5/26/2026, 5:54:13 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OtdUxkeK19wo6k7GBEX": {
+      "cost": 1800,
+      "date": "5/27/2026, 6:24:07 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OthEfMI7O3kGOn65b7O": {
+      "cost": 500,
+      "date": "5/28/2026, 11:51:27 AM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OthEgJnvvZ5hyqjpzgn": {
+      "cost": 500,
+      "date": "5/28/2026, 11:51:31 AM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OticyLit8Jq0HgfJKLs": {
+      "cost": 1800,
+      "date": "5/28/2026, 6:21:35 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Oticyv5Z5LRapSzeQH0": {
+      "cost": 900,
+      "date": "5/28/2026, 6:21:38 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OticzReV8fR48zJbXbQ": {
+      "cost": 1800,
+      "date": "5/28/2026, 6:21:40 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OtjFA6QAVm4RPeEExIr": {
+      "cost": 500,
+      "date": "5/28/2026, 9:12:51 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Ott4KyI2uTEGOar2nVW": {
+      "cost": 900,
+      "date": "5/30/2026, 7:01:44 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OttLcvCLBqz4nMnU4sI": {
+      "cost": 1800,
+      "date": "5/30/2026, 8:17:18 PM",
+      "item": "🎯 Competitive"
+    },
+    "-OttiLuHt-mT09DutHPh": {
+      "cost": 1800,
+      "date": "5/30/2026, 10:00:56 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Ottpk9M87NdjTclQg1i": {
+      "cost": 800,
+      "date": "5/30/2026, 10:33:14 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OtwIZ_Kue0-wS8M9SIW": {
+      "cost": 400,
+      "date": "5/31/2026, 10:02:46 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OtwehkiaDfiibs03Rs0": {
+      "cost": 1800,
+      "date": "5/31/2026, 11:43:53 AM",
+      "item": "🎯 Competitive"
+    },
+    "-OtwlO8kJ0xVLfGzEJVQ": {
+      "cost": 900,
+      "date": "5/31/2026, 12:13:03 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Otwne6TzvU6BtF121u2": {
+      "cost": 900,
+      "date": "5/31/2026, 12:22:57 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Otwq41UhPK21jG4PTtO": {
+      "cost": 900,
+      "date": "5/31/2026, 12:33:32 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Otwyt_Y9VMuF8jk36pV": {
+      "cost": 500,
+      "date": "5/31/2026, 1:12:04 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Ou7kzBTzo0BGo1Ut5GY": {
+      "cost": 300,
+      "date": "6/2/2026, 8:06:44 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OuCgZUgV7TNePPMY8ZY": {
+      "cost": 400,
+      "date": "3/6/2026, 7:05:28 pm",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OuCg_E8r40xbds2Uqhk": {
+      "cost": 300,
+      "date": "3/6/2026, 7:05:31 pm",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OuDHlfYe2JTeWPLF60j": {
+      "cost": 300,
+      "date": "6/3/2026, 9:52:27 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OuDMo75T7k_U8yxJBcr": {
+      "cost": 300,
+      "date": "6/3/2026, 10:14:28 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OuHj9MNTYdelwN7KgId": {
+      "cost": 300,
+      "date": "6/4/2026, 6:34:57 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OuHnh-UubfGGpGjn1LU": {
+      "cost": 400,
+      "date": "6/4/2026, 6:54:48 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OuHrNh0WbqJa26NNYwp": {
+      "cost": 300,
+      "date": "6/4/2026, 7:10:53 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OuI7TknipB4XUAABv-Q": {
+      "cost": 500,
+      "date": "6/4/2026, 8:25:34 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OuSPvqpQrkqnmtOhx2W": {
+      "cost": 400,
+      "date": "6/6/2026, 8:22:24 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OuSVCt-OqsZEI2Imrim": {
+      "cost": 400,
+      "date": "6/6/2026, 8:45:29 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OuSbLtYJaWsAU1FQlIc": {
+      "cost": 400,
+      "date": "6/6/2026, 9:16:40 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OuSc7rfx2J3yNIXZsz5": {
+      "cost": 300,
+      "date": "6/6/2026, 9:20:05 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OuVHDDgvAaKXSXrf2TZ": {
+      "cost": 400,
+      "date": "6/7/2026, 9:43:12 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OuVHDqysxmdV-Rdj4C2": {
+      "cost": 300,
+      "date": "6/7/2026, 9:43:14 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OuWTbaidqMKNLLGnkwE": {
+      "cost": 400,
+      "date": "6/7/2026, 3:16:59 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OuWTcGx8H-JcJYiCCGE": {
+      "cost": 500,
+      "date": "6/7/2026, 3:17:01 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OuWhx00F-5ZNRWJaJcS": {
+      "cost": 400,
+      "date": "6/7/2026, 4:23:59 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OuWhxdbRTfm2TIP_s6j": {
+      "cost": 300,
+      "date": "6/7/2026, 4:24:01 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OulturuZ8_kYmUGQxw3": {
+      "cost": 500,
+      "date": "6/10/2026, 7:50:11 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Oum20jg1Owpej55QUvV": {
+      "cost": 500,
+      "date": "6/10/2026, 8:29:58 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Our7jcKPhoYfjcFu0iT": {
+      "cost": 300,
+      "date": "6/11/2026, 8:13:02 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OuwW36J92H7EUNcSq9E": {
+      "cost": 300,
+      "date": "6/12/2026, 9:17:24 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ov0EWO_enghjDefT5e-": {
+      "cost": 800,
+      "date": "6/13/2026, 7:18:52 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-Ov0Kbs-ar1iOf2EoN8x": {
+      "cost": 400,
+      "date": "6/13/2026, 7:45:31 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Ov3fvlXPmtrpEl3bkIy": {
+      "cost": 400,
+      "date": "6/14/2026, 11:21:52 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Ov3fwV5SfkQX3uClYnO": {
+      "cost": 300,
+      "date": "6/14/2026, 11:21:55 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ov4lbIdbasoMZmGLhMI": {
+      "cost": 600,
+      "date": "6/14/2026, 4:26:18 PM",
+      "item": "🎮 20 Min Game"
+    },
+    "-Ov5fPRVpGenz8i7jraf": {
+      "cost": 300,
+      "date": "6/14/2026, 8:38:50 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ov6AHxX8dJ6A4LG1RMs": {
+      "cost": 600,
+      "date": "6/14/2026, 10:58:07 PM",
+      "item": "🎮 20 Min Game"
+    },
+    "-OvGJkivz9_dhoOdO8vK": {
+      "cost": 300,
+      "date": "16/6/2026, 10:15:41 pm",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OvGJmA8rPw5KaSbtsEt": {
+      "cost": 400,
+      "date": "16/6/2026, 10:15:47 pm",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OvGJnqUTXGoByVHSFdv": {
+      "cost": 300,
+      "date": "16/6/2026, 10:15:54 pm",
+      "item": "🎮 10 Min Game"
+    },
+    "-OvLB6o4hx29QGMVWnjY": {
+      "cost": 500,
+      "date": "6/17/2026, 8:56:02 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OvLB7bynVMTWr6amBdS": {
+      "cost": 500,
+      "date": "6/17/2026, 8:56:06 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OvLB8MfOA3vk1uKQnNF": {
+      "cost": 400,
+      "date": "6/17/2026, 8:56:09 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OvPoiyUNRuG7zZrLj17": {
+      "cost": 400,
+      "date": "6/18/2026, 6:31:57 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OvPojcdd5HGRf6qSpT6": {
+      "cost": 500,
+      "date": "6/18/2026, 6:32:00 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OvPyJCM0xmOcB5d6y-m": {
+      "cost": 300,
+      "date": "6/18/2026, 7:13:49 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OvPyL2_l4N-RsC16O9a": {
+      "cost": 600,
+      "date": "6/18/2026, 7:13:57 PM",
+      "item": "🎮 20 Min Game"
+    },
+    "-OvQ6JFuSyCJ8kwuQpRI": {
+      "cost": 300,
+      "date": "6/18/2026, 7:53:09 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-OvVNVaNXwwjBdRulLGQ": {
+      "cost": 300,
+      "date": "6/19/2026, 8:26:21 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OvVNWAthkmayMHeqPLQ": {
+      "cost": 400,
+      "date": "6/19/2026, 8:26:23 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OvVSJ1tnJMEKsaAEIqP": {
+      "cost": 300,
+      "date": "6/19/2026, 8:47:20 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-OvVeUmtnhC6WfRpTp_h": {
+      "cost": 500,
+      "date": "6/19/2026, 9:44:59 PM",
+      "item": "🎮 15 Min Game"
+    },
+    "-OvdiKxyYD5j8OhqgvjM": {
+      "cost": 900,
+      "date": "6/21/2026, 3:58:21 PM",
+      "item": "🎮 30 Min Game"
+    },
+    "-OvdiLa0rztOIB5g1ono": {
+      "cost": 600,
+      "date": "6/21/2026, 3:58:23 PM",
+      "item": "🎮 20 Min Game"
+    },
+    "-OvemNXRvm5NGF-GqF57": {
+      "cost": 800,
+      "date": "6/21/2026, 8:55:36 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-Ovf0LNs1biXLMHzhtKI": {
+      "cost": 800,
+      "date": "6/21/2026, 10:01:00 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OvjXWM2fjdOAiI3a8FU": {
+      "cost": 800,
+      "date": "6/22/2026, 7:04:23 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OvjhpG79eRaL2MGrZQe": {
+      "cost": 300,
+      "date": "6/22/2026, 7:53:50 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-OvowGMHpNEmX0g_nLdi": {
+      "cost": 300,
+      "date": "6/23/2026, 8:15:00 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OvswBjXcw0PS60N8bT6": {
+      "cost": 300,
+      "date": "6/24/2026, 2:53:10 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OvtRrR7_1NyZ9CMWL33": {
+      "cost": 400,
+      "date": "6/24/2026, 5:15:53 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Ovx1quHJo4EAJtjAByi": {
+      "cost": 500,
+      "date": "6/25/2026, 10:00:45 AM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Ovx1wVa4CqcElfmGvAU": {
+      "cost": 800,
+      "date": "6/25/2026, 10:01:08 AM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OvybVoYqLMfqQgSlkyl": {
+      "cost": 500,
+      "date": "6/25/2026, 5:20:31 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OvykJjt-TtfQ7_5QFbq": {
+      "cost": 1400,
+      "date": "6/25/2026, 5:59:01 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-OvymjPr17DPh7xOSY24": {
+      "cost": 300,
+      "date": "6/25/2026, 6:09:35 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ovz3O0rzVcHF5xYgSbu": {
+      "cost": 400,
+      "date": "6/25/2026, 7:26:41 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Ovz3P-DvEZ3N1s8dGxL": {
+      "cost": 300,
+      "date": "6/25/2026, 7:26:45 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ovz7s7-gtaW8owCH_5L": {
+      "cost": 400,
+      "date": "6/25/2026, 7:46:17 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Ow38w4EQbKIaXYlaJB0": {
+      "cost": 500,
+      "date": "6/26/2026, 7:09:02 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Ow38wn9S5ysnnPS2UU_": {
+      "cost": 500,
+      "date": "6/26/2026, 7:09:05 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Ow3A_z7iMLk63zZmNYW": {
+      "cost": 400,
+      "date": "6/26/2026, 7:16:16 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Ow3N-k5euedEZ_b0Fw2": {
+      "cost": 400,
+      "date": "6/26/2026, 8:10:31 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Ow3N0Kf9lu2U8I3sdI6": {
+      "cost": 300,
+      "date": "6/26/2026, 8:10:33 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ow3TWOH2RMYK19tdil6": {
+      "cost": 800,
+      "date": "6/26/2026, 8:38:57 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-Ow8zfdP7ekGVfDIaOQf": {
+      "cost": 300,
+      "date": "6/27/2026, 10:21:56 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OwWaxOpE2IRR5EfD4No": {
+      "cost": 300,
+      "date": "7/2/2026, 12:24:49 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OwWlDXwWbbud4PZ2OMk": {
+      "cost": 300,
+      "date": "7/2/2026, 1:09:41 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OwXef49uM5zkUgcKs37": {
+      "cost": 800,
+      "date": "7/2/2026, 5:20:40 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OwcEFCJlqNPhwROqcly": {
+      "cost": 500,
+      "date": "7/3/2026, 7:18:35 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OwhwlF0uwf3UEtipp5y": {
+      "cost": 1400,
+      "date": "7/4/2026, 9:55:32 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-OwhwlnQVUuhZ_jytMok": {
+      "cost": 500,
+      "date": "7/4/2026, 9:55:35 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OwhwmLUsTXV4xrf3A3d": {
+      "cost": 500,
+      "date": "7/4/2026, 9:55:37 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OwluqUfSjUY1u1L6o-2": {
+      "cost": 300,
+      "date": "5/7/2026, 4:25:40 pm",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OwmJMXsdopGMEujrrvV": {
+      "cost": 400,
+      "date": "7/5/2026, 6:17:08 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OwmJNC7_1RQRA0KFC1C": {
+      "cost": 300,
+      "date": "7/5/2026, 6:17:10 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OwrbNuX641ICuJWi9TA": {
+      "cost": 400,
+      "date": "7/6/2026, 6:58:20 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OwrbP2bhcHAoGYXdVbF": {
+      "cost": 400,
+      "date": "7/6/2026, 6:58:25 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OwrbPfbMl7_Tq9jOvht": {
+      "cost": 300,
+      "date": "7/6/2026, 6:58:27 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ox6Qa09yeux1XINrIGK": {
+      "cost": 300,
+      "date": "7/9/2026, 8:40:44 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ox9uY-pd_-NblYSSNzH": {
+      "cost": 300,
+      "date": "7/10/2026, 12:54:49 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OxVcBzS1XZhsOTb9uyo": {
+      "cost": 300,
+      "date": "7/14/2026, 6:06:19 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OxVll4JUnQh4M84DQtn": {
+      "cost": 500,
+      "date": "7/14/2026, 6:48:06 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Oy-1CiHQb7ZJsLde0uh": {
+      "cost": 1400,
+      "date": "7/20/2026, 8:28:12 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-Oy-5die0LwNqJMUAxiZ": {
+      "cost": 500,
+      "date": "7/20/2026, 8:47:35 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Oy4VQ39QPaFoYypYMtS": {
+      "cost": 800,
+      "date": "21/7/2026, 9:58:17 pm",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-Oy4VQeAy5OdDSFuek12": {
+      "cost": 300,
+      "date": "21/7/2026, 9:58:19 pm",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Oy9FmIN36sOtsFd5WhH": {
+      "cost": 300,
+      "date": "7/22/2026, 8:08:04 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Oy9ZPdTx-W-GtoAcAqv": {
+      "cost": 300,
+      "date": "22/7/2026, 9:33:50 pm",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OyHzg60NZLZ4DUoC9MA": {
+      "cost": 500,
+      "date": "7/24/2026, 12:49:58 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-OyIfp5K56sxEMXCixGV": {
+      "cost": 800,
+      "date": "7/24/2026, 4:02:49 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OyIfpjWrO59FbZgcXCs": {
+      "cost": 300,
+      "date": "7/24/2026, 4:02:51 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OyP1F-1QAfywjq9TDbr": {
+      "cost": 800,
+      "date": "7/25/2026, 9:38:28 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OyP4wtWxldM_3uR_607": {
+      "cost": 400,
+      "date": "7/25/2026, 9:54:39 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OyTnfAd3e0ccvpPIS33": {
+      "cost": 300,
+      "date": "26/7/2026, 7:52:54 pm",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OyaNI-7R6lCyMD38u1W": {
+      "cost": 600,
+      "date": "7/28/2026, 7:10:15 AM",
+      "item": "🎮 20 Min Game"
+    },
+    "-OynH0pHHDcBSmyGaN4r": {
+      "cost": 800,
+      "date": "30/7/2026, 7:17:57 pm",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OysPZt2syC3pV4qiLE0": {
+      "cost": 800,
+      "date": "7/31/2026, 7:13:22 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OysP_V9SQdCB6Lfg8ho": {
+      "cost": 500,
+      "date": "7/31/2026, 7:13:25 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Oz145qC-MyPoK60Iit_": {
+      "cost": 300,
+      "date": "2/8/2026, 4:15:46 pm",
+      "item": "🎮 10 Min Game"
+    },
+    "-Oz6eywFYMRll6LyRAk4": {
+      "cost": 400,
+      "date": "8/3/2026, 6:19:22 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Oz708ZtObl55GOfcZwX": {
+      "cost": 1400,
+      "date": "8/3/2026, 7:56:13 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-OzHUj2zAdk62RgnN06Q": {
+      "cost": 400,
+      "date": "8/5/2026, 8:46:03 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OzHhoQhpJqNiKG0hSTL": {
+      "cost": 400,
+      "date": "8/5/2026, 9:47:35 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OzHhp8SoMCRDczyUzKJ": {
+      "cost": 800,
+      "date": "8/5/2026, 9:47:38 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OzMKW1ZuIxVwDjVBcby": {
+      "cost": 1400,
+      "date": "8/6/2026, 7:19:29 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-OzMUhUqLbNhI6OguBYM": {
+      "cost": 400,
+      "date": "6/8/2026, 8:04:01 pm",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-OzRHWGAj4h4b7negYt4": {
+      "cost": 1700,
+      "date": "8/7/2026, 6:24:30 PM",
+      "item": "🎮 60 Min Game"
+    },
+    "-OzRNd7-eRCyGPfA_XP7": {
+      "cost": 900,
+      "date": "8/7/2026, 6:51:15 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OzRdOEnFI7XW-LXUgFo": {
+      "cost": 1400,
+      "date": "8/7/2026, 8:04:26 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-OzZmOpfkqL8oX1TlaGU": {
+      "cost": 300,
+      "date": "8/9/2026, 10:00:46 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OzZy56kaZx9Dk5uWmTg": {
+      "cost": 300,
+      "date": "8/9/2026, 10:51:51 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OzbVahUoozJtl5Kz_rj": {
+      "cost": 900,
+      "date": "8/9/2026, 10:41:52 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-OzbVbG_Nh8WCvVd-W3z": {
+      "cost": 1800,
+      "date": "8/9/2026, 10:41:54 PM",
+      "item": "🎯 Competitive"
+    },
+    "-Ozf7v8PDL3kTBku4C2w": {
+      "cost": 500,
+      "date": "10/8/2026, 3:36:53 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-Ozf7vmUzd5IXkNCjwji": {
+      "cost": 800,
+      "date": "10/8/2026, 3:36:55 pm",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-Ozf_fxtugsYNSrLE7Ls": {
+      "cost": 300,
+      "date": "8/10/2026, 5:42:33 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ozf_iP-nxkdU2ViRTmp": {
+      "cost": 300,
+      "date": "8/10/2026, 5:42:43 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-Ozgb4L0BPldoqdOvfZ9": {
+      "cost": 600,
+      "date": "8/10/2026, 10:28:16 PM",
+      "item": "🎮 20 Min Game"
+    },
+    "-OzkwKFdFK6Dv6v5YaHM": {
+      "cost": 300,
+      "date": "8/11/2026, 6:39:35 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-OztMNm7nkZuY0SlFh7m": {
+      "cost": 300,
+      "date": "8/13/2026, 9:54:46 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OztWoF44szFATdzhkeW": {
+      "cost": 1800,
+      "date": "8/13/2026, 10:40:19 AM",
+      "item": "🎯 Competitive"
+    },
+    "-Ozte1yHzQHAX8hGpSO4": {
+      "cost": 1800,
+      "date": "8/13/2026, 11:16:17 AM",
+      "item": "🎯 Competitive"
+    },
+    "-OzwFkBRFoEP-mwAwoI7": {
+      "cost": 1400,
+      "date": "13/8/2026, 11:24:37 pm",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-OzwFkugFyzJBNM2BeA8": {
+      "cost": 1400,
+      "date": "13/8/2026, 11:24:40 pm",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-OzwFm30QaVm3Gu7T16t": {
+      "cost": 900,
+      "date": "13/8/2026, 11:24:44 pm",
+      "item": "🎯 Spike Rush"
+    },
+    "-OzyV5l-Zp0ERbgBIXNJ": {
+      "cost": 1800,
+      "date": "8/14/2026, 9:50:57 AM",
+      "item": "🎯 Competitive"
+    },
+    "-OzyVELLn0tHnW_yEuGf": {
+      "cost": 1800,
+      "date": "8/14/2026, 9:51:32 AM",
+      "item": "🎯 Competitive"
+    },
+    "-OzylOvAQJ9kH9aoNb6U": {
+      "cost": 1800,
+      "date": "8/14/2026, 11:06:32 AM",
+      "item": "🎯 Competitive"
+    },
+    "-OzywpXB1E3eNCwwOTQC": {
+      "cost": 900,
+      "date": "8/14/2026, 11:56:29 AM",
+      "item": "🎯 Spike Rush"
+    },
+    "-Ozz6f_eo3ernIs1N-fh": {
+      "cost": 1800,
+      "date": "14/8/2026, 12:43:51 pm",
+      "item": "🎯 Competitive"
+    },
+    "-OzzOrm4zsqfVdW8wc7i": {
+      "cost": 800,
+      "date": "8/14/2026, 2:03:20 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-OzzcHmIf3d-7iUwJer-": {
+      "cost": 300,
+      "date": "8/14/2026, 3:06:21 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-OzzcIdMzLSVPl561fkr": {
+      "cost": 400,
+      "date": "8/14/2026, 3:06:24 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-Ozzqqaf83pHBOtXf-9C": {
+      "cost": 1800,
+      "date": "14/8/2026, 4:09:56 pm",
+      "item": "🎯 Competitive"
+    },
+    "-OzzqrEam9n4iihFtx12": {
+      "cost": 900,
+      "date": "14/8/2026, 4:09:59 pm",
+      "item": "🎯 Spike Rush"
+    },
+    "-P--1fm9EyzyVuI7d961": {
+      "cost": 1800,
+      "date": "8/14/2026, 5:01:39 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P--EHRmsgj4vCYn_Cm7": {
+      "cost": 300,
+      "date": "8/14/2026, 5:56:43 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-P--EIUa3rWlE51RsXlb": {
+      "cost": 300,
+      "date": "8/14/2026, 5:56:47 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-P--H1OcGHay6wqJuTuB": {
+      "cost": 900,
+      "date": "8/14/2026, 6:08:44 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-P--iOY4TA6NvL0FklPl": {
+      "cost": 1800,
+      "date": "8/14/2026, 8:12:39 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P--iP4imahggBkE09a-": {
+      "cost": 1800,
+      "date": "8/14/2026, 8:12:41 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-0BsjZjU7hkbW684P3": {
+      "cost": 1800,
+      "date": "8/14/2026, 10:25:51 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-0C46MS47RbW1BUXAf": {
+      "cost": 300,
+      "date": "8/14/2026, 10:26:41 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P-2NamgVNPOQOzI0TCH": {
+      "cost": 900,
+      "date": "8/15/2026, 8:36:17 AM",
+      "item": "🎯 Spike Rush"
+    },
+    "-P-2NbOXNhuBJSHJ-y6o": {
+      "cost": 900,
+      "date": "8/15/2026, 8:36:20 AM",
+      "item": "🎯 Spike Rush"
+    },
+    "-P-2h5AoO-pESqpDePUc": {
+      "cost": 1800,
+      "date": "8/15/2026, 10:05:49 AM",
+      "item": "🎯 Competitive"
+    },
+    "-P-2zofakiLTALE_HquL": {
+      "cost": 1800,
+      "date": "8/15/2026, 11:27:38 AM",
+      "item": "🎯 Competitive"
+    },
+    "-P-3I_pk0rsX0mGcVGrw": {
+      "cost": 300,
+      "date": "8/15/2026, 12:54:00 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P-3lWr42jg8_mHHbNcS": {
+      "cost": 900,
+      "date": "8/15/2026, 3:04:48 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-P-3lXRu7ZebupR_kXZ3": {
+      "cost": 1800,
+      "date": "8/15/2026, 3:04:50 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-46ooVV6RWL2P0b7IS": {
+      "cost": 1800,
+      "date": "8/15/2026, 4:42:13 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-50FIcw7dwYpDhnmHa": {
+      "cost": 1800,
+      "date": "8/15/2026, 8:53:08 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-50HYNi7xkHV2ba14f": {
+      "cost": 1800,
+      "date": "8/15/2026, 8:53:17 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-58XGFuGX7tqcf_Ro5": {
+      "cost": 500,
+      "date": "8/15/2026, 9:29:18 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P-5D67uqpker_SQy7MP": {
+      "cost": 500,
+      "date": "8/15/2026, 9:49:18 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P-5K5ZQovhH1neX-pKS": {
+      "cost": 400,
+      "date": "8/15/2026, 10:19:51 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P-5K6FRmRam2lpDSGJc": {
+      "cost": 300,
+      "date": "8/15/2026, 10:19:54 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P-5RVk8wNFYmQ_6Kxkv": {
+      "cost": 500,
+      "date": "8/15/2026, 10:52:13 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P-8Y4bE-QYQYbb6jvT6": {
+      "cost": 1800,
+      "date": "8/16/2026, 1:19:48 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-8lA_awblvUptuPhBz": {
+      "cost": 1800,
+      "date": "8/16/2026, 2:21:23 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-8oxDvi5zW7b1_Bne6": {
+      "cost": 900,
+      "date": "8/16/2026, 2:37:53 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-P-8p1Yhl-kqMvcqR5MV": {
+      "cost": 1800,
+      "date": "8/16/2026, 2:38:14 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-9fqxqSuyeQFwfOsml": {
+      "cost": 1800,
+      "date": "16/8/2026, 6:37:44 pm",
+      "item": "🎯 Competitive"
+    },
+    "-P-9fuRAKJ0T_TMzey9C": {
+      "cost": 900,
+      "date": "16/8/2026, 6:37:58 pm",
+      "item": "🎯 Spike Rush"
+    },
+    "-P-9fv0WvEJbGdGvp4XY": {
+      "cost": 900,
+      "date": "16/8/2026, 6:38:01 pm",
+      "item": "🎯 Spike Rush"
+    },
+    "-P-A2EFY0kMekHU5ajV-": {
+      "cost": 1800,
+      "date": "16/8/2026, 8:19:53 pm",
+      "item": "🎯 Competitive"
+    },
+    "-P-APl04QwFNr_FfWRPO": {
+      "cost": 500,
+      "date": "8/16/2026, 10:02:41 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P-AReyA1OfYvKAsA--I": {
+      "cost": 300,
+      "date": "8/16/2026, 10:11:01 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P-K-UcH-vUtWk_BPukB": {
+      "cost": 500,
+      "date": "8/18/2026, 6:44:07 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P-UR1p5JmvdiTO_8ah0": {
+      "cost": 800,
+      "date": "20/08/2026, 19:20:41",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P-ZUh05IMgceHSWeOEn": {
+      "cost": 300,
+      "date": "8/21/2026, 6:54:45 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P-ZYilpAGivKvggOii0": {
+      "cost": 300,
+      "date": "8/21/2026, 7:12:21 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P-oac66H1QtsJRrRwDL": {
+      "cost": 300,
+      "date": "24/08/2026, 21:58:57",
+      "item": "🎮 10 Min Game"
+    },
+    "-P-rJYXE8u2iAIeuK4H6": {
+      "cost": 300,
+      "date": "25/08/2026, 10:38:51",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P-rsPaNLxAYwhl0r3kE": {
+      "cost": 900,
+      "date": "25/08/2026, 13:15:32",
+      "item": "🎮 30 Min Game"
+    },
+    "-P-rsQT7oGLQGuto_O3c": {
+      "cost": 500,
+      "date": "25/08/2026, 13:15:35",
+      "item": "🎮 15 Min Game"
+    },
+    "-P-s55iJCAqrUkFNJKFt": {
+      "cost": 500,
+      "date": "25/08/2026, 14:15:20",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P-sr3oy_arpd1LUmmMq": {
+      "cost": 300,
+      "date": "25/08/2026, 17:49:18",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P-swKiUuY0qqBNQG0rc": {
+      "cost": 600,
+      "date": "25/08/2026, 18:12:18",
+      "item": "🎮 20 Min Game"
+    },
+    "-P-wnM_WHnL2Rb6HY33U": {
+      "cost": 500,
+      "date": "26/08/2026, 12:11:35",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P-xEAnG6lBsdLuEF8_G": {
+      "cost": 500,
+      "date": "8/26/2026, 2:13:06 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P-xLBDejTsNNH3YPy8k": {
+      "cost": 1800,
+      "date": "8/26/2026, 2:43:43 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-xYg6RTwISyaJXEZR_": {
+      "cost": 1800,
+      "date": "8/26/2026, 3:42:41 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-xeGS40hA7xx4_UDRt": {
+      "cost": 1800,
+      "date": "8/26/2026, 4:11:27 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P-xvBZGHR-MHhbgbk2q": {
+      "cost": 300,
+      "date": "8/26/2026, 5:25:23 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P0J2W9CAetYWo-ik9c5": {
+      "cost": 300,
+      "date": "31/08/2026, 00:33:23",
+      "item": "🎮 10 Min Game"
+    },
+    "-P0N43TwEjq9WFta8m7R": {
+      "cost": 500,
+      "date": "31/08/2026, 19:18:39",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P0SFmte7_S7OZP6sNfq": {
+      "cost": 500,
+      "date": "01/09/2026, 19:27:59",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P0bUpEkD-BqUOV6Rwl4": {
+      "cost": 800,
+      "date": "9/3/2026, 7:09:53 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P0bUprwjpP8iTNxGMtc": {
+      "cost": 300,
+      "date": "9/3/2026, 7:09:55 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P0hTxy_PnJxI0QhTIkF": {
+      "cost": 300,
+      "date": "04/09/2026, 23:03:51",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P0haVzpQkAG0fnxKyCR": {
+      "cost": 800,
+      "date": "04/09/2026, 23:36:50",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P0hfLwGfk0edMgwqT37": {
+      "cost": 500,
+      "date": "04/09/2026, 23:58:00",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P0luIebAvC-plkgEJiw": {
+      "cost": 500,
+      "date": "9/5/2026, 7:41:45 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P0luJOoXtH_T5MBUg1R": {
+      "cost": 1800,
+      "date": "9/5/2026, 7:41:48 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P0m1LITaegdje_0Gjuf": {
+      "cost": 1800,
+      "date": "9/5/2026, 8:16:53 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P0m_wsxVkPNth5gwauX": {
+      "cost": 800,
+      "date": "05/09/2026, 22:52:28",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P0m_xZGbzH46AN_VR2V": {
+      "cost": 300,
+      "date": "05/09/2026, 22:52:31",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P0psyrIlhjBdaKE-I8v": {
+      "cost": 300,
+      "date": "06/09/2026, 14:14:28",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P0rBMoVU3ySkeODZJKI": {
+      "cost": 300,
+      "date": "06/09/2026, 20:18:47",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P0rBWhRnpmceHBOgCAp": {
+      "cost": 300,
+      "date": "06/09/2026, 20:19:27",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P0vxUIb0Fpbl9B4kUy5": {
+      "cost": 300,
+      "date": "9/7/2026, 6:31:52 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P10uBjs_ednD4p6N75o": {
+      "cost": 500,
+      "date": "9/8/2026, 10:15:13 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P10uCJE9-nVFfVEQEMx": {
+      "cost": 400,
+      "date": "9/8/2026, 10:15:15 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P15bDb7atbD5o0_qOOQ": {
+      "cost": 800,
+      "date": "09/09/2026, 20:10:25",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P15pjhfJrtI-0tQgoOt": {
+      "cost": 300,
+      "date": "9/9/2026, 9:13:51 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P16I6o88NFb1dY44wJk": {
+      "cost": 300,
+      "date": "9/9/2026, 11:22:12 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P16OfZUOm6OtidUTQqT": {
+      "cost": 800,
+      "date": "9/9/2026, 11:50:51 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P1AbSh1kWkIIu13Zauf": {
+      "cost": 500,
+      "date": "10/09/2026, 19:29:34",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P1FjC5UtEt4rf7jokTv": {
+      "cost": 400,
+      "date": "9/11/2026, 7:21:28 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P1UwNtpIOqwcRIreaoY": {
+      "cost": 800,
+      "date": "9/14/2026, 6:13:23 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P1UwObvXDEI9zPJtjzb": {
+      "cost": 300,
+      "date": "9/14/2026, 6:13:26 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-P1V2PBMEMXLVkUV8yOm": {
+      "cost": 500,
+      "date": "9/14/2026, 6:44:03 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P1V2Plj8QaA5W_ZLuL4": {
+      "cost": 400,
+      "date": "9/14/2026, 6:44:06 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P1_yfR6E63mMPQUtQAA": {
+      "cost": 300,
+      "date": "9/15/2026, 10:21:07 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P1fNAswfrra9wHKYdw9": {
+      "cost": 800,
+      "date": "9/16/2026, 11:30:39 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P1kKIWyyScMssxx-fAh": {
+      "cost": 400,
+      "date": "9/17/2026, 10:36:10 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P1kQo5_1v-czEOX5NFJ": {
+      "cost": 300,
+      "date": "9/17/2026, 11:04:37 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P1kYURFdlc8uvW5CgoH": {
+      "cost": 500,
+      "date": "9/17/2026, 11:38:09 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P1kgRjw-yoSV0VVRKJt": {
+      "cost": 400,
+      "date": "9/18/2026, 12:17:18 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P1pdQDK4DH2olYHGEOj": {
+      "cost": 800,
+      "date": "9/18/2026, 11:22:11 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P1pefHnm8HUr5UzGZlK": {
+      "cost": 300,
+      "date": "9/18/2026, 11:27:39 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P1uW4QyoU2lDyAUtyHU": {
+      "cost": 800,
+      "date": "19/9/2026, 10:03:51 pm",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P1xrirfpcVXbJGe9LKr": {
+      "cost": 400,
+      "date": "9/20/2026, 1:41:39 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P1zj8c3vdHIg19MZWaX": {
+      "cost": 400,
+      "date": "20/09/2026, 22:23:25",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P22yaAjT__nGHdxghHl": {
+      "cost": 800,
+      "date": "9/21/2026, 6:09:22 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P26QrvmUHsZq4AmA7L8": {
+      "cost": 400,
+      "date": "9/22/2026, 10:16:08 AM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P26QslK3cQ23-XJQzlS": {
+      "cost": 300,
+      "date": "9/22/2026, 10:16:12 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P27abWUrkJPmC-GXHqD": {
+      "cost": 800,
+      "date": "9/22/2026, 3:42:42 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P27ac4pt081msuCm75p": {
+      "cost": 300,
+      "date": "9/22/2026, 3:42:44 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P281xWo3BeGYWkIF0_h": {
+      "cost": 400,
+      "date": "9/22/2026, 5:46:32 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P2CumG2lkBBzzKDYM_y": {
+      "cost": 800,
+      "date": "9/23/2026, 4:28:55 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P2D4kvebDzY1g0ESAeY": {
+      "cost": 400,
+      "date": "9/23/2026, 5:16:53 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P2N04v8N97zHi8ynCNu": {
+      "cost": 800,
+      "date": "9/25/2026, 3:32:41 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P2OFOpf9obSu4NfnaFI": {
+      "cost": 500,
+      "date": "9/25/2026, 9:19:12 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P2OFPObkkbDlrVgxccW": {
+      "cost": 800,
+      "date": "9/25/2026, 9:19:14 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P2Z6KmBZHYUCGJ_WHmM": {
+      "cost": 300,
+      "date": "9/27/2026, 11:55:24 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P2Z6LkIZozc5h5F1gRh": {
+      "cost": 300,
+      "date": "9/27/2026, 11:55:28 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P2cHEQnN8N5AXTMLrX7": {
+      "cost": 300,
+      "date": "9/28/2026, 7:21:31 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P2cgdIyU1XEuRnLMuvt": {
+      "cost": 800,
+      "date": "9/28/2026, 9:16:52 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P2hL_Siqi76GcU8BzPr": {
+      "cost": 400,
+      "date": "9/29/2026, 6:58:36 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P2hLbFV03aF5ikK-SSN": {
+      "cost": 400,
+      "date": "9/29/2026, 6:58:43 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P2hwJ0P43Kl4Hng3jbP": {
+      "cost": 300,
+      "date": "9/29/2026, 9:43:26 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P2mgKpaxvP7sKYbowOE": {
+      "cost": 800,
+      "date": "30/09/2026, 19:51:45",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P2mgLRn_A5BpAhzPryh": {
+      "cost": 300,
+      "date": "30/09/2026, 19:51:47",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P2vMrbWMjMVrbt2XdN0": {
+      "cost": 1400,
+      "date": "02/10/2026, 12:18:54",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-P2vMsiuY3cbZAiOk3dU": {
+      "cost": 800,
+      "date": "02/10/2026, 12:18:58",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P2vMtPaJ7L3ae1uKAHT": {
+      "cost": 500,
+      "date": "02/10/2026, 12:19:01",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P2wbLqFDuMo-0iTXWRv": {
+      "cost": 1800,
+      "date": "2/10/2026, 6:06:13 pm",
+      "item": "🎯 Competitive"
+    },
+    "-P30pJYHzFbLwg4HSwxB": {
+      "cost": 1800,
+      "date": "3/10/2026, 6:25:20 pm",
+      "item": "🎯 Competitive"
+    },
+    "-P30pKenfYrl7hlZ_irL": {
+      "cost": 500,
+      "date": "3/10/2026, 6:25:25 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P36-h1_x4oHFXMSu7LR": {
+      "cost": 1800,
+      "date": "4/10/2026, 6:33:07 pm",
+      "item": "🎯 Competitive"
+    },
+    "-P36-hn6dvYxG8-4M5Io": {
+      "cost": 900,
+      "date": "4/10/2026, 6:33:10 pm",
+      "item": "🎯 Spike Rush"
+    },
+    "-P360FxzwSQyM5OKTm3I": {
+      "cost": 500,
+      "date": "4/10/2026, 6:35:34 pm",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P3GaqB2OSY9pqAChWyu": {
+      "cost": 1800,
+      "date": "6/10/2026, 7:55:58 pm",
+      "item": "🎯 Competitive"
+    },
+    "-P3LKk4i1qs7jwylZYVL": {
+      "cost": 1800,
+      "date": "7/10/2026, 5:59:23 pm",
+      "item": "🎯 Competitive"
+    },
+    "-P3MOucJ9sJ-uh10b-yU": {
+      "cost": 600,
+      "date": "7/10/2026, 10:57:12 pm",
+      "item": "🎮 20 Min Game"
+    },
+    "-P3Q_YM4Zu_eFZ3rMuo8": {
+      "cost": 900,
+      "date": "10/8/2026, 6:26:30 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-P3Q_Z50TbJxtXQdUDAZ": {
+      "cost": 600,
+      "date": "10/8/2026, 6:26:33 PM",
+      "item": "🎮 20 Min Game"
+    },
+    "-P3W43H-ulTBFZhkD61o": {
+      "cost": 300,
+      "date": "9/10/2026, 8:02:19 pm",
+      "item": "🎮 10 Min Game"
+    },
+    "-P3WCRSyv5c_aRVajsaG": {
+      "cost": 600,
+      "date": "9/10/2026, 8:38:55 pm",
+      "item": "🎮 20 Min Game"
+    },
+    "-P3lArGWfTG8tyRiU-o1": {
+      "cost": 900,
+      "date": "10/12/2026, 11:05:55 PM",
+      "item": "🎮 30 Min Game"
+    },
+    "-P3lAsGGoDvRAPD16ipc": {
+      "cost": 300,
+      "date": "10/12/2026, 11:05:59 PM",
+      "item": "🎮 10 Min Game"
+    },
+    "-P3tQ1vIc3_FE2Fquh6U": {
+      "cost": 1800,
+      "date": "10/14/2026, 1:29:13 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P3tQ2YnAXzt4OchzixE": {
+      "cost": 1800,
+      "date": "10/14/2026, 1:29:15 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P3tQ3Gwav58XRfR5bF4": {
+      "cost": 1800,
+      "date": "10/14/2026, 1:29:18 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P3tZ0DR7rtYVV18rVTt": {
+      "cost": 1800,
+      "date": "10/14/2026, 2:08:25 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P3uUsfTy-VhB0zArNHc": {
+      "cost": 800,
+      "date": "14/10/2026, 6:29:59 pm",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P3uWC8vxH-B9BSX0R24": {
+      "cost": 1800,
+      "date": "14/10/2026, 6:35:45 pm",
+      "item": "🎯 Competitive"
+    },
+    "-P4-lhTf1v1u_3go-Zmp": {
+      "cost": 300,
+      "date": "10/15/2026, 11:45:35 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P4-qnGbFwq3P9qvbgS8": {
+      "cost": 300,
+      "date": "10/16/2026, 12:07:50 AM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P43lRLvDLeJSaWreGQ7": {
+      "cost": 800,
+      "date": "10/16/2026, 6:22:54 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P4800JtITsIjHeUcHh0": {
+      "cost": 300,
+      "date": "10/17/2026, 2:09:26 PM",
+      "item": "📽️ 10 Min YouTube"
+    },
+    "-P48A9IXIzgvjyxM9OBi": {
+      "cost": 1800,
+      "date": "10/17/2026, 2:53:45 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P48JEPUTQx7K4BdrwI5": {
+      "cost": 1800,
+      "date": "10/17/2026, 3:33:25 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P48WfPFT0EvHrkAz42E": {
+      "cost": 1800,
+      "date": "10/17/2026, 4:32:08 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P48aHK72iYomna55G2E": {
+      "cost": 1800,
+      "date": "10/17/2026, 4:52:16 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P48kijB1MfaqbrBi4iA": {
+      "cost": 1800,
+      "date": "10/17/2026, 5:37:53 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P4OM9_6Qx-ze0EadOLa": {
+      "cost": 900,
+      "date": "10/20/2026, 6:20:07 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-P4OMA9a7HJWCmdQ6vJr": {
+      "cost": 900,
+      "date": "10/20/2026, 6:20:10 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-P4OVE9EfCw5VKgQb994": {
+      "cost": 500,
+      "date": "10/20/2026, 6:59:45 PM",
+      "item": "📽️ 20 Min YouTube"
+    },
+    "-P4TNj0c9G0-aFD_QA_v": {
+      "cost": 1800,
+      "date": "10/21/2026, 5:45:05 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P4TPRkrNRUPULcmh5Dm": {
+      "cost": 900,
+      "date": "10/21/2026, 5:52:34 PM",
+      "item": "🎯 Spike Rush"
+    },
+    "-P4bejW5QQoJ-7olNF-5": {
+      "cost": 1800,
+      "date": "10/23/2026, 1:00:20 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P4bx_1LtozOMc8EgcSW": {
+      "cost": 1800,
+      "date": "10/23/2026, 2:22:38 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P4c5KXMz_BGSu4XsSDw": {
+      "cost": 1800,
+      "date": "10/23/2026, 3:00:54 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P4cOrW3aCipcDzX9gKX": {
+      "cost": 1700,
+      "date": "10/23/2026, 4:26:14 PM",
+      "item": "🎮 60 Min Game"
+    },
+    "-P4cXZ5QW_q5qbjeQcFY": {
+      "cost": 1800,
+      "date": "10/23/2026, 5:04:14 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P4sIhQHDCg8Rn3IthOb": {
+      "cost": 400,
+      "date": "10/26/2026, 6:33:15 PM",
+      "item": "📽️ 15 Min YouTube"
+    },
+    "-P5CFKoJe3sLGX9YmQXx": {
+      "cost": 1400,
+      "date": "10/30/2026, 8:10:34 PM",
+      "item": "📽️ 60 Min YouTube"
+    },
+    "-P5CFL_DLdndaNzC5NQS": {
+      "cost": 800,
+      "date": "10/30/2026, 8:10:37 PM",
+      "item": "📽️ 30 Min YouTube"
+    },
+    "-P5osgsvqTRFCc6OsuaN": {
+      "cost": 1800,
+      "date": "11/7/2026, 12:52:05 PM",
+      "item": "🎯 Competitive"
+    },
+    "-P5pcQ5StaQJrCfhph4y": {
+      "cost": 300,
+      "date": "7/11/2026, 4:20:36 pm",
+      "item": "📽️ 10 Min YouTube"
+    }
+  },
+  "sleep": {
+    "2026-02-11": {
+      "-OlD1iMz5qvJqgCYyuOI": {
+        "duration": 6.5,
+        "end": "07:00",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-02-13": {
+      "-OlN2E1UNFzPAhXB82rl": {
+        "duration": 7.25,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:15"
+      }
+    },
+    "2026-02-14": {
+      "-OlSB06HxE14zBDwAB36": {
+        "duration": 4.75,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:15"
+      }
+    },
+    "2026-02-16": {
+      "-OlbsPNNuqLn_bgV_s4N": {
+        "duration": 3,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "01:00"
+      }
+    },
+    "2026-02-17": {
+      "-OlgcymJT9g6pS7iuiTX": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-02-18": {
+      "-Olm-jMfMJ5gsy07H4t1": {
+        "duration": 4,
+        "end": "04:30",
+        "freshness": 20,
+        "start": "00:30"
+      }
+    },
+    "2026-02-19": {
+      "-Olqzf6y6GumpGW4MQbp": {
+        "duration": 6.75,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "23:45"
+      }
+    },
+    "2026-02-20": {
+      "-OlwW-yYtWSFHVQXx4zU": {
+        "duration": 5.5,
+        "end": "06:30",
+        "freshness": 40,
+        "start": "01:00"
+      }
+    },
+    "2026-02-21": {
+      "-Om09Br-oBZ9LjCR1SVX": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-02-22": {
+      "-Om5a7-48V33XSPPtbDN": {
+        "duration": 6.25,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:15"
+      }
+    },
+    "2026-02-24": {
+      "-OmFkHkFRMDm8hMLsctn": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-02-25": {
+      "-OmKqefwJfz7qKE1r1qA": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-02-26": {
+      "-OmPy2IXICpinX04pn2-": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-02-27": {
+      "-OmUuBfInkUCvuz3b-TN": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-02-28": {
+      "-Om_CoM08PJ4ko8pMteg": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-03-01": {
+      "-Ome8tMSAjqNp9FzXMEK": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-03-02": {
+      "-Omkp7uZSx2gUaIaPPUu": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-03-03": {
+      "-OmouVpNSzEwanmpmyAJ": {
+        "duration": 4,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "00:00"
+      }
+    },
+    "2026-03-05": {
+      "-OmywHiU_czafmL8CgZ6": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-03-06": {
+      "-On3AjkzKkW_aeX38Fn8": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-03-07": {
+      "-On8KOLJJhWbQKaaLX4k": {
+        "duration": 8.5,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "23:30"
+      }
+    },
+    "2026-03-08": {
+      "-OnD_8Bscwy0wEIjSTzm": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-03-09": {
+      "-OnIeBbZaZpNb5v6w8NZ": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-03-11": {
+      "-OnSsBPF7GXH7gtRuQdj": {
+        "duration": 7,
+        "end": "06:00",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-03-13": {
+      "-OncEmLctewJVVEukftS": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      },
+      "-OncEmzZUWNeQi8xdZji": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      },
+      "-OncEurPCRvXqRgZm3K2": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-03-15": {
+      "-OnmYO71tnezGluB-o5E": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-03-16": {
+      "-OnriS-bf3hWeD5AHbdt": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-03-17": {
+      "-Onx-CdJIsAcPOpFblNi": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-03-18": {
+      "-Oo1BjKg-SgAWt3-aC99": {
+        "duration": 8,
+        "end": "08:30",
+        "freshness": 90,
+        "start": "00:30"
+      }
+    },
+    "2026-03-19": {
+      "-Oo62wWPKfjVNejsdHKr": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-03-20": {
+      "-OoBNGkElH72kw1GMF6n": {
+        "duration": 4,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "00:00"
+      }
+    },
+    "2026-03-21": {
+      "-OoHbTKdchjuZ-dctao6": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-03-22": {
+      "-OoLU6S8ud_vmH4_hx_H": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-03-23": {
+      "-OoQqOlUq6cVIW3geBL2": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-03-24": {
+      "-OoVzg5pklkhx1bRYtxn": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-03-25": {
+      "-Ooa-MXWS-JyB24gBF31": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-03-26": {
+      "-Oof3RCZFd-BsMGrB_k0": {
+        "duration": 4.45,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:33"
+      }
+    },
+    "2026-03-27": {
+      "-OokPjy89rcUmnAgTuwv": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-03-31": {
+      "-Op3a2lYnYUdQiaLBkA9": {
+        "duration": 6.5,
+        "end": "05:30",
+        "freshness": 55,
+        "start": "23:00"
+      }
+    },
+    "2026-04-01": {
+      "-Op91r23E_mBkHWhlzRY": {
+        "duration": 6,
+        "end": "05:30",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-04-02": {
+      "-OpE1HcMKAm61yQR3MLr": {
+        "duration": 5.5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "22:30"
+      }
+    },
+    "2026-04-03": {
+      "-OpJW7brkdkC35PrHhEV": {
+        "duration": 5.5,
+        "end": "05:30",
+        "freshness": 40,
+        "start": "00:00"
+      }
+    },
+    "2026-04-05": {
+      "-OpVJIAxNdoJ5L6WReEV": {
+        "duration": 6.333333333333333,
+        "end": "05:50",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-04-07": {
+      "-OpdIM_s5fDb8yK-5oDT": {
+        "duration": 7.25,
+        "end": "08:00",
+        "freshness": 75,
+        "start": "00:45"
+      }
+    },
+    "2026-04-08": {
+      "-Opi3vY5PxUI31wsvXvp": {
+        "duration": 8.5,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "23:30"
+      }
+    },
+    "2026-04-09": {
+      "-OpnCnvmaiSv69siM6Pa": {
+        "duration": 8.5,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "23:30"
+      }
+    },
+    "2026-04-10": {
+      "-OpsDnMQLVzgW86R2es3": {
+        "duration": 8,
+        "end": "07:30",
+        "freshness": 90,
+        "start": "23:30"
+      }
+    },
+    "2026-04-12": {
+      "-Oq6oRA2VM1NzrIt7veZ": {
+        "duration": 8,
+        "end": "07:30",
+        "freshness": 90,
+        "start": "23:30"
+      }
+    },
+    "2026-04-13": {
+      "-Oq6oOgmuguWRt1G8HkW": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-04-14": {
+      "-OqBmMiY_sDURkRo4Bzw": {
+        "duration": 5.5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "22:30"
+      }
+    },
+    "2026-04-15": {
+      "-OqH5fkqsPdoRtQyXbvO": {
+        "duration": 5,
+        "end": "04:30",
+        "freshness": 40,
+        "start": "23:30"
+      }
+    },
+    "2026-04-16": {
+      "-OqM5HSHAqyGRprWFbl9": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-04-17": {
+      "-OqRFit8ulqDZ163X5KZ": {
+        "duration": 5.5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "22:30"
+      }
+    },
+    "2026-04-18": {
+      "-OqWdWBihDwrq9jQLsye": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-04-19": {
+      "-Oqa_sE6xdoC_22gkr4q": {
+        "duration": 8,
+        "end": "07:00",
+        "freshness": 90,
+        "start": "23:00"
+      }
+    },
+    "2026-04-21": {
+      "-Oqklk4gmSoga36aNrGr": {
+        "duration": 6,
+        "end": "04:00",
+        "freshness": 55,
+        "start": "22:00"
+      }
+    },
+    "2026-04-22": {
+      "-Oqq3PKM1a9CM7YfRj3Q": {
+        "duration": 5.533333333333333,
+        "end": "04:01",
+        "freshness": 40,
+        "start": "22:29"
+      }
+    },
+    "2026-04-23": {
+      "-OqvJo8f9FNnAEG97Hsw": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-04-24": {
+      "-Or-bedQsfrn56rrIqFX": {
+        "duration": 4,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "00:00"
+      }
+    },
+    "2026-04-25": {
+      "-Or4Ti2dp0bxv23yy8Kj": {
+        "duration": 5.533333333333333,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "22:28"
+      }
+    },
+    "2026-04-26": {
+      "-Or9z4AAvsQjA_OIC1GH": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-04-27": {
+      "-OrEv5kr2cQemrnmjo9U": {
+        "duration": 4.55,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:27"
+      }
+    },
+    "2026-04-28": {
+      "-OrK-94EVpsmxsTEh6gA": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-04-29": {
+      "-OrPGbk8_UyBR0XflNc6": {
+        "duration": 4,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "00:00"
+      }
+    },
+    "2026-04-30": {
+      "-OrUGHKcYvGWSam8Whoa": {
+        "duration": 4.516666666666667,
+        "end": "04:01",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-05-01": {
+      "-OrZRCss3DWZRgSAtr-e": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-05-02": {
+      "-Ordr1Yr09f-BaGEZX1t": {
+        "duration": 4,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "00:00"
+      }
+    },
+    "2026-05-04": {
+      "-Oro35K4yQQIZXX6q8Zi": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-05-06": {
+      "-OryX8WDwqqPh9RLKyFs": {
+        "duration": 7,
+        "end": "07:30",
+        "freshness": 75,
+        "start": "00:30"
+      }
+    },
+    "2026-05-07": {
+      "-Os2SXBtfs8lXDA4PJiH": {
+        "duration": 6.5,
+        "end": "06:00",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-05-08": {
+      "-Os7Yw2sJx_h_YxQSxFt": {
+        "duration": 6.5,
+        "end": "06:00",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-05-09": {
+      "-OsDIWMzTf0OJ-JCK5bb": {
+        "duration": 4.5,
+        "end": "06:00",
+        "freshness": 20,
+        "start": "01:30"
+      }
+    },
+    "2026-05-10": {
+      "-OsHuy5pt5RO5VfMmMJB": {
+        "duration": 5.5,
+        "end": "05:00",
+        "freshness": 40,
+        "start": "23:30"
+      }
+    },
+    "2026-05-11": {
+      "-OsN4F52SWRO15mqWWZd": {
+        "duration": 5.5,
+        "end": "05:00",
+        "freshness": 40,
+        "start": "23:30"
+      }
+    },
+    "2026-05-12": {
+      "-OsSC14MHXPGS4WVVGiM": {
+        "duration": 7,
+        "end": "06:00",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-05-13": {
+      "-OsXIMU_tQM4uodDwckF": {
+        "duration": 9,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "23:00"
+      }
+    },
+    "2026-05-14": {
+      "-OsbLmeTnLra1qSNLg1w": {
+        "duration": 8,
+        "end": "06:30",
+        "freshness": 90,
+        "start": "22:30"
+      }
+    },
+    "2026-05-16": {
+      "-OslxLbHcBKD3Mk8KjcP": {
+        "duration": 6.25,
+        "end": "06:00",
+        "freshness": 55,
+        "start": "23:45"
+      }
+    },
+    "2026-05-17": {
+      "-Osqt9Dof1QZNaxKE4Ga": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-05-18": {
+      "-OswBFMyCYAXznhISneW": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-05-19": {
+      "-Ot0chDMM73-7GU03aFk": {
+        "duration": 5,
+        "end": "06:00",
+        "freshness": 40,
+        "start": "01:00"
+      }
+    },
+    "2026-05-20": {
+      "-Ot57MjLIu7xWRY71O1w": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      },
+      "-Ot57RtIVx6qnVNCVglm": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-05-21": {
+      "-OtAJG929dIBLdmSiwvb": {
+        "duration": 5.5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "22:30"
+      }
+    },
+    "2026-05-22": {
+      "-OtFX3l1GM26woT1BI5R": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-05-23": {
+      "-OtKs9hbMU6-OTSiTEov": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-05-24": {
+      "-OtPx_aXADGAk08IZyX0": {
+        "duration": 6.5,
+        "end": "06:00",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-05-25": {
+      "-OtV3Oz--vLzZakRvWrc": {
+        "duration": 7,
+        "end": "06:00",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-05-26": {
+      "-OtZzsx4GpV_zvGm-Ia0": {
+        "duration": 19,
+        "end": "06:00",
+        "freshness": 60,
+        "start": "11:00"
+      }
+    },
+    "2026-05-28": {
+      "-OtjfZllNF3ECJVHE7ZZ": {
+        "duration": 6.5,
+        "end": "06:00",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-05-29": {
+      "-OtolSBBtViCzng_GvKV": {
+        "duration": 6.5,
+        "end": "06:00",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-05-30": {
+      "-Ottpyop1sbaQiTNaG7c": {
+        "duration": 9.5,
+        "end": "09:00",
+        "freshness": 60,
+        "start": "23:30"
+      }
+    },
+    "2026-05-31": {
+      "-OtyzTHEXWPU3t4wnjNO": {
+        "duration": 6.533333333333333,
+        "end": "06:00",
+        "freshness": 55,
+        "start": "23:28"
+      }
+    },
+    "2026-06-01": {
+      "-Ou38GCTMTntn03Kao_w": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-06-02": {
+      "-Ou81DYcYibIc7uABZKm": {
+        "duration": 6.5,
+        "end": "04:30",
+        "freshness": 55,
+        "start": "22:00"
+      }
+    },
+    "2026-06-03": {
+      "-OuDGfuqtctxLeJwKLo3": {
+        "duration": 6,
+        "end": "04:30",
+        "freshness": 55,
+        "start": "22:30"
+      }
+    },
+    "2026-06-04": {
+      "-OuIOzklpVRns37ir774": {
+        "duration": 18,
+        "end": "16:30",
+        "freshness": 60,
+        "start": "22:30"
+      }
+    },
+    "2026-06-05": {
+      "-OuNaoWwg9R5uVvtUX-W": {
+        "duration": 6,
+        "end": "04:30",
+        "freshness": 55,
+        "start": "22:30"
+      }
+    },
+    "2026-06-06": {
+      "-OuShFl0yMp748-0ne4i": {
+        "duration": 5.85,
+        "end": "04:21",
+        "freshness": 40,
+        "start": "22:30"
+      }
+    },
+    "2026-06-07": {
+      "-OuXuS6SiU1fnaaj1Lks": {
+        "duration": 7.5,
+        "end": "06:00",
+        "freshness": 75,
+        "start": "22:30"
+      }
+    },
+    "2026-06-09": {
+      "-OuhB_0X7IvLSVTWR53F": {
+        "duration": 7.516666666666667,
+        "end": "06:02",
+        "freshness": 75,
+        "start": "22:31"
+      }
+    },
+    "2026-06-10": {
+      "-OumS1A5pd0lBOnVWebk": {
+        "duration": 7.483333333333333,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:01"
+      }
+    },
+    "2026-06-11": {
+      "-OurqyoSpoAZ4iHuQWDz": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-06-12": {
+      "-OuwkK1_e_ia1pqSpZGD": {
+        "duration": 7,
+        "end": "06:15",
+        "freshness": 75,
+        "start": "23:15"
+      }
+    },
+    "2026-06-13": {
+      "-Ov0yINp4fjJuocwhd6o": {
+        "duration": 5.283333333333333,
+        "end": "04:31",
+        "freshness": 40,
+        "start": "23:14"
+      }
+    },
+    "2026-06-14": {
+      "-Ov5uJC57IYvgdKQZlxg": {
+        "duration": 7,
+        "end": "06:00",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-06-15": {
+      "-OvBBAYApBSpQ-JsNL8B": {
+        "duration": 19,
+        "end": "18:30",
+        "freshness": 60,
+        "start": "23:30"
+      }
+    },
+    "2026-06-16": {
+      "-OvGJx97349RLPe8PN1U": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-06-18": {
+      "-OvPyTDS6hw28CG1Big1": {
+        "duration": 7.833333333333333,
+        "end": "06:50",
+        "freshness": 75,
+        "start": "23:00"
+      },
+      "-OvR-1nlxcqT7sbbo-Jl": {
+        "duration": 6.25,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:15"
+      }
+    },
+    "2026-06-19": {
+      "-OvVoeo2lGGVHegQqBbG": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-06-20": {
+      "-Ova0Q46g-q8dEhS3xmD": {
+        "duration": 6,
+        "end": "05:00",
+        "freshness": 55,
+        "start": "23:00"
+      }
+    },
+    "2026-06-21": {
+      "-Ovf29ZxLEQnafRRljlo": {
+        "duration": 7.533333333333333,
+        "end": "06:32",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-06-22": {
+      "-Ovk2MQaFZmSYv9gllnV": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-06-24": {
+      "-OvuiEkkni9IlZBdXic5": {
+        "duration": 9.5,
+        "end": "09:00",
+        "freshness": 60,
+        "start": "23:30"
+      }
+    },
+    "2026-06-25": {
+      "-OvzcINv5K7WqTlttN4o": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-06-28": {
+      "-OwE1o_tk9aZ96PRSnMQ": {
+        "duration": 7.5,
+        "end": "06:00",
+        "freshness": 75,
+        "start": "22:30"
+      }
+    },
+    "2026-06-29": {
+      "-OwJSWAdqISk7leo6Zyd": {
+        "duration": 6.833333333333333,
+        "end": "06:20",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-06-30": {
+      "-OwOPQE3dCFdRWoSF_hS": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-07-01": {
+      "-OwTs_R4DT7FEA5q2z20": {
+        "duration": 8,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "00:00"
+      }
+    },
+    "2026-07-02": {
+      "-OwYv6f1gQNMrAvAp9bH": {
+        "duration": 6,
+        "end": "05:30",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-07-03": {
+      "-OwcrfpYgEY5WNMEbbuQ": {
+        "duration": 7,
+        "end": "05:30",
+        "freshness": 75,
+        "start": "22:30"
+      }
+    },
+    "2026-07-04": {
+      "-OwiMkUsq-UuGDmxfpLw": {
+        "duration": 6.816666666666666,
+        "end": "06:59",
+        "freshness": 55,
+        "start": "00:10"
+      }
+    },
+    "2026-07-05": {
+      "-OwnFNYXDIBgHc90VVoF": {
+        "duration": 7.25,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:15"
+      }
+    },
+    "2026-07-06": {
+      "-OwstQEQM-PYTI_MWlhW": {
+        "duration": 5.25,
+        "end": "06:30",
+        "freshness": 40,
+        "start": "01:15"
+      }
+    },
+    "2026-07-07": {
+      "-OwxO4Px5CmV8R7uuAHJ": {
+        "duration": 8,
+        "end": "06:30",
+        "freshness": 90,
+        "start": "22:30"
+      }
+    },
+    "2026-07-08": {
+      "-Ox27XzNsD7KCcLi1qfh": {
+        "duration": 5.833333333333333,
+        "end": "06:50",
+        "freshness": 40,
+        "start": "01:00"
+      }
+    },
+    "2026-07-09": {
+      "-Ox6v9mCjeVmV-MG4LEJ": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-07-10": {
+      "-OxC6uFOb-zdKbh-2WUp": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-07-12": {
+      "-OxMMP4klpaCWWLg76EV": {
+        "duration": 7,
+        "end": "06:00",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-07-13": {
+      "-OxRiulm3z2pzocBCNyd": {
+        "duration": 8,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "00:00"
+      }
+    },
+    "2026-07-14": {
+      "-OxWbRDecNqxoeCajYgm": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-07-15": {
+      "-Oxak-SI0VSHn3X3kXA5": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-07-16": {
+      "-OxfkqPFDYgLl1T3AIgP": {
+        "duration": 8,
+        "end": "06:30",
+        "freshness": 90,
+        "start": "22:30"
+      }
+    },
+    "2026-07-17": {
+      "-Oxl3nnCFixSPCdRqhFb": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-07-18": {
+      "-OxqU54pij6VBwZWLeIc": {
+        "duration": 7.833333333333333,
+        "end": "08:00",
+        "freshness": 75,
+        "start": "00:10"
+      }
+    },
+    "2026-07-19": {
+      "-OxvFuaEiP1npQ0u409m": {
+        "duration": 8,
+        "end": "06:30",
+        "freshness": 90,
+        "start": "22:30"
+      }
+    },
+    "2026-07-20": {
+      "-Oy-SwY1S10FWTagZQGV": {
+        "duration": 8,
+        "end": "07:30",
+        "freshness": 90,
+        "start": "23:30"
+      }
+    },
+    "2026-07-21": {
+      "-Oy4T_PxJ54jARbPaAu5": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-07-22": {
+      "-Oy9nwi4wCTK2P3RqpVe": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-07-23": {
+      "-OyF3QWP0QEh5vPvj6LT": {
+        "duration": 8.5,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "23:30"
+      }
+    },
+    "2026-07-24": {
+      "-OyJrXxSr78B-mSNaJeg": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-07-25": {
+      "-OyPJQus6E9a8INhvibU": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-07-26": {
+      "-OyUfpN-h3l8q5XlKGF0": {
+        "duration": 6,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-07-27": {
+      "-OyZLCPP1u7TCNHD8CF3": {
+        "duration": 8,
+        "end": "06:30",
+        "freshness": 90,
+        "start": "22:30"
+      }
+    },
+    "2026-07-28": {
+      "-OydvmBWkWr1HsHqFDNv": {
+        "duration": 6,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-07-29": {
+      "-OyithST8YvKGG7Bs5nV": {
+        "duration": 6,
+        "end": "05:30",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-07-30": {
+      "-Oyo5jnm_4LYv_BSWp1d": {
+        "duration": 6,
+        "end": "05:30",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-07-31": {
+      "-Oyt7CE972qBKoX-4f-S": {
+        "duration": 6,
+        "end": "05:00",
+        "freshness": 55,
+        "start": "23:00"
+      }
+    },
+    "2026-08-02": {
+      "-Oz2V4sjF48wVJRVU1y5": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-08-03": {
+      "-Oz7mlc7w7U2kTpHNxsn": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-08-04": {
+      "-OzD01mEwdGc3nuZLLpH": {
+        "duration": 6,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-08-05": {
+      "-OzHjA8d56VS25QvopXK": {
+        "duration": 6.5,
+        "end": "05:00",
+        "freshness": 55,
+        "start": "22:30"
+      }
+    },
+    "2026-08-08": {
+      "-OzXGYG9YW45S6gg0aGO": {
+        "duration": 9,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "23:00"
+      }
+    },
+    "2026-08-09": {
+      "-OzbVjh_d9LlpRDd9Xle": {
+        "duration": 6.5,
+        "end": "06:00",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-08-10": {
+      "-OzgQnv7J4QTb51zizqT": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-08-11": {
+      "-Ozm4INK8JIrrCLm3Rki": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-08-13": {
+      "-OzwG-C-7ORFdgPEuB9t": {
+        "duration": 8.5,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "23:30"
+      }
+    },
+    "2026-08-14": {
+      "-P-0acMktNLfBwo7dl_E": {
+        "duration": 5.833333333333333,
+        "end": "06:30",
+        "freshness": 40,
+        "start": "00:40"
+      }
+    },
+    "2026-08-15": {
+      "-P-5lY6MYJQWkm7dkUfK": {
+        "duration": 7.5,
+        "end": "08:00",
+        "freshness": 75,
+        "start": "00:30"
+      }
+    },
+    "2026-08-17": {
+      "-P-FimPV0zBxcvkxWZet": {
+        "duration": 6.5,
+        "end": "06:00",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-08-18": {
+      "-P-KoIMwoHyURpk7dEKS": {
+        "duration": 5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-08-19": {
+      "-P-Q1-j5-G-WRBvzzzx6": {
+        "duration": 6,
+        "end": "05:00",
+        "freshness": 55,
+        "start": "23:00"
+      }
+    },
+    "2026-08-21": {
+      "-P-_AWdrlJpnDS6JcIC9": {
+        "duration": 5.5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "22:30"
+      }
+    },
+    "2026-08-22": {
+      "-P-eJci5MmWVsu87I2A_": {
+        "duration": 18,
+        "end": "16:30",
+        "freshness": 60,
+        "start": "22:30"
+      }
+    },
+    "2026-08-23": {
+      "-P-jy7STE-l-kvHpXN5S": {
+        "duration": 5.5,
+        "end": "06:30",
+        "freshness": 40,
+        "start": "01:00"
+      }
+    },
+    "2026-08-24": {
+      "-P-oW1pkud0AGDs8STZu": {
+        "duration": 6.5,
+        "end": "04:30",
+        "freshness": 55,
+        "start": "22:00"
+      }
+    },
+    "2026-08-25": {
+      "-P-tu-B-ZFB3ru-3-jWj": {
+        "duration": 5.5,
+        "end": "04:30",
+        "freshness": 40,
+        "start": "23:00"
+      }
+    },
+    "2026-08-26": {
+      "-P-z5kGZOkLOMDSun93v": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-08-28": {
+      "-P08B2PbYaVCTev9hhra": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-08-30": {
+      "-P0J2aVjBSuqiqQgeMiV": {
+        "duration": 5.5,
+        "end": "06:30",
+        "freshness": 40,
+        "start": "01:00"
+      }
+    },
+    "2026-08-31": {
+      "-P0O-t7614jzWibO-pdk": {
+        "duration": 6,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-09-01": {
+      "-P0T5GndpdXOZnEgUs6-": {
+        "duration": 6.75,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "23:45"
+      }
+    },
+    "2026-09-03": {
+      "-P0cHDEGyo1UPypICfEY": {
+        "duration": 5.5,
+        "end": "05:00",
+        "freshness": 40,
+        "start": "23:30"
+      }
+    },
+    "2026-09-04": {
+      "-P0hnbpXqHsiQMp_T_oe": {
+        "duration": 7.25,
+        "end": "08:00",
+        "freshness": 75,
+        "start": "00:45"
+      }
+    },
+    "2026-09-05": {
+      "-P0n0Gmsf55wJMdFc_bT": {
+        "duration": 5.25,
+        "end": "06:30",
+        "freshness": 40,
+        "start": "01:15"
+      }
+    },
+    "2026-09-06": {
+      "-P0rfuR1dFHVv7xPVlqp": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-09-07": {
+      "-P0x8ZXQtCu-v7CZDUt5": {
+        "duration": 6.333333333333333,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:10"
+      }
+    },
+    "2026-09-09": {
+      "-P16QDJHxToDnIWIbrY5": {
+        "duration": 6,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-09-10": {
+      "-P1BWJ8whPi7HxUC1hhb": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-09-11": {
+      "-P1GkVrvYRsP1h5PtC9j": {
+        "duration": 6,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-09-12": {
+      "-P1M5JvWFLg9stZjNssG": {
+        "duration": 7.5,
+        "end": "09:00",
+        "freshness": 75,
+        "start": "01:30"
+      }
+    },
+    "2026-09-13": {
+      "-P1ReFjccO2-QpOWmBPt": {
+        "duration": 6.25,
+        "end": "09:30",
+        "freshness": 55,
+        "start": "03:15"
+      }
+    },
+    "2026-09-14": {
+      "-P1Vu7CqQWkh9S_z4Wjd": {
+        "duration": 7.5,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:00"
+      }
+    },
+    "2026-09-15": {
+      "-P1af52ljCuc6vbZnYKX": {
+        "duration": 4.75,
+        "end": "06:30",
+        "freshness": 20,
+        "start": "01:45"
+      }
+    },
+    "2026-09-16": {
+      "-P1fWn_9oiyZRZ77R3Sh": {
+        "duration": 5.5,
+        "end": "06:30",
+        "freshness": 40,
+        "start": "01:00"
+      }
+    },
+    "2026-09-17": {
+      "-P1kYeI4yvKWFF7iFYAq": {
+        "duration": 6.25,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:15"
+      }
+    },
+    "2026-09-18": {
+      "-P1pek0KUsqvsd3gQ6zb": {
+        "duration": 5,
+        "end": "05:00",
+        "freshness": 40,
+        "start": "00:00"
+      }
+    },
+    "2026-09-20": {
+      "-P1zjNKeUmWdJyEpXMdW": {
+        "duration": 6.5,
+        "end": "06:00",
+        "freshness": 55,
+        "start": "23:30"
+      }
+    },
+    "2026-09-21": {
+      "-P242ERZtXwAPKFN4kqh": {
+        "duration": 4.5,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-09-22": {
+      "-P297Ld5rtOu9Z62dm9s": {
+        "duration": 5.5,
+        "end": "05:00",
+        "freshness": 40,
+        "start": "23:30"
+      }
+    },
+    "2026-09-23": {
+      "-P2EIU0bnWmbLAUCf9OC": {
+        "duration": 7,
+        "end": "06:30",
+        "freshness": 75,
+        "start": "23:30"
+      }
+    },
+    "2026-09-24": {
+      "-P2Ja1bUc8COly58bHdu": {
+        "duration": 5.25,
+        "end": "05:00",
+        "freshness": 40,
+        "start": "23:45"
+      }
+    },
+    "2026-09-25": {
+      "-P2Oguj9vMx0OmVJ4GDS": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-09-26": {
+      "-P2UFXWspmJlXZv8uGbM": {
+        "duration": 7.25,
+        "end": "09:00",
+        "freshness": 75,
+        "start": "01:45"
+      }
+    },
+    "2026-09-27": {
+      "-P2Z1-UcvRrcVethcGAu": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-09-28": {
+      "-P2d4s4XpIhg1j2LDJnw": {
+        "duration": 6.5,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:00"
+      }
+    },
+    "2026-09-29": {
+      "-P2iNfjDTrAh5QhT8XiQ": {
+        "duration": 6.25,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:15"
+      }
+    },
+    "2026-09-30": {
+      "-P2nE-r4gyAoNMba9nhy": {
+        "duration": 6,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-10-01": {
+      "-P2sPaF-s7krvR3a4J9f": {
+        "duration": 19.5,
+        "end": "06:00",
+        "freshness": 60,
+        "start": "10:30"
+      }
+    },
+    "2026-10-02": {
+      "-P2xNObuZK4f5JrA3Z8e": {
+        "duration": 2.55,
+        "end": "00:33",
+        "freshness": 20,
+        "start": "22:00"
+      }
+    },
+    "2026-10-03": {
+      "-P31nLrqEJ9AU1p9U09T": {
+        "duration": 8,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "00:00"
+      }
+    },
+    "2026-10-05": {
+      "-P3C9LwTsawDiIZgs8Eu": {
+        "duration": 6.483333333333333,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:01"
+      }
+    },
+    "2026-10-06": {
+      "-P3HYbUg5GGZD3fSsXjs": {
+        "duration": 8.583333333333334,
+        "end": "09:20",
+        "freshness": 90,
+        "start": "00:45"
+      }
+    },
+    "2026-10-07": {
+      "-P3MP1fEFDeNJBxim6r8": {
+        "duration": 5.816666666666666,
+        "end": "06:34",
+        "freshness": 40,
+        "start": "00:45"
+      }
+    },
+    "2026-10-08": {
+      "-P3Rt2GPbheOjO4WC3KZ": {
+        "duration": 5.516666666666667,
+        "end": "06:31",
+        "freshness": 40,
+        "start": "01:00"
+      }
+    },
+    "2026-10-09": {
+      "-P3WlepF9LjBsLKR_6Nm": {
+        "duration": 8,
+        "end": "08:00",
+        "freshness": 90,
+        "start": "00:00"
+      }
+    },
+    "2026-10-13": {
+      "-P3q3kVicPcQkK914eKR": {
+        "duration": 5.5,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "22:30"
+      }
+    },
+    "2026-10-14": {
+      "-P3vQEAkKNdznwHrAWnW": {
+        "duration": 7.5,
+        "end": "08:00",
+        "freshness": 75,
+        "start": "00:30"
+      }
+    },
+    "2026-10-15": {
+      "-P4-leEmn7ABIC5PLRQI": {
+        "duration": 7.5,
+        "end": "08:00",
+        "freshness": 75,
+        "start": "00:30"
+      }
+    },
+    "2026-10-16": {
+      "-P44OBaqJGxbGj08x01Q": {
+        "duration": 5.75,
+        "end": "04:00",
+        "freshness": 40,
+        "start": "22:15"
+      }
+    },
+    "2026-10-17": {
+      "-P49uj4AWHBCpHPyHGSj": {
+        "duration": 4.516666666666667,
+        "end": "04:01",
+        "freshness": 20,
+        "start": "23:30"
+      }
+    },
+    "2026-10-18": {
+      "-P4F2lhJKhWWcmXrrgeC": {
+        "duration": 4.516666666666667,
+        "end": "04:00",
+        "freshness": 20,
+        "start": "23:29"
+      }
+    },
+    "2026-10-20": {
+      "-P4PEv1cxxpSTPNFNXw5": {
+        "duration": 8,
+        "end": "07:00",
+        "freshness": 90,
+        "start": "23:00"
+      }
+    },
+    "2026-10-21": {
+      "-P4Ug8HmAzuBV46sgm4o": {
+        "duration": 6.966666666666667,
+        "end": "06:59",
+        "freshness": 55,
+        "start": "00:01"
+      }
+    },
+    "2026-10-26": {
+      "-P4tgH5miuH1OOfMO3yf": {
+        "duration": 5,
+        "end": "06:30",
+        "freshness": 40,
+        "start": "01:30"
+      }
+    },
+    "2026-10-27": {
+      "-P4y_PA8_I-sHbdRpdGu": {
+        "duration": 6,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-10-28": {
+      "-P52oaX8S3O9Lz8-ejLy": {
+        "duration": 5.5,
+        "end": "06:30",
+        "freshness": 40,
+        "start": "01:00"
+      }
+    },
+    "2026-10-29": {
+      "-P57v5XOZsjLigudeYJA": {
+        "duration": 6,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-10-31": {
+      "-P5IH_HXicLgl3w0qVFr": {
+        "duration": 8,
+        "end": "09:00",
+        "freshness": 90,
+        "start": "01:00"
+      }
+    },
+    "2026-11-01": {
+      "-P5NcjBqSGNllIlCAWWK": {
+        "duration": 5,
+        "end": "06:30",
+        "freshness": 40,
+        "start": "01:30"
+      }
+    },
+    "2026-11-03": {
+      "-P5Xbx8wbF8OWJf1TMWS": {
+        "duration": 6.25,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:15"
+      }
+    },
+    "2026-11-04": {
+      "-P5bn0sArUxY4894joSA": {
+        "duration": 6,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:30"
+      }
+    },
+    "2026-11-05": {
+      "-P5guxxJNZITv4OCTCHc": {
+        "duration": 6.25,
+        "end": "06:30",
+        "freshness": 55,
+        "start": "00:15"
+      }
+    }
+  },
+  "spinHistory": {
+    "-Op8wsUkksOkDlnJ-YLs": {
+      "result": "Loan 80",
+      "time": 1775062189252
+    },
+    "-Op8wu-cglRQF1_KcFlH": {
+      "result": "+20 Coins",
+      "time": 1775062195452
+    },
+    "-Op8wvOmMkAeu8g2AxBK": {
+      "result": "+20 Coins",
+      "time": 1775062201158
+    },
+    "-Op8wwo7SciFmPcROYmp": {
+      "result": "Loan 80",
+      "time": 1775062206940
+    },
+    "-Op8wyEyYS3MGSTe2GBX": {
+      "result": "Loan 80",
+      "time": 1775062212818
+    },
+    "-Op8wziyRIkPEefd7aJ9": {
+      "result": "Loan 80",
+      "time": 1775062218898
+    },
+    "-Op8x07SFY5wgodHM5xS": {
+      "result": "+20 Coins",
+      "time": 1775062224625
+    },
+    "-Op8x1ZMKFPaeVMQyURB": {
+      "result": "Loan 80",
+      "time": 1775062230507
+    },
+    "-Op8x2yeQOz9b72_RImd": {
+      "result": "+20 Coins",
+      "time": 1775062236286
+    },
+    "-Op8x4a1JeYcXdka8juU": {
+      "result": "+20 Coins",
+      "time": 1775062242902
+    },
+    "-Op8x5x7G0gNrlhUkTXS": {
+      "result": "Loan 80",
+      "time": 1775062248476
+    },
+    "-Op8x7fqPrB9v9wlXIAW": {
+      "result": "Loan 80",
+      "time": 1775062255562
+    },
+    "-Op8x98LIynCayCBsgZV": {
+      "result": "Loan 80",
+      "time": 1775062261546
+    },
+    "-Op8xCJqsUAvsoQPQsIx": {
+      "result": "+20 Coins",
+      "time": 1775062274570
+    },
+    "-Op8xDphcE-bi4oQ5r5Z": {
+      "result": "+20 Coins",
+      "time": 1775062280769
+    },
+    "-Op8xFd6dLlLFbdG5zpE": {
+      "result": "+20 Coins",
+      "time": 1775062288155
+    },
+    "-Op8yEw_s8TG6FP18mNX": {
+      "result": "+20 Coins",
+      "time": 1775062547436
+    },
+    "-Op8yRb59Os0LnPmRSgn": {
+      "result": "+20 Coins",
+      "time": 1775062599310
+    },
+    "-Op8yTUTuIhK4E_VGdas": {
+      "result": "+20 Coins",
+      "time": 1775062607014
+    },
+    "-Op8yV6NLrLEURHmHx0_": {
+      "result": "+20 Coins",
+      "time": 1775062613664
+    },
+    "-Op8yWj44_EeqLQ6FFiX": {
+      "result": "Loan 80",
+      "time": 1775062620301
+    },
+    "-OpdIiYXYFVg2zYJcIzA": {
+      "result": "Loan 80",
+      "time": 1775588270699
+    },
+    "-OpdIk5vUzt3siQ57FJF": {
+      "result": "Loan 80",
+      "time": 1775588277060
+    },
+    "-OpdImx4Wy3vteFqTTU0": {
+      "result": "Loan 80",
+      "time": 1775588288718
+    },
+    "-OpdIo_WzIawRoZHwmlv": {
+      "result": "+20 Coins",
+      "time": 1775588295402
+    },
+    "-OpdIq35KfKx_TOvd0xg": {
+      "result": "+20 Coins",
+      "time": 1775588301455
+    },
+    "-OpdIrSdYCH3OSY_lGTu": {
+      "result": "+20 Coins",
+      "time": 1775588307186
+    },
+    "-OpdIsqKxWbXf0hyVK-a": {
+      "result": "+20 Coins",
+      "time": 1775588312862
+    },
+    "-OpnCJj_8F4Ub481_P_z": {
+      "result": "Loan 80",
+      "time": 1775754363617
+    },
+    "-OpnCLEckgoRviK8vA1p": {
+      "result": "Loan 80",
+      "time": 1775754369764
+    },
+    "-OpnCMmw9uec7wIhc5NF": {
+      "result": "+20 Coins",
+      "time": 1775754376120
+    },
+    "-OpnCOES9I6F_Nink_th": {
+      "result": "+20 Coins",
+      "time": 1775754382041
+    },
+    "-OpnCPfZUIxsdQmbgPnj": {
+      "result": "+20 Coins",
+      "time": 1775754387936
+    },
+    "-OpnCRDYanhj-Whu7PaL": {
+      "result": "+20 Coins",
+      "time": 1775754394271
+    },
+    "-OpnCSfrZCz16HUmU1jz": {
+      "result": "+20 Coins",
+      "time": 1775754400243
+    },
+    "-OxfjQWVR_laGSgg-mbX": {
+      "result": "Loan 80",
+      "time": 1784219026270
+    },
+    "-OxfjS8y3E8owKZujW4R": {
+      "result": "Loan 80",
+      "time": 1784219032956
+    },
+    "-OxfjTd2vyIM1APbEj91": {
+      "result": "+20 Coins",
+      "time": 1784219039041
+    },
+    "-OxfjVFzKzs-IktbhJQR": {
+      "result": "+20 Coins",
+      "time": 1784219045693
+    },
+    "-OxfjWp1PQC87ZzuWPqC": {
+      "result": "Loan 80",
+      "time": 1784219052096
+    },
+    "-OxfjYXy6Vho51r1pRzI": {
+      "result": "Loan 80",
+      "time": 1784219059132
+    },
+    "-OxfjZxNKQ5IxChZPzUQ": {
+      "result": "+20 Coins",
+      "time": 1784219064918
+    },
+    "-OxfjaRziLOVxaEAY_Sn": {
+      "result": "+20 Coins",
+      "time": 1784219071036
+    },
+    "-Oxfjc8L9YBjcWu-2YAE": {
+      "result": "+20 Coins",
+      "time": 1784219077972
+    }
+  },
+  "streak": 384,
+  "studySessions": {
+    "-OlG66ckqoll_J3KXMvs": {
+      "coinsEarned": 500,
+      "date": "2026-02-12T09:09:07.008Z",
+      "duration": 5
+    },
+    "-OlGLppn9pyPqcl-s5y7": {
+      "coinsEarned": 700,
+      "date": "2026-02-12T10:17:48.417Z",
+      "duration": 7
+    },
+    "-OlHbsZk9KlrZGInS3Yz": {
+      "coinsEarned": 1500,
+      "date": "2026-02-12T16:11:53.511Z",
+      "duration": 15
+    },
+    "-OlHn9mAkFbrYYNMisNr": {
+      "coinsEarned": 4900,
+      "date": "2026-02-12T17:01:11.760Z",
+      "duration": 49
+    },
+    "-OlJK562AqxHoVk6rA1h": {
+      "coinsEarned": 54600,
+      "date": "2026-02-13T00:09:01.911Z",
+      "duration": 91
+    },
+    "-OlMa0tSVUivMs041JNU": {
+      "coinsEarned": 4200,
+      "date": "2026-02-13T15:21:51.823Z",
+      "duration": 7
+    },
+    "-OlWJvUiCzgPKd77txo5": {
+      "coinsEarned": 54000,
+      "date": "2026-02-15T12:43:22.008Z",
+      "duration": 90
+    },
+    "-OlaVoJ4wSyf-iT9Ox22": {
+      "coinsEarned": 600,
+      "date": "2026-02-16T12:53:24.060Z",
+      "duration": 1
+    },
+    "-OlbjEotUpRpEN2CGZG0": {
+      "coinsEarned": 62400,
+      "date": "2026-02-16T18:36:03.903Z",
+      "duration": 104
+    },
+    "-OlfFtDUSaUR2_Tl5kII": {
+      "coinsEarned": 36000,
+      "date": "2026-02-17T11:01:56.420Z",
+      "duration": 60
+    },
+    "-Olg_0DbQNAm_o_ax8m9": {
+      "coinsEarned": 28200,
+      "date": "2026-02-17T17:09:29.224Z",
+      "duration": 47
+    },
+    "-Olm-DoET7-8Lpz98zoi": {
+      "coinsEarned": 100800,
+      "date": "2026-02-18T18:26:28.432Z",
+      "duration": 168
+    },
+    "-OlnNhnPYtpo9to67iB_": {
+      "coinsEarned": 72000,
+      "date": "2026-02-19T00:53:04.672Z",
+      "duration": 120
+    },
+    "-OloYLrlOvgO8VjtJzRx": {
+      "coinsEarned": 15600,
+      "date": "2026-02-19T06:19:11.365Z",
+      "duration": 26
+    },
+    "-Olpm0LhuebLdRjfAtwc": {
+      "coinsEarned": 16800,
+      "date": "2026-02-19T12:02:51.719Z",
+      "duration": 28
+    },
+    "-OlqyxpBt9BEqDq3PMFk": {
+      "coinsEarned": 78600,
+      "date": "2026-02-19T17:39:02.112Z",
+      "duration": 131
+    },
+    "-OluNCNEOPuDoqcyXX7f": {
+      "coinsEarned": 39000,
+      "date": "2026-02-20T09:28:11.948Z",
+      "duration": 65
+    },
+    "-Olub2r8ppm3ul8Zel_T": {
+      "coinsEarned": 13200,
+      "date": "2026-02-20T10:33:05.658Z",
+      "duration": 22
+    },
+    "-OlulFkBYbHpVjFLTgzA": {
+      "coinsEarned": 26400,
+      "date": "2026-02-20T11:17:39.900Z",
+      "duration": 44
+    },
+    "-Olvf-z2Ni1bSNMCxnaO": {
+      "coinsEarned": 36000,
+      "date": "2026-02-20T15:29:59.872Z",
+      "duration": 60
+    },
+    "-OlwPIunzWE1HXIgznr0": {
+      "coinsEarned": 50400,
+      "date": "2026-02-20T18:56:37.843Z",
+      "duration": 63
+    },
+    "-Om2wp4kpv_FJ1-tT27n": {
+      "coinsEarned": 8000,
+      "date": "2026-02-22T06:04:47.638Z",
+      "duration": 10
+    },
+    "-Om3WX9KHGKjVfHJYbk2": {
+      "coinsEarned": 100000,
+      "date": "2026-02-22T08:45:09.345Z",
+      "duration": 125
+    },
+    "-Om5RbwEYjlD4rnifWMM": {
+      "coinsEarned": 135200,
+      "date": "2026-02-22T17:42:56.451Z",
+      "duration": 169
+    },
+    "-OmBnU61JTYVHWsxFvVf": {
+      "coinsEarned": 48000,
+      "date": "2026-02-23T23:20:33.366Z",
+      "duration": 60
+    },
+    "-OmCEK3ZY5BmmXg-KF_0": {
+      "coinsEarned": 96800,
+      "date": "2026-02-24T01:22:11.817Z",
+      "duration": 121
+    },
+    "-OmERqa4K-v7m2HjBs9A": {
+      "coinsEarned": 132800,
+      "date": "2026-02-24T11:40:30.915Z",
+      "duration": 166
+    },
+    "-OmFoNUTAyWjMMZ3yiKs": {
+      "coinsEarned": 256000,
+      "date": "2026-02-24T18:02:56.385Z",
+      "duration": 320
+    },
+    "-OmGrfI5cvZeBefklRuF": {
+      "coinsEarned": 5600,
+      "date": "2026-02-24T22:56:57.545Z",
+      "duration": 7
+    },
+    "-OmGzmVIpRPL1W_t1ogm": {
+      "coinsEarned": 28000,
+      "date": "2026-02-24T23:32:24.560Z",
+      "duration": 35
+    },
+    "-OmNqA17vbIPnJr8xP7b": {
+      "coinsEarned": 53600,
+      "date": "2026-02-26T07:27:42.812Z",
+      "duration": 67
+    },
+    "-OmOABt77WsKqSwiUMf8": {
+      "coinsEarned": 30,
+      "date": "2026-02-26T08:59:35.109Z",
+      "duration": 30
+    },
+    "-OmOdZW_PfzabH0vBxm1": {
+      "coinsEarned": 7,
+      "date": "2026-02-26T11:12:17.798Z",
+      "duration": 7
+    },
+    "-OmPRwJZiy-XNNS88G6H": {
+      "coinsEarned": 1750,
+      "date": "2026-02-26T14:56:43.144Z",
+      "duration": 35
+    },
+    "-OmPu9SHREeWd-Ef08Zu": {
+      "coinsEarned": 500,
+      "date": "2026-02-26T17:04:24.662Z",
+      "duration": 10
+    },
+    "-OmXti8eB2EETlEv_5uH": {
+      "coinsEarned": 2050,
+      "date": "2026-02-28T06:19:26.869Z",
+      "duration": 41
+    },
+    "-OmYSEfohEhNPKFvAZiY": {
+      "coinsEarned": 7400,
+      "date": "2026-02-28T08:54:39.088Z",
+      "duration": 148
+    },
+    "-OmZL5jlynzKfodWoYhh": {
+      "coinsEarned": 10050,
+      "date": "2026-02-28T13:03:03.786Z",
+      "duration": 201
+    },
+    "-OmZd9wnKYIVvnSYuCeK": {
+      "coinsEarned": 1050,
+      "date": "2026-02-28T14:26:21.730Z",
+      "duration": 21
+    },
+    "-OmbDoZdbvxrsF9hHASs": {
+      "coinsEarned": 5900,
+      "date": "2026-03-01T02:30:06.915Z",
+      "duration": 118
+    },
+    "-Omckt-UaZR1zGUNYNrL": {
+      "coinsEarned": 3450,
+      "date": "2026-03-01T09:38:34.311Z",
+      "duration": 69
+    },
+    "-Omcw9lZ2XNX-RbkO-LD": {
+      "coinsEarned": 1000,
+      "date": "2026-03-01T10:27:51.558Z",
+      "duration": 20
+    },
+    "-Omdnml6eqDB2OSy3S3x": {
+      "coinsEarned": 1500,
+      "date": "2026-03-01T14:30:53.362Z",
+      "duration": 30
+    },
+    "-OmlGc8mXue8qcfPasxz": {
+      "coinsEarned": 12900,
+      "date": "2026-03-03T01:18:33.659Z",
+      "duration": 86
+    },
+    "-OmnJCN9XA89wx9eLthg": {
+      "coinsEarned": 600,
+      "date": "2026-03-03T10:49:05.142Z",
+      "duration": 4
+    },
+    "-OmncyizrcU4Y0TnipdL": {
+      "coinsEarned": 1200,
+      "date": "2026-03-03T12:19:49.571Z",
+      "duration": 8
+    },
+    "-OmnczQuvUMkY7Sw1GpR": {
+      "coinsEarned": 9000,
+      "date": "2026-03-03T12:19:52.447Z",
+      "duration": 60
+    },
+    "-Omni0EQS0A4ioikfLki": {
+      "coinsEarned": 1500,
+      "date": "2026-03-03T12:41:52.203Z",
+      "duration": 10
+    },
+    "-OmoE6WhDK8kCNenQIit": {
+      "coinsEarned": 5100,
+      "date": "2026-03-03T15:06:27.152Z",
+      "duration": 34
+    },
+    "-OmouGonKG42tO1lC8UO": {
+      "coinsEarned": 18600,
+      "date": "2026-03-03T18:15:02.049Z",
+      "duration": 124
+    },
+    "-OmqMHvBhBKCbKTCuZPS": {
+      "coinsEarned": 5700,
+      "date": "2026-03-04T01:01:26.223Z",
+      "duration": 38
+    },
+    "-OmsXd5kcS5S2AVBhyf1": {
+      "coinsEarned": 28800,
+      "date": "2026-03-04T11:10:14.393Z",
+      "duration": 192
+    },
+    "-OmttDo3FfEQXMqMvn99": {
+      "coinsEarned": 27150,
+      "date": "2026-03-04T17:28:32.767Z",
+      "duration": 181
+    },
+    "-On3AaXzpUCMAJqq3duc": {
+      "coinsEarned": 24000,
+      "date": "2026-03-06T17:25:01.636Z",
+      "duration": 160
+    },
+    "-On4pCsNLtCdQRt9lHaA": {
+      "coinsEarned": 150,
+      "date": "2026-03-07T01:06:27.691Z",
+      "duration": 1
+    },
+    "-On78MUPzvWzKGOcBgyW": {
+      "coinsEarned": 39000,
+      "date": "2026-03-07T11:53:43.808Z",
+      "duration": 260
+    },
+    "-OnC1x0nbZaMy7FgJOOK": {
+      "coinsEarned": 1500,
+      "date": "2026-03-08T10:43:48.759Z",
+      "duration": 10
+    },
+    "-OnM37zz0tiIP_HDsznW": {
+      "coinsEarned": 12300,
+      "date": "2026-03-10T09:25:11.967Z",
+      "duration": 82
+    },
+    "-OnNPBgOHsQLvSkNazPn": {
+      "coinsEarned": 16200,
+      "date": "2026-03-10T15:41:11.565Z",
+      "duration": 108
+    },
+    "-OnQmnLbrtOBWJhbFnmq": {
+      "coinsEarned": 9000,
+      "date": "2026-03-11T07:27:34.113Z",
+      "duration": 60
+    },
+    "-OnRGki30k5-8Y2svfFg": {
+      "coinsEarned": 20250,
+      "date": "2026-03-11T09:42:49.016Z",
+      "duration": 135
+    },
+    "-OnSPn_AsjP0dqXIye2q": {
+      "coinsEarned": 2100,
+      "date": "2026-03-11T15:01:57.883Z",
+      "duration": 14
+    },
+    "-OnSs4zvk04k_4399kHw": {
+      "coinsEarned": 9000,
+      "date": "2026-03-11T17:09:55.011Z",
+      "duration": 60
+    },
+    "-OnUj8HLkQWKO4-3GFrC": {
+      "coinsEarned": 2100,
+      "date": "2026-03-12T01:50:03.537Z",
+      "duration": 14
+    },
+    "-Onc7VezONt8HAu_qa1R": {
+      "coinsEarned": 7650,
+      "date": "2026-03-13T16:57:49.561Z",
+      "duration": 51
+    },
+    "-Ongo50YDGiQPvfgTNl5": {
+      "coinsEarned": 15600,
+      "date": "2026-03-14T14:46:43.387Z",
+      "duration": 104
+    },
+    "-Onri7pgs3CuUxPTrmrC": {
+      "coinsEarned": 116000,
+      "date": "2026-03-16T17:36:32.598Z",
+      "duration": 145
+    },
+    "-Oo0jOfAS8ouJqFe0QIb": {
+      "coinsEarned": 8000,
+      "date": "2026-03-18T16:18:16.249Z",
+      "duration": 10
+    },
+    "-Oo19IHnJnEEtty3MkuN": {
+      "coinsEarned": 89600,
+      "date": "2026-03-18T18:15:47.877Z",
+      "duration": 112
+    },
+    "-Oo45k4k8U265nnKgTjy": {
+      "coinsEarned": 800,
+      "date": "2026-03-19T07:59:09.578Z",
+      "duration": 1
+    },
+    "-Oo5DfQCz8uqu3TmaXKk": {
+      "coinsEarned": 110400,
+      "date": "2026-03-19T13:13:24.677Z",
+      "duration": 138
+    },
+    "-OoAKO7HbPI0CD0hjdDj": {
+      "coinsEarned": 97600,
+      "date": "2026-03-20T13:00:51.012Z",
+      "duration": 122
+    },
+    "-OoAhRwVL4loNPp5KrDD": {
+      "coinsEarned": 7200,
+      "date": "2026-03-20T14:45:58.091Z",
+      "duration": 9
+    },
+    "-OoHwtjbMoejrdx3XkEl": {
+      "coinsEarned": 174,
+      "date": "2026-03-22T00:30:47.852Z",
+      "duration": 58
+    },
+    "-OoKJRyMjjXDofVIsKuz": {
+      "coinsEarned": 276,
+      "date": "2026-03-22T11:32:55.944Z",
+      "duration": 92
+    },
+    "-OoQq5d8ryfFpSdyuvYM": {
+      "coinsEarned": 744,
+      "date": "2026-03-23T17:57:40.538Z",
+      "duration": 248
+    },
+    "-OoVyyWvZWeszxbUliFW": {
+      "coinsEarned": 606,
+      "date": "2026-03-24T17:54:33.861Z",
+      "duration": 202
+    },
+    "-Ooa4F6Y9QQXastuIdZb": {
+      "coinsEarned": 7920,
+      "date": "2026-03-25T17:40:04.564Z",
+      "duration": 198
+    },
+    "-OoerK_85ijf2rkFUnmB": {
+      "coinsEarned": 31500,
+      "date": "2026-03-26T15:57:24.030Z",
+      "duration": 63
+    },
+    "-OooklY2xFjPJT0QQZGN": {
+      "coinsEarned": 16500,
+      "date": "2026-03-28T14:04:54.728Z",
+      "duration": 33
+    },
+    "-OoowUHypfm9N38-Jzoz": {
+      "coinsEarned": 7500,
+      "date": "2026-03-28T14:56:05.277Z",
+      "duration": 15
+    },
+    "-OosRKOkruOWGZOPJfZ7": {
+      "coinsEarned": 6000,
+      "date": "2026-03-29T07:14:04.745Z",
+      "duration": 12
+    },
+    "-OosZCzS7N7UaJBFHo3w": {
+      "coinsEarned": 17000,
+      "date": "2026-03-29T07:48:31.548Z",
+      "duration": 34
+    },
+    "-OotZ4JMsvhyWPblxbx5": {
+      "coinsEarned": 74000,
+      "date": "2026-03-29T12:27:33.463Z",
+      "duration": 148
+    },
+    "-Op2i2lla9RGYKShCKl5": {
+      "coinsEarned": 50,
+      "date": "2026-03-31T11:47:19.941Z",
+      "duration": 1
+    },
+    "-Op7_aR_6BJmAtwzYxUn": {
+      "coinsEarned": 30000,
+      "date": "2026-04-01T10:28:28.819Z",
+      "duration": 60
+    },
+    "-Op7qlBORujaBPXvh2Ju": {
+      "coinsEarned": 60000,
+      "date": "2026-04-01T11:43:29.263Z",
+      "duration": 120
+    },
+    "-Op8uhI50Ylmc7c9LPDR": {
+      "coinsEarned": 22000,
+      "date": "2026-04-01T16:40:19.079Z",
+      "duration": 44
+    },
+    "-OpDRaMiROMwfJW3AG2x": {
+      "coinsEarned": 60,
+      "date": "2026-04-02T13:46:51.709Z",
+      "duration": 30
+    },
+    "-OpFLgfnuIqMpa01uoQR": {
+      "coinsEarned": 1252,
+      "date": "2026-04-02T22:40:18.995Z",
+      "duration": 240
+    },
+    "-OpFjfSJJ4EHyvJ-s4SE": {
+      "coinsEarned": 216,
+      "date": "2026-04-03T00:29:28.129Z",
+      "duration": 108
+    },
+    "-OpJVydQss5bMFsRFRV1": {
+      "coinsEarned": 370,
+      "date": "2026-04-03T18:03:44.825Z",
+      "duration": 185
+    },
+    "-OpNKuw5JhAI8UHvyich": {
+      "coinsEarned": 406,
+      "date": "2026-04-04T11:53:55.179Z",
+      "duration": 203
+    },
+    "-OpTeE5a7GjKr6ZCybIo": {
+      "coinsEarned": 172,
+      "date": "2026-04-05T17:20:22.984Z",
+      "duration": 86
+    },
+    "-OpYDkUwPOvi9VtpGxHW": {
+      "coinsEarned": 242,
+      "date": "2026-04-06T14:38:25.814Z",
+      "duration": 121
+    },
+    "-Opbcrtm99eyXsj0bona": {
+      "coinsEarned": 908,
+      "date": "2026-04-07T11:11:00.473Z",
+      "duration": 454
+    },
+    "-OpdI7yaz6OR2EsMb49q": {
+      "coinsEarned": 120,
+      "date": "2026-04-07T18:55:16.794Z",
+      "duration": 60
+    },
+    "-OpfLT4PGziBDZrSm4nZ": {
+      "coinsEarned": 120,
+      "date": "2026-04-08T04:29:04.032Z",
+      "duration": 60
+    },
+    "-OpgrAmcLp-0Pjl3wjru": {
+      "coinsEarned": 844,
+      "date": "2026-04-08T11:31:37.014Z",
+      "duration": 422
+    },
+    "-OpkZ0eyFiW5kDZXhJ0_": {
+      "coinsEarned": 120,
+      "date": "2026-04-09T04:46:25.290Z",
+      "duration": 60
+    },
+    "-OplHPr4iiVP2l0_6qMY": {
+      "coinsEarned": 230,
+      "date": "2026-04-09T08:09:07.078Z",
+      "duration": 115
+    },
+    "-Oplq4CzsP0ewxI5LiAL": {
+      "coinsEarned": 20,
+      "date": "2026-04-09T10:44:55.574Z",
+      "duration": 10
+    },
+    "-OplrgDbZCEZRtnqTMae": {
+      "coinsEarned": 144,
+      "date": "2026-04-09T10:51:57.498Z",
+      "duration": 72
+    },
+    "-OpnB4NbNCRRVMR2Lo3w": {
+      "coinsEarned": 172,
+      "date": "2026-04-09T17:00:38.558Z",
+      "duration": 86
+    },
+    "-OppX_5WDXloD2o0RTRF": {
+      "coinsEarned": 60,
+      "date": "2026-04-10T03:58:10.207Z",
+      "duration": 30
+    },
+    "-Opr01_C-8dEws--HopV": {
+      "coinsEarned": 824,
+      "date": "2026-04-10T10:50:52.893Z",
+      "duration": 412
+    },
+    "-OpsDD8rokf7afo9goG8": {
+      "coinsEarned": 60,
+      "date": "2026-04-10T16:28:04.575Z",
+      "duration": 30
+    },
+    "-Opud3NxNRAJtR1VFint": {
+      "coinsEarned": 30,
+      "date": "2026-04-11T03:44:36.984Z",
+      "duration": 15
+    },
+    "-Opw_aOzbSbH6lTtKMwn": {
+      "coinsEarned": 772,
+      "date": "2026-04-11T12:48:41.559Z",
+      "duration": 386
+    },
+    "-Oq0KjkOl0kI7hr7XmpM": {
+      "coinsEarned": 316,
+      "date": "2026-04-12T10:57:31.634Z",
+      "duration": 158
+    },
+    "-Oq54CTID7WOdbdIp-jx": {
+      "coinsEarned": 480,
+      "date": "2026-04-13T09:03:22.899Z",
+      "duration": 240
+    },
+    "-Oq6oEVS6LmbfSUZwYbx": {
+      "coinsEarned": 750,
+      "date": "2026-04-13T17:08:32.842Z",
+      "duration": 375
+    },
+    "-OqBm1myaHUJlt8aOg5-": {
+      "coinsEarned": 712,
+      "date": "2026-04-14T16:16:58.416Z",
+      "duration": 356
+    },
+    "-OqH2szanj889pS0TyC_": {
+      "coinsEarned": 1440,
+      "date": "2026-04-15T16:53:01.776Z",
+      "duration": 720
+    },
+    "-OqL2T2fXuGZT2tt2NlD": {
+      "coinsEarned": 750,
+      "date": "2026-04-16T11:29:40.557Z",
+      "duration": 375
+    },
+    "-OqRFQ8C5Fxd5BBndNKu": {
+      "coinsEarned": 764,
+      "date": "2026-04-17T16:24:03.580Z",
+      "duration": 382
+    },
+    "-OqWcltHzTkmF9VmlzzL": {
+      "coinsEarned": 1216,
+      "date": "2026-04-18T17:28:33.564Z",
+      "duration": 608
+    },
+    "-OqaZABCl1BMps2C1zwO": {
+      "coinsEarned": 908,
+      "date": "2026-04-19T16:26:32.884Z",
+      "duration": 454
+    },
+    "-Oqd9dyF108MWstoGMYA": {
+      "coinsEarned": 360,
+      "date": "2026-04-20T04:33:56.389Z",
+      "duration": 180
+    },
+    "-OqfEUpuyq8H68DjZlGI": {
+      "coinsEarned": 180,
+      "date": "2026-04-20T14:14:20.755Z",
+      "duration": 90
+    },
+    "-OqimAEiqUxLQPOyKvrE": {
+      "coinsEarned": 60,
+      "date": "2026-04-21T06:44:42.273Z",
+      "duration": 30
+    },
+    "-OqjZhmo70zEEY-eVHuJ": {
+      "coinsEarned": 172,
+      "date": "2026-04-21T10:25:30.021Z",
+      "duration": 86
+    },
+    "-OqmnpQzUK2A_IgLQ4QL": {
+      "coinsEarned": 226,
+      "date": "2026-04-22T01:30:25.928Z",
+      "duration": 113
+    },
+    "-OqoK-MVivmYaKa7r8x9": {
+      "coinsEarned": 180,
+      "date": "2026-04-22T08:34:59.793Z",
+      "duration": 90
+    },
+    "-Oqp0HsCxtS39hbe2E9e": {
+      "coinsEarned": 386,
+      "date": "2026-04-22T11:48:28.159Z",
+      "duration": 193
+    },
+    "-Oqq3I4K6wETjAbN893I": {
+      "coinsEarned": 92,
+      "date": "2026-04-22T16:41:12.612Z",
+      "duration": 46
+    },
+    "-OqvJYRkguOOovv4Jbxo": {
+      "coinsEarned": 354,
+      "date": "2026-04-23T17:10:20.125Z",
+      "duration": 177
+    },
+    "-Oqwmk2W9_1sHbivUmbt": {
+      "coinsEarned": 140,
+      "date": "2026-04-24T00:01:53.136Z",
+      "duration": 70
+    },
+    "-Or-_nr37MSdgWbpfltN": {
+      "coinsEarned": 452,
+      "date": "2026-04-24T17:43:49.883Z",
+      "duration": 226
+    },
+    "-Or4T_qLtQ1kxAeYtJsP": {
+      "coinsEarned": 40,
+      "date": "2026-04-25T16:30:23.301Z",
+      "duration": 20
+    },
+    "-Or671E1f7d_9uOHOTd7": {
+      "coinsEarned": 174,
+      "date": "2026-04-26T00:11:05.016Z",
+      "duration": 87
+    },
+    "-Or9lx1eFee-HeGoPNek": {
+      "coinsEarned": 80,
+      "date": "2026-04-26T17:13:05.020Z",
+      "duration": 40
+    },
+    "-OrJ87Nz983PXe5PYunu": {
+      "coinsEarned": 360,
+      "date": "2026-04-28T12:50:56.301Z",
+      "duration": 180
+    },
+    "-OrK-5Zj3xzz03TABe8p": {
+      "coinsEarned": 102,
+      "date": "2026-04-28T16:51:06.151Z",
+      "duration": 51
+    },
+    "-OrP4GW3FrH164g18O1L": {
+      "coinsEarned": 120,
+      "date": "2026-04-29T16:31:47.894Z",
+      "duration": 60
+    },
+    "-OrZPdxcNtO0MUlUmr3h": {
+      "coinsEarned": 814,
+      "date": "2026-05-01T16:41:25.720Z",
+      "duration": 407
+    },
+    "-OrdqVKc6sficc49RTlW": {
+      "coinsEarned": 120,
+      "date": "2026-05-02T18:01:12.741Z",
+      "duration": 60
+    },
+    "-OrnMqCibj8QHnDo0TG9": {
+      "coinsEarned": 736,
+      "date": "2026-05-04T14:23:26.260Z",
+      "duration": 368
+    },
+    "-Oro2yMupDystawm5dCd": {
+      "coinsEarned": 104,
+      "date": "2026-05-04T17:36:13.601Z",
+      "duration": 52
+    },
+    "-Ort3GT3ubvslOhkaxPY": {
+      "coinsEarned": 126,
+      "date": "2026-05-05T16:55:39.744Z",
+      "duration": 63
+    },
+    "-OryVj485XxbuDgrV2kc": {
+      "coinsEarned": 334,
+      "date": "2026-05-06T18:18:04.516Z",
+      "duration": 167
+    },
+    "-Os2a5tBtsqpTmzFXBSM": {
+      "coinsEarned": 174,
+      "date": "2026-05-07T17:59:38.951Z",
+      "duration": 87
+    },
+    "-Os7clWfC6lOtbYn7ACD": {
+      "coinsEarned": 444,
+      "date": "2026-05-08T17:29:24.269Z",
+      "duration": 222
+    },
+    "-OsBy91km__RkkdL5FCJ": {
+      "coinsEarned": 10,
+      "date": "2026-05-09T13:41:18.864Z",
+      "duration": 5
+    },
+    "-OsDIENamBvNNE0pk43H": {
+      "coinsEarned": 460,
+      "date": "2026-05-09T19:53:03.002Z",
+      "duration": 230
+    },
+    "-OsGlAdDvP55uorxCaP9": {
+      "coinsEarned": 30,
+      "date": "2026-05-10T12:02:43.112Z",
+      "duration": 15
+    },
+    "-OsHHZ223X3WG3-nXrAe": {
+      "coinsEarned": 504,
+      "date": "2026-05-10T14:28:33.807Z",
+      "duration": 252
+    },
+    "-OsKW2r38PPCJSLI1AZX": {
+      "coinsEarned": 360,
+      "date": "2026-05-11T05:30:48.821Z",
+      "duration": 180
+    },
+    "-OsN3xN-q7Kqwfz3OcYE": {
+      "coinsEarned": 206,
+      "date": "2026-05-11T17:26:50.639Z",
+      "duration": 103
+    },
+    "-OsSBd1DBngWrOlk03Xb": {
+      "coinsEarned": 360,
+      "date": "2026-05-12T17:18:33.284Z",
+      "duration": 180
+    },
+    "-OsXI8G7VhghsY_r0NT-": {
+      "coinsEarned": 236,
+      "date": "2026-05-13T17:05:07.975Z",
+      "duration": 118
+    },
+    "-OsaGQsTvIbM5zJkZyFg": {
+      "coinsEarned": 410,
+      "date": "2026-05-14T11:36:05.739Z",
+      "duration": 205
+    },
+    "-OsbKhGQCUmyovyuIHu7": {
+      "coinsEarned": 20,
+      "date": "2026-05-14T16:34:22.012Z",
+      "duration": 10
+    },
+    "-OsfiaDcJRGPFknIkIkI": {
+      "coinsEarned": 60,
+      "date": "2026-05-15T13:01:35.699Z",
+      "duration": 30
+    },
+    "-Osg4F1UsOLLJ5Et3xCl": {
+      "coinsEarned": 312,
+      "date": "2026-05-15T14:40:34.089Z",
+      "duration": 156
+    },
+    "-Osor7mjwaWa0jQRxBAm": {
+      "coinsEarned": 40,
+      "date": "2026-05-17T07:35:27.813Z",
+      "duration": 20
+    },
+    "-OsqsTCCGEXhY_l55COP": {
+      "coinsEarned": 840,
+      "date": "2026-05-17T17:00:31.876Z",
+      "duration": 420
+    },
+    "-OswB75wYQj3DkJ2j4bf": {
+      "coinsEarned": 734,
+      "date": "2026-05-18T17:44:29.429Z",
+      "duration": 367
+    },
+    "-Osz_7vWOPhhbKOvXeeY": {
+      "coinsEarned": 60,
+      "date": "2026-05-19T09:32:38.617Z",
+      "duration": 30
+    },
+    "-Ot-9SYHrsGBgp7wsuT_": {
+      "coinsEarned": 326,
+      "date": "2026-05-19T12:15:42.407Z",
+      "duration": 163
+    },
+    "-Ot4JV9ykhgEpDvTPKOc": {
+      "coinsEarned": 120,
+      "date": "2026-05-20T12:17:40.182Z",
+      "duration": 60
+    },
+    "-Ot572hbLGy_yNXnt2rh": {
+      "coinsEarned": 14,
+      "date": "2026-05-20T16:02:55.067Z",
+      "duration": 7
+    },
+    "-OtAIibiHkw4OMj2cjKS": {
+      "coinsEarned": 364,
+      "date": "2026-05-21T16:11:59.127Z",
+      "duration": 182
+    },
+    "-OtFUnotezqLSwVW3l7o": {
+      "coinsEarned": 136,
+      "date": "2026-05-22T16:22:52.041Z",
+      "duration": 68
+    },
+    "-OtJVfniOQfDRdwQw6qz": {
+      "coinsEarned": 126,
+      "date": "2026-05-23T11:05:10.211Z",
+      "duration": 63
+    },
+    "-OtOh7dQxyD2uVfAJLn1": {
+      "coinsEarned": 456,
+      "date": "2026-05-24T11:17:39.377Z",
+      "duration": 228
+    },
+    "-OtV2ErGYtHJkjpQ5bi5": {
+      "coinsEarned": 158,
+      "date": "2026-05-25T16:51:59.752Z",
+      "duration": 79
+    },
+    "-OtZj9lXpD60MrUDeLT2": {
+      "coinsEarned": 136,
+      "date": "2026-05-26T14:42:22.175Z",
+      "duration": 68
+    },
+    "-OtdsDt400nHJC-RR42m": {
+      "coinsEarned": 134,
+      "date": "2026-05-27T14:40:04.442Z",
+      "duration": 67
+    },
+    "-OthJFGwISLnn29cwv2k": {
+      "coinsEarned": 154,
+      "date": "2026-05-28T06:41:22.001Z",
+      "duration": 77
+    },
+    "-OtjBdTk0XQDPpGulPJi": {
+      "coinsEarned": 40,
+      "date": "2026-05-28T15:27:21.701Z",
+      "duration": 20
+    },
+    "-Ott3NxKwTRhpBsVxap7": {
+      "coinsEarned": 114,
+      "date": "2026-05-30T13:27:30.654Z",
+      "duration": 57
+    },
+    "-OtxvmeJjcCAESjIcYpQ": {
+      "coinsEarned": 94,
+      "date": "2026-05-31T12:08:01.629Z",
+      "duration": 47
+    },
+    "-Ou8-6VFpRYoBaxwL-fx": {
+      "coinsEarned": 308,
+      "date": "2026-06-02T15:42:45.215Z",
+      "duration": 154
+    },
+    "-OuHx6677UGl4fLrRgZf": {
+      "coinsEarned": 180,
+      "date": "2026-06-04T14:05:54.556Z",
+      "duration": 90
+    },
+    "-OuI1T1f71m_VOEwWfUI": {
+      "coinsEarned": 46,
+      "date": "2026-06-04T14:29:14.706Z",
+      "duration": 23
+    },
+    "-OuNacdLW34b50xuCDAK": {
+      "coinsEarned": 170,
+      "date": "2026-06-05T16:25:22.374Z",
+      "duration": 85
+    },
+    "-OuY4JgJC8Euu3P8Lirj": {
+      "coinsEarned": 770,
+      "date": "2026-06-07T17:15:42.396Z",
+      "duration": 385
+    },
+    "-Ouh99wUnZixfZ5nDw-z": {
+      "coinsEarned": 66,
+      "date": "2026-06-09T16:13:04.031Z",
+      "duration": 33
+    },
+    "-OumRfOpgdd2o3hn8UGn": {
+      "coinsEarned": 168,
+      "date": "2026-06-10T16:52:01.445Z",
+      "duration": 84
+    },
+    "-Ourqsu2r76mpXesFET7": {
+      "coinsEarned": 302,
+      "date": "2026-06-11T18:04:39.451Z",
+      "duration": 151
+    },
+    "-OuwjYI8eG3r3eEU8L4u": {
+      "coinsEarned": 234,
+      "date": "2026-06-12T16:50:42.587Z",
+      "duration": 117
+    },
+    "-Ov0rn1Dyi0mY6zEL3Sj": {
+      "coinsEarned": 30,
+      "date": "2026-06-13T16:44:50.608Z",
+      "duration": 15
+    },
+    "-Ov0y7eGyV-veN2sRyGl": {
+      "coinsEarned": 78,
+      "date": "2026-06-13T17:12:32.051Z",
+      "duration": 39
+    },
+    "-Ov5lODRs7irAGTHMVgo": {
+      "coinsEarned": 582,
+      "date": "2026-06-14T15:34:58.445Z",
+      "duration": 291
+    },
+    "-OvGJib7jqcxMxCsW9Bd": {
+      "coinsEarned": 52,
+      "date": "2026-06-16T16:45:32.638Z",
+      "duration": 26
+    },
+    "-OvQz2VWvZzmooL5xyS5": {
+      "coinsEarned": 232,
+      "date": "2026-06-18T18:26:41.810Z",
+      "duration": 116
+    },
+    "-OvVoLV5oh9MFQPAx_j0": {
+      "coinsEarned": 84,
+      "date": "2026-06-19T16:58:02.809Z",
+      "duration": 42
+    },
+    "-Ovf1kQmp0nW2931EtR7": {
+      "coinsEarned": 254,
+      "date": "2026-06-21T16:37:09.694Z",
+      "duration": 127
+    },
+    "-Ovk0WIMr43N3wDDxACS": {
+      "coinsEarned": 74,
+      "date": "2026-06-22T15:49:50.127Z",
+      "duration": 37
+    },
+    "-Ovui1F6JbMuFRa37U5q": {
+      "coinsEarned": 284,
+      "date": "2026-06-24T17:40:32.528Z",
+      "duration": 142
+    },
+    "-OvyZb1Ho7xzinYZiepT": {
+      "coinsEarned": 92,
+      "date": "2026-06-25T11:37:51.213Z",
+      "duration": 46
+    },
+    "-OvzbRohR1xOucFqcT6k": {
+      "coinsEarned": 94,
+      "date": "2026-06-25T16:29:53.368Z",
+      "duration": 47
+    },
+    "-OwDwXQ97Lwq0VGP2Dj4": {
+      "coinsEarned": 250,
+      "date": "2026-06-28T15:56:20.400Z",
+      "duration": 125
+    },
+    "-OwJS8D681o0ZjaXuvC1": {
+      "coinsEarned": 116,
+      "date": "2026-06-29T17:36:52.642Z",
+      "duration": 58
+    },
+    "-OwOTmIUhNtgssTTD2pB": {
+      "coinsEarned": 266,
+      "date": "2026-06-30T17:02:08.504Z",
+      "duration": 133
+    },
+    "-OwTsHT8Py2LFScq9Me-": {
+      "coinsEarned": 514,
+      "date": "2026-07-01T18:11:40.780Z",
+      "duration": 257
+    },
+    "-OwX-X4AuR5ceVtBw91u": {
+      "coinsEarned": 660,
+      "date": "2026-07-02T08:46:33.605Z",
+      "duration": 330
+    },
+    "-OwXwo5MLKhybVbqWorj": {
+      "coinsEarned": 120,
+      "date": "2026-07-02T13:09:55.748Z",
+      "duration": 60
+    },
+    "-OwYupLP3puUqrMKtfxA": {
+      "coinsEarned": 300,
+      "date": "2026-07-02T17:40:54.237Z",
+      "duration": 150
+    },
+    "-OwcrZ854cnk9weRIMJU": {
+      "coinsEarned": 144,
+      "date": "2026-07-03T16:44:43.450Z",
+      "duration": 72
+    },
+    "-OwiMdroahgHkKDUdECR": {
+      "coinsEarned": 60,
+      "date": "2026-07-04T18:23:00.926Z",
+      "duration": 30
+    },
+    "-OwnF-mAidqE84wDLrYB": {
+      "coinsEarned": 506,
+      "date": "2026-07-05T17:07:44.530Z",
+      "duration": 253
+    },
+    "-Owst4dz1cb0OCFA_YK4": {
+      "coinsEarned": 452,
+      "date": "2026-07-06T19:25:18.252Z",
+      "duration": 226
+    },
+    "-OwxFcooWRBUbSLvUC0L": {
+      "coinsEarned": 102,
+      "date": "2026-07-07T15:46:40.463Z",
+      "duration": 51
+    },
+    "-Ox15tKrMlLYEThSLDDh": {
+      "coinsEarned": 78,
+      "date": "2026-07-08T14:22:12.514Z",
+      "duration": 39
+    },
+    "-Ox27MG7q26blOlIehI3": {
+      "coinsEarned": 360,
+      "date": "2026-07-08T19:08:14.300Z",
+      "duration": 180
+    },
+    "-Ox6QbUkLJcFeNR8Xy6l": {
+      "coinsEarned": 90,
+      "date": "2026-07-09T15:10:50.110Z",
+      "duration": 45
+    },
+    "-Ox98BP4CaYjwuCVyE45": {
+      "coinsEarned": 40,
+      "date": "2026-07-10T03:49:11.653Z",
+      "duration": 20
+    },
+    "-OxAGVJF3ZrcwJayLeop": {
+      "coinsEarned": 350,
+      "date": "2026-07-10T09:05:07.838Z",
+      "duration": 175
+    },
+    "-OxAGW-edw76rWXKdZU5": {
+      "coinsEarned": 280,
+      "date": "2026-07-10T09:05:10.682Z",
+      "duration": 140
+    },
+    "-OxBWZ0yXIo76zBcBHaA": {
+      "coinsEarned": 40,
+      "date": "2026-07-10T14:54:54.284Z",
+      "duration": 20
+    },
+    "-OxC6iNojtTBO-qNo7ck": {
+      "coinsEarned": 116,
+      "date": "2026-07-10T17:41:37.874Z",
+      "duration": 58
+    },
+    "-OxH5CHwZy8TEENOCe-9": {
+      "coinsEarned": 72,
+      "date": "2026-07-11T16:53:08.671Z",
+      "duration": 36
+    },
+    "-OxLG1I4oq9gbBqFYEcM": {
+      "coinsEarned": 404,
+      "date": "2026-07-12T12:18:54.916Z",
+      "duration": 202
+    },
+    "-OxMJz7Bq-I3-jWShytf": {
+      "coinsEarned": 30,
+      "date": "2026-07-12T17:15:47.520Z",
+      "duration": 15
+    },
+    "-OxMMJkgpxCOu6w5lZDU": {
+      "coinsEarned": 20,
+      "date": "2026-07-12T17:26:00.417Z",
+      "duration": 10
+    },
+    "-Oxa0yPr-L07J0FAGxp0": {
+      "coinsEarned": 96,
+      "date": "2026-07-15T13:47:03.771Z",
+      "duration": 48
+    },
+    "-Oxaj5se-edtzbQf5u-a": {
+      "coinsEarned": 40,
+      "date": "2026-07-15T17:04:15.262Z",
+      "duration": 20
+    },
+    "-Oxl2NudndCFxMm_G0uw": {
+      "coinsEarned": 306,
+      "date": "2026-07-17T17:09:01.469Z",
+      "duration": 153
+    },
+    "-Oxl2gVKzwCFQ3tM3t0h": {
+      "coinsEarned": 2,
+      "date": "2026-07-17T17:10:21.692Z",
+      "duration": 1
+    },
+    "-Oxl2yeg3TC0v3NQBhAF": {
+      "coinsEarned": 2,
+      "date": "2026-07-17T17:11:36.091Z",
+      "duration": 1
+    },
+    "-Oxq2CsQy-gWv9GkBam3": {
+      "coinsEarned": 322,
+      "date": "2026-07-18T16:26:23.152Z",
+      "duration": 161
+    },
+    "-OxqTwEEkwfBvXY-hFZ2": {
+      "coinsEarned": 242,
+      "date": "2026-07-18T18:27:31.010Z",
+      "duration": 121
+    },
+    "-OxuDxN3W6Ajrqd4pWQ5": {
+      "coinsEarned": 176,
+      "date": "2026-07-19T11:56:09.542Z",
+      "duration": 88
+    },
+    "-OxvFnsZ07J45FyrUlLj": {
+      "coinsEarned": 76,
+      "date": "2026-07-19T16:43:52.979Z",
+      "duration": 38
+    },
+    "-Oy4UxZxKUgwnIgHWSeV": {
+      "coinsEarned": 10,
+      "date": "2026-07-21T16:26:16.684Z",
+      "duration": 5
+    },
+    "-Oy9nW-52i7JIexAXu1J": {
+      "coinsEarned": 216,
+      "date": "2026-07-22T17:09:48.486Z",
+      "duration": 108
+    },
+    "-OyPJC4S2rcFzzVOXeKq": {
+      "coinsEarned": 120,
+      "date": "2026-07-25T17:26:55.661Z",
+      "duration": 60
+    },
+    "-OyTVRGBpCbfyPXq1IfE": {
+      "coinsEarned": 192,
+      "date": "2026-07-26T12:58:52.183Z",
+      "duration": 96
+    },
+    "-OyUg5m93WwZSk-p-82o": {
+      "coinsEarned": 170,
+      "date": "2026-07-26T18:29:27.499Z",
+      "duration": 85
+    },
+    "-OydvYNgKIBjy3ZFNoj8": {
+      "coinsEarned": 362,
+      "date": "2026-07-28T18:13:09.692Z",
+      "duration": 181
+    },
+    "-OyitVKKbdI9zmw9WAcM": {
+      "coinsEarned": 274,
+      "date": "2026-07-29T17:22:18.936Z",
+      "duration": 137
+    },
+    "-OyxfTUMn82CJrQTcUNj": {
+      "coinsEarned": 240,
+      "date": "2026-08-01T14:15:18.391Z",
+      "duration": 120
+    },
+    "-OyxneQhi4X23EzRurVp": {
+      "coinsEarned": 8,
+      "date": "2026-08-01T14:51:04.475Z",
+      "duration": 4
+    },
+    "-Oyy2a8UXuso7k5WNT_B": {
+      "coinsEarned": 138,
+      "date": "2026-08-01T16:00:41.228Z",
+      "duration": 69
+    },
+    "-Oz0gWbwOv9wGofhGTdA": {
+      "coinsEarned": 120,
+      "date": "2026-08-02T08:58:22.639Z",
+      "duration": 60
+    },
+    "-Oz2T43WrqJnIVJa_ZYv": {
+      "coinsEarned": 542,
+      "date": "2026-08-02T17:14:29.798Z",
+      "duration": 271
+    },
+    "-OzMws0xz0g9NHMEQaPn": {
+      "coinsEarned": 218,
+      "date": "2026-08-06T16:41:27.521Z",
+      "duration": 109
+    },
+    "-OzXGKvMeOCL81l68EdA": {
+      "coinsEarned": 178,
+      "date": "2026-08-08T16:47:04.961Z",
+      "duration": 89
+    },
+    "-OzbLRYE73DBwMBEp-D4": {
+      "coinsEarned": 142,
+      "date": "2026-08-09T16:27:29.586Z",
+      "duration": 71
+    },
+    "-OzfROrsgnOO-4LGxCwC": {
+      "coinsEarned": 68,
+      "date": "2026-08-10T11:32:00.002Z",
+      "duration": 34
+    },
+    "-OzgQaToNlbPBX0l3KIB": {
+      "coinsEarned": 164,
+      "date": "2026-08-10T16:08:06.806Z",
+      "duration": 82
+    },
+    "-OzwIXl-G22EkEEdSBN0": {
+      "coinsEarned": 44,
+      "date": "2026-08-13T18:06:48.734Z",
+      "duration": 22
+    },
+    "-Ozzq-PZItSClTTBV9_J": {
+      "coinsEarned": 80,
+      "date": "2026-08-14T10:36:14.894Z",
+      "duration": 40
+    },
+    "-P-0aOw3bACVtfBgdHM8": {
+      "coinsEarned": 152,
+      "date": "2026-08-14T18:47:19.380Z",
+      "duration": 76
+    },
+    "-P-5lQy8r4hxB2gZ8VDp": {
+      "coinsEarned": 212,
+      "date": "2026-08-15T18:53:36.884Z",
+      "duration": 106
+    },
+    "-P-9rBo7mhr3G-D8PV1m": {
+      "coinsEarned": 86,
+      "date": "2026-08-16T13:57:17.290Z",
+      "duration": 43
+    },
+    "-P-AKGpMZ_ex8qvxRw9b": {
+      "coinsEarned": 54,
+      "date": "2026-08-16T16:08:42.397Z",
+      "duration": 27
+    },
+    "-P-FjfNVpR94_zVbw860": {
+      "coinsEarned": 108,
+      "date": "2026-08-17T17:22:09.194Z",
+      "duration": 54
+    },
+    "-P-Ko-9KY1wiqV07r-Xn": {
+      "coinsEarned": 60,
+      "date": "2026-08-18T16:59:09.128Z",
+      "duration": 30
+    },
+    "-P-PIMiplYlUGy56ChPo": {
+      "coinsEarned": 20,
+      "date": "2026-08-19T13:54:41.382Z",
+      "duration": 10
+    },
+    "-P-PsXxqe2h82AFILd9P": {
+      "coinsEarned": 30,
+      "date": "2026-08-19T16:37:07.184Z",
+      "duration": 15
+    },
+    "-P-Q0is3vVUtQ_4K0aK6": {
+      "coinsEarned": 316,
+      "date": "2026-08-19T17:17:15.476Z",
+      "duration": 158
+    },
+    "-P-VVYzQBByRz8XwNtr2": {
+      "coinsEarned": 60,
+      "date": "2026-08-20T18:50:04.058Z",
+      "duration": 30
+    },
+    "-P-VV_EDQcm7g0lzvaAz": {
+      "coinsEarned": 284,
+      "date": "2026-08-20T18:50:09.166Z",
+      "duration": 142
+    },
+    "-P-_6f16bV6_RzvxPzUB": {
+      "coinsEarned": 120,
+      "date": "2026-08-21T16:19:23.982Z",
+      "duration": 60
+    },
+    "-P-_98AHMq5Chpbz48Ql": {
+      "coinsEarned": 20,
+      "date": "2026-08-21T16:30:11.792Z",
+      "duration": 10
+    },
+    "-P-hid07qa6A63TiH2KV": {
+      "coinsEarned": 158,
+      "date": "2026-08-23T08:26:38.631Z",
+      "duration": 79
+    },
+    "-P-j90t-14w2ECVQVX84": {
+      "coinsEarned": 498,
+      "date": "2026-08-23T15:05:54.269Z",
+      "duration": 249
+    },
+    "-P-jj4kOpndLMIZju3dd": {
+      "coinsEarned": 20,
+      "date": "2026-08-23T17:47:49.823Z",
+      "duration": 10
+    },
+    "-P-jxAG0Gqb3kLXTvqvD": {
+      "coinsEarned": 160,
+      "date": "2026-08-23T18:49:22.592Z",
+      "duration": 80
+    },
+    "-P-tthTqoIjY-59r2ItD": {
+      "coinsEarned": 60,
+      "date": "2026-08-25T17:10:25.232Z",
+      "duration": 30
+    },
+    "-P-ttiYqawLGkCS3p5ji": {
+      "coinsEarned": 708,
+      "date": "2026-08-25T17:10:29.648Z",
+      "duration": 354
+    },
+    "-P-vUPBFa70u_3i8BsQ2": {
+      "coinsEarned": 120,
+      "date": "2026-08-26T00:34:45.628Z",
+      "duration": 60
+    },
+    "-P067O9lYB8JYr9w-R4-": {
+      "coinsEarned": 1026,
+      "date": "2026-08-28T06:49:38.671Z",
+      "duration": 513
+    },
+    "-P06_CrpOeo086NgZi_O": {
+      "coinsEarned": 70,
+      "date": "2026-08-28T08:55:34.338Z",
+      "duration": 35
+    },
+    "-P0DD69cMExXTZsxsRow": {
+      "coinsEarned": 10,
+      "date": "2026-08-29T15:51:59.036Z",
+      "duration": 5
+    },
+    "-P0GvjQLEXXR7tDVfmPw": {
+      "coinsEarned": 60,
+      "date": "2026-08-30T09:10:11.544Z",
+      "duration": 30
+    },
+    "-P0HkpITV5i5QxDLuNYR": {
+      "coinsEarned": 270,
+      "date": "2026-08-30T13:02:09.779Z",
+      "duration": 135
+    },
+    "-P0J9LxKxJv6PG17wi1A": {
+      "coinsEarned": 326,
+      "date": "2026-08-30T19:33:17.038Z",
+      "duration": 163
+    },
+    "-P0NzoPFd-IZnSsjKipP": {
+      "coinsEarned": 146,
+      "date": "2026-08-31T18:05:20.780Z",
+      "duration": 73
+    },
+    "-P0T5AADNPenWg7_f634": {
+      "coinsEarned": 222,
+      "date": "2026-09-01T17:51:13.514Z",
+      "duration": 111
+    },
+    "-P0YEWaeNoFjlzRoiiLX": {
+      "coinsEarned": 260,
+      "date": "2026-09-02T17:50:11.162Z",
+      "duration": 130
+    },
+    "-P0hTuw60WOUsMjvjTqz": {
+      "coinsEarned": 120,
+      "date": "2026-09-04T17:33:39.456Z",
+      "duration": 60
+    },
+    "-P0m_nAl3pJ2EOaKsQPT": {
+      "coinsEarned": 900,
+      "date": "2026-09-05T17:21:48.724Z",
+      "duration": 450
+    },
+    "-P0n0C3O0wzJXLpslXxF": {
+      "coinsEarned": 106,
+      "date": "2026-09-05T19:21:32.954Z",
+      "duration": 53
+    },
+    "-P0r5IxtYaE32DcyEtu3": {
+      "coinsEarned": 160,
+      "date": "2026-09-06T14:22:18.753Z",
+      "duration": 80
+    },
+    "-P0r5KXOEe_vuLUB3iXn": {
+      "coinsEarned": 60,
+      "date": "2026-09-06T14:22:25.187Z",
+      "duration": 30
+    },
+    "-P0rbbja09DEroVL0alC": {
+      "coinsEarned": 120,
+      "date": "2026-09-06T16:47:50.699Z",
+      "duration": 60
+    },
+    "-P0x8r19nwIf6y-bVlsf": {
+      "coinsEarned": 362,
+      "date": "2026-09-07T18:35:33.242Z",
+      "duration": 181
+    },
+    "-P118ju-9Y6d7rqR3r-5": {
+      "coinsEarned": 226,
+      "date": "2026-09-08T17:53:10.763Z",
+      "duration": 113
+    },
+    "-P16Ps61sZtMxTHzl9NW": {
+      "coinsEarned": 264,
+      "date": "2026-09-09T18:26:05.622Z",
+      "duration": 132
+    },
+    "-P1BVy4jkV18-lVglL_q": {
+      "coinsEarned": 268,
+      "date": "2026-09-10T18:10:49.676Z",
+      "duration": 134
+    },
+    "-P1GjBGNeDb2Dyh6nSzY": {
+      "coinsEarned": 320,
+      "date": "2026-09-11T18:31:03.226Z",
+      "duration": 160
+    },
+    "-P1M53I91H_hB1Q3s6h-": {
+      "coinsEarned": 302,
+      "date": "2026-09-12T19:29:06.868Z",
+      "duration": 151
+    },
+    "-P1TsQyDvgI-LDp7JJO_": {
+      "coinsEarned": 2438,
+      "date": "2026-09-14T07:46:31.373Z",
+      "duration": 1219
+    },
+    "-P1aerpBrAsdXPjd6sgR": {
+      "coinsEarned": 386,
+      "date": "2026-09-15T20:04:12.369Z",
+      "duration": 193
+    },
+    "-P1fYKQrwwSB-eSJWZrV": {
+      "coinsEarned": 572,
+      "date": "2026-09-16T18:49:23.141Z",
+      "duration": 286
+    },
+    "-P1kYQv5AHOaWWn2glmR": {
+      "coinsEarned": 120,
+      "date": "2026-09-17T18:07:55.253Z",
+      "duration": 60
+    },
+    "-P1kYRDa2ikwK8xIRJH7": {
+      "coinsEarned": 144,
+      "date": "2026-09-17T18:07:56.501Z",
+      "duration": 72
+    },
+    "-P1uW2Ez3dcZlV1pVVvE": {
+      "coinsEarned": 196,
+      "date": "2026-09-19T16:33:42.856Z",
+      "duration": 98
+    },
+    "-P1yhPWQkZ2Po8XTet_e": {
+      "coinsEarned": 440,
+      "date": "2026-09-20T12:06:12.223Z",
+      "duration": 220
+    },
+    "-P2-0ZErbVtglbue4GIA": {
+      "coinsEarned": 42,
+      "date": "2026-09-20T18:13:52.920Z",
+      "duration": 21
+    },
+    "-P27tW0OWTKqynL_iCh6": {
+      "coinsEarned": 60,
+      "date": "2026-09-22T11:35:17.312Z",
+      "duration": 30
+    },
+    "-P297-cyvj6yW09KndUP": {
+      "coinsEarned": 1086,
+      "date": "2026-09-22T17:18:12.580Z",
+      "duration": 543
+    },
+    "-P2EIFCxiI1N1fdv9Ppf": {
+      "coinsEarned": 772,
+      "date": "2026-09-23T17:25:26.788Z",
+      "duration": 386
+    },
+    "-P2LhQgYO88OMDqmTMNb": {
+      "coinsEarned": 60,
+      "date": "2026-09-25T03:57:09.634Z",
+      "duration": 30
+    },
+    "-P2LpDffuw1Xu8L6TtNa": {
+      "coinsEarned": 68,
+      "date": "2026-09-25T04:31:13.659Z",
+      "duration": 34
+    },
+    "-P2OgdopRg4e7ftSnxjl": {
+      "coinsEarned": 646,
+      "date": "2026-09-25T17:52:38.667Z",
+      "duration": 323
+    },
+    "-P2UFJy2dBnAq7GH2cah": {
+      "coinsEarned": 252,
+      "date": "2026-09-26T19:46:35.003Z",
+      "duration": 126
+    },
+    "-P2Z6DZBe_aAX0PWvCGf": {
+      "coinsEarned": 756,
+      "date": "2026-09-27T18:24:55.952Z",
+      "duration": 378
+    },
+    "-P2cQta4B1ESOkFFf2sa": {
+      "coinsEarned": 60,
+      "date": "2026-09-28T14:33:43.861Z",
+      "duration": 30
+    },
+    "-P2d4Qv7WTcnU2tQMZZz": {
+      "coinsEarned": 116,
+      "date": "2026-09-28T17:35:12.694Z",
+      "duration": 58
+    },
+    "-P2hdKg-U1_pcjAts-oc": {
+      "coinsEarned": 40,
+      "date": "2026-09-29T14:50:33.683Z",
+      "duration": 20
+    },
+    "-P2iN__U03OrfJU7ACnx": {
+      "coinsEarned": 332,
+      "date": "2026-09-29T18:16:59.973Z",
+      "duration": 166
+    },
+    "-P2nKTPBVceAmqEgMAbp": {
+      "coinsEarned": 54,
+      "date": "2026-09-30T17:21:28.868Z",
+      "duration": 27
+    },
+    "-P30Rh0H7Cv_2LfHaO9t": {
+      "coinsEarned": 40,
+      "date": "2026-10-03T11:07:47.137Z",
+      "duration": 20
+    },
+    "-P30ebGcyl7gu0VJjLKU": {
+      "coinsEarned": 120,
+      "date": "2026-10-03T12:08:33.622Z",
+      "duration": 60
+    },
+    "-P31nExmL0iWZJ_DN1A_": {
+      "coinsEarned": 98,
+      "date": "2026-10-03T17:25:54.720Z",
+      "duration": 49
+    },
+    "-P36HU19Wz2she3IrglF": {
+      "coinsEarned": 346,
+      "date": "2026-10-04T14:20:48.318Z",
+      "duration": 173
+    },
+    "-P36t6w5O9-p0Zg1i5DV": {
+      "coinsEarned": 122,
+      "date": "2026-10-04T17:09:37.630Z",
+      "duration": 61
+    },
+    "-P3C9FtCvLPxEcEqke7s": {
+      "coinsEarned": 88,
+      "date": "2026-10-05T17:42:36.739Z",
+      "duration": 44
+    },
+    "-P3HYLy4hRtFPgX4dEc4": {
+      "coinsEarned": 528,
+      "date": "2026-10-06T18:50:21.779Z",
+      "duration": 264
+    },
+    "-P3L5I8-VlJwHtSzFOai": {
+      "coinsEarned": 524,
+      "date": "2026-10-07T11:21:52.971Z",
+      "duration": 262
+    },
+    "-P3M7r9crj8w1-Qayt1y": {
+      "coinsEarned": 60,
+      "date": "2026-10-07T16:12:42.162Z",
+      "duration": 30
+    },
+    "-P3MOjU_o2IpO3m5hDHa": {
+      "coinsEarned": 78,
+      "date": "2026-10-07T17:26:27.183Z",
+      "duration": 39
+    },
+    "-P3Mnsc1eIVf66KAAPu9": {
+      "coinsEarned": 180,
+      "date": "2026-10-07T19:20:39.892Z",
+      "duration": 90
+    },
+    "-P3Rsh0-EZ0p1t0RMC8l": {
+      "coinsEarned": 376,
+      "date": "2026-10-08T18:59:49.308Z",
+      "duration": 188
+    },
+    "-P3WlZ0N1nocQ2uaQTQh": {
+      "coinsEarned": 138,
+      "date": "2026-10-09T17:46:44.030Z",
+      "duration": 69
+    },
+    "-P3WruEUlouTrt_qdWFn": {
+      "coinsEarned": 38,
+      "date": "2026-10-09T18:14:27.839Z",
+      "duration": 19
+    },
+    "-P3_WjFTRWcbkQc8ynXE": {
+      "coinsEarned": 426,
+      "date": "2026-10-10T11:16:04.658Z",
+      "duration": 213
+    },
+    "-P3aVHCyNzsf3XfdCaU_": {
+      "coinsEarned": 40,
+      "date": "2026-10-10T15:49:20.780Z",
+      "duration": 20
+    },
+    "-P3azBCP46WkAaLtP2u_": {
+      "coinsEarned": 50,
+      "date": "2026-10-10T18:04:22.201Z",
+      "duration": 25
+    },
+    "-P3eGv_9MkMX6051Lfjg": {
+      "coinsEarned": 60,
+      "date": "2026-10-11T09:25:06.185Z",
+      "duration": 30
+    },
+    "-P3fuXW6m_EKO2wQ5JXX": {
+      "coinsEarned": 422,
+      "date": "2026-10-11T17:02:08.367Z",
+      "duration": 211
+    },
+    "-P3jyHrMOUoOIPWp2L8V": {
+      "coinsEarned": 480,
+      "date": "2026-10-12T11:57:01.719Z",
+      "duration": 240
+    },
+    "-P3q3WLjymw-EhMDHaoE": {
+      "coinsEarned": 222,
+      "date": "2026-10-13T16:21:57.227Z",
+      "duration": 111
+    },
+    "-P3t1_GoeRdosNZGQy7-": {
+      "coinsEarned": 84,
+      "date": "2026-10-14T06:12:20.867Z",
+      "duration": 42
+    },
+    "-P3vhRj6-9ymFhG6g4MR": {
+      "coinsEarned": 610,
+      "date": "2026-10-14T18:38:51.537Z",
+      "duration": 305
+    },
+    "-P3zWKcFzT6QA-9Wx3gj": {
+      "coinsEarned": 120,
+      "date": "2026-10-15T12:24:26.504Z",
+      "duration": 60
+    },
+    "-P4-l0zEI5qQv0gHqmoE": {
+      "coinsEarned": 812,
+      "date": "2026-10-15T18:12:37.603Z",
+      "duration": 406
+    },
+    "-P44O53vEBkPUZdBD_sR": {
+      "coinsEarned": 682,
+      "date": "2026-10-16T15:46:08.647Z",
+      "duration": 341
+    },
+    "-P49v3AwWmQjbv-jy-rP": {
+      "coinsEarned": 494,
+      "date": "2026-10-17T17:32:39.615Z",
+      "duration": 247
+    },
+    "-P4F29NCOVVuN0TlLea5": {
+      "coinsEarned": 722,
+      "date": "2026-10-18T17:26:09.795Z",
+      "duration": 361
+    },
+    "-P4GiMbdrl4UGQa9ZZAJ": {
+      "coinsEarned": 266,
+      "date": "2026-10-19T01:14:33.459Z",
+      "duration": 133
+    },
+    "-P4OMBimIJW09ADLHcYS": {
+      "coinsEarned": 844,
+      "date": "2026-10-20T12:50:16.611Z",
+      "duration": 422
+    },
+    "-P4P6I4LUp9OBDVL8Sp4": {
+      "coinsEarned": 86,
+      "date": "2026-10-20T16:20:26.025Z",
+      "duration": 43
+    },
+    "-P4UfRWlexDtONLJ3gwf": {
+      "coinsEarned": 254,
+      "date": "2026-10-21T18:16:27.735Z",
+      "duration": 127
+    },
+    "-P4ZNW514Sb8wzDSG-eV": {
+      "coinsEarned": 120,
+      "date": "2026-10-22T16:11:52.065Z",
+      "duration": 60
+    },
+    "-P4ZUJSS5FuRuvZ6fOAl": {
+      "coinsEarned": 6,
+      "date": "2026-10-22T16:41:35.324Z",
+      "duration": 3
+    },
+    "-P4Z_GMGJwlP-jF8HWuB": {
+      "coinsEarned": 50,
+      "date": "2026-10-22T17:07:35.375Z",
+      "duration": 25
+    },
+    "-P4dcpzv9GkEI-WvPR_F": {
+      "coinsEarned": 22,
+      "date": "2026-10-23T16:41:17.140Z",
+      "duration": 11
+    },
+    "-P4j9Qy5RFH2fnqUp8xo": {
+      "coinsEarned": 122,
+      "date": "2026-10-24T18:26:10.276Z",
+      "duration": 61
+    },
+    "-P4mc-faTrAegNVBVC_z": {
+      "coinsEarned": 194,
+      "date": "2026-10-25T10:34:14.879Z",
+      "duration": 97
+    },
+    "-P4mfQFILaWMNts4iJ3X": {
+      "coinsEarned": 26,
+      "date": "2026-10-25T10:49:10.121Z",
+      "duration": 13
+    },
+    "-P4tfuiqh17auQGLXfQt": {
+      "coinsEarned": 494,
+      "date": "2026-10-26T19:28:38.523Z",
+      "duration": 247
+    },
+    "-P4y_0eMhDNG9am6W5cu": {
+      "coinsEarned": 226,
+      "date": "2026-10-27T18:16:39.061Z",
+      "duration": 113
+    },
+    "-P52m8b1vFUS4mIPcFGi": {
+      "coinsEarned": 140,
+      "date": "2026-10-28T18:32:05.903Z",
+      "duration": 70
+    },
+    "-P57uZj-we5FbaRWJRGE": {
+      "coinsEarned": 160,
+      "date": "2026-10-29T18:27:00.349Z",
+      "duration": 80
+    },
+    "-P5Hf4nLnMn14pcVr4zP": {
+      "coinsEarned": 360,
+      "date": "2026-10-31T15:55:32.625Z",
+      "duration": 180
+    },
+    "-P5KsKBtEnGOPpUBryx2": {
+      "coinsEarned": 14,
+      "date": "2026-11-01T06:52:15.528Z",
+      "duration": 7
+    },
+    "-P5M4VmUZAgf49qmTqdO": {
+      "coinsEarned": 600,
+      "date": "2026-11-01T12:29:27.200Z",
+      "duration": 300
+    },
+    "-P5bdTlDYFDjNaJoPb-t": {
+      "coinsEarned": 56,
+      "date": "2026-11-04T17:40:30.645Z",
+      "duration": 28
+    },
+    "-P5gpgJvgMHw-C20pTkz": {
+      "coinsEarned": 242,
+      "date": "2026-11-05T17:51:58.714Z",
+      "duration": 121
+    },
+    "-P5oh7_-ZiNjkF6gHwp0": {
+      "coinsEarned": 76,
+      "date": "2026-11-07T06:31:34.422Z",
+      "duration": 38
+    },
+    "-P5pahHY0BZFCfQ2buYD": {
+      "coinsEarned": 78,
+      "date": "2026-11-07T10:43:09.309Z",
+      "duration": 39
+    }
+  },
+  "timer": {
+    "elapsedBeforePause": 0,
+    "paused": false,
+    "running": true,
+    "startTime": 1794065820320
+  },
+  "tracker": {
+    "day0_ch0": true,
+    "day0_ch1": true,
+    "day0_ch10": true,
+    "day0_ch2": true,
+    "day0_ch3": true,
+    "day0_ch4": true,
+    "day0_ch5": true,
+    "day0_ch6": true,
+    "day0_ch7": true,
+    "day0_ch8": true,
+    "day0_ch9": true,
+    "day10_ch0": true,
+    "day10_ch1": true,
+    "day10_ch10": true,
+    "day10_ch2": true,
+    "day10_ch3": true,
+    "day10_ch4": true,
+    "day10_ch5": true,
+    "day10_ch6": true,
+    "day10_ch7": true,
+    "day10_ch8": true,
+    "day10_ch9": true,
+    "day11_ch0": true,
+    "day11_ch1": true,
+    "day11_ch2": true,
+    "day11_ch3": true,
+    "day11_ch4": true,
+    "day11_ch5": true,
+    "day11_ch6": true,
+    "day11_ch7": true,
+    "day11_ch8": true,
+    "day12_ch0": true,
+    "day12_ch1": true,
+    "day12_ch2": true,
+    "day12_ch3": true,
+    "day12_ch4": true,
+    "day12_ch5": true,
+    "day12_ch6": true,
+    "day12_ch7": true,
+    "day12_ch8": true,
+    "day13_ch0": true,
+    "day13_ch1": true,
+    "day13_ch2": true,
+    "day13_ch3": true,
+    "day13_ch4": true,
+    "day13_ch5": true,
+    "day13_ch6": true,
+    "day14_ch0": true,
+    "day14_ch1": true,
+    "day14_ch2": true,
+    "day14_ch3": true,
+    "day14_ch4": true,
+    "day14_ch5": true,
+    "day14_ch6": true,
+    "day15_ch0": true,
+    "day15_ch1": true,
+    "day15_ch2": true,
+    "day15_ch3": true,
+    "day15_ch4": true,
+    "day15_ch5": true,
+    "day16_ch0": true,
+    "day16_ch1": true,
+    "day16_ch2": true,
+    "day16_ch3": true,
+    "day16_ch4": true,
+    "day16_ch5": true,
+    "day17_ch0": true,
+    "day17_ch1": true,
+    "day17_ch2": true,
+    "day17_ch3": true,
+    "day17_ch4": true,
+    "day17_ch5": true,
+    "day18_ch0": true,
+    "day18_ch1": true,
+    "day18_ch2": true,
+    "day18_ch3": true,
+    "day18_ch4": true,
+    "day18_ch5": true,
+    "day18_ch6": true,
+    "day19_ch1": true,
+    "day19_ch2": true,
+    "day19_ch3": true,
+    "day19_ch4": true,
+    "day19_ch5": true,
+    "day1_ch0": true,
+    "day1_ch1": true,
+    "day1_ch10": true,
+    "day1_ch2": true,
+    "day1_ch3": true,
+    "day1_ch4": true,
+    "day1_ch5": true,
+    "day1_ch6": true,
+    "day1_ch7": true,
+    "day1_ch8": true,
+    "day1_ch9": true,
+    "day20_ch0": true,
+    "day20_ch1": true,
+    "day20_ch2": true,
+    "day20_ch3": true,
+    "day20_ch4": true,
+    "day20_ch5": true,
+    "day21_ch0": true,
+    "day21_ch1": true,
+    "day2_ch0": true,
+    "day2_ch1": true,
+    "day2_ch10": true,
+    "day2_ch11": true,
+    "day2_ch12": true,
+    "day2_ch2": true,
+    "day2_ch3": true,
+    "day2_ch4": true,
+    "day2_ch5": true,
+    "day2_ch6": true,
+    "day2_ch7": true,
+    "day2_ch8": true,
+    "day2_ch9": true,
+    "day3_ch0": true,
+    "day3_ch1": true,
+    "day3_ch10": true,
+    "day3_ch2": true,
+    "day3_ch3": true,
+    "day3_ch4": true,
+    "day3_ch5": true,
+    "day3_ch6": true,
+    "day3_ch7": true,
+    "day3_ch8": true,
+    "day3_ch9": true,
+    "day4_ch0": true,
+    "day4_ch1": true,
+    "day4_ch2": true,
+    "day4_ch3": true,
+    "day4_ch4": true,
+    "day4_ch5": true,
+    "day4_ch6": true,
+    "day4_ch7": true,
+    "day5_ch0": true,
+    "day5_ch1": true,
+    "day5_ch2": true,
+    "day5_ch3": true,
+    "day5_ch4": true,
+    "day5_ch5": true,
+    "day5_ch6": true,
+    "day5_ch7": true,
+    "day5_ch8": true,
+    "day6_ch0": true,
+    "day6_ch1": true,
+    "day6_ch2": true,
+    "day6_ch3": true,
+    "day6_ch4": true,
+    "day6_ch5": true,
+    "day6_ch6": true,
+    "day7_ch0": true,
+    "day7_ch1": true,
+    "day7_ch2": true,
+    "day7_ch3": true,
+    "day7_ch4": true,
+    "day7_ch5": true,
+    "day7_ch6": true,
+    "day7_ch7": true,
+    "day8_ch0": true,
+    "day8_ch1": true,
+    "day8_ch2": true,
+    "day8_ch3": true,
+    "day8_ch4": true,
+    "day8_ch5": true,
+    "day8_ch6": true,
+    "day8_ch7": true,
+    "day8_ch8": true,
+    "day9_ch0": true,
+    "day9_ch1": true,
+    "day9_ch2": true,
+    "day9_ch3": true,
+    "day9_ch4": true,
+    "day9_ch5": true,
+    "day9_ch6": true,
+    "day9_ch7": true
+  },
+  "tree": {
+    "dead": false,
+    "lastUpdate": 1794070759577,
+    "water": 96.93138333333356
+  }
+}

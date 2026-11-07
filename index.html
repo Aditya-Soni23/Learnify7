@@ -46,6 +46,7 @@
       <div class="streak_tracker" style="font-weight:bold;">
         Streak: <span id="streak">0</span> 🔥
       </div>
+      <div id="header-auth-container"></div>
     </div>
   </header>
   <!-- Main Section -->
@@ -240,102 +241,113 @@
 
   <script src="main.js"></script>
   <script type="module">
-    // Import Firebase SDK
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-    import { getDatabase, ref, get, set, update, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
-
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyBKQJki3JUr5pDhgOxOQRmXpOY7-gOj2Bk",
-      authDomain: "learnify-ada08.firebaseapp.com",
-      databaseURL: "https://learnify-ada08-default-rtdb.firebaseio.com", // 🔴 Needed for Realtime DB
-      projectId: "learnify-ada08",
-      storageBucket: "learnify-ada08.firebasestorage.app",
-      messagingSenderId: "380617329082",
-      appId: "1:380617329082:web:c2242ea09e6f78f1f73583",
-      measurementId: "G-DT4WG6622N"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-
+    import { ref, get, set, update, onValue } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
     import { evaluateDecayCycle } from "./decay.js";
+    import { 
+      db, 
+      getCurrentUserId, 
+      renderHeaderAuthUI, 
+      initAuthListener 
+    } from "./auth.js";
 
-    // Reference for user
-    const userRef = ref(db, "users/aditya");
+    // Render modern Google Firebase Auth UI in header
+    renderHeaderAuthUI("header-auth-container");
 
-    // Fetch GOODBYE Syllabus Mastery (realtime)
-    const currentUserId = localStorage.getItem("learnify_user") || "aditya";
     const TOTAL_GOODBYE_TOPICS = 716;
-    const goodbyeRef = ref(db, `users/${currentUserId}/goodbye`);
+    let activeUserKey = getCurrentUserId();
+    let userUnsub = null;
+    let goodbyeUnsub = null;
 
-    // Instant local cache restore
-    try {
-      const cached = JSON.parse(localStorage.getItem(`goodbye_progress_${currentUserId}`) || "[]");
-      if (Array.isArray(cached) && cached.length > 0) {
-        const pct = Math.min(100, Math.round((cached.length / TOTAL_GOODBYE_TOPICS) * 100));
-        const pctEl = document.getElementById("goodbye-dash-pct");
-        const barEl = document.getElementById("goodbye-dash-bar");
-        if (pctEl) pctEl.innerText = `${pct}%`;
-        if (barEl) barEl.style.width = `${pct}%`;
-      }
-    } catch (e) {}
+    function subscribeUserData(userKey) {
+      if (userUnsub) userUnsub();
+      if (goodbyeUnsub) goodbyeUnsub();
 
-    onValue(goodbyeRef, (snap) => {
-      let count = 0;
-      if (snap.exists()) {
-        const val = snap.val();
-        if (val && val.subjects) {
-          for (const sKey in val.subjects) {
-            const chs = val.subjects[sKey]?.chapters || {};
-            for (const cKey in chs) {
-              const top = chs[cKey]?.topics || {};
-              for (const tKey in top) {
-                if (top[tKey] === true) count++;
+      const userRef = ref(db, `users/${userKey}`);
+      const goodbyeRef = ref(db, `users/${userKey}/goodbye`);
+
+      // 1. Instant local cache restore for Goodbye
+      try {
+        const cached = JSON.parse(localStorage.getItem(`goodbye_progress_${userKey}`) || "[]");
+        if (Array.isArray(cached) && cached.length > 0) {
+          const pct = Math.min(100, Math.round((cached.length / TOTAL_GOODBYE_TOPICS) * 100));
+          const pctEl = document.getElementById("goodbye-dash-pct");
+          const barEl = document.getElementById("goodbye-dash-bar");
+          if (pctEl) pctEl.innerText = `${pct}%`;
+          if (barEl) barEl.style.width = `${pct}%`;
+        } else {
+          const pctEl = document.getElementById("goodbye-dash-pct");
+          const barEl = document.getElementById("goodbye-dash-bar");
+          if (pctEl) pctEl.innerText = "0%";
+          if (barEl) barEl.style.width = "0%";
+        }
+      } catch (e) {}
+
+      // 2. Fetch Goodbye progress (realtime)
+      goodbyeUnsub = onValue(goodbyeRef, (snap) => {
+        let count = 0;
+        if (snap.exists()) {
+          const val = snap.val();
+          if (val && val.subjects) {
+            for (const sKey in val.subjects) {
+              const chs = val.subjects[sKey]?.chapters || {};
+              for (const cKey in chs) {
+                const top = chs[cKey]?.topics || {};
+                for (const tKey in top) {
+                  if (top[tKey] === true) count++;
+                }
               }
             }
           }
         }
-      }
-      const pct = Math.min(100, Math.round((count / TOTAL_GOODBYE_TOPICS) * 100));
-      const pctEl = document.getElementById("goodbye-dash-pct");
-      const barEl = document.getElementById("goodbye-dash-bar");
-      if (pctEl) pctEl.innerText = `${pct}%`;
-      if (barEl) barEl.style.width = `${pct}%`;
-    });
+        const pct = Math.min(100, Math.round((count / TOTAL_GOODBYE_TOPICS) * 100));
+        const pctEl = document.getElementById("goodbye-dash-pct");
+        const barEl = document.getElementById("goodbye-dash-bar");
+        if (pctEl) pctEl.innerText = `${pct}%`;
+        if (barEl) barEl.style.width = `${pct}%`;
+      });
 
-    // Fetch balance + streak (realtime)
-    onValue(userRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const data = snapshot.val();
-        document.getElementById("balance").innerText = data.balance ?? 0;
-        document.getElementById("streak").innerText = data.streak ?? 0;
+      // 3. Fetch balance + streak (realtime)
+      userUnsub = onValue(userRef, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          document.getElementById("balance").innerText = data.balance ?? 0;
+          document.getElementById("streak").innerText = data.streak ?? 0;
 
-        // Auto background decay process if enabled
-        if (data.decay?.enabled) {
-          const res = evaluateDecayCycle(data);
-          if (res && res.hasChanges && Object.keys(res.updates).length > 0) {
-            update(userRef, res.updates);
+          // Auto background decay process if enabled
+          if (data.decay?.enabled) {
+            const res = evaluateDecayCycle(data);
+            if (res && res.hasChanges && Object.keys(res.updates).length > 0) {
+              update(userRef, res.updates);
+            }
           }
+        } else {
+          console.log("New user node, setting defaults...");
+          set(userRef, { balance: 0, streak: 0 });
+          document.getElementById("balance").innerText = 0;
+          document.getElementById("streak").innerText = 0;
         }
-      } else {
-        console.log("No data found, setting defaults...");
-        set(userRef, { balance: 0, streak: 0 });
-        document.getElementById("balance").innerText = 0;
-        document.getElementById("streak").innerText = 0;
+      });
+    }
+
+    // Subscribe immediately for current active user
+    subscribeUserData(activeUserKey);
+
+    // Re-subscribe whenever user signs in with Google or switches account
+    initAuthListener((user, userKey) => {
+      if (userKey && userKey !== activeUserKey) {
+        activeUserKey = userKey;
+        subscribeUserData(activeUserKey);
       }
     });
 
     // Function to update streak when daily goal completed
-    function completeDailyGoal() {
-      update(userRef, {
+    window.completeDailyGoal = function() {
+      const activeRef = ref(db, `users/${activeUserKey}`);
+      update(activeRef, {
         balance: (parseInt(document.getElementById("balance").innerText) || 0) + 100,
         streak: (parseInt(document.getElementById("streak").innerText) || 0) + 1
       });
-    }
-
-    // Example usage: Call `completeDailyGoal()` after completing daily goal
+    };
   </script>
 </body>
 </html>

@@ -36,7 +36,8 @@ function initConverter() {
     
     // References to the specific paths
     const rocketRef = ref(dbWorkstation, 'user/rockets');
-    const learnifyBalanceRef = ref(dbLearnify, 'users/aditya/balance');
+    const currentUserId = localStorage.getItem('learnify_user') || 'aditya';
+    const learnifyBalanceRef = ref(dbLearnify, 'users/' + currentUserId + '/balance');
 
     // Sync Rocket Display
     onValue(rocketRef, (snap) => {

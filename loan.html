@@ -157,7 +157,8 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const userRef = ref(db, "users/aditya");
+    const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+    const userRef = ref(db, "users/" + currentUserId);
 
     // Interest rate per minute (%)
     const MAX_LOAN = 10000;
@@ -205,7 +206,7 @@
         startTime: Date.now()
       };
 
-      set(ref(db, `users/aditya/loans/${loanId}`), loanData);
+      set(ref(db, `users/${currentUserId}/loans/${loanId}`), loanData);
 
       // also add coins to balance
       onValue(userRef, (snap) => {
@@ -220,7 +221,7 @@
     // ==== Render Loans with stopwatch + live interest ====
     const loansContainer = document.getElementById("loansContainer");
 
-    onValue(ref(db, "users/aditya/loans"), (snapshot) => {
+    onValue(ref(db, `users/${currentUserId}/loans`), (snapshot) => {
       loansContainer.innerHTML = "";
       if (!snapshot.exists()) {
         loansContainer.innerHTML = "<p>No active loans</p>";
@@ -263,7 +264,7 @@
 
     // ==== Repay Loan ====
     window.repayLoan = function (loanId) {
-  onValue(ref(db, `users/aditya/loans/${loanId}`), (snap) => {
+  onValue(ref(db, `users/${currentUserId}/loans/${loanId}`), (snap) => {
     let loan = snap.val();
     if (!loan) return;
 
@@ -283,7 +284,7 @@
         balance: balance - totalPayable
       });
 
-      remove(ref(db, `users/aditya/loans/${loanId}`));
+      remove(ref(db, `users/${currentUserId}/loans/${loanId}`));
       showPopup(`Loan of ${totalPayable} coins repaid!`, "success");
     }, { onlyOnce: true });
 

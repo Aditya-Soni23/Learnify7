@@ -167,7 +167,8 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const userPath = "users/aditya/sleep";
+    const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+    const userPath = "users/" + currentUserId + "/sleep";
 
     const sleepDate = document.getElementById("sleepDate");
     const sleepTime = document.getElementById("sleepTime");

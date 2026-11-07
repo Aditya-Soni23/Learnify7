@@ -280,9 +280,10 @@
   
   const CURRENT_TIER = "GoldenSeason"; // 🔥 CHANGE HERE ONLY
   
-  const userRef = ref(db, "users/aditya");
-  const balanceRef = ref(db, "users/aditya/balance");
-  const purchasesRef = ref(db, "users/aditya/shopPurchases");
+  const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+  const userRef = ref(db, "users/" + currentUserId);
+  const balanceRef = ref(db, "users/" + currentUserId + "/balance");
+  const purchasesRef = ref(db, "users/" + currentUserId + "/shopPurchases");
   
   const balanceEl = document.getElementById("coinBalance");
   const historyList = document.getElementById("historyList");

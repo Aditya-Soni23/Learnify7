@@ -72,7 +72,8 @@ window.openApp = (appKey) => {
 const rocketsRef = ref(db, 'user/rockets');
 const plannerRef = ref(db, 'user/diamond_planner');
 const todoRef = ref(db, 'user/todo_list');
-const learnifyBalanceRef = ref(dbLearnify, 'users/aditya/balance');
+const currentUserId = localStorage.getItem('learnify_user') || 'aditya';
+const learnifyBalanceRef = ref(dbLearnify, 'users/' + currentUserId + '/balance');
 
 let dpTasks = [];
 let currentPage = 0;
@@ -81,6 +82,11 @@ const CONVERSION_RATE = 250;
 
 // --- 4. INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
+    const welcomeEl = document.getElementById("welcome-msg");
+    if (welcomeEl) {
+        const uName = localStorage.getItem("learnify_name") || "Aditya";
+        welcomeEl.innerText = `Welcome ${uName}`;
+    }
     // Sync Rockets & Converter Preview
     onValue(rocketsRef, (snapshot) => {
         currentRockets = snapshot.val() || 0;

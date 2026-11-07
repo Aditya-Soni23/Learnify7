@@ -131,10 +131,11 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const balanceRef = ref(db, "users/aditya/balance");
-    const dgmRef = ref(db, "users/aditya/dgm");
-    const loansRef = ref(db, "users/aditya/loans");
-    const historyRef = ref(db, "users/aditya/spinHistory");
+    const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+    const balanceRef = ref(db, "users/" + currentUserId + "/balance");
+    const dgmRef = ref(db, "users/" + currentUserId + "/dgm");
+    const loansRef = ref(db, "users/" + currentUserId + "/loans");
+    const historyRef = ref(db, "users/" + currentUserId + "/spinHistory");
 
     let dgm = 0;
     let coins = 0;

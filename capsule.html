@@ -511,7 +511,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-const userRef = db.ref('users/aditya');
+const currentUserId = localStorage.getItem('learnify_user') || 'aditya';
+const userRef = db.ref('users/' + currentUserId);
 const MAX = 2000; // Combined 1 capsule total storage 2k
 const DAY_MS = 24 * 60 * 60 * 1000; 
 

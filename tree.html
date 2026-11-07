@@ -152,7 +152,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const userRef = ref(db, "users/aditya");
+const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+const userRef = ref(db, "users/" + currentUserId);
 
 // --- CONFIGURATION ---
 const MINUTES_PER_LITER = 48; // Set to 1 for testing (1 min = 1L)
@@ -236,7 +237,7 @@ setInterval(() => {
 }, 10000);
 
 async function saveTreeData(w = tree.water, d = tree.dead) {
-    await update(ref(db, "users/aditya/tree"), {
+    await update(ref(db, "users/" + currentUserId + "/tree"), {
         water: w,
         dead: d,
         lastUpdate: Date.now()

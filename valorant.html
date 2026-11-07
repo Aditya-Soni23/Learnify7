@@ -191,7 +191,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const userRef = ref(db, "users/aditya");
+const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+const userRef = ref(db, "users/" + currentUserId);
 const agentprice =  150000;
 // Sample agents list
 const agents = [

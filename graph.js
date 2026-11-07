@@ -37,7 +37,8 @@ function formatStudyDate(dateString) {
  */
 async function loadStudyData() {
     try {
-        const studyRef = ref(db, "users/aditya/studySessions");
+        const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+        const studyRef = ref(db, "users/" + currentUserId + "/studySessions");
         const snapshot = await get(studyRef);
 
         if (!snapshot.exists()) return;

@@ -196,7 +196,8 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-const balanceRef = db.ref("users/aditya/balance");
+const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+const balanceRef = db.ref("users/" + currentUserId + "/balance");
 
 /* ================= DATA ================= */
 const days = [
@@ -504,7 +505,7 @@ function showToast(text) {
 balanceRef.on("value", snap => {
   document.getElementById("coinBalance").textContent = snap.val() || 0;
 });
-const trackerRef = db.ref("users/aditya/tracker");
+const trackerRef = db.ref("users/" + currentUserId + "/tracker");
 
 /* ================= RENDER ================= */
 days.forEach((day, dIndex) => {

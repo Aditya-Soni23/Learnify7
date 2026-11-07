@@ -198,6 +198,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const currentUserId = localStorage.getItem("learnify_user") || "aditya";
+const userPath = "users/" + currentUserId;
 
 let coins = 0, dgm = 0, currentPrice = Math.floor(Math.random() * 21 + 10);
 
@@ -220,7 +222,7 @@ function saveTransaction(type, qty, price, total) {
     time: now.toLocaleTimeString()
   };
 
-  const newRef = push(ref(db, "users/aditya/history"));
+  const newRef = push(ref(db, `${userPath}/history`));
   set(newRef, entry);
 }
 
@@ -235,8 +237,8 @@ function showTransactionPopup(msg) {
 }
 
 // Firebase Listeners
-onValue(ref(db, "users/aditya/balance"), snap => { coins = snap.val() || 0; updateUI(); });
-onValue(ref(db, "users/aditya/dgm"), snap => { dgm = snap.val() || 0; updateUI(); });
+onValue(ref(db, `${userPath}/balance`), snap => { coins = snap.val() || 0; updateUI(); });
+onValue(ref(db, `${userPath}/dgm`), snap => { dgm = snap.val() || 0; updateUI(); });
 
 // BUY
 document.getElementById("buyBtn").addEventListener("click", () => {
@@ -245,7 +247,7 @@ document.getElementById("buyBtn").addEventListener("click", () => {
 
   if (coins >= cost) {
     coins -= cost; dgm += qty;
-    update(ref(db, "users/aditya"), { balance: coins, dgm });
+    update(ref(db, userPath), { balance: coins, dgm });
     showTransactionPopup(`Bought ${qty} DGM for ${cost} coins`);
     saveTransaction("Bought", qty, currentPrice, cost);
     playSound(); updateUI();
@@ -263,7 +265,7 @@ if (coins < 50) {
 
 // Deduct 50 coins
 coins -= 10;
-update(ref(db, "users/aditya"), { balance: coins });
+update(ref(db, userPath), { balance: coins });
 
 // Show popup
 showTransactionPopup("-10 Coins (Price Update)");
@@ -355,13 +357,13 @@ window.answer = (selected, correct) => {
     saveTransaction("Answer Wrong (-4 DGM)", 4, 0, 0);
   }
 
-  update(ref(db, "users/aditya"), { dgm });
+  update(ref(db, userPath), { dgm });
   playSound();
   updateUI();
 };
 
 // LOAD HISTORY
-onValue(ref(db, "users/aditya/history"), snap => {
+onValue(ref(db, `${userPath}/history`), snap => {
   const box = document.getElementById("historyBox");
   box.innerHTML = "";
 

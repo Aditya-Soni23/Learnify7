@@ -92,17 +92,18 @@
             {name: "Albert Einstein", base: 25000, stars: 25, img: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Albert_Einstein_sticks_his_tongue.jpg/250px-Albert_Einstein_sticks_his_tongue.jpg"}
         ];
 
-        db.ref('users/aditya/balance').on('value', s => document.getElementById('main-bal').innerText = s.val() || 0);
+        const currentUserId = localStorage.getItem('learnify_user') || 'aditya';
+        db.ref('users/' + currentUserId + '/balance').on('value', s => document.getElementById('main-bal').innerText = s.val() || 0);
         
         function transfer(mode) {
             const amt = parseInt(document.getElementById('bank-amount').value);
             if(!amt || amt <= 0) return;
             if(mode === 'dep') {
-                db.ref().update({ 'users/aditya/balance': firebase.database.ServerValue.increment(-amt), 'auction/balances/aditya': firebase.database.ServerValue.increment(amt) });
+                db.ref().update({ ['users/' + currentUserId + '/balance']: firebase.database.ServerValue.increment(-amt), 'auction/balances/aditya': firebase.database.ServerValue.increment(amt) });
             } else {
                 db.ref('auction/balances/aditya').once('value', s => {
                    if(s.val() >= amt) {
-                       db.ref().update({ 'users/aditya/balance': firebase.database.ServerValue.increment(amt), 'auction/balances/aditya': firebase.database.ServerValue.increment(-amt) });
+                       db.ref().update({ ['users/' + currentUserId + '/balance']: firebase.database.ServerValue.increment(amt), 'auction/balances/aditya': firebase.database.ServerValue.increment(-amt) });
                    } else { alert("Insufficient Wallet!"); }
                 });
             }

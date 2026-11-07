@@ -146,7 +146,7 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
-    const userId = "aditya";
+    const userId = localStorage.getItem("learnify_user") || "aditya";
     const userRef = ref(db, "users/" + userId);
     const price = 150000;
 

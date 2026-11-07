@@ -273,7 +273,7 @@
     <div id="particles-js"></div> <div class="main-wrapper">
         <div class="container" id="main-card">
             <h1>CyberBank</h1>
-            <p style="font-size:0.9rem; opacity:0.6;">Aditya's Terminal</p>
+            <p style="font-size:0.9rem; opacity:0.6;" id="terminal-owner">Terminal</p>
             
             <div class="growth-card">
                 <div class="stat-label">Country Growth Multiplier</div>
@@ -305,7 +305,11 @@
 
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
-        const userRef = db.ref('users/aditya');
+        const currentUserId = localStorage.getItem('learnify_user') || 'aditya';
+        const currentUserName = localStorage.getItem('learnify_name') || 'Aditya';
+        const userRef = db.ref('users/' + currentUserId);
+        const ownerEl = document.getElementById('terminal-owner');
+        if (ownerEl) ownerEl.innerText = `${currentUserName}'s Terminal`;
         const growthRef = db.ref('countryGrowth');
 
         // --- 2. THE AWESOME ANIMATIONS (GSAP & THREE.js) ---
